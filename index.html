@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EsperanzaBuy</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f3f4f6;
+      color: #222;
+    }
+    body.dark-mode {
+      background: #181a1b;
+      color: #e3e3e3;
+    }
+    header {
+      background: #232f3e;
+      color: white;
+      padding: 1.5rem 0;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    body.dark-mode header {
+      background: #11161c;
+      color: #fff;
+    }
+    nav {
+      background: #fff;
+      padding: 1rem 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+    nav img {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 60px;
+  margin-left: 8px;
+}
+    .nav-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      gap: 18px;
+    }
+    body.dark-mode nav {
+      background: #232f3e;
+      color: #fff;
+    }
+    nav a {
+      margin: 0 18px 0 0;
+      text-decoration: none;
+      color: #232f3e;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+      position: relative;
+      padding: 6px 0;
+    }
+    body.dark-mode nav a {
+      color: #fff;
+    }
+    nav a:hover {
+      color: #ff9900;
+    }
+    body.dark-mode nav a:hover {
+      color: #ff9900;
+    }
+    .container {
+      padding: 2.5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+      margin-top: 2rem;
+    }
+    body.dark-mode .container {
+      background: #23272e;
+      color: #e3e3e3;
+    }
+    .products-container {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    .filters-sidebar {
+      width: 220px;
+      padding: 1.5rem 1rem;
+      background: #f8fafc;
+      border-radius: 10px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.03);
+    }
+    body.dark-mode .filters-sidebar {
+      background: #23272e;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      flex: 1;
+    }
+    .product {
+      border: 1px solid #e5e7eb;
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border-radius: 10px;
+      background: #f9fafb;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.03);
+      transition: box-shadow 0.2s;
+    }
+    body.dark-mode .product {
+      background: #23272e;
+      border-color: #333;
+    }
+    .product:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    .product img {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      margin-bottom: 0.7rem;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+    }
+    .hidden { display: none; }
+    input[type="number"] {
+      width: 60px;
+      padding: 4px;
+      border-radius: 5px;
+      border: 1px solid #d1d5db;
+      margin: 0 4px; 
+    }
+    body.dark-mode input,
+    body.dark-mode select {
+      background: #181a1b;
+      color: #e3e3e3;
+      border-color: #444;
+    }
+    button {
+      background: #ff9900;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 18px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+    body.dark-mode button {
+      background: #ff9900;
+      color: #fff;
+    }
+    button:hover {
+      background: #f90;
+      filter: brightness(0.95);
+    }
+    button.remove, .remove {
+      background: none !important;
+      color: #d00 !important;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 0;
+      transition: color 0.2s;
+    }
+    body.dark-mode button.remove, body.dark-mode .remove {
+      background: none !important;
+      color: #ff6b6b !important;
+    }
+    button.remove:hover, .remove:hover {
+      color: #fff;
+      background: rgba(85, 73, 73, 0.116) !important;
+    }
+    body.dark-mode button.remove:hover, body.dark-mode .remove:hover {
+      color: #fff;
+      background: rgba(226, 216, 216, 0.719) !important;
+    }
+    .search-sort-container {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .filter-category {
+      margin: 0.5rem 0;
+      cursor: pointer;
+      padding: 4px 0;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .filter-category:hover {
+      background: #e5e7eb8c;
+      text-decoration: none;
+    }
+    .active-category {
+      font-weight: bold;
+      color: #ff9900;
+      background: #fff7e6;
+    }
+    body.dark-mode .active-category {
+      background: #232f3e;
+      color: #ff9900;
+    }
+    #carrinhoBadge {
+      display: none;
+      position: absolute;
+      top: -8px;
+      right: -18px;
+      background: #d00;
+      color: #fff;
+      border-radius: 50%;
+      padding: 2px 7px;
+      font-size: 12px;
+      font-weight: bold;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    }
+    footer {
+      background: #232f3e;
+      color: #fff;
+      padding: 1.2rem;
+      text-align: center;
+      margin-top: 3rem;
+      border-radius: 0 0 12px 12px;
+    }
+    body.dark-mode footer {
+      background: #11161c;
+      color: #fff;
+    }
+    nav a {
+      margin: 0 18px 0 0;
+    }
+    #toggleTheme {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+  background: none !important;
+  color: #232f3e;
+  border: none;
+  box-shadow: none;
+  font-size: 1.3rem;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: color 0.2s;
+  order: 99;
+}
+body.dark-mode #toggleTheme {
+  color: #fff;
+}
+  </style>
+</head>
+<body>
+  <header>
+  <a href="#home" onclick="showPage('home')" style="color: inherit; text-decoration: none;">
+    <h1 style="margin:0; font-size:2.5rem; letter-spacing:2px; font-weight: bold; transition: color 0.2s;">EsperanzaBuy</h1>
+  </a>
+</header>
+
+  <nav>
+     <img src="https://media.discordapp.net/attachments/427174681229918219/1385019947142615130/Untitled-1.gif?ex=68548bd7&is=68533a57&hm=791978cf88cd7b935f036c166896e4a9409aee545b44f6112142260fda7974e9&=" 
+       alt="Logo" style="height:80px; margin-right:18px; margin-left:8px; display:block;">
+  <div class="nav-center">
+    <a href="#contactos" onclick="showPage('contactos')">Contactos</a>
+    <a href="#produtos" onclick="showPage('produtos')">Produtos</a>
+    <a href="#carrinho" onclick="showPage('carrinho')" style="position:relative;">
+      🛒Carrinho
+      <span id="carrinhoBadge" style="display:none;position:absolute;top:-8px;right:-18px;background:#d00;color:#fff;border-radius:50%;padding:2px 7px;font-size:12px;font-weight:bold;"></span>
+    </a>
+    
+  </div>
+  <a href="#vpn" id="vpnLink"  onclick="showPage('vpn')">VPN🔐</a>
+  <button id="toggleTheme">🌙</button>
+</nav>
+
+  <div id="home" class="container">
+  <h2 style="text-align:center;">Bem-vindo!</h2>
+  <div id="homeProdutos" class="products-grid"></div>
+  <div style="text-align:center;margin-top:2rem;">
+    <button onclick="showPage('produtos')">Ver mais</button>
+  </div>
+</div>
+
+  <div id="produtos" class="container hidden">
+    <h2>Produtos</h2>
+    <div class="products-container">
+      <div class="filters-sidebar">
+        <div class="search-sort-container">
+          <input type="text" id="searchInput" placeholder="Pesquisar..." oninput="filterProducts()">
+          <select id="sortSelect" onchange="filterProducts()">
+            <option value="name-asc" selected>Nome (A-Z)</option>
+            <option value="name-desc">Nome (Z-A)</option>
+            <option value="price-asc">Preço (menor primeiro)</option>
+            <option value="price-desc">Preço (maior primeiro)</option>
+          </select>
+          <label style="margin-top:8px;">
+            <input type="checkbox" id="apenasStock" onchange="filterProducts()"> Apenas com stock
+          </label>
+        </div>
+        <h4>Categorias</h4>
+        <div id="categoryFilters"></div>
+      </div>
+      <div id="listaProdutos" class="products-grid"></div>
+    </div>
+  </div>
+
+  <div id="carrinho" class="container hidden">
+    <h2>Carrinho</h2>
+    <div id="listaCarrinho"></div>
+    <label><input type="checkbox" id="fatura"> Deseja fatura?</label>
+    <p><strong>Total:</strong> <span id="total"></span></p>
+    <p><strong>Peso Total:</strong> <span id="pesoTotal"></span></p>    
+    <button onclick="copiarResumoCarrinho()">Copiar carrinho</button>
+  </div>
+  
+
+  <div id="contactos" class="container hidden">
+    <h2>Contactos</h2>
+    <p>Email: loja@empresa.com</p>
+    <p>Telefone: 912 345 678</p>
+  </div>
+
+  <div id="vpn" class="container hidden">
+  <h2>Produtos VPN</h2>
+  <div class="products-container">
+    <div class="filters-sidebar">
+      <div class="search-sort-container">
+        <input type="text" id="searchInputVPN" placeholder="Pesquisar..." oninput="filterProductsVPN()">
+        <select id="sortSelectVPN" onchange="filterProductsVPN()">
+          <option value="name-asc" selected>Nome (A-Z)</option>
+          <option value="name-desc">Nome (Z-A)</option>
+          <option value="price-asc">Preço (menor primeiro)</option>
+          <option value="price-desc">Preço (maior primeiro)</option>
+        </select>
+        <label style="margin-top:8px;">
+          <input type="checkbox" id="apenasStockVPN" onchange="filterProductsVPN()"> Apenas com stock
+        </label>
+      </div>
+      <h4>Categorias</h4>
+      <div id="categoryFiltersVPN"></div>
+    </div>
+    <div id="listaProdutosVPN" class="products-grid"></div>
+  </div>
+</div>
+
+  <footer>
+    <p>&copy; 2025 EsperanzaBuy</p>
+  </footer>
+
+  <script>
+    let produtos = [];
+
+function csvToProdutos(csv) {
+  const linhas = csv.trim().split('\n');
+  const cabecalho = linhas[0].split(',');
+  return linhas.slice(1).map(linha => {
+    const valores = linha.split(',');
+    let obj = {};
+    cabecalho.forEach((col, i) => {
+      let valor = valores[i];
+      // Conversão automática de tipos
+      if (col === 'preco' || col === 'peso') valor = parseFloat(valor);
+      if (col === 'stock' || col === 'vpn') valor = parseInt(valor);
+      obj[col.trim()] = valor;
+    });
+    return obj;
+  });
+}
+
+// Substitua pelo seu link CSV da Google Sheets:
+const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRf-IzQuCdZYfvBu2_25W41IZYduleD6kvEoTRLhUqCzNpxuLDM0-ggXozRMzhlclJ5ePj6pfXG1Icy/pub?gid=239938099&single=true&output=csv';
+
+fetch(SHEETS_CSV_URL)
+  .then(r => r.text())
+  .then(csv => {
+    produtos = csvToProdutos(csv);
+    // Atualize as listas se já estiver na página
+    renderCategoryFilters();
+    filterProducts();
+    renderHomeProdutos();
+    renderCategoryFiltersVPN();
+    filterProductsVPN();
+  });
+
+    let carrinho = [];
+    let selectedCategory = null;
+    let selectedCategoryVPN = null;
+    let produtosHomeAleatorios = [];
+
+    // Adiciona aviso antes de recarregar a página
+    window.addEventListener('beforeunload', function(e) {
+    if (carrinho.length > 0) {
+        e.preventDefault();
+        return false;
+    }
+    });
+
+    function showPage(p) {
+      document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
+      document.getElementById(p).classList.remove('hidden');
+      if (p === 'home') {
+        produtosHomeAleatorios = []; // Limpa para forçar nova geração
+        renderHomeProdutos();
+      }
+      if (p === 'produtos') {
+        document.getElementById('sortSelect').value = 'name-asc'; // força seleção
+        renderCategoryFilters();
+        filterProducts();
+      }
+      if (p === 'carrinho') renderCarrinho();
+    }
+
+    function renderCategoryFilters() {
+      const categoriesContainer = document.getElementById('categoryFilters');
+      const categories = [...new Set(produtos.filter(p => !p.vpn || p.vpn === 0).map(p => p.categoria))];
+      
+      categoriesContainer.innerHTML = '';
+      
+      // Adiciona opção "Todas as categorias"
+      const allCategories = document.createElement('div');
+      allCategories.textContent = 'Todas as categorias';
+      allCategories.className = `filter-category ${!selectedCategory ? 'active-category' : ''}`;
+      allCategories.onclick = () => {
+        selectedCategory = null;
+        renderCategoryFilters();
+        filterProducts();
+      };
+      categoriesContainer.appendChild(allCategories);
+      
+      // Adiciona cada categoria
+      categories.forEach(category => {
+        const categoryElement = document.createElement('div');
+        categoryElement.textContent = category;
+        categoryElement.className = `filter-category ${selectedCategory === category ? 'active-category' : ''}`;
+        categoryElement.onclick = () => {
+          selectedCategory = category;
+          renderCategoryFilters();
+          filterProducts();
+        };
+        categoriesContainer.appendChild(categoryElement);
+      });
+    }
+
+    function filterProducts() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const sortOption = document.getElementById('sortSelect').value;
+      const apenasStock = document.getElementById('apenasStock').checked;
+
+      let filtered = produtos.filter(p => 
+        (!p.vpn || p.vpn === 0) &&
+        p.nome.toLowerCase().includes(searchTerm) &&
+        (!selectedCategory || p.categoria === selectedCategory) &&
+        (!apenasStock || p.stock > 0)
+      );
+
+      // Aplica ordenação
+      switch(sortOption) {
+        case 'name-asc':
+          filtered.sort((a, b) => a.nome.localeCompare(b.nome));
+          break;
+        case 'name-desc':
+          filtered.sort((a, b) => b.nome.localeCompare(a.nome));
+          break;
+        case 'price-asc':
+          filtered.sort((a, b) => a.preco - b.preco);
+          break;
+        case 'price-desc':
+          filtered.sort((a, b) => b.preco - a.preco);
+          break;
+      }
+      
+      renderProducts(filtered);
+    }
+
+    function renderProducts(productsToRender) {
+      const lista = document.getElementById('listaProdutos');
+      lista.innerHTML = '';
+
+      if (productsToRender.length === 0) {
+        lista.innerHTML = '<p>Nenhum produto encontrado.</p>';
+        return;
+      }
+
+      productsToRender.forEach((p, i) => {
+        const originalIndex = produtos.findIndex(prod => prod.nome === p.nome);
+        lista.innerHTML += `
+          <div class="product">
+            <img src="${p.imagem}" alt="${p.nome}">
+            <h4>${p.nome}</h4>
+            <p>Preço: $${p.preco} <br> Peso: ${p.peso} kg <br> ${
+  p.stock === 0
+    ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>'
+    : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`
+}</p>
+            <p>
+              Categoria: 
+              <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;" onclick="filtrarPorCategoria('${p.categoria}');return false;">
+                ${p.categoria}
+              </a>
+            </p>
+            <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? 'disabled' : ''}>
+            <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Adicionar ao carrinho</button>
+          </div>
+        `;
+      });
+    }
+
+    function addCarrinho(i) {
+      const qtd = parseInt(document.getElementById(`qtd-${i}`).value);
+      if (isNaN(qtd) || qtd < 1 || qtd > produtos[i].stock) {
+        alert('Stock insuficiente ou quantidade inválida'); 
+        return;
+      }
+      const item = { ...produtos[i] };
+      const existente = carrinho.find(p => p.nome === item.nome);
+      if (existente) existente.qtd += qtd;
+      else {
+        item.qtd = qtd;
+        carrinho.push(item);
+      }
+      produtos[i].stock -= qtd; 
+      filterProducts();
+      filterProductsVPN(); 
+      updateCarrinhoBadge();
+    }
+
+    function renderCarrinho() {
+      const lista = document.getElementById('listaCarrinho');
+      let total = 0;
+      let pesoTotal = 0;
+      lista.innerHTML = '<ul>' + carrinho.map((p, i) => {
+        const subTotal = p.qtd * p.preco;
+        const subPeso = p.qtd * p.peso;
+        total += subTotal;
+        pesoTotal += subPeso;
+        return `<li>${p.nome} - $${p.preco} × <input type="number" value="${p.qtd}" min="1" onchange="updateQtd(${i}, this.value)"> = $${subTotal.toFixed(2)} <button class="remove" onclick="removeItem(${i})">❌</button></li>`;
+      }).join('') + '</ul>';
+      document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+      document.getElementById('pesoTotal').textContent = `${pesoTotal.toFixed(2)} kg`;
+      updateCarrinhoBadge();
+    }
+
+    function updateQtd(i, novaQtd) {
+      const nova = parseInt(novaQtd);
+      if (!isNaN(nova) && nova >= 1) {
+        const diff = nova - carrinho[i].qtd;
+        const produtoOriginal = produtos.find(p => p.nome === carrinho[i].nome);
+        if (produtoOriginal && produtoOriginal.stock >= diff) {
+          carrinho[i].qtd = nova;
+          produtoOriginal.stock -= diff;
+          renderCarrinho();
+          filterProducts();
+        } else {
+          alert('Sem stock suficiente');
+          // Voltar ao valor anterior
+          // Aguarde o renderCarrinho para garantir que o input existe
+          setTimeout(() => {
+            const input = document.querySelectorAll('#listaCarrinho input[type="number"]')[i];
+            if (input) input.value = carrinho[i].qtd;
+          }, 0);
+        }
+      }
+    }
+
+    function removeItem(i) {
+      const item = carrinho.splice(i, 1)[0];
+      const produtoOriginal = produtos.find(p => p.nome === item.nome);
+      if (produtoOriginal) produtoOriginal.stock += item.qtd;
+      filterProducts();
+      updateCarrinhoBadge();
+      renderCarrinho();
+    }
+
+    function addProduto() {
+      const nome = document.getElementById('nome').value;
+      const imagem = document.getElementById('imagem').value;
+      const preco = parseFloat(document.getElementById('preco').value);
+      const peso = parseFloat(document.getElementById('peso').value);
+      const categoria = document.getElementById('categoria').value;
+      if (nome && imagem && !isNaN(preco) && !isNaN(peso)) {
+        produtos.push({ nome, imagem, preco, peso, categoria, stock: 10 });
+        alert('Produto adicionado!');
+        document.getElementById('nome').value = '';
+        document.getElementById('imagem').value = '';
+        document.getElementById('preco').value = '';
+        document.getElementById('peso').value = '';
+        document.getElementById('categoria').value = '';
+        renderCategoryFilters();
+        filterProducts();
+      } else {
+        alert('Preenche todos os campos corretamente.');
+      }
+    }
+
+    function updateCarrinhoBadge() {
+      const badge = document.getElementById('carrinhoBadge');
+      if (!badge) return;
+      const n = carrinho.length;
+      if (n > 0) {
+        badge.textContent = n;
+        badge.style.display = 'inline-block';
+      } else {
+        badge.style.display = 'none';
+      }
+    }
+
+    function filtrarPorCategoria(cat) {
+        selectedCategory = cat;
+        renderCategoryFilters();
+        filterProducts();
+    }
+
+    function renderCategoryFiltersVPN() {
+  const categoriesContainer = document.getElementById('categoryFiltersVPN');
+  const categories = [...new Set(produtos.filter(p => p.vpn === 1).map(p => p.categoria))];
+  categoriesContainer.innerHTML = '';
+  const allCategories = document.createElement('div');
+  allCategories.textContent = 'Todas as categorias';
+  allCategories.className = `filter-category ${!selectedCategoryVPN ? 'active-category' : ''}`;
+  allCategories.onclick = () => {
+    selectedCategoryVPN = null;
+    renderCategoryFiltersVPN();
+    filterProductsVPN();
+  };
+  categoriesContainer.appendChild(allCategories);
+  categories.forEach(category => {
+    const categoryElement = document.createElement('div');
+    categoryElement.textContent = category;
+    categoryElement.className = `filter-category ${selectedCategoryVPN === category ? 'active-category' : ''}`;
+    categoryElement.onclick = () => {
+      selectedCategoryVPN = category;
+      renderCategoryFiltersVPN();
+      filterProductsVPN();
+    };
+    categoriesContainer.appendChild(categoryElement);
+  });
+}
+
+function filterProductsVPN() {
+  const searchTerm = document.getElementById('searchInputVPN').value.toLowerCase();
+  const sortOption = document.getElementById('sortSelectVPN').value;
+  const apenasStock = document.getElementById('apenasStockVPN').checked;
+
+  let filtered = produtos.filter(p =>
+    p.vpn === 1 &&
+    p.nome.toLowerCase().includes(searchTerm) &&
+    (!selectedCategoryVPN || p.categoria === selectedCategoryVPN) &&
+    (!apenasStock || p.stock > 0)
+  );
+
+  // Aplica ordenação
+  switch (sortOption) {
+    case 'name-asc':
+      filtered.sort((a, b) => a.nome.localeCompare(b.nome));
+      break;
+    case 'name-desc':
+      filtered.sort((a, b) => b.nome.localeCompare(a.nome));
+      break;
+    case 'price-asc':
+      filtered.sort((a, b) => a.preco - b.preco);
+      break;
+    case 'price-desc':
+      filtered.sort((a, b) => b.preco - a.preco);
+      break;
+  }
+  renderProductsVPN(filtered);
+}
+
+function renderProductsVPN(productsToRender) {
+  const lista = document.getElementById('listaProdutosVPN');
+  lista.innerHTML = '';
+
+  if (productsToRender.length === 0) {
+    lista.innerHTML = '<p>Nenhum produto encontrado.</p>';
+    return;
+  }
+
+  productsToRender.forEach((p, i) => {
+    const originalIndex = produtos.findIndex(prod => prod.nome === p.nome);
+    lista.innerHTML += `
+      <div class="product">
+        <img src="${p.imagem}" alt="${p.nome}">
+        <h4>${p.nome}</h4>
+        <p>Preço: $${p.preco} <br> Peso: ${p.peso} kg <br> ${
+          p.stock === 0
+            ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>'
+            : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`
+        }</p>
+        <p>
+          Categoria: 
+          <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;" onclick="filtrarPorCategoriaVPN('${p.categoria}');return false;">
+            ${p.categoria}
+          </a>
+        </p>
+        <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? 'disabled' : ''}>
+        <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Adicionar ao carrinho</button>
+      </div>
+    `;
+  });
+}
+
+function filtrarPorCategoriaVPN(cat) {
+  selectedCategoryVPN = cat;
+  renderCategoryFiltersVPN();
+  filterProductsVPN();
+}
+
+function checkVPNAccess() {
+  // Se já tem acesso, não pede IP novamente
+  if (sessionStorage.getItem('vpnAccess') === '1') {
+    document.getElementById('vpnLink').classList.remove('hidden');
+    showPage('vpn');
+    renderCategoryFiltersVPN();
+    filterProductsVPN();
+    return;
+  }
+  const today = new Date().getDate();
+  const ipEsperado = `169.1.1.${today}`;
+  const ipUser = prompt("Introduza o IP para aceder à área VPN:");
+  if (ipUser === ipEsperado) {
+    sessionStorage.setItem('vpnAccess', '1');
+    document.getElementById('vpnLink').classList.remove('hidden');
+    showPage('vpn');
+    renderCategoryFiltersVPN();
+    filterProductsVPN();
+  } else {
+    alert('IP incorreto!');
+  }
+}
+document.getElementById('vpnLink').onclick = function(e) {
+  e.preventDefault();
+  checkVPNAccess();
+};
+
+    document.getElementById('toggleTheme').onclick = function() {
+  document.body.classList.toggle('dark-mode');
+  // Troca o ícone do botão
+  this.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+  // Guarda preferência
+  localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+};
+// Aplica o tema salvo ou o do sistema ao carregar
+window.addEventListener('DOMContentLoaded', function() {
+  let theme = localStorage.getItem('theme');
+  if (!theme) {
+    // Detecta preferência do sistema
+    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  if (theme === 'dark') {
+    document.body.classList.add('dark-mode');
+    document.getElementById('toggleTheme').textContent = '☀️';
+  } else {
+    document.body.classList.remove('dark-mode');
+    document.getElementById('toggleTheme').textContent = '🌙';
+  }
+});
+
+function renderHomeProdutos() {
+  const homeProdutosDiv = document.getElementById('homeProdutos');
+  // Só gera novos produtos aleatórios se ainda não existirem
+  if (produtosHomeAleatorios.length === 0) {
+    const produtosNormais = produtos.filter(p => !p.vpn || p.vpn === 0);
+    produtosHomeAleatorios = produtosNormais
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 9);
+  }
+
+  homeProdutosDiv.innerHTML = '';
+  produtosHomeAleatorios.forEach((p, i) => {
+    const originalIndex = produtos.findIndex(prod => prod.nome === p.nome);
+    homeProdutosDiv.innerHTML += `
+      <div class="product">
+        <img src="${p.imagem}" alt="${p.nome}">
+        <h4>${p.nome}</h4>
+        <p>Preço: $${p.preco} <br> Peso: ${p.peso} kg <br> ${
+          p.stock === 0
+            ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>'
+            : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`
+        }</p>
+        <p>
+          Categoria: 
+          <span style="color:#ff9900;font-weight:bold;">${p.categoria}</span>
+        </p>
+        <input type="number" id="qtd-home-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? 'disabled' : ''}>
+        <button onclick="addCarrinhoHome(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Adicionar ao carrinho</button>
+      </div>
+    `;
+  });
+}
+
+// Sempre que entrar na home, gera nova lista aleatória
+function showPage(p) {
+  document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
+  document.getElementById(p).classList.remove('hidden');
+  if (p === 'home') {
+    produtosHomeAleatorios = []; // Limpa para forçar nova geração
+    renderHomeProdutos();
+  }
+  if (p === 'produtos') {
+    document.getElementById('sortSelect').value = 'name-asc'; // força seleção
+    renderCategoryFilters();
+    filterProducts();
+  }
+  if (p === 'carrinho') renderCarrinho();
+}
+
+function addCarrinhoHome(i) {
+  const qtd = parseInt(document.getElementById(`qtd-home-${i}`).value);
+  if (isNaN(qtd) || qtd < 1 || qtd > produtos[i].stock) {
+    alert('Stock insuficiente ou quantidade inválida'); 
+    return;
+  }
+  const item = { ...produtos[i] };
+  const existente = carrinho.find(p => p.nome === item.nome);
+  if (existente) existente.qtd += qtd;
+  else {
+    item.qtd = qtd;
+    carrinho.push(item);
+  }
+  produtos[i].stock -= qtd; 
+  renderHomeProdutos();
+  filterProducts();
+  filterProductsVPN();
+  updateCarrinhoBadge();
+}
+
+function copiarResumoCarrinho() {
+  let texto = '';
+  let total = 0;
+  let pesoTotal = 0;
+  carrinho.forEach(item => {
+    const subTotal = item.qtd * item.preco;
+    const subPeso = item.qtd * item.peso;
+    texto += `${item.nome} - ${item.qtd} x $${item.preco}  = $${subTotal.toFixed(2)}\n`;
+    total += subTotal;
+    pesoTotal += subPeso;
+  });
+  const fatura = document.getElementById('fatura').checked ? 'Sim' : 'Não';
+  texto += `Deseja fatura? ${fatura}\n`;
+  texto += `Total: $${total.toFixed(2)}\n`;
+  texto += `Peso Total: ${pesoTotal.toFixed(2)} kg`;
+
+  // Copia para o clipboard
+  navigator.clipboard.writeText(texto).then(() => {
+    alert('Carrinho copiado, pode agora colar o carrinho por mensagem para um dos contactos disponíveis! \n\nVerifique se o mesmo está de serviço.');
+  });
+}
+
+
+showPage('home');
+
+  </script>
+</body>
+</html>
