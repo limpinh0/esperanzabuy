@@ -367,40 +367,13 @@ body.dark-mode #toggleTheme {
   </footer>
 
   <script>
-    let produtos = [];
-
-function csvToProdutos(csv) {
-  const linhas = csv.trim().split('\n');
-  const cabecalho = linhas[0].split(',');
-  return linhas.slice(1).map(linha => {
-    const valores = linha.split(',');
-    let obj = {};
-    cabecalho.forEach((col, i) => {
-      let valor = valores[i];
-      // Conversão automática de tipos
-      if (col === 'preco' || col === 'peso') valor = parseFloat(valor);
-      if (col === 'stock' || col === 'vpn') valor = parseInt(valor);
-      obj[col.trim()] = valor;
-    });
-    return obj;
-  });
-}
-
-// Substitua pelo seu link CSV da Google Sheets:
-const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRf-IzQuCdZYfvBu2_25W41IZYduleD6kvEoTRLhUqCzNpxuLDM0-ggXozRMzhlclJ5ePj6pfXG1Icy/pub?gid=239938099&single=true&output=csv';
-
-fetch(SHEETS_CSV_URL)
-  .then(r => r.text())
-  .then(csv => {
-    produtos = csvToProdutos(csv);
-    // Atualize as listas se já estiver na página
-    renderCategoryFilters();
-    filterProducts();
-    renderHomeProdutos();
-    renderCategoryFiltersVPN();
-    filterProductsVPN();
-  });
-
+    const produtos = [
+  { nome: 'Sucata de metal', imagem: 'https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg', preco: 3, peso: 0.1, categoria: 'Metais', stock: 10, vpn: 0 },
+  { nome: 'Cobre', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', preco: 3, peso: 0.1, categoria: 'Metais', stock: 8, vpn: 0 },
+  { nome: 'Gazua', imagem: 'https://www.lusochav.pt/wp-content/uploads/2022/03/5278.png', preco: 10, peso: 0.1, categoria: 'Ferramentas', stock: 0, vpn: 0 },
+  { nome: 'Antena VPN', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', preco: 99, peso: 1, categoria: 'Ferramentas', stock: 5, vpn: 1 },
+  { nome: 'F4 Coins', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', preco: 31, peso: 0, categoria: 'Digital', stock: 2, vpn: 1 }
+];
     let carrinho = [];
     let selectedCategory = null;
     let selectedCategoryVPN = null;
