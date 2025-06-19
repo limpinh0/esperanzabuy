@@ -5,7 +5,7 @@ Aluminio,img/aluminum.png,4,0.1,Materiais,637,0
 Ferro,img/iron.png,5,0.1,Materiais,1631,0
 Borracha,img/rubber.png,10,0.1,Materiais,684,0
 Aço,img/steel.png,10,0.1,Materiais,604,0
-Cobre,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,3,0.1,Materiais,8,0
+Cobre,img/cooper.png,3,0.1,Materiais,8,0
 Vidro,img/glass.png,2,0.1,Materiais,15,0
 Tábuas de madeira,img/wood.png,10,4,Materiais,144,0
 Trapos,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Materiais,85,0
@@ -19,9 +19,9 @@ Sulfur,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5
 Carvão,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,50,0.5,Minérios,57,0
 Ácido de bateria,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.5,Baterias,1,0
 Kit eletrónico,img/electronic-kit.png,50,0.5,Electrónicos,7,0
-Gazua avançada,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,50,0.5,Utilitarios,8,1
+Gazua avançada,img/lockpick2.png,50,0.5,Utilitarios,8,1
 Gazua,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.3,Utilitarios,22,1
-Pé de cabra,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,25,1,Ferramentas,2,0
+Pé de cabra,img/crowbar.png,25,1,Ferramentas,2,0
 Pepitas de ouro,img/goldore.png,100,0.1,Ouro,125,1
 Rolex,img/rolex.png,100,0.5,Ouro,21,1
 Corrente de ouro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Ouro,43,1
