@@ -1,5 +1,4 @@
-
-    body {
+body {
       font-family: 'Segoe UI', Arial, sans-serif;
       margin: 0;
       padding: 0;
@@ -22,32 +21,78 @@
       color: #fff;
     }
     nav {
-      background: #fff;
-      padding: 1rem 0.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-    }
-    nav img {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 60px;
-  margin-left: 8px;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 2px 8px #0001;
+  padding: 0;
+  transition: background 0.3s, box-shadow 0.3s;
 }
-    .nav-center {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      gap: 18px;
-    }
+
+body.dark-mode nav {
+  background: #23272f;
+  box-shadow: 0 2px 8px #0006;
+}
+
+.nav-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 70px;
+  width: 100%;
+}
+
+.nav-left,
+.nav-center,
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px; /* Espaçamento recomendado entre os itens */
+  margin-right: 16px;
+}
+
+.nav-center {
+  flex: 2 1 0;
+  justify-content: center;
+  gap: 32px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px; /* Espaçamento recomendado entre os itens */
+  margin-right: 10px;
+}
+
+/* Estilo para todos os itens do nav */
+.nav-left > *, .nav-center > *, .nav-right > * {
+
+  padding: 6px 12px;
+  margin: 0 4px;
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+.nav-logo {
+  height: 60px;
+  padding: 0;
+  border: none;
+  background: none;
+  margin-left: 8px;
+  margin-right: 0;
+}
+
+@media (max-width: 700px) {
+  .nav-center { gap: 10px; font-size: 0.95em; }
+  .nav-logo { height: 28px; }
+  .nav-left > *, .nav-center > *, .nav-right > * { height: 32px; padding: 4px 8px; }
+}
     body.dark-mode nav {
       background: #232f3e;
       color: #fff;
@@ -260,4 +305,11 @@
 }
 body.dark-mode #toggleTheme {
   color: #fff;
+}
+.nav-right button {
+  width: auto;
+  min-width: unset;
+  padding-left: 8px;
+  padding-right: 8px;
+  justify-content: center;
 }
