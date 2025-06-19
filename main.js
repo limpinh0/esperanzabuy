@@ -173,18 +173,16 @@ async function initApp() {
         lista.innerHTML += `
           <div class="product">
             <img src="${p.imagem}" alt="${p.nome}">
-            <h4>${p.nome}</h4>
+              <p style="font-weight:bold">${p.nome}<br>
+                <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorCategoria('${p.categoria}');return false;">
+                  ${p.categoria}
+                </a>      
+              </p>
             <p>Preço: $${p.preco} <br> Peso: ${p.peso} kg <br> ${
   p.stock === 0
     ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>'
     : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`
 }</p>
-            <p>
-              Categoria: 
-              <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;" onclick="filtrarPorCategoria('${p.categoria}');return false;">
-                ${p.categoria}
-              </a>
-            </p>
             <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? 'disabled' : ''}>
             <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Adicionar ao carrinho</button>
           </div>
@@ -466,17 +464,16 @@ function renderHomeProdutos() {
     const originalIndex = produtos.findIndex(prod => prod.nome === p.nome);
     homeProdutosDiv.innerHTML += `
       <div class="product">
-        <img src="${p.imagem}" alt="${p.nome}">
-        <h4>${p.nome}</h4>
+        <img src="${p.imagem}" alt="${p.nome}">        
+        <p style="font-weight:bold">${p.nome}<br>
+        <span style="color:#ff9900;font-weight:bold; font-size:0.8em">${p.categoria}</span>      
+        </p>
+          
         <p>Preço: $${p.preco} <br> Peso: ${p.peso} kg <br> ${
           p.stock === 0
             ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>'
             : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`
-        }</p>
-        <p>
-          Categoria: 
-          <span style="color:#ff9900;font-weight:bold;">${p.categoria}</span>
-        </p>
+        }</p>        
         <input type="number" id="qtd-home-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? 'disabled' : ''}>
         <button onclick="addCarrinhoHome(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Adicionar ao carrinho</button>
       </div>
