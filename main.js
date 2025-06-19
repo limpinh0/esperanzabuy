@@ -4,7 +4,8 @@ async function carregarProdutos() {
     // Substitua pelo URL raw do seu CSV no GitHub
     const response = await fetch('https://raw.githubusercontent.com/limpinh0/esperanzabuy/main/produtos.csv');
     const csvData = await response.text();
-    return parseCSV(csvData);
+    return csvData;
+    //return parseCSV(csvData);
   } catch (error) {
     console.error('Erro ao carregar produtos:', error);
     return [];
@@ -12,7 +13,7 @@ async function carregarProdutos() {
 }
 const produtos2 = carregarProdutos();
 console.log('Produtos text:', csvData);
-console.log('Produtos carregados:', produtos2);
+//console.log('Produtos carregados:', produtos2);
 
 const produtos = [
   { nome: 'Sucata de metal', imagem: 'https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg', preco: 3, peso: 0.1, categoria: 'Metais', stock: 10, vpn: 0 },
