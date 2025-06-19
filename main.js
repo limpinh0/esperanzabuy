@@ -11,7 +11,7 @@ async function carregarProdutos() {
   }
 }
 const produtos2 = carregarProdutos();
-console.log('Produtos carregados:', produtos);
+console.log('Produtos carregados:', produtos2);
 
 const produtos = [
   { nome: 'Sucata de metal', imagem: 'https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg', preco: 3, peso: 0.1, categoria: 'Metais', stock: 10, vpn: 0 },
