@@ -11,6 +11,7 @@ async function carregarProdutos() {
   }
 }
 const produtos2 = carregarProdutos();
+console.log('Produtos text:', csvData);
 console.log('Produtos carregados:', produtos2);
 
 const produtos = [
