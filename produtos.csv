@@ -1,5 +1,5 @@
 nome,imagem,preco,peso,categoria,stock,vpn
-Sucata de metal,https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg,3,0.1,Materiais,855,0
+Sucata de metal,img/metalscrap.png,3,0.1,Materiais,855,0
 Plástico,img/plastic.png,10,0.1,Materiais,614,0
 Aluminio,img/aluminum.png,4,0.1,Materiais,637,0
 Ferro,img/iron.png,5,0.1,Materiais,1631,0
