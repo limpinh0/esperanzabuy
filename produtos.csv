@@ -1,13 +1,13 @@
 nome,imagem,preco,peso,categoria,stock,vpn
 Sucata de metal,https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg,3,0.1,Materiais,855,0
 Plástico,img/plastic.png,10,0.1,Materiais,614,0
-Aluminio,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,4,0.1,Materiais,637,0
-Ferro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Materiais,1631,0
-Borracha,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.1,Materiais,684,0
-Aço,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.1,Materiais,604,0
+Aluminio,img/aluminum.png,4,0.1,Materiais,637,0
+Ferro,img/iron.png,5,0.1,Materiais,1631,0
+Borracha,img/rubber.png,10,0.1,Materiais,684,0
+Aço,img/steel.png,10,0.1,Materiais,604,0
 Cobre,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,3,0.1,Materiais,8,0
-Vidro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,2,0.1,Materiais,15,0
-Tábuas de madeira,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,4,Materiais,144,0
+Vidro,img/glass.png,2,0.1,Materiais,15,0
+Tábuas de madeira,img/wood.png,10,4,Materiais,144,0
 Trapos,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Materiais,85,0
 Chumbo,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.1,Minérios,284,0
 Estanho,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.1,Minérios,48,0
@@ -23,7 +23,7 @@ Gazua avançada,https://www.freshone.com.pk/content/images/thumbs/default-image_
 Gazua,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.3,Utilitarios,22,1
 Pé de cabra,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,25,1,Ferramentas,2,0
 Pepitas de ouro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.1,Ouro,125,1
-Rolex,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Ouro,21,1
+Rolex,img/rolex.png,100,0.5,Ouro,21,1
 Corrente de ouro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Ouro,43,1
 Anel de diamante,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Joias,6,1
 Ruby,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Joias,1,1
