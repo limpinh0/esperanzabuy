@@ -1,3 +1,18 @@
+
+async function carregarProdutos() {
+  try {
+    // Substitua pelo URL raw do seu CSV no GitHub
+    const response = await fetch('https://raw.githubusercontent.com/limpinh0/esperanzabuy/main/produtos.csv');
+    const csvData = await response.text();
+    return parseCSV(csvData);
+  } catch (error) {
+    console.error('Erro ao carregar produtos:', error);
+    return [];
+  }
+}
+const produtos2 = carregarProdutos();
+console.log('Produtos carregados:', produtos);
+
 const produtos = [
   { nome: 'Sucata de metal', imagem: 'https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg', preco: 3, peso: 0.1, categoria: 'Metais', stock: 10, vpn: 0 },
   { nome: 'Cobre', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', preco: 3, peso: 0.1, categoria: 'Metais', stock: 8, vpn: 0 },
