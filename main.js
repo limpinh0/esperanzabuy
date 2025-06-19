@@ -1,31 +1,76 @@
-
 async function carregarProdutos() {
   try {
-    // Substitua pelo URL raw do seu CSV no GitHub
     const response = await fetch('https://raw.githubusercontent.com/limpinh0/esperanzabuy/main/produtos.csv');
     const csvData = await response.text();
-    return csvData;
-    //return parseCSV(csvData);
+    const prodArr = parseCSV(csvData);
+    return prodArr;
   } catch (error) {
     console.error('Erro ao carregar produtos:', error);
     return [];
   }
 }
-const produtos2 = carregarProdutos();
-console.log('Produtos text:', produtos2);
-//console.log('Produtos carregados:', produtos2);
 
-const produtos = [
-  { nome: 'Sucata de metal', imagem: 'https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg', preco: 3, peso: 0.1, categoria: 'Metais', stock: 10, vpn: 0 },
-  { nome: 'Cobre', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', preco: 3, peso: 0.1, categoria: 'Metais', stock: 8, vpn: 0 },
-  { nome: 'Gazua', imagem: 'https://www.lusochav.pt/wp-content/uploads/2022/03/5278.png', preco: 10, peso: 0.1, categoria: 'Ferramentas', stock: 0, vpn: 0 },
-  { nome: 'Antena VPN', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', preco: 99, peso: 1, categoria: 'Ferramentas', stock: 5, vpn: 1 },
-  { nome: 'F4 Coins', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', preco: 31, peso: 0, categoria: 'Digital', stock: 2, vpn: 1 }
-];
-    let carrinho = [];
-    let selectedCategory = null;
-    let selectedCategoryVPN = null;
-    let produtosHomeAleatorios = [];
+function parseCSV(csvData) {
+  const linhas = csvData.split('\n');
+  const cabecalhos = linhas[0].split(',');
+  
+  const produtosAr = [];
+  
+  for (let i = 1; i < linhas.length; i++) {
+    if (linhas[i].trim() === '') continue;
+    
+    const valores = linhas[i].split(',');
+    const produto = {};
+    
+    for (let j = 0; j < cabecalhos.length; j++) {
+      const cabecalho = cabecalhos[j].trim();
+      let valor = valores[j].trim();
+      
+      if (['preco', 'peso', 'stock', 'vpn'].includes(cabecalho)) {
+        valor = parseFloat(valor);
+      }
+      
+      produto[cabecalho] = valor;
+    }
+    
+    produtosAr.push(produto);
+  }
+  
+  return produtosAr;
+}
+
+// Variáveis globais
+let produtos = [];
+let carrinho = [];
+let selectedCategory = null;
+let selectedCategoryVPN = null;
+let produtosHomeAleatorios = [];
+
+// Função principal de inicialização
+async function initApp() {
+  // Carrega produtos do CSV
+  produtos = await carregarProdutos();
+  
+  // Fallback caso o CSV não carregue
+  if (produtos.length === 0) {
+    produtos = [
+      { nome: 'Sucata de metal', imagem: 'https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg', preco: 3, peso: 0.1, categoria: 'Metais', stock: 10, vpn: 0 },
+      { nome: 'Cobre', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', preco: 3, peso: 0.1, categoria: 'Metais', stock: 8, vpn: 0 },
+      { nome: 'Gazua', imagem: 'https://www.lusochav.pt/wp-content/uploads/2022/03/5278.png', preco: 10, peso: 0.1, categoria: 'Ferramentas', stock: 0, vpn: 0 },
+      { nome: 'Antena VPN', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', preco: 99, peso: 1, categoria: 'Ferramentas', stock: 5, vpn: 1 },
+      { nome: 'F4 Coins', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', preco: 31, peso: 0, categoria: 'Digital', stock: 2, vpn: 1 }
+    ];
+  }
+  
+  // Inicializa a aplicação
+  showPage('home');
+  updateCarrinhoBadge();
+  
+  // Se já tem acesso VPN, mostra o link
+  if (sessionStorage.getItem('vpnAccess') === '1') {
+    document.getElementById('vpnLink').classList.remove('hidden');
+  }
+}
 
     // Adiciona aviso antes de recarregar a página
     window.addEventListener('beforeunload', function(e) {
@@ -354,7 +399,7 @@ function checkVPNAccess() {
     filterProductsVPN();
     return;
   }
-  const today = new Date().getDate();  
+  const today = new Date().getDate();
   const ipEsperado = atob('MTY5LjEuMS4=') + today;
   const ipUser = prompt("Introduza o IP para aceder à área VPN:");
   if (ipUser === ipEsperado) {
@@ -393,6 +438,8 @@ window.addEventListener('DOMContentLoaded', function() {
     document.body.classList.remove('dark-mode');
     document.getElementById('toggleTheme').textContent = '🌙';
   }
+  // Inicia a aplicação
+  initApp();
 });
 
 function renderHomeProdutos() {
