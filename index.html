@@ -19,22 +19,26 @@
 </header>
 
   <nav>
-    <a href="https://puerto-esperanza.tebex.io/">
+  <div class="nav-flex">
+    <div class="nav-left">
+       <a href="https://puerto-esperanza.tebex.io/">
       <img src="img/pelogo.gif"
-       alt="Logo" style="height:80px; margin-right:18px; margin-left:8px; display:block;">
+       alt="Logo" style="height:60px; margin-right:18px; margin-left:8px; display:block;">
     </a>
-    
-  <div class="nav-center">
-    <a href="#produtos" onclick="showPage('produtos')">Produtos</a>
-    <a href="#contactos" onclick="showPage('contactos')">Contactos</a>
-    <a href="#carrinho" onclick="showPage('carrinho')" style="position:relative;">
-      🛒Carrinho
-      <span id="carrinhoBadge" style="display:none;position:absolute;top:-8px;right:-18px;background:#d00;color:#fff;border-radius:50%;padding:2px 7px;font-size:12px;font-weight:bold;"></span>
-    </a>
-    
+    </div>
+    <div class="nav-center">
+      <a href="#produtos" onclick="showPage('produtos')">Produtos</a>
+      <a href="#contactos" onclick="showPage('contactos')">Contactos</a>
+      <a href="#carrinho" onclick="showPage('carrinho')" style="position:relative;">
+        🛒Carrinho
+        <span id="carrinhoBadge" style="display:none;position:absolute;top:-8px;right:-18px;background:#d00;color:#fff;border-radius:50%;padding:2px 7px;font-size:12px;font-weight:bold;"></span>
+      </a>
+    </div>
+    <div class="nav-right">
+      <a href="#vpn" id="vpnLink" onclick="showPage('vpn')">🔐VPN</a>
+      <button id="toggleTheme">🌙</button>
+    </div>
   </div>
-  <a href="#vpn" id="vpnLink"  onclick="showPage('vpn')">🔐VPN</a>
-  <button id="toggleTheme">🌙</button>
 </nav>
 
   <div id="home" class="container">
