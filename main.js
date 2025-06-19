@@ -337,8 +337,8 @@ function checkVPNAccess() {
     filterProductsVPN();
     return;
   }
-  const today = new Date().getDate();
-  const ipEsperado = `169.1.1.${today}`;
+  const today = new Date().getDate();  
+  const ipEsperado = atob('MTY5LjEuMS4=') + today;
   const ipUser = prompt("Introduza o IP para aceder à área VPN:");
   if (ipUser === ipEsperado) {
     sessionStorage.setItem('vpnAccess', '1');
