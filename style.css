@@ -40,6 +40,13 @@ body.dark-mode nav {
   min-height: 70px;
   width: 100%;
 }
+.nav-left,
+.nav-right {
+  flex: 0 0 180px; /* Mesma largura fixa para ambos (ajuste conforme necessário) */
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
 
 .nav-left,
 .nav-center,
@@ -57,7 +64,8 @@ body.dark-mode nav {
 }
 
 .nav-center {
-  flex: 2 1 0;
+  flex: 1 1 auto;
+  display: flex;
   justify-content: center;
   gap: 32px;
 }
@@ -67,7 +75,7 @@ body.dark-mode nav {
   align-items: center;
   justify-content: flex-end;
   gap: 8px; /* Espaçamento recomendado entre os itens */
-  margin-right: 10px;
+  margin-right: 1px;
 }
 
 /* Estilo para todos os itens do nav */
@@ -175,8 +183,7 @@ body.dark-mode nav {
       object-fit: cover;
       margin-bottom: 0.7rem;
       border-radius: 8px;
-      background: #fff;
-      border: 1px solid #e5e7eb;
+      background: transparent !important; 
     }
     .hidden { display: none; }
     input[type="number"] {
