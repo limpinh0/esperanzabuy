@@ -97,8 +97,10 @@ async function initApp() {
 
     function renderCategoryFilters() {
       const categoriesContainer = document.getElementById('categoryFilters');
-      const categories = [...new Set(produtos.filter(p => !p.vpn || p.vpn === 0).map(p => p.categoria))];
-      
+      // Só categorias de produtos com vpn: 0
+      const categories = [...new Set(produtos.filter(p => !p.vpn || p.vpn === 0).map(p => p.categoria))]
+        .sort((a, b) => a.localeCompare(b)); // <-- Ordena alfabeticamente
+
       categoriesContainer.innerHTML = '';
       
       // Adiciona opção "Todas as categorias"
@@ -297,8 +299,13 @@ async function initApp() {
 
     function renderCategoryFiltersVPN() {
   const categoriesContainer = document.getElementById('categoryFiltersVPN');
-  const categories = [...new Set(produtos.filter(p => p.vpn === 1).map(p => p.categoria))];
+  // Só categorias de produtos com vpn: 1
+  const categories = [...new Set(produtos.filter(p => p.vpn === 1).map(p => p.categoria))]
+    .sort((a, b) => a.localeCompare(b)); // <-- Ordena alfabeticamente
+
   categoriesContainer.innerHTML = '';
+  
+  // Adiciona opção "Todas as categorias"
   const allCategories = document.createElement('div');
   allCategories.textContent = 'Todas as categorias';
   allCategories.className = `filter-category ${!selectedCategoryVPN ? 'active-category' : ''}`;
@@ -308,6 +315,8 @@ async function initApp() {
     filterProductsVPN();
   };
   categoriesContainer.appendChild(allCategories);
+  
+  // Adiciona cada categoria
   categories.forEach(category => {
     const categoryElement = document.createElement('div');
     categoryElement.textContent = category;
