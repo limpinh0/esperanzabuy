@@ -1,11 +1,45 @@
 nome,imagem,preco,peso,categoria,stock,vpn
-Sucata de metal,https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg,3,0.1,Materiais,10,0
+Sucata de metal,https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg,3,0.1,Materiais,855,0
+Plástico,img/plastic.png,10,0.1,Materiais,614,0
+Aluminio,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,4,0.1,Materiais,637,0
+Ferro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Materiais,1631,0
+Borracha,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.1,Materiais,684,0
+Aço,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.1,Materiais,604,0
 Cobre,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,3,0.1,Materiais,8,0
-Gazua,https://www.lusochav.pt/wp-content/uploads/2022/03/5278.png,10,0.1,Ferramentas,0,0
-Antena VPN,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,99,1,Ferramentas,5,1
-F4 Coins,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,31,0,Digital,2,1
-Plástico,img/plastic.png,10,0.1,Materiais,20,0
-Vidro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,2,0.1,Materiais,15,0 
-Ferro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Materiais,12,0
-Aluminio,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,4,0.1,Materiais,18,0
-Kit eletrónico,img/electronic-kit.png,50,0.5,Digital,7,0
+Vidro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,2,0.1,Materiais,15,0
+Tábuas de madeira,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,4,Materiais,144,0
+Trapos,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Materiais,85,0
+Chumbo,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.1,Minérios,284,0
+Estanho,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.1,Minérios,48,0
+Nefrit,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.1,Minérios,48,0
+Prata,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.1,Minérios,56,0
+Cristal,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.1,Minérios,93,0
+Quartz,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.1,Minérios,41,0
+Sulfur,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,50,0.1,Minérios,80,0
+Carvão,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,50,0.5,Minérios,57,0
+Ácido de bateria,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.5,Baterias,1,0
+Kit eletrónico,img/electronic-kit.png,50,0.5,Electrónicos,7,0
+Gazua avançada,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,50,0.5,Utilitarios,8,1
+Gazua,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.3,Utilitarios,22,1
+Pé de cabra,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,25,1,Ferramentas,2,0
+Pepitas de ouro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.1,Ouro,125,1
+Rolex,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Ouro,21,1
+Corrente de ouro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Ouro,43,1
+Anel de diamante,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Joias,6,1
+Ruby,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Joias,1,1
+Raspador,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,1,Ferramentas,45,1
+Bateria pequena,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,20,0.1,Baterias,1,0
+Super fertilizante,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,15,0.3,Utilitarios,2600,0
+Chaves cofre banco 814,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Chaves,1,1
+Chaves cofre banco CP529,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Chaves,1,1
+Chaves cofre banco CP940,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Chaves,1,1
+Soqueira,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,50,1,Arma,2,1
+Chess Board,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,15,1,Jogos,2,0
+Checkers Board,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,15,1,Jogos,2,0
+Couro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,50,0.5,Materiais,119,0
+Carne,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.2,Comida,428,0
+Frango cru empacotado,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Comida,60,0
+Peixe cru,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.5,Comida,26,0
+Antena VPN,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,99,1,Electrónicos,5,
+F4 Coins,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,31,0,Digital,2,
+Lata de tinta,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,50,0.5,Utilitarios,10,
