@@ -28,17 +28,14 @@ Corrente de ouro,img/goldnecklace.png,100,0.5,Ouro,43,1
 Anel de diamante,img/diamondring.png,100,0.5,Joias,6,1
 Ruby,img/ruby.png,100,0.5,Joias,1,1
 Raspador,img/grinder.png,100,1,Ferramentas,45,1
-Bateria pequena,"img/bateria.png
-",20,0.1,Baterias,1,0
+Bateria pequena,img/bateria.png,20,0.1,Baterias,1,0
 Super fertilizante,img/superfert.png,15,0.3,Utilitarios,2600,0
-Chaves cofre banco CP814,"img/chavesbanco.png
-",100,0.5,Chaves,1,1
+Chaves cofre banco CP814,img/chavesbanco.png,100,0.5,Chaves,1,1
 Chaves cofre banco CP529,img/chavesbanco.png,100,0.5,Chaves,1,1
 Chaves cofre banco CP940,img/chavesbanco.png,100,0.5,Chaves,1,1
 Soqueira,img/knuckle.png,50,1,Arma,2,1
 Chess Board,img/checkers.png,15,1,Jogos,2,0
-Checkers Board,"img/checkers2.png
-",15,1,Jogos,2,0
+Checkers Board,img/checkers2.png,15,1,Jogos,2,0
 Couro,img/leather.png,50,0.5,Materiais,129,0
 Carne,img/meat.png,5,0.2,Alimentação,499,0
 Frango cru empacotado,img/chickenmeat.png,5,0.1,Alimentação,60,0
