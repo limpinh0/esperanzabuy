@@ -180,7 +180,7 @@ body.dark-mode nav {
     .product img {
       width: 110px;
       height: 110px;
-      object-fit: cover;
+      object-fit: scale-down;
       margin-bottom: 0.7rem;
       border-radius: 8px;
       background: transparent !important; 
