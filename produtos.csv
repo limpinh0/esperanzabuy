@@ -8,54 +8,58 @@ Aço,img/steel.png,10,0.1,Materiais,604,0
 Cobre,img/cooper.png,3,0.1,Materiais,8,0
 Vidro,img/glass.png,2,0.1,Materiais,15,0
 Tábuas de madeira,img/wood.png,10,4,Materiais,144,0
-Trapos,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Materiais,85,0
+Trapos,img/trapos.png,5,0.1,Materiais,85,0
 Chumbo,img/leadore.png,10,0.1,Minérios,284,0
 Estanho,img/tinore.png,10,0.1,Minérios,48,0
-Nefrit,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,10,0.1,Minérios,48,0
+Nefrit,img/nefrit.png,10,0.1,Minérios,48,0
 Prata,img/silverore.png,10,0.1,Minérios,56,0
 Cristal,img/crystal.png,10,0.1,Minérios,93,0
 Quartz,img/quartz.png,10,0.1,Minérios,41,0
 Sulfur,img/sulfur.png,50,0.1,Minérios,80,0
 Carvão,img/coal.png,50,0.5,Minérios,57,0
-Ácido de bateria,img/battery_acid.png,10,0.5,Baterias,1,0
+Ácido de bateria,img/battery_acid.png,10,0.5,Baterias,19,0
 Kit eletrónico,img/electronic-kit.png,50,0.5,Electrónicos,7,0
 Gazua avançada,img/lockpick2.png,50,0.5,Utilitarios,8,1
 Gazua,img/lockpick.png,10,0.3,Utilitarios,22,1
 Pé de cabra,img/crowbar.png,25,1,Ferramentas,2,0
 Pepitas de ouro,img/goldore.png,100,0.1,Ouro,125,1
 Rolex,img/rolex.png,100,0.5,Ouro,21,1
-Corrente de ouro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Ouro,43,1
+Corrente de ouro,img/goldnecklace.png,100,0.5,Ouro,43,1
 Anel de diamante,img/diamondring.png,100,0.5,Joias,6,1
 Ruby,img/ruby.png,100,0.5,Joias,1,1
 Raspador,img/grinder.png,100,1,Ferramentas,45,1
-Bateria pequena,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,20,0.1,Baterias,1,0
+Bateria pequena,"img/bateria.png
+",20,0.1,Baterias,1,0
 Super fertilizante,img/superfert.png,15,0.3,Utilitarios,2600,0
-Chaves cofre banco CP814,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Chaves,1,1
-Chaves cofre banco CP529,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Chaves,1,1
-Chaves cofre banco CP940,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Chaves,1,1
+Chaves cofre banco CP814,"img/chavesbanco.png
+",100,0.5,Chaves,1,1
+Chaves cofre banco CP529,img/chavesbanco.png,100,0.5,Chaves,1,1
+Chaves cofre banco CP940,img/chavesbanco.png,100,0.5,Chaves,1,1
 Soqueira,img/knuckle.png,50,1,Arma,2,1
-Chess Board,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,15,1,Jogos,2,0
-Checkers Board,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,15,1,Jogos,2,0
-Couro,img/leather.png,50,0.5,Materiais,119,0
-Carne,img/meat.png,5,0.2,Comida,428,0
-Frango cru empacotado,img/chickenmeat.png,5,0.1,Comida,60,0
-Peixe cru,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.5,Comida,26,0
+Chess Board,img/checkers.png,15,1,Jogos,2,0
+Checkers Board,"img/checkers2.png
+",15,1,Jogos,2,0
+Couro,img/leather.png,50,0.5,Materiais,129,0
+Carne,img/meat.png,5,0.2,Alimentação,499,0
+Frango cru empacotado,img/chickenmeat.png,5,0.1,Alimentação,60,0
+Peixe cru,img/preixecru.png,5,0.5,Alimentação,26,0
 Antena VPN,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,99,1,Electrónicos,5,1
 F4 Coins,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,31,0,Digital,2,1
 Lata de tinta,img/spray.png,50,0.5,Utilitarios,15,0
 Maçarico,img/torch.png,50,2,Ferramentas,7,0
 Cortador de plasma,img/plasmacutter.png,100,0.5,Ferramentas,15,1
-Carne de proco crua,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Comida,400,0
-Beterraba,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Comida,116,0
-Cogumelos,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Comida,372,0
-Abóbora,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Comida,857,0
-Cenoura,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Comida,329,0
-Tomate,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Comida,325,0
-Alface,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Comida,212,0
-Alho,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Comida,189,0
-Embalagem,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,25,0.1,Utilitarios,26,0
-Balança,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,300,5,Utilitarios,8,0
-Máscara de gás,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,200,0.5,Utilitarios,2,0
+Carne de proco crua,img/porkmeat.png,5,0.1,Alimentação,400,0
+Ovos,img/ovos.png,5,0.1,Alimentação,1000,0
+Beterraba,img/beterraba.png,5,0.1,Alimentação,116,0
+Cogumelos,img/cogumelos.png,5,0.1,Alimentação,372,0
+Abóbora,img/abobora.png,5,0.1,Alimentação,857,0
+Cenoura,img/cenoura.png,5,0.1,Alimentação,329,0
+Tomate,img/tomate.png,5,0.1,Alimentação,325,0
+Alface,img/alface.png,5,0.1,Alimentação,212,0
+Alho,img/alho.png,5,0.1,Alimentação,189,0
+Embalagem,img/embalagem.png,25,0.1,Utilitarios,26,0
+Balança,img/balanca.png,300,5,Utilitarios,8,0
+Máscara de gás,img/mascaragas.png,200,0.5,Utilitarios,2,0
 Telemóvel,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,350,0.7,Electrónicos,4,0
 Algemas,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,200,0.1,Utilitarios,5,1
 Switchblade,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,799,1,Arma,3,1
