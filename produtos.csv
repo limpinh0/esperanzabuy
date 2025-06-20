@@ -25,9 +25,9 @@ Pé de cabra,img/crowbar.png,25,1,Ferramentas,2,0
 Pepitas de ouro,img/goldore.png,100,0.1,Ouro,125,1
 Rolex,img/rolex.png,100,0.5,Ouro,21,1
 Corrente de ouro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Ouro,43,1
-Anel de diamante,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Joias,6,1
+Anel de diamante,img/diamondring.png,100,0.5,Joias,6,1
 Ruby,img/ruby.png,100,0.5,Joias,1,1
-Raspador,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,1,Ferramentas,45,1
+Raspador,img/grinder.png,100,1,Ferramentas,45,1
 Bateria pequena,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,20,0.1,Baterias,1,0
 Super fertilizante,img/superfert.png,15,0.3,Utilitarios,2600,0
 Chaves cofre banco CP814,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,100,0.5,Chaves,1,1
@@ -37,8 +37,8 @@ Soqueira,img/knuckle.png,50,1,Arma,2,1
 Chess Board,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,15,1,Jogos,2,0
 Checkers Board,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,15,1,Jogos,2,0
 Couro,img/leather.png,50,0.5,Materiais,119,0
-Carne,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.2,Comida,428,0
-Frango cru empacotado,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.1,Comida,60,0
+Carne,img/meat.png,5,0.2,Comida,428,0
+Frango cru empacotado,img/chickenmeat.png,5,0.1,Comida,60,0
 Peixe cru,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,5,0.5,Comida,26,0
 Antena VPN,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,99,1,Electrónicos,5,1
 F4 Coins,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,31,0,Digital,2,1
