@@ -24,6 +24,7 @@ function parseCSV(csvData) {
     
     for (let j = 0; j < cabecalhos.length; j++) {
       const cabecalho = cabecalhos[j].trim();
+      console.log(`Processando cabeçalho: ${valores[j]}`);
       let valor = valores[j].trim();
       
       if (['preco', 'peso', 'stock', 'vpn'].includes(cabecalho)) {
@@ -379,7 +380,7 @@ function renderProductsVPN(productsToRender) {
       <div class="product">
             <img src="${p.imagem}" alt="${p.nome}">
               <p style="font-weight:bold">${p.nome}<br>
-                <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorCategoria('${p.categoria}');return false;">
+                <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorCategoriaVPN('${p.categoria}');return false;">
                   ${p.categoria}
                 </a>      
               </p>
