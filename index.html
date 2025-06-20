@@ -76,9 +76,15 @@
     <h2>Carrinho</h2>
     <div id="listaCarrinho"></div>
     <label><input type="checkbox" id="fatura"> Deseja fatura?</label>
+    <p>
+    <label>
+      CP de entrega: <input type="number" id="cpEntrega" min="1" max="999999" style="width:100px;">
+    </label>
+    </p>
     <p><strong>Total:</strong> <span id="total"></span></p>
     <p><strong>Peso Total:</strong> <span id="pesoTotal"></span></p>    
     <button onclick="copiarResumoCarrinho()">Copiar carrinho</button>
+    
   </div>
   
 
