@@ -181,7 +181,6 @@ body.dark-mode nav {
       width: 110px;
       height: 110px;
       object-fit: scale-down;
-      margin-bottom: 0.7rem;
       border-radius: 8px;
       background: transparent !important; 
     }
