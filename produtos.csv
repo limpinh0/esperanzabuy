@@ -57,10 +57,11 @@ Alho,img/alho.png,5,0.1,Alimentação,189,0
 Embalagem,img/embalagem.png,25,0.1,Utilitarios,26,0
 Balança,img/balanca.png,300,5,Utilitarios,8,0
 Máscara de gás,img/mascaragas.png,200,0.5,Utilitarios,2,0
-Telemóvel,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,350,0.7,Electrónicos,4,0
-Algemas,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,200,0.1,Utilitarios,5,1
-Switchblade,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,799,1,Arma,3,1
+Telemóvel,img/phone.png,350,0.7,Electrónicos,4,0
+Algemas,img/handcuffs.png,200,0.1,Utilitarios,5,1
+Switchblade,img/switchblade.png,799,1,Arma,3,1
 Explosivo caseiro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,899,5,Utilitarios,1,1
-Mola,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,69,0.1,Peças,26,1
-Rádio,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,289,2,Electrónicos,5,0
-Saco para roupa,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,89,0.5,Utilitarios,5,0
+Mola,img/spring.png,69,0.1,Peças,26,1
+Rádio,img/radio.png,289,2,Electrónicos,5,0
+Saco para roupa,img/clothesbag.png,89,0.5,Utilitarios,5,0
+Tablet,img/tablet.png,100,4,Electrónicos,0,0
