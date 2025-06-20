@@ -40,8 +40,8 @@ Couro,img/leather.png,50,0.5,Materiais,129,0
 Carne,img/meat.png,5,0.2,Alimentação,499,0
 Frango cru empacotado,img/chickenmeat.png,5,0.1,Alimentação,470,0
 Peixe cru,img/preixecru.png,5,0.5,Alimentação,26,0
-Antena VPN,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,99,1,Electrónicos,5,1
-F4 Coins,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,31,0,Digital,2,1
+Antena VPN,img/antenavpn.png,99,1,Electrónicos,5,1
+F4 Coins,img/f4coins.png,31,0,Digital,2,1
 Lata de tinta,img/spray.png,50,0.5,Utilitarios,15,0
 Maçarico,img/torch.png,50,2,Ferramentas,7,0
 Cortador de plasma,img/plasmacutter.png,100,0.5,Ferramentas,15,1
@@ -60,7 +60,7 @@ Máscara de gás,img/mascaragas.png,200,0.5,Utilitarios,2,0
 Telemóvel,img/phone.png,350,0.7,Electrónicos,4,0
 Algemas,img/handcuffs.png,200,0.1,Utilitarios,5,1
 Switchblade,img/switchblade.png,799,1,Arma,3,1
-Explosivo caseiro,https://www.freshone.com.pk/content/images/thumbs/default-image_550.png,899,5,Utilitarios,3,1
+Explosivo caseiro,img/explosivocaseiro.png,899,5,Utilitarios,3,1
 Mola,img/spring.png,69,0.1,Peças,26,1
 Rádio,img/radio.png,289,2,Electrónicos,5,0
 Saco para roupa,img/clothesbag.png,89,0.5,Utilitarios,5,0
