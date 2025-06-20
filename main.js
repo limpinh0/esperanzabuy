@@ -178,11 +178,17 @@ async function initApp() {
                   ${p.categoria}
                 </a>      
               </p>
-            <p>Preço: $${p.preco} <br> Peso: ${p.peso} kg <br> ${
-  p.stock === 0
-    ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>'
-    : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`
-}</p>
+            <p>
+              <span style="font-size:1.4em;font-weight:bold;">${p.preco} $</span> <br>
+              <span style="font-size:0.9em;">
+                Peso: ${p.peso} kg <br>
+                ${
+                  p.stock === 0
+                    ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>'
+                    : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`
+                }
+              </span>
+            </p>
             <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? 'disabled' : ''}>
             <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Adicionar ao carrinho</button>
           </div>
@@ -218,9 +224,9 @@ async function initApp() {
         const subPeso = p.qtd * p.peso;
         total += subTotal;
         pesoTotal += subPeso;
-        return `<li>${p.nome} - $${p.preco} × <input type="number" value="${p.qtd}" min="1" onchange="updateQtd(${i}, this.value)"> = $${subTotal.toFixed(2)} <button class="remove" onclick="removeItem(${i})">❌</button></li>`;
+        return `<li>${p.nome} - ${p.preco} $ × <input type="number" value="${p.qtd}" min="1" onchange="updateQtd(${i}, this.value)"> = ${subTotal.toFixed(2)} $<button class="remove" onclick="removeItem(${i})">❌</button></li>`;
       }).join('') + '</ul>';
-      document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+      document.getElementById('total').textContent = `${total.toFixed(2)} $`;
       document.getElementById('pesoTotal').textContent = `${pesoTotal.toFixed(2)} kg`;
       updateCarrinhoBadge();
     }
@@ -377,11 +383,17 @@ function renderProductsVPN(productsToRender) {
                   ${p.categoria}
                 </a>      
               </p>
-            <p>Preço: $${p.preco} <br> Peso: ${p.peso} kg <br> ${
-  p.stock === 0
-    ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>'
-    : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`
-}</p>
+            <p>
+              <span style="font-size:1.4em;font-weight:bold;">${p.preco} $</span> <br>
+              <span style="font-size:0.9em;">
+                Peso: ${p.peso} kg <br>
+                ${
+                  p.stock === 0
+                    ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>'
+                    : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`
+                }
+              </span>
+            </p>
             <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? 'disabled' : ''}>
             <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Adicionar ao carrinho</button>
           </div>
@@ -462,19 +474,26 @@ function renderHomeProdutos() {
     const originalIndex = produtos.findIndex(prod => prod.nome === p.nome);
     homeProdutosDiv.innerHTML += `
       <div class="product">
-        <img src="${p.imagem}" alt="${p.nome}">        
-        <p style="font-weight:bold">${p.nome}<br>
-        <span style="color:#ff9900;font-weight:bold; font-size:0.8em">${p.categoria}</span>      
-        </p>
-          
-        <p>Preço: $${p.preco} <br> Peso: ${p.peso} kg <br> ${
-          p.stock === 0
-            ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>'
-            : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`
-        }</p>        
-        <input type="number" id="qtd-home-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? 'disabled' : ''}>
-        <button onclick="addCarrinhoHome(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Adicionar ao carrinho</button>
-      </div>
+            <img src="${p.imagem}" alt="${p.nome}">
+              <p style="font-weight:bold">${p.nome}<br>
+                <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorCategoria('${p.categoria}');return false;">
+                  ${p.categoria}
+                </a>      
+              </p>
+            <p>
+              <span style="font-size:1.4em;font-weight:bold;">${p.preco} $</span> <br>
+              <span style="font-size:0.9em;">
+                Peso: ${p.peso} kg <br>
+                ${
+                  p.stock === 0
+                    ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>'
+                    : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`
+                }
+              </span>
+            </p>
+            <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? 'disabled' : ''}>
+            <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Adicionar ao carrinho</button>
+          </div>
     `;
   });
 }
@@ -527,8 +546,10 @@ function copiarResumoCarrinho() {
     pesoTotal += subPeso;
   });
   const fatura = document.getElementById('fatura').checked ? 'Sim' : 'Não';
+  const cpEntrega = document.getElementById('cpEntrega').value || '---';
+  texto += `CP de entrega: ${cpEntrega}\n`;
   texto += `Deseja fatura? ${fatura}\n`;
-  texto += `Total: $${total.toFixed(2)}\n`;
+  texto += `Total: ${total.toFixed(2)} $\n`;
   texto += `Peso Total: ${pesoTotal.toFixed(2)} kg`;
 
   // Copia para o clipboard
