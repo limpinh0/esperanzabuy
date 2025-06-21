@@ -45,7 +45,7 @@ F4 Coins,img/f4coins.png,19,0,Digital,120,1
 Lata de tinta,img/spray.png,50,0.5,Utilitarios,15,0
 Maçarico,img/torch.png,99,2,Ferramentas,7,0
 Cortador de plasma,img/plasmacutter.png,149,0.5,Ferramentas,15,1
-Carne de proco crua,img/porkmeat.png,5,0.1,Alimentação,200,0
+Carne de porco crua,img/porkmeat.png,5,0.1,Alimentação,350,0
 Ovos,img/ovos.png,5,0.1,Alimentação,500,0
 Beterraba,img/beterraba.png,5,0.1,Alimentação,116,0
 Cogumelos,img/cogumelos.png,5,0.1,Alimentação,372,0
