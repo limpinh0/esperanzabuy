@@ -1,14 +1,14 @@
 nome,imagem,preco,peso,categoria,stock,vpn
-Sucata de metal,img/metalscrap.png,3,0.1,Materiais,855,0
-Plástico,img/plastic.png,10,0.1,Materiais,614,0
+Sucata de metal,img/metalscrap.png,3,0.1,Materiais,835,0
+Plástico,img/plastic.png,10,0.1,Materiais,634,0
 Aluminio,img/aluminum.png,4,0.1,Materiais,637,0
-Ferro,img/iron.png,5,0.1,Materiais,1631,0
-Borracha,img/rubber.png,10,0.1,Materiais,684,0
+Ferro,img/iron.png,5,0.1,Materiais,1729,0
+Borracha,img/rubber.png,10,0.1,Materiais,540,0
 Aço,img/steel.png,10,0.1,Materiais,604,0
-Cobre,img/cooper.png,3,0.1,Materiais,8,0
-Vidro,img/glass.png,2,0.1,Materiais,15,0
+Cobre,img/cooper.png,3,0.1,Materiais,1102,0
+Vidro,img/glass.png,2,0.1,Materiais,432,0
 Tábuas de madeira,img/wood.png,10,4,Materiais,144,0
-Trapos,img/trapos.png,5,0.1,Materiais,85,0
+Trapos,img/trapos.png,5,0.1,Materiais,81,0
 Chumbo,img/leadore.png,10,0.1,Minérios,284,0
 Estanho,img/tinore.png,10,0.1,Minérios,48,0
 Nefrit,img/nefrit.png,10,0.1,Minérios,48,0
@@ -19,12 +19,12 @@ Sulfur,img/sulfur.png,50,0.1,Minérios,80,0
 Carvão,img/coal.png,50,0.5,Minérios,57,0
 Ácido de bateria,img/battery_acid.png,10,0.5,Baterias,19,0
 Kit eletrónico,img/electronic-kit.png,50,0.5,Electrónicos,7,0
-Gazua avançada,img/lockpick2.png,50,0.5,Utilitarios,8,1
+Gazua avançada,img/lockpick2.png,50,0.5,Utilitarios,6,1
 Gazua,img/lockpick.png,10,0.3,Utilitarios,22,1
 Pé de cabra,img/crowbar.png,25,1,Ferramentas,2,0
 Pepitas de ouro,img/goldore.png,100,0.1,Ouro,125,1
 Rolex,img/rolex.png,100,0.5,Ouro,21,1
-Corrente de ouro,img/goldnecklace.png,100,0.5,Ouro,43,1
+Corrente de ouro,img/goldnecklace.png,100,0.5,Ouro,47,1
 Anel de diamante,img/diamondring.png,100,0.5,Joias,6,1
 Ruby,img/ruby.png,100,0.5,Joias,1,1
 Raspador,img/grinder.png,100,1,Ferramentas,45,1
@@ -37,16 +37,16 @@ Soqueira,img/knuckle.png,50,1,Arma,2,1
 Chess Board,img/checkers.png,15,1,Jogos,2,0
 Checkers Board,img/checkers2.png,15,1,Jogos,2,0
 Couro,img/leather.png,50,0.5,Materiais,129,0
-Carne,img/meat.png,5,0.2,Alimentação,499,0
-Frango cru empacotado,img/chickenmeat.png,5,0.1,Alimentação,470,0
+Carne,img/meat.png,5,0.2,Alimentação,299,0
+Frango cru empacotado,img/chickenmeat.png,5,0.1,Alimentação,0,0
 Peixe cru,img/preixecru.png,5,0.5,Alimentação,26,0
-Antena VPN,img/antenavpn.png,99,1,Electrónicos,5,1
-F4 Coins,img/f4coins.png,31,0,Digital,2,1
+Antena VPN,img/antenavpn.png,99,1,Electrónicos,0,1
+F4 Coins,img/f4coins.png,31,0,Digital,120,1
 Lata de tinta,img/spray.png,50,0.5,Utilitarios,15,0
 Maçarico,img/torch.png,50,2,Ferramentas,7,0
 Cortador de plasma,img/plasmacutter.png,100,0.5,Ferramentas,15,1
-Carne de proco crua,img/porkmeat.png,5,0.1,Alimentação,400,0
-Ovos,img/ovos.png,5,0.1,Alimentação,1000,0
+Carne de proco crua,img/porkmeat.png,5,0.1,Alimentação,200,0
+Ovos,img/ovos.png,5,0.1,Alimentação,500,0
 Beterraba,img/beterraba.png,5,0.1,Alimentação,116,0
 Cogumelos,img/cogumelos.png,5,0.1,Alimentação,372,0
 Abóbora,img/abobora.png,5,0.1,Alimentação,857,0
@@ -55,9 +55,9 @@ Tomate,img/tomate.png,5,0.1,Alimentação,325,0
 Alface,img/alface.png,5,0.1,Alimentação,212,0
 Alho,img/alho.png,5,0.1,Alimentação,189,0
 Embalagem,img/embalagem.png,25,0.1,Utilitarios,26,0
-Balança,img/balanca.png,300,5,Utilitarios,8,0
+Balança,img/balanca.png,300,5,Utilitarios,9,0
 Máscara de gás,img/mascaragas.png,200,0.5,Utilitarios,2,0
-Telemóvel,img/phone.png,350,0.7,Electrónicos,4,0
+Telemóvel,img/phone.png,350,0.7,Electrónicos,5,0
 Algemas,img/handcuffs.png,200,0.1,Utilitarios,5,1
 Switchblade,img/switchblade.png,799,1,Arma,3,1
 Explosivo caseiro,img/explosivocaseiro.png,899,5,Utilitarios,3,1
