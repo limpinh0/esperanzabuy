@@ -539,6 +539,11 @@ function copiarResumoCarrinho() {
   let texto = '';
   let total = 0;
   let pesoTotal = 0;
+  // Gera um código aleatório de 4 caracteres alfanuméricos maiúsculos
+  const codigo = Array.from({length: 4}, () => 
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'[Math.floor(Math.random() * 36)]
+  ).join('');
+  texto += `Encomenda: ${codigo}\n\n`;
   carrinho.forEach(item => {
     const subTotal = item.qtd * item.preco;
     const subPeso = item.qtd * item.peso;
