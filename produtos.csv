@@ -2,7 +2,7 @@ nome,imagem,preco,peso,categoria,stock,vpn,promo
 Sucata de metal,img/metalscrap.png,3,0.1,Materiais,977,0,3
 Plástico,img/plastic.png,5,0.1,Materiais,42,0,5
 Aluminio,img/aluminum.png,4,0.1,Materiais,2,0,4
-Ferro,img/iron.png,1.29,0.1,Materiais,1987,0,2
+Ferro,img/iron.png,1.69,0.1,Materiais,1987,0,2
 Borracha,img/rubber.png,2,0.1,Materiais,570,0,2
 Aço,img/steel.png,1.5,0.1,Materiais,605,0,1.5
 Cobre,img/cooper.png,2,0.1,Materiais,1296,0,2
