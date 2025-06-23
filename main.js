@@ -629,7 +629,7 @@ function copiarResumoCarrinho() {
 
   // Copia para o clipboard
   navigator.clipboard.writeText(texto).then(() => {
-    alert('Carrinho copiado, pode agora colar o carrinho por mensagem para um dos contactos disponíveis! \n\nVerifique se o mesmo está de serviço.');
+    alert('Carrinho copiado, pode agora colar o carrinho por mensagem para o Instapic @EsperanzaBuy! \n\nIremos responder assim que possível.');
   });
 }
 
