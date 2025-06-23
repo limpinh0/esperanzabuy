@@ -616,7 +616,7 @@ function copiarResumoCarrinho() {
   carrinho.forEach(item => {
     const subTotal = item.qtd * item.preco;
     const subPeso = item.qtd * item.peso;
-    texto += `${item.nome} - ${item.qtd} x $${item.preco}  = $${subTotal.toFixed(2)}\n`;
+    texto += `${item.nome} - ${item.qtd} x ${item.preco} $ = ${subTotal.toFixed(2)} $\n`;
     total += subTotal;
     pesoTotal += subPeso;
   });
