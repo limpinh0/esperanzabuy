@@ -9,14 +9,14 @@ Cobre,img/cooper.png,2,0.1,Materiais,1296,0,2
 Vidro,img/glass.png,1,0.1,Materiais,439,0,1
 Tábuas de madeira,img/wood.png,5.9,4,Materiais,134,0,5.9
 Trapos,img/trapos.png,5,0.1,Materiais,70,0,5
-Chumbo,img/leadore.png,10,0.1,Minérios,284,0,10
-Estanho,img/tinore.png,10,0.1,Minérios,71,0,10
-Nefrit,img/nefrit.png,10,0.1,Minérios,64,0,10
-Prata,img/silverore.png,10,0.1,Minérios,78,0,10
-Cristal,img/crystal.png,10,0.1,Minérios,93,0,10
-Quartz,img/quartz.png,10,0.1,Minérios,71,0,10
-Sulfur,img/sulfur.png,30,0.1,Minérios,128,0,30
-Carvão,img/coal.png,45,0.5,Minérios,82,0,45
+Chumbo,img/leadore.png,2.49,0.1,Minérios,284,0,10
+Estanho,img/tinore.png,5,0.1,Minérios,71,0,10
+Nefrit,img/nefrit.png,5,0.1,Minérios,64,0,10
+Prata,img/silverore.png,5,0.1,Minérios,78,0,10
+Cristal,img/crystal.png,5,0.1,Minérios,93,0,10
+Quartz,img/quartz.png,5,0.1,Minérios,71,0,10
+Sulfur,img/sulfur.png,9.99,0.1,Minérios,128,0,30
+Carvão,img/coal.png,10.99,0.5,Minérios,82,0,45
 Ácido de bateria,img/battery_acid.png,20,0.5,Baterias,19,0,20
 Kit eletrónico,img/electronic-kit.png,50,0.5,Electrónicos,7,0,50
 Gazua avançada,img/lockpick2.png,60,0.5,Utilitarios,4,1,60
