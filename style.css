@@ -10,15 +10,24 @@ body {
       color: #e3e3e3;
     }
     header {
-      background: #232f3e;
-      color: white;
-      padding: 1.5rem 0;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-    }
-    body.dark-mode header {
-      background: #11161c;
+      background: linear-gradient(90deg, #232f3e 0%, #38475a 100%);
       color: #fff;
+      padding: 2rem 0 1.2rem 0;
+      text-align: center;
+      box-shadow: 0 4px 24px 0 rgba(30,40,60,0.13), 0 1.5px 0 #ff9900 inset;
+      position: relative; 
+    }
+    header::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 60%;
+      height: 18px;
+      background: radial-gradient(ellipse at center, #fff3 0%, transparent 80%);
+      transform: translateX(-50%);
+      pointer-events: none;
     }
     nav {
   width: 100%;
