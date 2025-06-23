@@ -177,13 +177,45 @@ body.dark-mode nav {
     .product:hover {
       box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     }
-    .product img {
-      width: 110px;
-      height: 110px;
-      object-fit: scale-down;
-      border-radius: 8px;
-      background: transparent !important; 
-    }
+    .product-img {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.product-img img {
+  display: block;
+  width: 110px;
+  height: 110px;
+  object-fit: scale-down;
+  border-radius: 8px;
+  background: transparent !important;
+}
+.product-img::after {
+  content: "";
+  position: absolute;
+  top: -75%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.0) 100%);
+  transform: skewX(-20deg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.product:hover .product-img::after {
+  opacity: 1;
+  animation: glass-shine 0.3s linear forwards;
+}
+@keyframes glass-shine {
+  from {
+    left: -75%;
+  }
+  to {
+    left: 130%;
+  }
+}
     .hidden { display: none; }
     input[type="number"] {
       width: 60px;
@@ -423,4 +455,93 @@ body.dark-mode #toggleTheme {
   .container {
     padding: 0.5rem 0.2rem;
   }
+}
+.promo-badge {
+  position: absolute;
+  top: 14px;
+  left: -38px;
+  background: linear-gradient(90deg, #ff512f 0%, #dd2476 100%);
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 8px 36px 4px 36px;
+  border-radius: 10px;
+  z-index: 10;
+  box-shadow: 0 4px 16px #d00a, 0 1px 8px #0002;
+  text-align: center;
+  line-height: 1.1;
+  min-width: 120px;
+  transform: rotate(-25deg);
+  pointer-events: none;
+  border: 2px solid gold;
+  overflow: hidden;
+}
+
+/* Brilho animado passando por cima */
+.promo-badge::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.0) 100%);
+  filter: blur(2px);
+  opacity: 0.7;
+  border-radius: 10px;
+  animation: promo-shine 2.2s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes promo-shine {
+  0% { left: -60%; }
+  60% { left: 120%; }
+  100% { left: 120%; }
+}
+
+/* Estrela dourada animada no canto direito */
+.promo-badge::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  transform: translateY(-50%);
+  background: url('data:image/svg+xml;utf8,<svg width="22" height="22" viewBox="0 0 22 22" fill="gold" xmlns="http://www.w3.org/2000/svg"><g><path d="M11 2L13.09 8.26L19.78 8.27L14.18 12.14L16.27 18.4L11 14.53L5.73 18.4L7.82 12.14L2.22 8.27L8.91 8.26L11 2Z" stroke="orange" stroke-width="1.2" fill="gold"/></g></svg>') no-repeat center/contain;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 6px #fff8) drop-shadow(0 0 12px gold);
+  animation: star-glow 1.2s infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes star-glow {
+  0% {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 6px #fff8) drop-shadow(0 0 12px gold);
+    transform: translateY(-50%) scale(1) rotate(0deg);
+  }
+  60% {
+    opacity: 1;
+    filter: drop-shadow(0 0 16px #fff) drop-shadow(0 0 24px gold);
+    transform: translateY(-50%) scale(1.18) rotate(10deg);
+  }
+  100% {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 6px #fff8) drop-shadow(0 0 12px gold);
+    transform: translateY(-50%) scale(1) rotate(0deg);
+  }
+}
+
+.promo-badge .promo-antes {
+  display: block;
+  font-size: 0.75em;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 2px;
+  text-decoration: line-through;
+  letter-spacing: 0.5px;
+}
+.product {
+  position: relative;
 }
