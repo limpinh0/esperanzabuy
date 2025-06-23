@@ -59,7 +59,7 @@ Embalagem,img/embalagem.png,25,0.1,Utilitarios,27,0,25
 Balança,img/balanca.png,300,5,Utilitarios,9,0,300
 Máscara de gás,img/mascaragas.png,200,0.5,Utilitarios,3,0,200
 Telemóvel,img/phone.png,350,0.7,Electrónicos,5,0,499
-Algemas,img/handcuffs.png,200,0.1,Utilitarios,5,1,200
+Algemas,img/handcuffs.png,150,0.1,Utilitarios,5,1,200
 Switchblade,img/switchblade.png,799,1,Arma,3,1,799
 Explosivo caseiro,img/explosivocaseiro.png,899,5,Utilitarios,3,1,899
 Mola,img/spring.png,69,0.1,Peças,31,1,69
