@@ -47,14 +47,14 @@ Lata de tinta,img/spray.png,50,0.5,Utilitarios,15,0
 Maçarico,img/torch.png,99,2,Ferramentas,7,0
 Cortador de plasma,img/plasmacutter.png,149,0.5,Ferramentas,15,1
 Carne de porco crua,img/porkmeat.png,5,0.1,Alimentação,650,0
-Ovos,img/ovos.png,5,0.1,Alimentação,500,0
-Beterraba,img/beterraba.png,5,0.1,Alimentação,152,0
-Cogumelos,img/cogumelos.png,5,0.1,Alimentação,372,0
-Abóbora,img/abobora.png,5,0.1,Alimentação,868,0
-Cenoura,img/cenoura.png,5,0.1,Alimentação,353,0
-Tomate,img/tomate.png,5,0.1,Alimentação,325,0
-Alface,img/alface.png,5,0.1,Alimentação,212,0
-Alho,img/alho.png,5,0.1,Alimentação,203,0
+Ovos,img/ovos.png,4,0.1,Alimentação,500,0
+Beterraba,img/beterraba.png,4,0.1,Alimentação,152,0
+Cogumelos,img/cogumelos.png,4,0.1,Alimentação,372,0
+Abóbora,img/abobora.png,4,0.1,Alimentação,868,0
+Cenoura,img/cenoura.png,4,0.1,Alimentação,353,0
+Tomate,img/tomate.png,4,0.1,Alimentação,325,0
+Alface,img/alface.png,4,0.1,Alimentação,212,0
+Alho,img/alho.png,4,0.1,Alimentação,203,0
 Embalagem,img/embalagem.png,25,0.1,Utilitarios,27,0
 Balança,img/balanca.png,300,5,Utilitarios,9,0
 Máscara de gás,img/mascaragas.png,200,0.5,Utilitarios,3,0
