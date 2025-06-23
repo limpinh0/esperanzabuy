@@ -1,28 +1,28 @@
 nome,imagem,preco,peso,categoria,stock,vpn,promo
-Sucata de metal,img/metalscrap.png,3,0.1,Materiais,977,0,3
-Plástico,img/plastic.png,5,0.1,Materiais,42,0,5
-Aluminio,img/aluminum.png,4,0.1,Materiais,2,0,4
-Ferro,img/iron.png,1.69,0.1,Materiais,1987,0,2
-Borracha,img/rubber.png,2,0.1,Materiais,570,0,2
+Sucata de metal,img/metalscrap.png,3,0.1,Materiais,1019,0,3
+Plástico,img/plastic.png,5,0.1,Materiais,80,0,5
+Aluminio,img/aluminum.png,4,0.1,Materiais,4,0,4
+Ferro,img/iron.png,1.69,0.1,Materiais,1294,0,2
+Borracha,img/rubber.png,2,0.1,Materiais,571,0,2
 Aço,img/steel.png,1.5,0.1,Materiais,605,0,1.5
-Cobre,img/cooper.png,2,0.1,Materiais,1296,0,2
+Cobre,img/cooper.png,2,0.1,Materiais,1472,0,2
 Vidro,img/glass.png,1,0.1,Materiais,439,0,1
 Tábuas de madeira,img/wood.png,5.9,4,Materiais,134,0,5.9
-Trapos,img/trapos.png,5,0.1,Materiais,70,0,5
-Chumbo,img/leadore.png,2,0.1,Minérios,284,0,2
-Estanho,img/tinore.png,5,0.1,Minérios,71,0,5
-Nefrit,img/nefrit.png,5,0.1,Minérios,64,0,5
-Prata,img/silverore.png,5,0.1,Minérios,78,0,5
-Cristal,img/crystal.png,5,0.1,Minérios,93,0,5
-Quartz,img/quartz.png,5,0.1,Minérios,71,0,5
-Sulfur,img/sulfur.png,9.99,0.1,Minérios,128,0,12.5
-Carvão,img/coal.png,10.99,0.5,Minérios,82,0,15
+Trapos,img/trapos.png,5,0.1,Materiais,0,0,5
+Chumbo,img/leadore.png,2,0.1,Minérios,161,0,2
+Estanho,img/tinore.png,5,0.1,Minérios,128,0,5
+Nefrit,img/nefrit.png,5,0.1,Minérios,113,0,5
+Prata,img/silverore.png,5,0.1,Minérios,117,0,5
+Cristal,img/crystal.png,5,0.1,Minérios,216,0,5
+Quartz,img/quartz.png,5,0.1,Minérios,127,0,5
+Sulfur,img/sulfur.png,9.99,0.1,Minérios,246,0,12.5
+Carvão,img/coal.png,10.99,0.5,Minérios,81,0,15
 Ácido de bateria,img/battery_acid.png,20,0.5,Baterias,19,0,20
 Kit eletrónico,img/electronic-kit.png,50,0.5,Electrónicos,7,0,50
 Gazua avançada,img/lockpick2.png,60,0.5,Utilitarios,4,1,60
 Gazua,img/lockpick.png,10,0.3,Utilitarios,22,1,10
 Pé de cabra,img/crowbar.png,25,1,Ferramentas,2,0,25
-Pepitas de ouro,img/goldore.png,50,0.1,Ouro,17,1,50
+Pepitas de ouro,img/goldore.png,50,0.1,Ouro,113,1,50
 Rolex,img/rolex.png,40,0.5,Ouro,6,1,40
 Corrente de ouro,img/goldnecklace.png,30,0.5,Ouro,8,1,30
 Anel de diamante,img/diamondring.png,999,0.5,Joias,6,1,999
@@ -37,7 +37,7 @@ Chaves cofre banco CP940,img/chavesbanco.png,149,0.5,Chaves,1,1,149
 Soqueira,img/knuckle.png,129,1,Arma,2,1,129
 Chess Board,img/checkers.png,15,1,Jogos,2,0,15
 Checkers Board,img/checkers2.png,15,1,Jogos,2,0,15
-Couro,img/leather.png,19,0.5,Materiais,130,0,19
+Couro,img/leather.png,19,0.5,Materiais,30,0,19
 Carne,img/meat.png,5,0.2,Alimentação,299,0,5
 Frango cru empacotado,img/chickenmeat.png,5,0.1,Alimentação,0,0,5
 Peixe cru,img/preixecru.png,5,0.5,Alimentação,26,0,5
@@ -65,4 +65,4 @@ Explosivo caseiro,img/explosivocaseiro.png,899,5,Utilitarios,3,1,899
 Mola,img/spring.png,69,0.1,Peças,31,1,69
 Rádio,img/radio.png,289,2,Electrónicos,5,0,289
 Saco para roupa,img/clothesbag.png,89,0.5,Utilitarios,5,0,89
-Tablet,img/tablet.png,399,4,Electrónicos,1,0,500
+Tablet,img/tablet.png,399,4,Electrónicos,0,0,500
