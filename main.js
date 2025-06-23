@@ -554,8 +554,8 @@ function renderHomeProdutos() {
             }
           </span>
         </p>
-        <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? 'disabled' : ''}>
-        <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Adicionar ao carrinho</button>
+        <input type="number" id="qtd-home-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? 'disabled' : ''}>
+        <button onclick="addCarrinhoHome(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Adicionar ao carrinho</button>
       </div>
     `;
   });
