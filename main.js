@@ -23,8 +23,7 @@ function parseCSV(csvData) {
     const produto = {};
     
     for (let j = 0; j < cabecalhos.length; j++) {
-      const cabecalho = cabecalhos[j].trim();
-      console.log(`Processando cabeçalho: ${valores[j]}`);
+      const cabecalho = cabecalhos[j].trim(); 
       let valor = valores[j].trim();
       
       if (['preco', 'peso', 'stock', 'vpn'].includes(cabecalho)) {
@@ -92,6 +91,13 @@ async function initApp() {
         document.getElementById('sortSelect').value = 'name-asc'; // força seleção
         renderCategoryFilters();
         filterProducts();
+        // Scroll suave para o topo da secção produtos
+        setTimeout(() => {
+          const produtosSection = document.getElementById('produtos');
+          if (produtosSection) {
+            produtosSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 0);
       }
       if (p === 'carrinho') renderCarrinho();
     }
@@ -133,12 +139,14 @@ async function initApp() {
       const searchTerm = document.getElementById('searchInput').value.toLowerCase();
       const sortOption = document.getElementById('sortSelect').value;
       const apenasStock = document.getElementById('apenasStock').checked;
+      const apenasPromo = document.getElementById('apenasPromo')?.checked; // novo
 
       let filtered = produtos.filter(p => 
         (!p.vpn || p.vpn === 0) &&
         p.nome.toLowerCase().includes(searchTerm) &&
         (!selectedCategory || p.categoria === selectedCategory) &&
-        (!apenasStock || p.stock > 0)
+        (!apenasStock || p.stock > 0) &&
+        (!apenasPromo || (p.promo && p.promo > p.preco))
       );
 
       // Aplica ordenação
@@ -171,9 +179,23 @@ async function initApp() {
 
       productsToRender.forEach((p, i) => {
         const originalIndex = produtos.findIndex(prod => prod.nome === p.nome);
+        // Calcula promoção se existir
+        let promoBadge = ''; 
+        if (p.promo > p.preco) { 
+          const desconto = Math.round(100 * (p.promo - p.preco) / p.promo);
+          promoBadge = `
+            <div class="promo-badge">
+              Promoção ${desconto}%<br>
+              <span class="promo-antes">Antes ${p.promo} $</span>
+            </div>
+          `;
+        }
         lista.innerHTML += `
           <div class="product">
-            <img src="${p.imagem}" alt="${p.nome}">
+            ${promoBadge}
+            <div class="product-img">
+              <img src="${p.imagem}" alt="${p.nome}">
+            </div>
               <p style="font-weight:bold">${p.nome}<br>
                 <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorCategoria('${p.categoria}');return false;">
                   ${p.categoria}
@@ -339,12 +361,14 @@ function filterProductsVPN() {
   const searchTerm = document.getElementById('searchInputVPN').value.toLowerCase();
   const sortOption = document.getElementById('sortSelectVPN').value;
   const apenasStock = document.getElementById('apenasStockVPN').checked;
+  const apenasPromo = document.getElementById('apenasPromoVPN')?.checked; // novo
 
   let filtered = produtos.filter(p =>
     p.vpn === 1 &&
     p.nome.toLowerCase().includes(searchTerm) &&
     (!selectedCategoryVPN || p.categoria === selectedCategoryVPN) &&
-    (!apenasStock || p.stock > 0)
+    (!apenasStock || p.stock > 0) &&
+    (!apenasPromo || (p.promo && p.promo > p.preco))
   );
 
   // Aplica ordenação
@@ -373,14 +397,29 @@ function renderProductsVPN(productsToRender) {
     lista.innerHTML = '<p>Nenhum produto encontrado.</p>';
     return;
   }
-
+  
   productsToRender.forEach((p, i) => {
+    
     const originalIndex = produtos.findIndex(prod => prod.nome === p.nome);
+        // Calcula promoção se existir
+        let promoBadge = ''; 
+        if (p.promo > p.preco) { 
+          const desconto = Math.round(100 * (p.promo - p.preco) / p.promo);
+          promoBadge = `
+            <div class="promo-badge">
+              Promoção ${desconto}%<br>
+              <span class="promo-antes">Antes ${p.promo} $</span>
+            </div>
+          `;
+        }
     lista.innerHTML += `
-      <div class="product">
-            <img src="${p.imagem}" alt="${p.nome}">
+       <div class="product">
+            ${promoBadge}
+            <div class="product-img">
+              <img src="${p.imagem}" alt="${p.nome}">
+            </div>
               <p style="font-weight:bold">${p.nome}<br>
-                <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorCategoriaVPN('${p.categoria}');return false;">
+                <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorCategoria('${p.categoria}');return false;">
                   ${p.categoria}
                 </a>      
               </p>
@@ -464,37 +503,60 @@ function renderHomeProdutos() {
   const homeProdutosDiv = document.getElementById('homeProdutos');
   // Só gera novos produtos aleatórios se ainda não existirem
   if (produtosHomeAleatorios.length === 0) {
-    const produtosNormais = produtos.filter(p => !p.vpn || p.vpn === 0);
-    produtosHomeAleatorios = produtosNormais
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 9);
+    const produtosNormais = produtos.filter(p => (!p.vpn || p.vpn === 0));
+
+    // Prioriza produtos em promoção (promo > preco) e com stock > 0
+    const emPromo = produtosNormais.filter(p => p.promo && p.promo > p.preco && p.stock > 0);
+    const semPromo = produtosNormais.filter(p => (!(p.promo && p.promo > p.preco) || !p.promo) && p.stock > 0);
+
+    // Embaralha cada grupo separadamente
+    const shuffle = arr => arr.sort(() => Math.random() - 0.5);
+    const emPromoShuffled = shuffle(emPromo);
+    const semPromoShuffled = shuffle(semPromo);
+
+    // Junta, dando prioridade aos em promoção, e pega os 9 primeiros
+    produtosHomeAleatorios = [...emPromoShuffled, ...semPromoShuffled].slice(0, 9);
   }
 
   homeProdutosDiv.innerHTML = '';
   produtosHomeAleatorios.forEach((p, i) => {
     const originalIndex = produtos.findIndex(prod => prod.nome === p.nome);
+    // Badge de promoção se aplicável
+    let promoBadge = '';
+    if (p.promo && p.promo > p.preco) {
+      const desconto = Math.round(100 * (p.promo - p.preco) / p.promo);
+      promoBadge = `
+        <div class="promo-badge">
+          Promoção ${desconto}%<br>
+          <span class="promo-antes">Antes ${p.promo} $</span>
+        </div>
+      `;
+    }
     homeProdutosDiv.innerHTML += `
       <div class="product">
-            <img src="${p.imagem}" alt="${p.nome}">
-              <p style="font-weight:bold">${p.nome}<br>
-                <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorCategoria('${p.categoria}');return false;">
-                  ${p.categoria}
-                </a>      
-              </p>
-            <p>
-              <span style="font-size:1.4em;font-weight:bold;">${p.preco} $</span> <br>
-              <span style="font-size:0.9em;">
-                Peso: ${p.peso} kg <br>
-                ${
-                  p.stock === 0
-                    ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>'
-                    : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`
-                }
-              </span>
-            </p>
-            <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? 'disabled' : ''}>
-            <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Adicionar ao carrinho</button>
-          </div>
+        ${promoBadge}
+        <div class="product-img">
+          <img src="${p.imagem}" alt="${p.nome}">
+        </div>
+        <p style="font-weight:bold">${p.nome}<br>
+          <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorCategoria('${p.categoria}');return false;">
+            ${p.categoria}
+          </a>      
+        </p>
+        <p>
+          <span style="font-size:1.4em;font-weight:bold;">${p.preco} $</span> <br>
+          <span style="font-size:0.9em;">
+            Peso: ${p.peso} kg <br>
+            ${
+              p.stock === 0
+                ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>'
+                : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`
+            }
+          </span>
+        </p>
+        <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? 'disabled' : ''}>
+        <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Adicionar ao carrinho</button>
+      </div>
     `;
   });
 }
@@ -511,6 +573,13 @@ function showPage(p) {
     document.getElementById('sortSelect').value = 'name-asc'; // força seleção
     renderCategoryFilters();
     filterProducts();
+    // Scroll suave para o topo da secção produtos
+    setTimeout(() => {
+      const produtosSection = document.getElementById('produtos');
+      if (produtosSection) {
+        produtosSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 0);
   }
   if (p === 'carrinho') renderCarrinho();
 }
