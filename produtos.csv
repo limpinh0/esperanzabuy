@@ -7,7 +7,7 @@ Borracha,img/rubber.png,2,0.1,Materiais,930,0,2
 Aço,img/steel.png,1.5,0.1,Materiais,1796,0,1.5
 Cobre,img/cooper.png,2,0.1,Materiais,1521,0,2
 Vidro,img/glass.png,1,0.1,Materiais,1908,0,1
-Tábuas de madeira,img/wood.png,5.9,4,Materiais,134,0,5.9
+Tábuas de madeira,img/wood.png,5.9,4,Materiais,0,0,5.9
 Trapos,img/trapos.png,5,0.1,Materiais,0,0,5
 Chumbo,img/leadore.png,2,0.1,Minérios,0,0,2
 Estanho,img/tinore.png,5,0.1,Minérios,128,0,5
@@ -37,14 +37,14 @@ Chaves cofre banco CP940,img/chavesbanco.png,149,0.5,Chaves,1,1,149
 Soqueira,img/knuckle.png,129,1,Arma,2,1,129
 Chess Board,img/checkers.png,15,1,Jogos,2,0,15
 Checkers Board,img/checkers2.png,15,1,Jogos,2,0,15
-Couro,img/leather.png,19,0.5,Materiais,30,0,19
+Couro,img/leather.png,19,0.5,Materiais,0,0,19
 Carne,img/meat.png,5,0.2,Alimentação,299,0,5
 Frango cru empacotado,img/chickenmeat.png,5,0.1,Alimentação,120,0,5
 Peixe cru,img/preixecru.png,5,0.5,Alimentação,26,0,5
 Antena VPN,img/antenavpn.png,199,1,Electrónicos,0,1,199
 F4 Coins,img/f4coins.png,19,0,Digital,120,1,19
 Lata de tinta,img/spray.png,50,0.5,Utilitarios,15,0,50
-Maçarico,img/torch.png,99,2,Ferramentas,2,0,99
+Maçarico,img/torch.png,99,2,Ferramentas,0,0,99
 Cortador de plasma,img/plasmacutter.png,149,0.5,Ferramentas,15,1,149
 Carne de porco crua,img/porkmeat.png,5,0.1,Alimentação,650,0,5
 Ovos,img/ovos.png,4,0.1,Alimentação,500,0,4
