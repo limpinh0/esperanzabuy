@@ -56,7 +56,7 @@ Tomate,img/tomate.png,4,0.1,Alimentação,325,0,4
 Alface,img/alface.png,4,0.1,Alimentação,212,0,4
 Alho,img/alho.png,4,0.1,Alimentação,203,0,4
 Embalagem,img/embalagem.png,25,0.1,Utilitarios,27,0,25
-Balança,img/balanca.png,100,5,Utilitarios,9,0,300
+Balança,img/balanca.png,100,5,Utilitarios,0,0,300
 Máscara de gás,img/mascaragas.png,200,0.5,Utilitarios,3,0,200
 Telemóvel,img/phone.png,350,0.7,Electrónicos,5,0,499
 Algemas,img/handcuffs.png,150,0.1,Utilitarios,5,1,200
