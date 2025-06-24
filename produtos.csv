@@ -8,7 +8,7 @@ Aço,img/steel.png,1.5,0.1,Materiais,1796,0,1.5
 Cobre,img/cooper.png,2,0.1,Materiais,1521,0,2
 Vidro,img/glass.png,1,0.1,Materiais,1908,0,1
 Tábuas de madeira,img/wood.png,5.9,4,Materiais,0,0,5.9
-Trapos,img/trapos.png,5,0.1,Materiais,0,0,5
+Trapos,img/trapos.png,10,0.1,Materiais,0,0,15
 Chumbo,img/leadore.png,2,0.1,Minérios,0,0,2
 Estanho,img/tinore.png,5,0.1,Minérios,128,0,5
 Nefrit,img/nefrit.png,5,0.1,Minérios,113,0,5
