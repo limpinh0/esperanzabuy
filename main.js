@@ -1,9 +1,8 @@
 async function carregarProdutos() {
   try {
-    const response = await fetch('https://raw.githubusercontent.com/limpinh0/esperanzabuy/main/produtos.csv');
-    const csvData = await response.text();
-    const prodArr = parseCSV(csvData);
-    return prodArr;
+    const response = await fetch("https://api.yourbestbot.pt/shop");
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error('Erro ao carregar produtos:', error);
     return [];
@@ -110,9 +109,9 @@ async function initApp() {
 
       categoriesContainer.innerHTML = '';
       
-      // Adiciona opção "Todas as categorias"
+      // Adiciona opção "Todas as categorys"
       const allCategories = document.createElement('div');
-      allCategories.textContent = 'Todas as categorias';
+      allCategories.textContent = 'Todas as categorys';
       allCategories.className = `filter-category ${!selectedCategory ? 'active-category' : ''}`;
       allCategories.onclick = () => {
         selectedCategory = null;
