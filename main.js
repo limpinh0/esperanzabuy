@@ -47,9 +47,9 @@ async function initApp() {
 	updateCarrinhoBadge();
 
 	// Se já tem acesso VPN, mostra o link
-	if (sessionStorage.getItem("vpnAccess") === "1") {
+	/* if (sessionStorage.getItem("vpnAccess") === "1") {
 		document.getElementById("vpnLink").classList.remove("hidden");
-	}
+	} */
 }
 
 // Adiciona aviso antes de recarregar a página
