@@ -2,11 +2,11 @@ nome,imagem,preco,peso,categoria,stock,vpn,promo
 Sucata de metal,img/metalscrap.png,3,0.1,Materiais,2330,0,3
 Plástico,img/plastic.png,5,0.1,Materiais,0,0,5
 Aluminio,img/aluminum.png,4,0.1,Materiais,0,0,4
-Ferro,img/iron.png,2.89,0.1,Materiais,949,0,2.89
-Borracha,img/rubber.png,2,0.1,Materiais,1049,0,2
+Ferro,img/iron.png,3.49,0.1,Materiais,949,0,4
+Borracha,img/rubber.png,3.49,0.1,Materiais,1049,0,3.49
 Aço,img/steel.png,1.5,0.1,Materiais,1011,0,1.5
-Cobre,img/cooper.png,2,0.1,Materiais,2067,0,2
-Vidro,img/glass.png,1,0.1,Materiais,1002,0,1
+Cobre,img/cooper.png,3,0.1,Materiais,2067,0,3
+Vidro,img/glass.png,1.99,0.1,Materiais,1002,0,1.99
 Tábuas de madeira,img/wood.png,5.9,0.25,Materiais,0,0,5.9
 Trapos,img/trapos.png,10,0.1,Materiais,0,0,15
 Chumbo,img/leadore.png,4.49,0.1,Minérios,432,0,6
