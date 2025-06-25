@@ -22,11 +22,11 @@ Kit eletrónico,img/electronic-kit.png,50,0.5,Electrónicos,0,0,50
 Gazua avançada,img/lockpick2.png,60,0.5,Utilitarios,6,1,60
 Gazua,img/lockpick.png,10,0.3,Utilitarios,11,1,10
 Pé de cabra,img/crowbar.png,25,1,Ferramentas,2,0,25
-Pepitas de ouro,img/goldore.png,50,0.1,Ouro,185,1,50
-Rolex,img/rolex.png,40,0.5,Ouro,8,1,40
-Corrente de ouro,img/goldnecklace.png,30,0.5,Ouro,8,1,30
-Anel de diamante,img/diamondring.png,999,0.5,Joias,7,1,999
-Ruby,img/ruby.png,9999,0.5,Joias,1,1,9999
+Pepitas de ouro,img/goldore.png,50,0.1,Ouro,0,1,50
+Rolex,img/rolex.png,40,0.5,Ouro,0,1,40
+Corrente de ouro,img/goldnecklace.png,30,0.5,Ouro,0,1,30
+Anel de diamante,img/diamondring.png,999,0.5,Joias,0,1,999
+Ruby,img/ruby.png,9999,0.5,Joias,0,1,9999
 Barra de ouro,img/goldbar.png,1699,3,Ouro,0,1,1699
 Raspador,img/grinder.png,100,1,Ferramentas,58,1,100
 Bateria pequena,img/bateria.png,20,0.1,Baterias,1,0,20
@@ -61,8 +61,8 @@ Máscara de gás,img/mascaragas.png,200,0.5,Utilitarios,3,0,200
 Telemóvel,img/phone.png,350,0.7,Electrónicos,5,0,499
 Algemas,img/handcuffs.png,150,0.1,Utilitarios,5,1,200
 Switchblade,img/switchblade.png,799,1,Arma,3,1,799
-Explosivo caseiro,img/explosivocaseiro.png,899,5,Utilitarios,3,1,899
-Mola,img/spring.png,69,0.1,Peças,31,1,69
+Explosivo caseiro,img/explosivocaseiro.png,899,5,Utilitarios,0,1,899
+Mola,img/spring.png,69,0.1,Peças,41,1,69
 Rádio,img/radio.png,289,2,Electrónicos,0,0,289
 Saco para roupa,img/clothesbag.png,89,0.5,Utilitarios,5,0,89
 Tablet,img/tablet.png,399,4,Electrónicos,0,0,500
