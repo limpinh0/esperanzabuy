@@ -448,12 +448,6 @@ function renderProductsVPN(productsToRender) {
 	});
 }
 
-function filtrarPorcategoryVPN(cat) {
-	selectedCategoryVPN = cat;
-	renderCategoryFiltersVPN();
-	filterProductsVPN();
-}
-
 async function checkVPNAccess() {
 	// Se já tem acesso, não pede IP novamente
 	//! security problem, they will need to type the pass everytime they want to check the VPN protected area.
