@@ -1,11 +1,11 @@
 nome,imagem,preco,peso,categoria,stock,vpn,promo
-Sucata de metal,img/metalscrap.png,3,0.1,Materiais,2330,0,3
+Sucata de metal,img/metalscrap.png,3,0.1,Materiais,2173,0,3
 Plástico,img/plastic.png,5,0.1,Materiais,0,0,5
 Aluminio,img/aluminum.png,4,0.1,Materiais,0,0,4
-Ferro,img/iron.png,3.49,0.1,Materiais,949,0,4
-Borracha,img/rubber.png,3.49,0.1,Materiais,1049,0,3.49
-Aço,img/steel.png,1.5,0.1,Materiais,1011,0,1.5
-Cobre,img/cooper.png,3,0.1,Materiais,2067,0,3
+Ferro,img/iron.png,3.49,0.1,Materiais,1178,0,4
+Borracha,img/rubber.png,3.49,0.1,Materiais,510,0,3.49
+Aço,img/steel.png,1.5,0.1,Materiais,1244,0,1.5
+Cobre,img/cooper.png,3,0.1,Materiais,2282,0,3
 Vidro,img/glass.png,1.99,0.1,Materiais,1002,0,1.99
 Tábuas de madeira,img/wood.png,5.9,0.25,Materiais,0,0,5.9
 Trapos,img/trapos.png,10,0.1,Materiais,0,0,15
@@ -20,10 +20,10 @@ Carvão,img/coal.png,12.49,0.5,Minérios,22,0,15
 Ácido de bateria,img/battery_acid.png,20,0.5,Baterias,0,0,20
 Kit eletrónico,img/electronic-kit.png,50,0.5,Electrónicos,0,0,50
 Gazua avançada,img/lockpick2.png,60,0.5,Utilitarios,6,1,60
-Gazua,img/lockpick.png,10,0.3,Utilitarios,13,1,10
+Gazua,img/lockpick.png,10,0.3,Utilitarios,11,1,10
 Pé de cabra,img/crowbar.png,25,1,Ferramentas,2,0,25
 Pepitas de ouro,img/goldore.png,50,0.1,Ouro,185,1,50
-Rolex,img/rolex.png,40,0.5,Ouro,7,1,40
+Rolex,img/rolex.png,40,0.5,Ouro,8,1,40
 Corrente de ouro,img/goldnecklace.png,30,0.5,Ouro,8,1,30
 Anel de diamante,img/diamondring.png,999,0.5,Joias,7,1,999
 Ruby,img/ruby.png,9999,0.5,Joias,1,1,9999
@@ -43,7 +43,7 @@ Frango cru empacotado,img/chickenmeat.png,5,0.1,Alimentação,120,0,5
 Peixe cru,img/preixecru.png,5,0.5,Alimentação,26,0,5
 Antena VPN,img/antenavpn.png,199,1,Electrónicos,0,1,199
 F4 Coins,img/f4coins.png,19,0,Digital,120,1,19
-Lata de tinta,img/spray.png,50,0.5,Utilitarios,15,0,50
+Lata de tinta,img/spray.png,50,0.5,Utilitarios,40,0,50
 Maçarico,img/torch.png,99,2,Ferramentas,0,0,99
 Cortador de plasma,img/plasmacutter.png,149,0.5,Ferramentas,15,1,149
 Carne de porco crua,img/porkmeat.png,5,0.1,Alimentação,650,0,5
