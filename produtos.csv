@@ -15,7 +15,7 @@ Nefrit,img/nefrit.png,6,0.1,Minérios,130,0,6
 Prata,img/silverore.png,6,0.1,Minérios,138,0,6
 Cristal,img/crystal.png,6,0.1,Minérios,349,0,6
 Quartz,img/quartz.png,6,0.1,Minérios,139,0,6
-Sulfur,img/sulfur.png,9.99,0.1,Minérios,44,0,12.5
+Sulfur,img/sulfur.png,9.99,0.1,Minérios,0,0,12.5
 Carvão,img/coal.png,12.49,0.5,Minérios,22,0,15
 Ácido de bateria,img/battery_acid.png,20,0.5,Baterias,0,0,20
 Kit eletrónico,img/electronic-kit.png,50,0.5,Electrónicos,0,0,50
