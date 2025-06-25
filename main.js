@@ -11,35 +11,6 @@ async function carregarProdutos() {
 	}
 }
 
-function parseCSV(csvData) {
-	const linhas = csvData.split("\n");
-	const cabecalhos = linhas[0].split(",");
-
-	const produtosAr = [];
-
-	for (let i = 1; i < linhas.length; i++) {
-		if (linhas[i].trim() === "") continue;
-
-		const valores = linhas[i].split(",");
-		const produto = {};
-
-		for (let j = 0; j < cabecalhos.length; j++) {
-			const cabecalho = cabecalhos[j].trim();
-			let valor = valores[j].trim();
-
-			if (["price", "peso", "stock", "vpn"].includes(cabecalho)) {
-				valor = parseFloat(valor);
-			}
-
-			produto[cabecalho] = valor;
-		}
-
-		produtosAr.push(produto);
-	}
-
-	return produtosAr;
-}
-
 // Variáveis globais
 let produtos = [];
 let carrinho = [];
