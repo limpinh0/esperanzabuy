@@ -1,3 +1,5 @@
+const BASEAPI = "https://api.yourbestbot.pt";
+let test = "sim";
 async function carregarProdutos() {
 	try {
 		const response = await fetch("https://api.yourbestbot.pt/shop");
@@ -452,20 +454,27 @@ function filtrarPorcategoryVPN(cat) {
 	filterProductsVPN();
 }
 
-function checkVPNAccess() {
+async function checkVPNAccess() {
 	// Se já tem acesso, não pede IP novamente
-	if (sessionStorage.getItem("vpnAccess") === "1") {
+	//! security problem, they will need to type the pass everytime they want to check the VPN protected area.
+	/* if (sessionStorage.getItem("vpnAccess") === "1") {
 		document.getElementById("vpnLink").classList.remove("hidden");
 		showPage("vpn");
 		renderCategoryFiltersVPN();
 		filterProductsVPN();
 		return;
-	}
-	const today = new Date().getDate();
-	const ipEsperado = atob("MTY5LjEuMS4=") + today;
+	} */
 	const ipUser = prompt("Introduza o IP para aceder à área VPN:");
-	if (ipUser === ipEsperado) {
-		sessionStorage.setItem("vpnAccess", "1");
+	const response = await fetch(BASEAPI + "/unlock-items", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({ code: ipUser })
+	});
+	const res = await response.json();
+	if (response.ok) {
+		produtos = res;
 		document.getElementById("vpnLink").classList.remove("hidden");
 		showPage("vpn");
 		renderCategoryFiltersVPN();
@@ -474,9 +483,9 @@ function checkVPNAccess() {
 		alert("IP incorreto!");
 	}
 }
-document.getElementById("vpnLink").onclick = function (e) {
+document.getElementById("vpnLink").onclick = async function (e) {
 	e.preventDefault();
-	checkVPNAccess();
+	await checkVPNAccess();
 };
 
 document.getElementById("toggleTheme").onclick = function () {
