@@ -30,15 +30,15 @@ async function initApp() {
 				name: "Sucata de metal",
 				imagem: "https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg",
 				price: 3,
-				peso: 0.1,
+				weight: 0.1,
 				category: "Metais",
 				stock: 10,
 				vpn: 0,
 			},
-			{ name: "Cobre", imagem: "https://www.freshone.com.pk/content/images/thumbs/default-image_550.png", price: 3, peso: 0.1, category: "Metais", stock: 8, vpn: 0 },
-			{ name: "Gazua", imagem: "https://www.lusochav.pt/wp-content/uploads/2022/03/5278.png", price: 10, peso: 0.1, category: "Ferramentas", stock: 0, vpn: 0 },
-			{ name: "Antena VPN", imagem: "https://www.freshone.com.pk/content/images/thumbs/default-image_550.png", price: 99, peso: 1, category: "Ferramentas", stock: 5, vpn: 1 },
-			{ name: "F4 Coins", imagem: "https://www.freshone.com.pk/content/images/thumbs/default-image_550.png", price: 31, peso: 0, category: "Digital", stock: 2, vpn: 1 },
+			{ name: "Cobre", imagem: "https://www.freshone.com.pk/content/images/thumbs/default-image_550.png", price: 3, weight: 0.1, category: "Metais", stock: 8, vpn: 0 },
+			{ name: "Gazua", imagem: "https://www.lusochav.pt/wp-content/uploads/2022/03/5278.png", price: 10, weight: 0.1, category: "Ferramentas", stock: 0, vpn: 0 },
+			{ name: "Antena VPN", imagem: "https://www.freshone.com.pk/content/images/thumbs/default-image_550.png", price: 99, weight: 1, category: "Ferramentas", stock: 5, vpn: 1 },
+			{ name: "F4 Coins", imagem: "https://www.freshone.com.pk/content/images/thumbs/default-image_550.png", price: 31, weight: 0, category: "Digital", stock: 2, vpn: 1 },
 		];
 	}
 
@@ -184,7 +184,7 @@ function renderProducts(productsToRender) {
       <p>
         <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
         <span style="font-size:0.9em;">
-        Peso: ${p.peso} kg <br>
+        Peso: ${p.weight} kg <br>
         ${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
         </span>
       </p>
@@ -223,7 +223,7 @@ function renderCarrinho() {
 		carrinho
 			.map((p, i) => {
 				const subTotal = p.qtd * p.price;
-				const subPeso = p.qtd * p.peso;
+				const subPeso = p.qtd * p.weight;
 				total += subTotal;
 				pesoTotal += subPeso;
 				return `<li>${p.name} - ${p.price} $ × <input type="number" value="${p.qtd}" min="1" onchange="updateQtd(${i}, this.value)"> = ${subTotal.toFixed(
@@ -275,12 +275,12 @@ function addProduto() {
 	const peso = parseFloat(document.getElementById("peso").value);
 	const category = document.getElementById("category").value;
 	if (name && imagem && !isNaN(price) && !isNaN(peso)) {
-		produtos.push({ name, imagem, price, peso, category, stock: 10 });
+		produtos.push({ name, imagem, price, weight, category, stock: 10 });
 		alert("Produto adicionado!");
 		document.getElementById("name").value = "";
 		document.getElementById("imagem").value = "";
 		document.getElementById("price").value = "";
-		document.getElementById("peso").value = "";
+		document.getElementById("weight").value = "";
 		document.getElementById("category").value = "";
 		renderCategoryFilters();
 		filterProducts();
@@ -408,7 +408,7 @@ function renderProductsVPN(productsToRender) {
       <p>
         <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
         <span style="font-size:0.9em;">
-        Peso: ${p.peso} kg <br>
+        Peso: ${p.weight} kg <br>
         ${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
         </span>
       </p>
@@ -525,7 +525,7 @@ function renderHomeProdutos() {
     <p>
       <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
       <span style="font-size:0.9em;">
-      Peso: ${p.peso} kg <br>
+      Peso: ${p.weight} kg <br>
       ${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
       </span>
     </p>
@@ -588,7 +588,7 @@ async function copiarResumoCarrinho() {
 	texto += `Encomenda: ${codigo}\n\n`;
 	carrinho.forEach((item) => {
 		const subTotal = item.qtd * item.price;
-		const subPeso = item.qtd * item.peso;
+		const subPeso = item.qtd * item.weight;
 		texto += `${item.name} - ${item.qtd} x ${item.price} $ = ${subTotal.toFixed(2)} $\n`;
 		total += subTotal;
 		pesoTotal += subPeso;
