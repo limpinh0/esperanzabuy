@@ -1,13 +1,13 @@
 nome,imagem,preco,peso,categoria,stock,vpn,promo
-Sucata de metal,img/metalscrap.png,3,0.1,Materiais,2173,0,3
+Sucata de metal,img/metalscrap.png,3,0.1,Materiais,2175,0,3
 Plástico,img/plastic.png,5,0.1,Materiais,0,0,5
 Aluminio,img/aluminum.png,4,0.1,Materiais,0,0,4
-Ferro,img/iron.png,3.49,0.1,Materiais,1178,0,4
+Ferro,img/iron.png,3.49,0.1,Materiais,178,0,4
 Borracha,img/rubber.png,3.49,0.1,Materiais,510,0,3.49
 Aço,img/steel.png,1.5,0.1,Materiais,1244,0,1.5
-Cobre,img/cooper.png,3,0.1,Materiais,2282,0,3
+Cobre,img/cooper.png,3,0.1,Materiais,1282,0,3
 Vidro,img/glass.png,1.99,0.1,Materiais,1002,0,1.99
-Tábuas de madeira,img/wood.png,5.9,0.25,Materiais,0,0,5.9
+Tábuas de madeira,img/wood.png,5.9,0.25,Materiais,45,0,5.9
 Trapos,img/trapos.png,10,0.1,Materiais,0,0,15
 Chumbo,img/leadore.png,4.49,0.1,Minérios,432,0,6
 Estanho,img/tinore.png,6,0.1,Minérios,148,0,6
@@ -37,14 +37,14 @@ Chaves cofre banco CP940,img/chavesbanco.png,149,0.5,Chaves,1,1,149
 Soqueira,img/knuckle.png,666,1,Arma,2,1,666
 Chess Board,img/checkers.png,15,1,Jogos,2,0,15
 Checkers Board,img/checkers2.png,15,1,Jogos,2,0,15
-Couro,img/leather.png,19,0.5,Materiais,0,0,19
-Carne,img/meat.png,5,0.2,Alimentação,299,0,5
-Frango cru empacotado,img/chickenmeat.png,5,0.1,Alimentação,120,0,5
-Peixe cru,img/preixecru.png,5,0.5,Alimentação,26,0,5
+Couro,img/leather.png,19,0.5,Materiais,145,0,19
+Carne,img/meat.png,5,0.2,Alimentação,870,0,5
+Frango cru empacotado,img/chickenmeat.png,5,0.1,Alimentação,200,0,5
+Peixe cru,img/preixecru.png,5,0.5,Alimentação,28,0,5
 Antena VPN,img/antenavpn.png,199,1,Electrónicos,0,1,199
-F4 Coins,img/f4coins.png,19,0,Digital,120,1,19
+F4 Coins,img/f4coins.png,19,0,Digital,134,1,19
 Lata de tinta,img/spray.png,50,0.5,Utilitarios,40,0,50
-Maçarico,img/torch.png,99,2,Ferramentas,0,0,99
+Maçarico,img/torch.png,120,2,Ferramentas,4,0,120
 Cortador de plasma,img/plasmacutter.png,149,0.5,Ferramentas,15,1,149
 Carne de porco crua,img/porkmeat.png,5,0.1,Alimentação,650,0,5
 Ovos,img/ovos.png,4,0.1,Alimentação,500,0,4
