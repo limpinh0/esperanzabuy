@@ -1,31 +1,31 @@
 nome,imagem,preco,peso,categoria,stock,vpn,promo
-Sucata de metal,img/metalscrap.png,3,0.1,Materiais,2299,0,3
+Sucata de metal,img/metalscrap.png,3,0.1,Materiais,2330,0,3
 Plástico,img/plastic.png,5,0.1,Materiais,0,0,5
 Aluminio,img/aluminum.png,4,0.1,Materiais,0,0,4
-Ferro,img/iron.png,2.89,0.1,Materiais,793,0,2.89
+Ferro,img/iron.png,2.89,0.1,Materiais,949,0,2.89
 Borracha,img/rubber.png,2,0.1,Materiais,1049,0,2
 Aço,img/steel.png,1.5,0.1,Materiais,1011,0,1.5
-Cobre,img/cooper.png,2,0.1,Materiais,1923,0,2
+Cobre,img/cooper.png,2,0.1,Materiais,2067,0,2
 Vidro,img/glass.png,1,0.1,Materiais,1002,0,1
 Tábuas de madeira,img/wood.png,5.9,0.25,Materiais,0,0,5.9
 Trapos,img/trapos.png,10,0.1,Materiais,0,0,15
-Chumbo,img/leadore.png,4,0.1,Minérios,371,0,4
-Estanho,img/tinore.png,6,0.1,Minérios,125,0,6
-Nefrit,img/nefrit.png,6,0.1,Minérios,124,0,6
-Prata,img/silverore.png,6,0.1,Minérios,125,0,6
-Cristal,img/crystal.png,6,0.1,Minérios,309,0,6
-Quartz,img/quartz.png,6,0.1,Minérios,132,0,6
-Sulfur,img/sulfur.png,9.99,0.1,Minérios,0,0,12.5
-Carvão,img/coal.png,10.99,0.5,Minérios,0,0,15
+Chumbo,img/leadore.png,4.49,0.1,Minérios,432,0,6
+Estanho,img/tinore.png,6,0.1,Minérios,148,0,6
+Nefrit,img/nefrit.png,6,0.1,Minérios,130,0,6
+Prata,img/silverore.png,6,0.1,Minérios,138,0,6
+Cristal,img/crystal.png,6,0.1,Minérios,349,0,6
+Quartz,img/quartz.png,6,0.1,Minérios,139,0,6
+Sulfur,img/sulfur.png,9.99,0.1,Minérios,44,0,12.5
+Carvão,img/coal.png,12.49,0.5,Minérios,22,0,15
 Ácido de bateria,img/battery_acid.png,20,0.5,Baterias,0,0,20
 Kit eletrónico,img/electronic-kit.png,50,0.5,Electrónicos,0,0,50
 Gazua avançada,img/lockpick2.png,60,0.5,Utilitarios,6,1,60
 Gazua,img/lockpick.png,10,0.3,Utilitarios,13,1,10
 Pé de cabra,img/crowbar.png,25,1,Ferramentas,2,0,25
-Pepitas de ouro,img/goldore.png,50,0.1,Ouro,144,1,50
-Rolex,img/rolex.png,40,0.5,Ouro,6,1,40
+Pepitas de ouro,img/goldore.png,50,0.1,Ouro,185,1,50
+Rolex,img/rolex.png,40,0.5,Ouro,7,1,40
 Corrente de ouro,img/goldnecklace.png,30,0.5,Ouro,8,1,30
-Anel de diamante,img/diamondring.png,999,0.5,Joias,6,1,999
+Anel de diamante,img/diamondring.png,999,0.5,Joias,7,1,999
 Ruby,img/ruby.png,9999,0.5,Joias,1,1,9999
 Barra de ouro,img/goldbar.png,1699,3,Ouro,0,1,1699
 Raspador,img/grinder.png,100,1,Ferramentas,58,1,100
