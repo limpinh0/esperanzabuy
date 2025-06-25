@@ -25,7 +25,7 @@ function parseCSV(csvData) {
       const cabecalho = cabecalhos[j].trim(); 
       let valor = valores[j].trim();
       
-      if (['preco', 'peso', 'stock', 'vpn'].includes(cabecalho)) {
+      if (['price', 'peso', 'stock', 'vpn'].includes(cabecalho)) {
         valor = parseFloat(valor);
       }
       
@@ -53,11 +53,11 @@ async function initApp() {
   // Fallback caso o CSV não carregue
   if (produtos.length === 0) {
     produtos = [
-      { nome: 'Sucata de metal', imagem: 'https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg', preco: 3, peso: 0.1, categoria: 'Metais', stock: 10, vpn: 0 },
-      { nome: 'Cobre', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', preco: 3, peso: 0.1, categoria: 'Metais', stock: 8, vpn: 0 },
-      { nome: 'Gazua', imagem: 'https://www.lusochav.pt/wp-content/uploads/2022/03/5278.png', preco: 10, peso: 0.1, categoria: 'Ferramentas', stock: 0, vpn: 0 },
-      { nome: 'Antena VPN', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', preco: 99, peso: 1, categoria: 'Ferramentas', stock: 5, vpn: 1 },
-      { nome: 'F4 Coins', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', preco: 31, peso: 0, categoria: 'Digital', stock: 2, vpn: 1 }
+      { name: 'Sucata de metal', imagem: 'https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg', price: 3, peso: 0.1, category: 'Metais', stock: 10, vpn: 0 },
+      { name: 'Cobre', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', price: 3, peso: 0.1, category: 'Metais', stock: 8, vpn: 0 },
+      { name: 'Gazua', imagem: 'https://www.lusochav.pt/wp-content/uploads/2022/03/5278.png', price: 10, peso: 0.1, category: 'Ferramentas', stock: 0, vpn: 0 },
+      { name: 'Antena VPN', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', price: 99, peso: 1, category: 'Ferramentas', stock: 5, vpn: 1 },
+      { name: 'F4 Coins', imagem: 'https://www.freshone.com.pk/content/images/thumbs/default-image_550.png', price: 31, peso: 0, category: 'Digital', stock: 2, vpn: 1 }
     ];
   }
   
@@ -103,8 +103,8 @@ async function initApp() {
 
     function renderCategoryFilters() {
       const categoriesContainer = document.getElementById('categoryFilters');
-      // Só categorias de produtos com vpn: 0
-      const categories = [...new Set(produtos.filter(p => !p.vpn || p.vpn === 0).map(p => p.categoria))]
+      // Só categorys de produtos com vpn: 0
+      const categories = [...new Set(produtos.filter(p => !p.vpn || p.vpn === 0).map(p => p.category))]
         .sort((a, b) => a.localeCompare(b)); // <-- Ordena alfabeticamente
 
       categoriesContainer.innerHTML = '';
@@ -120,7 +120,7 @@ async function initApp() {
       };
       categoriesContainer.appendChild(allCategories);
       
-      // Adiciona cada categoria
+      // Adiciona cada category
       categories.forEach(category => {
         const categoryElement = document.createElement('div');
         categoryElement.textContent = category;
@@ -142,25 +142,25 @@ async function initApp() {
 
       let filtered = produtos.filter(p => 
         (!p.vpn || p.vpn === 0) &&
-        p.nome.toLowerCase().includes(searchTerm) &&
-        (!selectedCategory || p.categoria === selectedCategory) &&
+        p.name.toLowerCase().includes(searchTerm) &&
+        (!selectedCategory || p.category === selectedCategory) &&
         (!apenasStock || p.stock > 0) &&
-        (!apenasPromo || (p.promo && p.promo > p.preco))
+        (!apenasPromo || (p.promo && p.promo > p.price))
       );
 
       // Aplica ordenação
       switch(sortOption) {
         case 'name-asc':
-          filtered.sort((a, b) => a.nome.localeCompare(b.nome));
+          filtered.sort((a, b) => a.name.localeCompare(b.name));
           break;
         case 'name-desc':
-          filtered.sort((a, b) => b.nome.localeCompare(a.nome));
+          filtered.sort((a, b) => b.name.localeCompare(a.name));
           break;
         case 'price-asc':
-          filtered.sort((a, b) => a.preco - b.preco);
+          filtered.sort((a, b) => a.price - b.price);
           break;
         case 'price-desc':
-          filtered.sort((a, b) => b.preco - a.preco);
+          filtered.sort((a, b) => b.price - a.price);
           break;
       }
       
@@ -177,11 +177,11 @@ async function initApp() {
       }
 
       productsToRender.forEach((p, i) => {
-        const originalIndex = produtos.findIndex(prod => prod.nome === p.nome);
+        const originalIndex = produtos.findIndex(prod => prod.name === p.name);
         // Calcula promoção se existir
         let promoBadge = ''; 
-        if (p.promo > p.preco) { 
-          const desconto = Math.round(100 * (p.promo - p.preco) / p.promo);
+        if (p.promo > p.price) { 
+          const desconto = Math.round(100 * (p.promo - p.price) / p.promo);
           promoBadge = `
             <div class="promo-badge">
               Promoção ${desconto}%<br>
@@ -193,15 +193,15 @@ async function initApp() {
           <div class="product">
             ${promoBadge}
             <div class="product-img">
-              <img src="${p.imagem}" alt="${p.nome}">
+              <img src="${p.imagem}" alt="${p.name}">
             </div>
-              <p style="font-weight:bold">${p.nome}<br>
-                <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorCategoria('${p.categoria}');return false;">
-                  ${p.categoria}
+              <p style="font-weight:bold">${p.name}<br>
+                <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
+                  ${p.category}
                 </a>      
               </p>
             <p>
-              <span style="font-size:1.4em;font-weight:bold;">${p.preco} $</span> <br>
+              <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
               <span style="font-size:0.9em;">
                 Peso: ${p.peso} kg <br>
                 ${
@@ -225,7 +225,7 @@ async function initApp() {
         return;
       }
       const item = { ...produtos[i] };
-      const existente = carrinho.find(p => p.nome === item.nome);
+      const existente = carrinho.find(p => p.name === item.name);
       if (existente) existente.qtd += qtd;
       else {
         item.qtd = qtd;
@@ -242,11 +242,11 @@ async function initApp() {
       let total = 0;
       let pesoTotal = 0;
       lista.innerHTML = '<ul>' + carrinho.map((p, i) => {
-        const subTotal = p.qtd * p.preco;
+        const subTotal = p.qtd * p.price;
         const subPeso = p.qtd * p.peso;
         total += subTotal;
         pesoTotal += subPeso;
-        return `<li>${p.nome} - ${p.preco} $ × <input type="number" value="${p.qtd}" min="1" onchange="updateQtd(${i}, this.value)"> = ${subTotal.toFixed(2)} $<button class="remove" onclick="removeItem(${i})">❌</button></li>`;
+        return `<li>${p.name} - ${p.price} $ × <input type="number" value="${p.qtd}" min="1" onchange="updateQtd(${i}, this.value)"> = ${subTotal.toFixed(2)} $<button class="remove" onclick="removeItem(${i})">❌</button></li>`;
       }).join('') + '</ul>';
       document.getElementById('total').textContent = `${total.toFixed(2)} $`;
       document.getElementById('pesoTotal').textContent = `${pesoTotal.toFixed(2)} kg`;
@@ -257,7 +257,7 @@ async function initApp() {
       const nova = parseInt(novaQtd);
       if (!isNaN(nova) && nova >= 1) {
         const diff = nova - carrinho[i].qtd;
-        const produtoOriginal = produtos.find(p => p.nome === carrinho[i].nome);
+        const produtoOriginal = produtos.find(p => p.name === carrinho[i].name);
         if (produtoOriginal && produtoOriginal.stock >= diff) {
           carrinho[i].qtd = nova;
           produtoOriginal.stock -= diff;
@@ -277,7 +277,7 @@ async function initApp() {
 
     function removeItem(i) {
       const item = carrinho.splice(i, 1)[0];
-      const produtoOriginal = produtos.find(p => p.nome === item.nome);
+      const produtoOriginal = produtos.find(p => p.name === item.name);
       if (produtoOriginal) produtoOriginal.stock += item.qtd;
       filterProducts();
       updateCarrinhoBadge();
@@ -285,19 +285,19 @@ async function initApp() {
     }
 
     function addProduto() {
-      const nome = document.getElementById('nome').value;
+      const name = document.getElementById('name').value;
       const imagem = document.getElementById('imagem').value;
-      const preco = parseFloat(document.getElementById('preco').value);
+      const price = parseFloat(document.getElementById('price').value);
       const peso = parseFloat(document.getElementById('peso').value);
-      const categoria = document.getElementById('categoria').value;
-      if (nome && imagem && !isNaN(preco) && !isNaN(peso)) {
-        produtos.push({ nome, imagem, preco, peso, categoria, stock: 10 });
+      const category = document.getElementById('category').value;
+      if (name && imagem && !isNaN(price) && !isNaN(peso)) {
+        produtos.push({ name, imagem, price, peso, category, stock: 10 });
         alert('Produto adicionado!');
-        document.getElementById('nome').value = '';
+        document.getElementById('name').value = '';
         document.getElementById('imagem').value = '';
-        document.getElementById('preco').value = '';
+        document.getElementById('price').value = '';
         document.getElementById('peso').value = '';
-        document.getElementById('categoria').value = '';
+        document.getElementById('category').value = '';
         renderCategoryFilters();
         filterProducts();
       } else {
@@ -317,7 +317,7 @@ async function initApp() {
       }
     }
 
-    function filtrarPorCategoria(cat) {
+    function filtrarPorcategory(cat) {
         selectedCategory = cat;
         renderCategoryFilters();
         filterProducts();
@@ -325,15 +325,15 @@ async function initApp() {
 
     function renderCategoryFiltersVPN() {
   const categoriesContainer = document.getElementById('categoryFiltersVPN');
-  // Só categorias de produtos com vpn: 1
-  const categories = [...new Set(produtos.filter(p => p.vpn === 1).map(p => p.categoria))]
+  // Só categorys de produtos com vpn: 1
+  const categories = [...new Set(produtos.filter(p => p.vpn === 1).map(p => p.category))]
     .sort((a, b) => a.localeCompare(b)); // <-- Ordena alfabeticamente
 
   categoriesContainer.innerHTML = '';
   
-  // Adiciona opção "Todas as categorias"
+  // Adiciona opção "Todas as categorys"
   const allCategories = document.createElement('div');
-  allCategories.textContent = 'Todas as categorias';
+  allCategories.textContent = 'Todas as categorys';
   allCategories.className = `filter-category ${!selectedCategoryVPN ? 'active-category' : ''}`;
   allCategories.onclick = () => {
     selectedCategoryVPN = null;
@@ -342,7 +342,7 @@ async function initApp() {
   };
   categoriesContainer.appendChild(allCategories);
   
-  // Adiciona cada categoria
+  // Adiciona cada category
   categories.forEach(category => {
     const categoryElement = document.createElement('div');
     categoryElement.textContent = category;
@@ -364,25 +364,25 @@ function filterProductsVPN() {
 
   let filtered = produtos.filter(p =>
     p.vpn === 1 &&
-    p.nome.toLowerCase().includes(searchTerm) &&
-    (!selectedCategoryVPN || p.categoria === selectedCategoryVPN) &&
+    p.name.toLowerCase().includes(searchTerm) &&
+    (!selectedCategoryVPN || p.category === selectedCategoryVPN) &&
     (!apenasStock || p.stock > 0) &&
-    (!apenasPromo || (p.promo && p.promo > p.preco))
+    (!apenasPromo || (p.promo && p.promo > p.price))
   );
 
   // Aplica ordenação
   switch (sortOption) {
     case 'name-asc':
-      filtered.sort((a, b) => a.nome.localeCompare(b.nome));
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
       break;
     case 'name-desc':
-      filtered.sort((a, b) => b.nome.localeCompare(a.nome));
+      filtered.sort((a, b) => b.name.localeCompare(a.name));
       break;
     case 'price-asc':
-      filtered.sort((a, b) => a.preco - b.preco);
+      filtered.sort((a, b) => a.price - b.price);
       break;
     case 'price-desc':
-      filtered.sort((a, b) => b.preco - a.preco);
+      filtered.sort((a, b) => b.price - a.price);
       break;
   }
   renderProductsVPN(filtered);
@@ -399,11 +399,11 @@ function renderProductsVPN(productsToRender) {
   
   productsToRender.forEach((p, i) => {
     
-    const originalIndex = produtos.findIndex(prod => prod.nome === p.nome);
+    const originalIndex = produtos.findIndex(prod => prod.name === p.name);
         // Calcula promoção se existir
         let promoBadge = ''; 
-        if (p.promo > p.preco) { 
-          const desconto = Math.round(100 * (p.promo - p.preco) / p.promo);
+        if (p.promo > p.price) { 
+          const desconto = Math.round(100 * (p.promo - p.price) / p.promo);
           promoBadge = `
             <div class="promo-badge">
               Promoção ${desconto}%<br>
@@ -415,15 +415,15 @@ function renderProductsVPN(productsToRender) {
        <div class="product">
             ${promoBadge}
             <div class="product-img">
-              <img src="${p.imagem}" alt="${p.nome}">
+              <img src="${p.imagem}" alt="${p.name}">
             </div>
-              <p style="font-weight:bold">${p.nome}<br>
-                <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorCategoria('${p.categoria}');return false;">
-                  ${p.categoria}
+              <p style="font-weight:bold">${p.name}<br>
+                <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
+                  ${p.category}
                 </a>      
               </p>
             <p>
-              <span style="font-size:1.4em;font-weight:bold;">${p.preco} $</span> <br>
+              <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
               <span style="font-size:0.9em;">
                 Peso: ${p.peso} kg <br>
                 ${
@@ -440,7 +440,7 @@ function renderProductsVPN(productsToRender) {
   });
 }
 
-function filtrarPorCategoriaVPN(cat) {
+function filtrarPorcategoryVPN(cat) {
   selectedCategoryVPN = cat;
   renderCategoryFiltersVPN();
   filterProductsVPN();
@@ -504,9 +504,9 @@ function renderHomeProdutos() {
   if (produtosHomeAleatorios.length === 0) {
     const produtosNormais = produtos.filter(p => (!p.vpn || p.vpn === 0));
 
-    // Prioriza produtos em promoção (promo > preco) e com stock > 0
-    const emPromo = produtosNormais.filter(p => p.promo && p.promo > p.preco && p.stock > 0);
-    const semPromo = produtosNormais.filter(p => (!(p.promo && p.promo > p.preco) || !p.promo) && p.stock > 0);
+    // Prioriza produtos em promoção (promo > price) e com stock > 0
+    const emPromo = produtosNormais.filter(p => p.promo && p.promo > p.price && p.stock > 0);
+    const semPromo = produtosNormais.filter(p => (!(p.promo && p.promo > p.price) || !p.promo) && p.stock > 0);
 
     // Embaralha cada grupo separadamente
     const shuffle = arr => arr.sort(() => Math.random() - 0.5);
@@ -519,11 +519,11 @@ function renderHomeProdutos() {
 
   homeProdutosDiv.innerHTML = '';
   produtosHomeAleatorios.forEach((p, i) => {
-    const originalIndex = produtos.findIndex(prod => prod.nome === p.nome);
+    const originalIndex = produtos.findIndex(prod => prod.name === p.name);
     // Badge de promoção se aplicável
     let promoBadge = '';
-    if (p.promo && p.promo > p.preco) {
-      const desconto = Math.round(100 * (p.promo - p.preco) / p.promo);
+    if (p.promo && p.promo > p.price) {
+      const desconto = Math.round(100 * (p.promo - p.price) / p.promo);
       promoBadge = `
         <div class="promo-badge">
           Promoção ${desconto}%<br>
@@ -535,15 +535,15 @@ function renderHomeProdutos() {
       <div class="product">
         ${promoBadge}
         <div class="product-img">
-          <img src="${p.imagem}" alt="${p.nome}">
+          <img src="${p.imagem}" alt="${p.name}">
         </div>
-        <p style="font-weight:bold">${p.nome}<br>
-          <a href="#" class="categoria-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorCategoria('${p.categoria}');return false;">
-            ${p.categoria}
+        <p style="font-weight:bold">${p.name}<br>
+          <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
+            ${p.category}
           </a>      
         </p>
         <p>
-          <span style="font-size:1.4em;font-weight:bold;">${p.preco} $</span> <br>
+          <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
           <span style="font-size:0.9em;">
             Peso: ${p.peso} kg <br>
             ${
@@ -590,7 +590,7 @@ function addCarrinhoHome(i) {
     return;
   }
   const item = { ...produtos[i] };
-  const existente = carrinho.find(p => p.nome === item.nome);
+  const existente = carrinho.find(p => p.name === item.name);
   if (existente) existente.qtd += qtd;
   else {
     item.qtd = qtd;
@@ -613,9 +613,9 @@ function copiarResumoCarrinho() {
   ).join('');
   texto += `Encomenda: ${codigo}\n\n`;
   carrinho.forEach(item => {
-    const subTotal = item.qtd * item.preco;
+    const subTotal = item.qtd * item.price;
     const subPeso = item.qtd * item.peso;
-    texto += `${item.nome} - ${item.qtd} x ${item.preco} $ = ${subTotal.toFixed(2)} $\n`;
+    texto += `${item.name} - ${item.qtd} x ${item.price} $ = ${subTotal.toFixed(2)} $\n`;
     total += subTotal;
     pesoTotal += subPeso;
   });
