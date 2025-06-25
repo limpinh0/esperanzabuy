@@ -579,7 +579,7 @@ function addCarrinhoHome(i) {
 	updateCarrinhoBadge();
 }
 
-function copiarResumoCarrinho() {
+async function copiarResumoCarrinho() {
 	let texto = "";
 	let total = 0;
 	let pesoTotal = 0;
@@ -604,6 +604,26 @@ function copiarResumoCarrinho() {
 	navigator.clipboard.writeText(texto).then(() => {
 		alert("Carrinho copiado, pode agora colar o carrinho por mensagem para o Instapic @EsperanzaBuy! \n\nIremos responder assim que possível.");
 	});
+
+	const response = await fetch(BASEAPI + "/order", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			items: carrinho.map(item => ({
+				name: item.name,
+				quantity: item.qtd,
+			}))
+		})
+	});
+
+	if (response.ok) console.log("all good, order placed!");
+
+	// cool object for webhook if we use it in the future
+	/* const data = {
+		content: texto + `\nA encomenda expira em <t:${Math.floor((Date.now() + 2 * 60 * 60 * 1000) / 1000)}:R>`
+	} */
 }
 
 showPage("home");
