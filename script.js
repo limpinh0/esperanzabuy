@@ -52,24 +52,42 @@ async function submitDeleteProduct() {
 }
 
 async function submitEditProduct() {
-	const name = document.getElementById('editName').value;
-	const field = document.getElementById('editField').value;
-	let value = document.getElementById('editValue').value;
+	const name = document.getElementById('editName').value.trim();
+	const result = document.getElementById('result');
 	const token = localStorage.getItem('jwt');
 
-	// attempt to parse number
-	if (!isNaN(value)) value = Number(value);
+	if (!name) {
+		result.textContent = "❌ Please enter the product name.";
+		return;
+	}
 
-	const res = await fetch('https://api.yourbestbot.pt/admin/editProduct', {
+	// Collect all editable fields
+	const fields = ['Price', 'Stock', 'Promo', 'Weight', 'VPN', 'Imagem', 'Category'];
+	const updates = {};
+
+	for (const field of fields) {
+		const input = document.getElementById(`edit${field}`);
+		if (input && input.value.trim() !== "") {
+			let value = input.value.trim();
+			if (!isNaN(value)) value = Number(value);
+			updates[field.toLowerCase()] = value; // keys like "price", "stock"
+		}
+	}
+
+	if (Object.keys(updates).length === 0) {
+		result.textContent = "❌ No fields filled in.";
+		return;
+	}
+
+	const res = await fetch(`https://api.yourbestbot.pt/admin/editProduct/${encodeURIComponent(name)}`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${token}`
 		},
-		body: JSON.stringify({ name, field, value })
+		body: JSON.stringify(updates)
 	});
 
-	const result = document.getElementById('result');
 	result.textContent = res.ok ? "✅ Product updated." : "❌ Failed to update product.";
 	closeModal('editProductModal');
 }

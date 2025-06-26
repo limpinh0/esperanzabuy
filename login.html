@@ -156,9 +156,15 @@
 	<div id="editProductModal" class="modal">
 		<div class="modal-content">
 			<h3>Edit Product</h3>
-			<input id="editName" placeholder="Product Name" />
-			<input id="editField" placeholder="Field to Edit (e.g. price)" />
-			<input id="editValue" placeholder="New Value" />
+			<input id="editName" placeholder="Product Name (e.g. Tablet)" />
+			<input id="editImagem" type="text" placeholder="New Image Path" />
+			<input id="editCategory" type="text" placeholder="New Category" />
+			<input id="editPrice" type="number" placeholder="New Price" />
+			<input id="editPromo" type="number" placeholder="New Promo" />
+			<input id="editWeight" type="number" placeholder="New Weight" />
+			<input id="editStock" type="number" placeholder="New Stock" />
+			<input id="editVPN" type="number" placeholder="New VPN" />
+
 			<button onclick="submitEditProduct()">Update</button>
 			<button onclick="closeModal('editProductModal')">Cancel</button>
 		</div>
