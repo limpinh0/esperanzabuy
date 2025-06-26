@@ -91,7 +91,7 @@ function renderCategoryFilters() {
 
 	// Adiciona opção "Todas as categorys"
 	const allCategories = document.createElement("div");
-	allCategories.textContent = "Todas as categorys";
+	allCategories.textContent = "Todas as categorias";
 	allCategories.className = `filter-category ${!selectedCategory ? "active-category" : ""}`;
 	allCategories.onclick = () => {
 		selectedCategory = null;
@@ -316,7 +316,7 @@ function renderCategoryFiltersVPN() {
 
 	// Adiciona opção "Todas as categorys"
 	const allCategories = document.createElement("div");
-	allCategories.textContent = "Todas as categorys";
+	allCategories.textContent = "Todas as categorias";
 	allCategories.className = `filter-category ${!selectedCategoryVPN ? "active-category" : ""}`;
 	allCategories.onclick = () => {
 		selectedCategoryVPN = null;
