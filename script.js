@@ -1,44 +1,77 @@
 let currentAction = '';
 
-function showModal(action) {
-	currentAction = action;
-	document.getElementById('modalTitle').textContent = action.charAt(0).toUpperCase() + action.slice(1) + " Product";
-	document.getElementById('modal').style.display = 'flex';
+function openModal(id) {
+	document.getElementById(id).style.display = 'flex';
 }
 
-function closeModal() {
-	document.getElementById('modal').style.display = 'none';
-	document.getElementById('productName').value = '';
-	document.getElementById('productPrice').value = '';
-	document.getElementById('productId').value = '';
+function closeModal(id) {
+	document.getElementById(id).style.display = 'none';
 }
 
-async function submitAction() {
-	const name = document.getElementById('productName').value;
-	const price = document.getElementById('productPrice').value;
-	const id = document.getElementById('productId').value;
-
+async function submitCreateProduct() {
+	const name = document.getElementById('createName').value;
+	const imagem = document.getElementById('createImagem').value;
+	const category = document.getElementById('createCategory').value;
+	const price = parseFloat(document.getElementById('createPrice').value);
+	const promo = parseFloat(document.getElementById('createPromo').value)
+	const weight = parseFloat(document.getElementById('createWeight').value)
+	const stock = parseInt(document.getElementById('createStock').value);
+	const vpn = parseFloat(document.getElementById('createVpn').value)
 	const token = localStorage.getItem('jwt');
 
-	let endpoint = 'https://api.yourbestbot.pt/';
-	if (currentAction === 'add') endpoint += 'createProduct';
-	if (currentAction === 'remove') endpoint += 'deleteProduct';
-	if (currentAction === 'update') endpoint += 'editProduct';
-
-	const payload = { name, price, id };
-
-	const res = await fetch(endpoint, {
+	const res = await fetch('https://api.yourbestbot.pt/admin/createProduct', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${token}`
 		},
-		body: JSON.stringify(payload)
+		body: JSON.stringify({ name, imagem, category, price, promo, weight, stock, vpn })
 	});
 
-	const data = await res.json();
-	alert(`✅ ${currentAction.toUpperCase()} response: ` + JSON.stringify(data));
-	closeModal();
+	const result = document.getElementById('result');
+	result.textContent = res.ok ? "✅ Product created." : "❌ Failed to create product.";
+	closeModal('createProductModal');
+}
+
+async function submitDeleteProduct() {
+	const name = document.getElementById('deleteName').value;
+	const token = localStorage.getItem('jwt');
+
+	const res = await fetch('https://api.yourbestbot.pt/admin/deleteProduct', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`
+		},
+		body: JSON.stringify({ name })
+	});
+
+	const result = document.getElementById('result');
+	result.textContent = res.ok ? "✅ Product deleted." : "❌ Failed to delete product.";
+	closeModal('deleteProductModal');
+}
+
+async function submitEditProduct() {
+	const name = document.getElementById('editName').value;
+	const field = document.getElementById('editField').value;
+	let value = document.getElementById('editValue').value;
+	const token = localStorage.getItem('jwt');
+
+	// attempt to parse number
+	if (!isNaN(value)) value = Number(value);
+
+	const res = await fetch('https://api.yourbestbot.pt/admin/editProduct', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`
+		},
+		body: JSON.stringify({ name, field, value })
+	});
+
+	const result = document.getElementById('result');
+	result.textContent = res.ok ? "✅ Product updated." : "❌ Failed to update product.";
+	closeModal('editProductModal');
 }
 
 async function login() {
