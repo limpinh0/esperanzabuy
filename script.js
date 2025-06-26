@@ -34,7 +34,7 @@ async function submitCreateProduct() {
 }
 
 async function submitDeleteProduct() {
-	const name = document.getElementById('deleteName').value;
+	const names = document.getElementById('deleteName').value;
 	const token = localStorage.getItem('jwt');
 
 	const res = await fetch('https://api.yourbestbot.pt/admin/deleteProduct', {
@@ -43,11 +43,11 @@ async function submitDeleteProduct() {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${token}`
 		},
-		body: JSON.stringify({ name })
+		body: JSON.stringify({ itemsToRemove: names.split("|") })
 	});
 
 	const result = document.getElementById('result');
-	result.textContent = res.ok ? "✅ Product deleted." : "❌ Failed to delete product.";
+	result.textContent = res.ok ? "✅ Product/s deleted." : "❌ Failed to delete product/s.";
 	closeModal('deleteProductModal');
 }
 
