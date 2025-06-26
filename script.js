@@ -119,7 +119,8 @@ function renderOrders(orders) {
 			<ul>
 				${order.items.map(item => `<li>${item.quantity}x ${item.name}</li>`).join('')}
 			</ul>
-			<strong>Preço Final:</strong> ${order.finalPrice}<br>
+			<strong>Preço Final:</strong> $${order.finalPrice}<br>
+			<strong>Peso Encomenda:</strong> ${order.totalWeight} Kg<br>
 			<strong>Local de Entrega:</strong> ${order.meetingPlace}<br>
 		</div>
 	`).join('');
