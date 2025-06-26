@@ -583,45 +583,44 @@ async function copiarResumoCarrinho() {
 	let texto = "";
 	let total = 0;
 	let pesoTotal = 0;
-	// Gera um código aleatório de 4 caracteres alfanuméricos maiúsculos
-	const codigo = Array.from({ length: 4 }, () => "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"[Math.floor(Math.random() * 36)]).join("");
-	texto += `Encomenda: ${codigo}\n\n`;
-	carrinho.forEach((item) => {
-		const subTotal = item.qtd * item.price;
-		const subPeso = item.qtd * item.weight;
-		texto += `${item.name} - ${item.qtd} x ${item.price} $ = ${subTotal.toFixed(2)} $\n`;
-		total += subTotal;
-		pesoTotal += subPeso;
-	});
-	const fatura = document.getElementById("fatura").checked ? "Sim" : "Não";
-	const cpEntrega = document.getElementById("cpEntrega").value || "---";
-	texto += `CP de entrega: ${cpEntrega}\n`;
-	texto += `Deseja fatura? ${fatura}\n`;
-	texto += `Total: ${total.toFixed(2)} $\n`;
-	texto += `Peso Total: ${pesoTotal.toFixed(2)} kg`;
 
-	// Copia para o clipboard
-	navigator.clipboard.writeText(texto).then(() => {
-		alert("Carrinho copiado, pode agora colar o carrinho por mensagem para o Instapic @EsperanzaBuy! \n\nIremos responder assim que possível.");
-	});
+	alert("Carrinho copiado, pode agora colar o carrinho por mensagem para o Instapic @EsperanzaBuy! \n\nIremos responder assim que possível.");
+	(async () => {
+		const fatura = document.getElementById("fatura").checked ? "Sim" : "Não";
+		const cpEntrega = document.getElementById("cpEntrega").value || "---";
+		const response = await fetch(BASEAPI + "/order", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				items: carrinho.map(item => ({
+					name: item.name,
+					quantity: item.qtd,
+				})),
+				finalPrice: total.toFixed(2),
+				totalWeight: pesoTotal.toFixed(2),
+				meetingPlace: cpEntrega
+			})
+		});
 
-	const response = await fetch(BASEAPI + "/order", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify({
-			items: carrinho.map(item => ({
-				name: item.name,
-				quantity: item.qtd,
-			})),
-			finalPrice: total.toFixed(2),
-			totalWeight: pesoTotal.toFixed(2),
-			meetingPlace: cpEntrega
-		})
-	});
+		if (response.ok) console.log("all good, order placed!");
 
-	if (response.ok) console.log("all good, order placed!");
+		const res = await response.json();
+		texto += `Encomenda: ${res.orderId}\n\n`;
+		carrinho.forEach((item) => {
+			const subTotal = item.qtd * item.price;
+			const subPeso = item.qtd * item.weight;
+			texto += `${item.name} - ${item.qtd} x ${item.price} $ = ${subTotal.toFixed(2)} $\n`;
+			total += subTotal;
+			pesoTotal += subPeso;
+		});
+		texto += `CP de entrega: ${cpEntrega}\n`;
+		texto += `Deseja fatura? ${fatura}\n`;
+		texto += `Total: ${total.toFixed(2)} $\n`;
+		texto += `Peso Total: ${pesoTotal.toFixed(2)} kg`;
+		navigator.clipboard.writeText(texto);
+	})();
 
 	// cool object for webhook if we use it in the future
 	/* const data = {
