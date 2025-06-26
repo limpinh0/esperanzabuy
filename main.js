@@ -614,7 +614,10 @@ async function copiarResumoCarrinho() {
 			items: carrinho.map(item => ({
 				name: item.name,
 				quantity: item.qtd,
-			}))
+			})),
+			finalPrice: total.toFixed(2),
+			totalWeight: pesoTotal.toFixed(2),
+			meetingPlace: cpEntrega
 		})
 	});
 
