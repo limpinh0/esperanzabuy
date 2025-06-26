@@ -114,7 +114,7 @@ function renderOrders(orders) {
 	ordersEl.innerHTML = "<h3>Pending Orders</h3>" + orders.map(order => `
 		<div class="order">
 			<strong>Order ID:</strong> ${order.orderId}<br>
-			<strong>Expires:</strong> ${formatRelativeTime(order.expiresAt)}<br>
+			<strong>Expira:</strong> ${formatRelativeTime(order.expiresAt)}<br>
 			<strong>Items:</strong>
 			<ul>
 				${order.items.map(item => `<li>${item.quantity}x ${item.name}</li>`).join('')}
@@ -126,28 +126,21 @@ function renderOrders(orders) {
 }
 
 function formatRelativeTime(timestamp) {
-	const seconds = Math.floor((timestamp - Date.now()) / 1000);
-	if (seconds <= 0) return 'Expired';
+	const diffMs = timestamp - Date.now();
+	if (diffMs <= 0) return 'Expirou';
 
-	const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+	const totalMinutes = Math.floor(diffMs / 1000 / 60);
+	const hours = Math.floor(totalMinutes / 60);
+	const minutes = totalMinutes % 60;
 
-	const minutes = Math.floor(seconds / 60);
-	const hours = Math.floor(minutes / 60);
-	const days = Math.floor(hours / 24);
+	let timeParts = [];
+	if (hours > 0) timeParts.push(`${hours} ${hours === 1 ? 'hora' : 'horas'}`);
+	if (minutes > 0) timeParts.push(`${minutes} ${minutes === 1 ? 'minutos' : 'minutos'}`);
+	if (timeParts.length === 0) timeParts.push(`menos de 1 minuto.`);
 
-	let relativeTime;
-	if (days > 0) {
-		relativeTime = rtf.format(days, 'day');
-	} else if (hours > 0) {
-		relativeTime = rtf.format(hours, 'hour');
-	} else if (minutes > 0) {
-		relativeTime = rtf.format(minutes, 'minute');
-	} else {
-		relativeTime = rtf.format(seconds, 'second');
-	}
+	const relativeTime = `em ${timeParts.join(' e ')}`;
 
-	const date = new Date(timestamp);
-	const exactTime = date.toLocaleTimeString('en-GB', {
+	const exactTime = new Date(timestamp).toLocaleTimeString('en-GB', {
 		hour: '2-digit',
 		minute: '2-digit',
 		hour12: false
