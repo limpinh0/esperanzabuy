@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Admin Login</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background: #f4f4f4;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+		.container {
+			background: white;
+			padding: 20px;
+			box-shadow: 0 0 10px rgba(0,0,0,0.1);
+			width: 300px;
+			border-radius: 8px;
+		}
+		input, button {
+			display: block;
+			width: 100%;
+			margin-bottom: 10px;
+			padding: 10px;
+		}
+		#result {
+			white-space: pre-wrap;
+			background: #eee;
+			padding: 10px;
+			border-radius: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h2>Admin Login</h2>
+		<input id="username" placeholder="Username" />
+		<input id="password" type="password" placeholder="Password" />
+		<button onclick="login()">Login</button>
+		<button onclick="getDashboard()">Get Dashboard</button>
+		<pre id="result"></pre>
+	</div>
+
+	<script>
+		async function login() {
+			const username = document.getElementById('username').value;
+			const password = document.getElementById('password').value;
+
+			const res = await fetch('https://api.yourbestbot.pt/loginEBuy', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ username, password })
+			});
+
+			const resultEl = document.getElementById('result');
+
+			if (!res.ok) {
+				resultEl.textContent = "❌ Invalid login";
+				return;
+			}
+
+			const data = await res.json();
+			localStorage.setItem('jwt', data.token);
+			resultEl.textContent = "✅ Login successful!";
+		}
+
+		async function getDashboard() {
+			const token = localStorage.getItem('jwt');
+			const resultEl = document.getElementById('result');
+
+			if (!token) {
+				resultEl.textContent = "❌ You must log in first.";
+				return;
+			}
+
+			const res = await fetch('https://api.yourbestbot.pt/admin/dashboard', {
+				headers: {
+					'Authorization': `Bearer ${token}`
+				}
+			});
+
+			if (!res.ok) {
+				resultEl.textContent = "❌ Unauthorized or session expired";
+				return;
+			}
+
+			const data = await res.json();
+			resultEl.textContent = "✅ Dashboard:\n" + JSON.stringify(data, null, 2);
+		}
+	</script>
+</body>
+</html>
