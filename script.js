@@ -20,6 +20,12 @@ async function submitCreateProduct() {
 
 	if (!name || !category || !price || !promo || !weight || !stock)
 		return alert(`Existem campos vazios.`);
+	if (vpn !== 0 || vpn !== 1)
+		return alert(`VPN so pode ser '0' ou '1'`);
+	if (price <= 0) return alert(`Não pode ter preço negativo!`);
+	if (promo <= 0) return alert(`Não pode ter uma promoção negativa!`);
+	if (weight <= 0) return alert(`Não pode ter um peso negativo!`);
+	if (stock <= 0) return alert(`Não da para ter stock negativo!`);
 
 	const image = 'img/' + name.toLowerCase() + ".png";
 	if (document.getElementById('createVpn').value == '') vpn = 1;
@@ -332,6 +338,13 @@ async function submitEditProductFromRow(btn, encodedName) {
 	const tr = btn.closest('tr');
 	const inputs = tr.querySelectorAll('input');
 	const [categoryInput, priceInput, promoInput, weightInput, stockInput, vpnInput] = inputs;
+	if (vpnInput !== 0 || vpnInput !== 1)
+		return alert(`VPN so pode ser '0' ou '1'`);
+	if (priceInput <= 0) return alert(`Não pode ter preço negativo!`);
+	if (promoInput <= 0) return alert(`Não pode ter uma promoção negativa!`);
+	if (weightInput <= 0) return alert(`Não pode ter um peso negativo!`);
+	if (stockInput <= 0) return alert(`Não da para ter stock negativo!`);
+
 	const updates = {
 		name: encodedName,
 		category: categoryInput.value,
