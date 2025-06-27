@@ -32,7 +32,6 @@ async function submitCreateProduct() {
 		body: JSON.stringify({ newItem: { name, image, category, price, promo, weight, stock, vpn } })
 	});
 
-
 	alert(res.ok ? "✅ Produto criado com sucesso." : "❌ Falha ao criar produto.");
 	closeModal('createProductModal');
 }
@@ -284,7 +283,6 @@ function showSection(section) {
 	document.getElementById('btn-encomendas').classList.toggle('active', section === 'encomendas');
 	if (section === 'encomendas') renderOrders();
 }
-
 
 function logoutToIndex() {
 	localStorage.removeItem('jwt');
