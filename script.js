@@ -20,7 +20,7 @@ async function submitCreateProduct() {
 
 	if (!name || !category || !price || !promo || !weight || !stock)
 		return alert(`Existem campos vazios.`);
-	if (vpn !== 0 || vpn !== 1)
+	if (vpn !== 0 && vpn !== 1)
 		return alert(`VPN so pode ser '0' ou '1'`);
 	if (price <= 0) return alert(`Não pode ter preço negativo!`);
 	if (promo <= 0) return alert(`Não pode ter uma promoção negativa!`);
@@ -325,8 +325,8 @@ function renderProdutosTable(produtos) {
 				<td><input type="number" value="${prod.stock}" style="width:60px" /></td>
 				<td><input type="number" value="${prod.vpn}" style="width:60px" /></td>
 				<td>
-					<button onclick="submitEditProductFromRow(this, '${encodeURIComponent(prod.name)}')">💾</button>
-					<button onclick="submitDeleteProductFromRow(this, '${encodeURIComponent(prod.name)}')">🗑️</button>
+					<button onclick="submitEditProductFromRow(this, '${prod.name}')">💾</button>
+					<button onclick="submitDeleteProductFromRow(this, '${prod.name}')">🗑️</button>
 				</td>
 			`;
 		tbody.appendChild(tr);
@@ -338,12 +338,12 @@ async function submitEditProductFromRow(btn, encodedName) {
 	const tr = btn.closest('tr');
 	const inputs = tr.querySelectorAll('input');
 	const [categoryInput, priceInput, promoInput, weightInput, stockInput, vpnInput] = inputs;
-	if (vpnInput !== 0 || vpnInput !== 1)
+	if (vpnInput.value.trim() !== '0' && vpnInput.value.trim() !== '1')
 		return alert(`VPN so pode ser '0' ou '1'`);
-	if (priceInput <= 0) return alert(`Não pode ter preço negativo!`);
-	if (promoInput <= 0) return alert(`Não pode ter uma promoção negativa!`);
-	if (weightInput <= 0) return alert(`Não pode ter um peso negativo!`);
-	if (stockInput <= 0) return alert(`Não da para ter stock negativo!`);
+	if (priceInput.value.trim() <= 0) return alert(`Não pode ter preço negativo!`);
+	if (promoInput.value.trim() <= 0) return alert(`Não pode ter uma promoção negativa!`);
+	if (weightInput.value.trim() <= 0) return alert(`Não pode ter um peso negativo!`);
+	if (stockInput.value.trim() <= 0) return alert(`Não da para ter stock negativo!`);
 
 	const updates = {
 		name: encodedName,
@@ -352,7 +352,7 @@ async function submitEditProductFromRow(btn, encodedName) {
 		promo: parseFloat(promoInput.value),
 		weight: parseFloat(weightInput.value),
 		stock: parseInt(stockInput.value),
-		vpn: parseFloat(vpnInput.value)
+		vpn: parseInt(vpnInput.value)
 	};
 	const token = localStorage.getItem('jwt');
 	const res = await fetch(`https://api.yourbestbot.pt/admin/editProduct/${encodedName}`, {
