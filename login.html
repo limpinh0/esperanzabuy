@@ -31,7 +31,17 @@
         <div class="content">
             <div id="section-produtos">
                 <h2 style="margin-top:0;">Gestão de Produtos</h2>
-                <div style="display:flex;justify-content:flex-end;margin-bottom:1rem;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <input id="searchProdutos" type="text" placeholder="Pesquisar produto..." style="padding:8px 12px;border-radius:6px;border:1px solid #ccc;font-size:1rem;max-width:220px;">
+                        Ordenar por:<select id="ordemProdutos" style="padding:8px 12px;border-radius:6px;border:1px solid #ccc;font-size:1rem;">
+                            <option value="nome" selected>Nome</option>
+                            <option value="categoria">Categoria</option>
+                            <option value="stock">Stock</option>
+                            <option value="vpn">VPN</option>
+                            <option value="nenhum">Sem ordem</option>
+                        </select>
+                    </div>
                     <button onclick="openModal('createProductModal')" style="background:var(--primary);color:#fff;padding:8px 18px;border:none;border-radius:6px;font-size:1rem;cursor:pointer;transition:background 0.2s;">
                         ➕ Novo Produto
                     </button>

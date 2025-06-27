@@ -1,4 +1,6 @@
 let currentAction = '';
+let allProdutos = [];
+let ordemAtual = 'nome';
 
 function openModal(id) {
 	document.getElementById(id).style.display = 'flex';
@@ -297,20 +299,51 @@ function logoutToIndex() {
 }
 
 async function fetchProdutos() {
-	const res = await fetch('https://api.yourbestbot.pt/unlock-items', {
-		method: "POST",
-		headers: {
-			Authorization: `Bearer ${localStorage.getItem("jwt")}`
-		}
-	});
-	if (!res.ok) return;
-	const produtos = await res.json();
-	renderProdutosTable(produtos);
+    const res = await fetch('https://api.yourbestbot.pt/unlock-items', {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+        }
+    });
+    if (!res.ok) return;
+    allProdutos = await res.json();
+    ordemAtual = 'nome'; // Garante ordem nome ao carregar
+    document.getElementById('ordemProdutos').value = 'nome'; // Atualiza o select visualmente
+    filtrarEOrdenarProdutos();
+}
+
+document.getElementById('searchProdutos').addEventListener('input', filtrarEOrdenarProdutos);
+document.getElementById('ordemProdutos').addEventListener('change', function() {
+    ordemAtual = this.value;
+    filtrarEOrdenarProdutos();
+});
+
+function filtrarEOrdenarProdutos() {
+    const termo = document.getElementById('searchProdutos').value.trim().toLowerCase();
+    let filtrados = allProdutos.filter(p => p.name.toLowerCase().includes(termo));
+    switch (ordemAtual) {
+        case 'nome':
+            filtrados.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+            break;
+        case 'categoria':
+            filtrados.sort((a, b) => a.category.localeCompare(b.category, undefined, { sensitivity: 'base' }));
+            break;
+        case 'stock':
+            filtrados.sort((a, b) => (b.stock || 0) - (a.stock || 0));
+            break;
+        case 'vpn':
+            filtrados.sort((a, b) => (b.vpn || 0) - (a.vpn || 0));
+            break;
+        case 'nenhum':
+        default:
+            // Não ordenar
+            break;
+    }
+    renderProdutosTable(filtrados);
 }
 
 function renderProdutosTable(produtos) {
 	// Alphabetic order
-	produtos.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
 
 	const tbody = document.querySelector('#produtos-table tbody');
 	tbody.innerHTML = '';
@@ -331,6 +364,7 @@ function renderProdutosTable(produtos) {
 			`;
 		tbody.appendChild(tr);
 	});
+
 }
 
 // Edição de produto diretamente na grelha:
