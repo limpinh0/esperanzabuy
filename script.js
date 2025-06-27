@@ -332,6 +332,7 @@ async function submitEditProductFromRow(btn, encodedName) {
 	const inputs = tr.querySelectorAll('input');
 	const [categoryInput, priceInput, promoInput, weightInput, stockInput, vpnInput] = inputs;
 	const updates = {
+		name: encodedName,
 		category: categoryInput.value,
 		price: parseFloat(priceInput.value),
 		promo: parseFloat(promoInput.value),
