@@ -22,7 +22,7 @@ async function submitCreateProduct() {
 		return alert(`Existem campos vazios.`);
 
 	const image = 'img/' + name.toLowerCase() + ".png";
-	if (!vpn) vpn = 1;
+	if (document.getElementById('createVpn').value =='') vpn = 1;
 	const res = await fetch('https://api.yourbestbot.pt/admin/createProduct', {
 		method: 'POST',
 		headers: {
