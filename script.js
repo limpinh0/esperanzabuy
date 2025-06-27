@@ -375,6 +375,7 @@ async function atualizarTodosProdutos() {
 		const inputs = tr.querySelectorAll('input');
 		const [categoryInput, priceInput, promoInput, weightInput, stockInput, vpnInput] = inputs;
 		const updates = {
+			name: name,
 			category: categoryInput.value,
 			price: parseFloat(priceInput.value),
 			promo: parseFloat(promoInput.value),
