@@ -15,7 +15,7 @@ async function submitCreateProduct() {
 	const promo = parseFloat(document.getElementById('createPromo').value)
 	const weight = parseFloat(document.getElementById('createWeight').value)
 	const stock = parseInt(document.getElementById('createStock').value);
-	const vpn = parseFloat(document.getElementById('createVpn').value)
+	let vpn = parseFloat(document.getElementById('createVpn').value)
 	const token = localStorage.getItem('jwt');
 
 	if (!name || !category || !price || !promo || !weight || !stock)
