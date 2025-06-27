@@ -370,12 +370,22 @@ async function submitDeleteProductFromRow(btn, encodedName) {
 // Atualizar todos os produtos da grelha
 async function atualizarTodosProdutos() {
 	const rows = document.querySelectorAll('#produtos-table tbody tr');
+	const dbItems = await fetch("https://api.yourbestbot.pt/unlock-items", {
+		method: "POST",
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem("jwt")}`
+		}
+	}).then(res => res.json());
+
+	const dbMap = new Map(dbItems.map(item => [item.name, item]));
+
 	for (const tr of rows) {
 		const name = tr.querySelector('td').textContent.trim();
 		const inputs = tr.querySelectorAll('input');
 		const [categoryInput, priceInput, promoInput, weightInput, stockInput, vpnInput] = inputs;
-		const updates = {
-			name: name,
+
+		const updated = {
+			name,
 			category: categoryInput.value,
 			price: parseFloat(priceInput.value),
 			promo: parseFloat(promoInput.value),
@@ -383,19 +393,36 @@ async function atualizarTodosProdutos() {
 			stock: parseInt(stockInput.value),
 			vpn: parseFloat(vpnInput.value)
 		};
-		const token = localStorage.getItem('jwt');
-		await fetch(`https://api.yourbestbot.pt/admin/editProduct/${encodeURIComponent(name)}`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${token}`
-			},
-			body: JSON.stringify(updates)
-		});
+
+		const original = dbMap.get(name);
+		if (!original) continue;
+
+		// Only send update if anything changed
+		const changed = (
+			original.category !== updated.category ||
+			original.price !== updated.price ||
+			original.promo !== updated.promo ||
+			original.weight !== updated.weight ||
+			original.stock !== updated.stock ||
+			original.vpn !== updated.vpn
+		);
+
+		if (changed) {
+			await fetch(`https://api.yourbestbot.pt/admin/editProduct/${encodeURIComponent(name)}`, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+				},
+				body: JSON.stringify(updated)
+			});
+		}
 	}
-	console.log("✅ Todos os produtos foram atualizados.");
+
+	console.log("✅ Produtos atualizados com sucesso (apenas os que mudaram).");
 	fetchProdutos();
 }
+
 
 // Chame fetchProdutos ao mostrar a secção de produtos
 const oldShowSection = window.showSection;
