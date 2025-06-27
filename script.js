@@ -21,7 +21,7 @@ async function submitCreateProduct() {
 	if (!name || !category || !price || !promo || !weight || !stock)
 		return alert(`Existem campos vazios.`);
 
-	const imagem = 'img/' + name.toLowerCase() + ".png";
+	const image = 'img/' + name.toLowerCase() + ".png";
 	if (!vpn) vpn = 1;
 	const res = await fetch('https://api.yourbestbot.pt/admin/createProduct', {
 		method: 'POST',
