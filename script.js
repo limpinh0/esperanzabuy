@@ -1,4 +1,6 @@
 let currentAction = '';
+let allProdutos = [];
+let ordemAtual = 'nome';
 
 function openModal(id) {
 	document.getElementById(id).style.display = 'flex';
@@ -20,9 +22,15 @@ async function submitCreateProduct() {
 
 	if (!name || !category || !price || !promo || !weight || !stock)
 		return alert(`Existem campos vazios.`);
+	if (vpn !== 0 || vpn !== 1)
+		return alert(`VPN so pode ser '0' ou '1'`);
+	if (price <= 0) return alert(`Não pode ter preço negativo!`);
+	if (promo <= 0) return alert(`Não pode ter uma promoção negativa!`);
+	if (weight <= 0) return alert(`Não pode ter um peso negativo!`);
+	if (stock <= 0) return alert(`Não da para ter stock negativo!`);
 
 	const image = 'img/' + name.toLowerCase() + ".png";
-	if (!vpn) vpn = 1;
+	if (document.getElementById('createVpn').value == '') vpn = 1;
 	const res = await fetch('https://api.yourbestbot.pt/admin/createProduct', {
 		method: 'POST',
 		headers: {
@@ -31,7 +39,6 @@ async function submitCreateProduct() {
 		},
 		body: JSON.stringify({ newItem: { name, image, category, price, promo, weight, stock, vpn } })
 	});
-
 
 	alert(res.ok ? "✅ Produto criado com sucesso." : "❌ Falha ao criar produto.");
 	closeModal('createProductModal');
@@ -121,17 +128,12 @@ async function login() {
 	document.getElementById('main-container').style.display = 'flex';
 
 	error.textContent = '';
+	fetchProdutos();
 }
 
 function handleLogin(e) {
 	e.preventDefault();
-	const token = localStorage.getItem('jwt');
-	if (!token)
-		login();
-	else {
-		document.getElementById('login-container').style.display = 'none';
-		document.getElementById('main-container').style.display = 'flex';
-	}
+	login();
 	return false;
 }
 
@@ -291,25 +293,57 @@ function showSection(section) {
 	if (section === 'encomendas') renderOrders();
 }
 
-
 function logoutToIndex() {
 	localStorage.removeItem('jwt');
 	window.location.href = "index.html";
 }
 
 async function fetchProdutos() {
-	const token = localStorage.getItem('jwt');
-	const res = await fetch('https://api.yourbestbot.pt/shop', {
-		headers: { 'Authorization': `Bearer ${token}` }
-	});
-	if (!res.ok) return;
-	const produtos = await res.json();
-	renderProdutosTable(produtos);
+    const res = await fetch('https://api.yourbestbot.pt/unlock-items', {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+        }
+    });
+    if (!res.ok) return;
+    allProdutos = await res.json();
+    ordemAtual = 'nome'; // Garante ordem nome ao carregar
+    document.getElementById('ordemProdutos').value = 'nome'; // Atualiza o select visualmente
+    filtrarEOrdenarProdutos();
+}
+
+document.getElementById('searchProdutos').addEventListener('input', filtrarEOrdenarProdutos);
+document.getElementById('ordemProdutos').addEventListener('change', function() {
+    ordemAtual = this.value;
+    filtrarEOrdenarProdutos();
+});
+
+function filtrarEOrdenarProdutos() {
+    const termo = document.getElementById('searchProdutos').value.trim().toLowerCase();
+    let filtrados = allProdutos.filter(p => p.name.toLowerCase().includes(termo));
+    switch (ordemAtual) {
+        case 'nome':
+            filtrados.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+            break;
+        case 'categoria':
+            filtrados.sort((a, b) => a.category.localeCompare(b.category, undefined, { sensitivity: 'base' }));
+            break;
+        case 'stock':
+            filtrados.sort((a, b) => (b.stock || 0) - (a.stock || 0));
+            break;
+        case 'vpn':
+            filtrados.sort((a, b) => (b.vpn || 0) - (a.vpn || 0));
+            break;
+        case 'nenhum':
+        default:
+            // Não ordenar
+            break;
+    }
+    renderProdutosTable(filtrados);
 }
 
 function renderProdutosTable(produtos) {
 	// Alphabetic order
-	produtos.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
 
 	const tbody = document.querySelector('#produtos-table tbody');
 	tbody.innerHTML = '';
@@ -330,6 +364,7 @@ function renderProdutosTable(produtos) {
 			`;
 		tbody.appendChild(tr);
 	});
+
 }
 
 // Edição de produto diretamente na grelha:
@@ -337,7 +372,15 @@ async function submitEditProductFromRow(btn, encodedName) {
 	const tr = btn.closest('tr');
 	const inputs = tr.querySelectorAll('input');
 	const [categoryInput, priceInput, promoInput, weightInput, stockInput, vpnInput] = inputs;
+	if (vpnInput !== 0 || vpnInput !== 1)
+		return alert(`VPN so pode ser '0' ou '1'`);
+	if (priceInput <= 0) return alert(`Não pode ter preço negativo!`);
+	if (promoInput <= 0) return alert(`Não pode ter uma promoção negativa!`);
+	if (weightInput <= 0) return alert(`Não pode ter um peso negativo!`);
+	if (stockInput <= 0) return alert(`Não da para ter stock negativo!`);
+
 	const updates = {
+		name: encodedName,
 		category: categoryInput.value,
 		price: parseFloat(priceInput.value),
 		promo: parseFloat(promoInput.value),
@@ -376,11 +419,22 @@ async function submitDeleteProductFromRow(btn, encodedName) {
 // Atualizar todos os produtos da grelha
 async function atualizarTodosProdutos() {
 	const rows = document.querySelectorAll('#produtos-table tbody tr');
+	const dbItems = await fetch("https://api.yourbestbot.pt/unlock-items", {
+		method: "POST",
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem("jwt")}`
+		}
+	}).then(res => res.json());
+
+	const dbMap = new Map(dbItems.map(item => [item.name, item]));
+
 	for (const tr of rows) {
 		const name = tr.querySelector('td').textContent.trim();
 		const inputs = tr.querySelectorAll('input');
 		const [categoryInput, priceInput, promoInput, weightInput, stockInput, vpnInput] = inputs;
-		const updates = {
+
+		const updated = {
+			name,
 			category: categoryInput.value,
 			price: parseFloat(priceInput.value),
 			promo: parseFloat(promoInput.value),
@@ -388,17 +442,33 @@ async function atualizarTodosProdutos() {
 			stock: parseInt(stockInput.value),
 			vpn: parseFloat(vpnInput.value)
 		};
-		const token = localStorage.getItem('jwt');
-		await fetch(`https://api.yourbestbot.pt/admin/editProduct/${encodeURIComponent(name)}`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${token}`
-			},
-			body: JSON.stringify(updates)
-		});
+
+		const original = dbMap.get(name);
+		if (!original) continue;
+
+		// Only send update if anything changed
+		const changed = (
+			original.category !== updated.category ||
+			original.price !== updated.price ||
+			original.promo !== updated.promo ||
+			original.weight !== updated.weight ||
+			original.stock !== updated.stock ||
+			original.vpn !== updated.vpn
+		);
+
+		if (changed) {
+			await fetch(`https://api.yourbestbot.pt/admin/editProduct/${encodeURIComponent(name)}`, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+				},
+				body: JSON.stringify(updated)
+			});
+		}
 	}
-	console.log("✅ Todos os produtos foram atualizados.");
+
+	console.log("✅ Produtos atualizados com sucesso (apenas os que mudaram).");
 	fetchProdutos();
 }
 
@@ -409,4 +479,4 @@ window.showSection = function (section) {
 	if (section === 'produtos') fetchProdutos();
 };
 // Se já estiver na secção produtos ao carregar, buscar produtos
-if (document.getElementById('section-produtos').style.display !== 'none') fetchProdutos();
+//if (document.getElementById('section-produtos').style.display !== 'none') setTimeout(() => { fetchProdutos(); }, 500); // give time for token/code to load

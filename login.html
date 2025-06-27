@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>Admin Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stylelogin.css">  
+    <link rel="stylesheet" href="stylelogin.css">
+	<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/limpinh0/esperanzabuy/main/img/banner.png">
 </head>
 <body>
     <div id="login-container">
@@ -14,7 +15,8 @@
             <input id="username" name="username" type="text" placeholder="Username" autocomplete="username" required />
             <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" required />
             <button type="submit">Login</button>
-            <button type="button" class="toggle-mode" onclick="toggleMode()">🌙/☀️ Mudar Tema</button>
+            <button type="button" onclick="window.location.href='index.html'" style="background:#e74c3c;color:#fff;">Voltar</button>
+	    <button type="button" class="toggle-mode" onclick="toggleMode()">🌙/☀️ Mudar Tema</button>
             <pre id="login-error" style="color:crimson; background:none; border:none; margin:0; padding:0;"></pre>
         </form>
     </div>
@@ -29,7 +31,17 @@
         <div class="content">
             <div id="section-produtos">
                 <h2 style="margin-top:0;">Gestão de Produtos</h2>
-                <div style="display:flex;justify-content:flex-end;margin-bottom:1rem;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <input id="searchProdutos" type="text" placeholder="Pesquisar produto..." style="padding:8px 12px;border-radius:6px;border:1px solid #ccc;font-size:1rem;max-width:220px;">
+                        Ordenar por:<select id="ordemProdutos" style="padding:8px 12px;border-radius:6px;border:1px solid #ccc;font-size:1rem;">
+                            <option value="nome" selected>Nome</option>
+                            <option value="categoria">Categoria</option>
+                            <option value="stock">Stock</option>
+                            <option value="vpn">VPN</option>
+                            <option value="nenhum">Sem ordem</option>
+                        </select>
+                    </div>
                     <button onclick="openModal('createProductModal')" style="background:var(--primary);color:#fff;padding:8px 18px;border:none;border-radius:6px;font-size:1rem;cursor:pointer;transition:background 0.2s;">
                         ➕ Novo Produto
                     </button>
