@@ -28,17 +28,17 @@ async function initApp() {
 		produtos = [
 			{
 				name: "Sucata de metal",
-				imagem: "https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg",
+				image: "https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg",
 				price: 3,
 				weight: 0.1,
 				category: "Metais",
 				stock: 10,
 				vpn: 0,
 			},
-			{ name: "Cobre", imagem: "https://www.freshone.com.pk/content/images/thumbs/default-image_550.png", price: 3, weight: 0.1, category: "Metais", stock: 8, vpn: 0 },
-			{ name: "Gazua", imagem: "https://www.lusochav.pt/wp-content/uploads/2022/03/5278.png", price: 10, weight: 0.1, category: "Ferramentas", stock: 0, vpn: 0 },
-			{ name: "Antena VPN", imagem: "https://www.freshone.com.pk/content/images/thumbs/default-image_550.png", price: 99, weight: 1, category: "Ferramentas", stock: 5, vpn: 1 },
-			{ name: "F4 Coins", imagem: "https://www.freshone.com.pk/content/images/thumbs/default-image_550.png", price: 31, weight: 0, category: "Digital", stock: 2, vpn: 1 },
+			{ name: "Cobre", image: "https://www.freshone.com.pk/content/images/thumbs/default-image_550.png", price: 3, weight: 0.1, category: "Metais", stock: 8, vpn: 0 },
+			{ name: "Gazua", image: "https://www.lusochav.pt/wp-content/uploads/2022/03/5278.png", price: 10, weight: 0.1, category: "Ferramentas", stock: 0, vpn: 0 },
+			{ name: "Antena VPN", image: "https://www.freshone.com.pk/content/images/thumbs/default-image_550.png", price: 99, weight: 1, category: "Ferramentas", stock: 5, vpn: 1 },
+			{ name: "F4 Coins", image: "https://www.freshone.com.pk/content/images/thumbs/default-image_550.png", price: 31, weight: 0, category: "Digital", stock: 2, vpn: 1 },
 		];
 	}
 
@@ -174,7 +174,7 @@ function renderProducts(productsToRender) {
       <div class="product">
       ${promoBadge}
       <div class="product-img">
-        <img src="${p.imagem}" alt="${p.name}">
+        <img src="${p.image}" alt="${p.name}">
       </div>
         <p style="font-weight:bold">${p.name}<br>
         <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
@@ -270,12 +270,12 @@ function removeItem(i) {
 
 function addProduto() {
 	const name = document.getElementById("name").value;
-	const imagem = document.getElementById("imagem").value;
+	const image = document.getElementById("imagem").value;
 	const price = parseFloat(document.getElementById("price").value);
 	const peso = parseFloat(document.getElementById("peso").value);
 	const category = document.getElementById("category").value;
-	if (name && imagem && !isNaN(price) && !isNaN(peso)) {
-		produtos.push({ name, imagem, price, weight, category, stock: 10 });
+	if (name && image && !isNaN(price) && !isNaN(peso)) {
+		produtos.push({ name, image, price, weight, category, stock: 10 });
 		alert("Produto adicionado!");
 		document.getElementById("name").value = "";
 		document.getElementById("imagem").value = "";
@@ -398,7 +398,7 @@ function renderProductsVPN(productsToRender) {
      <div class="product">
       ${promoBadge}
       <div class="product-img">
-        <img src="${p.imagem}" alt="${p.name}">
+        <img src="${p.image}" alt="${p.name}">
       </div>
         <p style="font-weight:bold">${p.name}<br>
         <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
@@ -515,7 +515,7 @@ function renderHomeProdutos() {
     <div class="product">
     ${promoBadge}
     <div class="product-img">
-      <img src="${p.imagem}" alt="${p.name}">
+      <img src="${p.image}" alt="${p.name}">
     </div>
     <p style="font-weight:bold">${p.name}<br>
       <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
