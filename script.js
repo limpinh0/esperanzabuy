@@ -29,7 +29,7 @@ async function submitCreateProduct() {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${token}`
 		},
-		body: JSON.stringify({ name, image, category, price, promo, weight, stock, vpn })
+		body: JSON.stringify({ newItem: { name, image, category, price, promo, weight, stock, vpn }})
 	});
 
 	const result = document.getElementById('result');
