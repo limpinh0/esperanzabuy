@@ -411,3 +411,28 @@ body.dark .orders-table td {
 body.dark .orders-table tr:hover {
     background: #23272f;
 }
+
+/* stylelogin.css */
+
+/* Pesquisa e combobox coerentes com dark/light */
+#searchProdutos,
+#ordemProdutos {
+    background: var(--sidebar-light);
+    color: var(--text-light);
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    transition: background 0.3s, color 0.3s, border 0.3s;
+}
+body.dark #searchProdutos,
+body.dark #ordemProdutos {
+    background: var(--sidebar-dark);
+    color: var(--text-dark);
+    border: 1px solid #444;
+}
+#ordemProdutos:focus,
+#searchProdutos:focus {
+    outline: 2px solid var(--primary);
+    border-color: var(--primary);
+}
