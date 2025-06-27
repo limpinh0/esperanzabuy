@@ -125,7 +125,13 @@ async function login() {
 
 function handleLogin(e) {
 	e.preventDefault();
-	login();
+	const token = localStorage.getItem('jwt');
+	if (!token)
+		login();
+	else {
+		document.getElementById('login-container').style.display = 'none';
+		document.getElementById('main-container').style.display = 'flex';
+	}
 	return false;
 }
 
