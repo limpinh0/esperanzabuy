@@ -10,7 +10,6 @@ function closeModal(id) {
 
 async function submitCreateProduct() {
 	const name = document.getElementById('createName').value;
-	const imagem = document.getElementById('createImagem').value;
 	const category = document.getElementById('createCategory').value;
 	const price = parseFloat(document.getElementById('createPrice').value);
 	const promo = parseFloat(document.getElementById('createPromo').value)
@@ -19,13 +18,18 @@ async function submitCreateProduct() {
 	const vpn = parseFloat(document.getElementById('createVpn').value)
 	const token = localStorage.getItem('jwt');
 
+	if (!name || !category || !price || !promo || !weight || !stock)
+		return alert(`Existem campos vazios.`);
+
+	const imagem = 'img/' + name.toLowerCase() + ".png";
+	if (!vpn) vpn = 1;
 	const res = await fetch('https://api.yourbestbot.pt/admin/createProduct', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${token}`
 		},
-		body: JSON.stringify({ name, imagem, category, price, promo, weight, stock, vpn })
+		body: JSON.stringify({ name, image, category, price, promo, weight, stock, vpn })
 	});
 
 	const result = document.getElementById('result');
