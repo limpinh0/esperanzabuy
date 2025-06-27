@@ -293,7 +293,8 @@ function logoutToIndex() {
 
 async function fetchProdutos() {
 	const token = localStorage.getItem('jwt');
-	const res = await fetch('https://api.yourbestbot.pt/shop', {
+	const res = await fetch('https://api.yourbestbot.pt/unlock-items', {
+		method: "POST",
 		headers: { 'Authorization': `Bearer ${token}` }
 	});
 	if (!res.ok) return;
