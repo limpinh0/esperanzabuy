@@ -425,7 +425,6 @@ async function atualizarTodosProdutos() {
 	fetchProdutos();
 }
 
-
 // Chame fetchProdutos ao mostrar a secção de produtos
 const oldShowSection = window.showSection;
 window.showSection = function (section) {
