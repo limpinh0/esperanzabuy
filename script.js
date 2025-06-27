@@ -80,7 +80,7 @@ async function submitEditProduct() {
 	}
 
 	const res = await fetch(`https://api.yourbestbot.pt/admin/editProduct/${encodeURIComponent(name)}`, {
-		method: 'POST',
+		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${token}`
@@ -145,16 +145,15 @@ async function getDashboard() {
 			'Authorization': `Bearer ${token}`
 		}
 	}); */
-	const orderRes = await fetch('https://api.yourbestbot.pt/pendingOrders');
-	const orders = await orderRes.json();
-
-	renderOrders(orders);
+	renderOrders();
 
 	// refresh order timers every minute
-	setInterval(() => renderOrders(orders), 60 * 1000);
+	setInterval(() => renderOrders(), 60 * 1000);
 }
 
-function renderOrders(orders) {
+async function renderOrders() {
+	const orderRes = await fetch('https://api.yourbestbot.pt/pendingOrders');
+	const orders = await orderRes.json();
 	const ordersEl = document.getElementById('orders');
 
 	if (!Array.isArray(orders) || orders.length === 0) {
@@ -168,7 +167,7 @@ function renderOrders(orders) {
 			<strong>Expira:</strong> ${formatRelativeTime(order.expiresAt)}<br>
 			<strong>Items:</strong>
 			<ul>
-				${order.items.map(item => `<li>${item.quantity}x ${item.name}</li>`).join('')}
+				${order.items.map(item => `<li>${item.name} | ${item.quantity} x ${item.unitPrice}$ = ${item.quantity * item.unitPrice}$</li>`).join('')}
 			</ul>
 			<strong>Preço Final:</strong> $${order.finalPrice}<br>
 			<strong>Peso Encomenda:</strong> ${order.totalWeight} Kg<br>

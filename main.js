@@ -588,26 +588,6 @@ async function copiarResumoCarrinho() {
 	(async () => {
 		const fatura = document.getElementById("fatura").checked ? "Sim" : "Não";
 		const cpEntrega = document.getElementById("cpEntrega").value || "---";
-		const response = await fetch(BASEAPI + "/order", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-				items: carrinho.map(item => ({
-					name: item.name,
-					quantity: item.qtd,
-				})),
-				finalPrice: total.toFixed(2),
-				totalWeight: pesoTotal.toFixed(2),
-				meetingPlace: cpEntrega
-			})
-		});
-
-		if (response.ok) console.log("all good, order placed!");
-
-		const res = await response.json();
-		texto += `Encomenda: ${res.orderId}\n\n`;
 		carrinho.forEach((item) => {
 			const subTotal = item.qtd * item.price;
 			const subPeso = item.qtd * item.weight;
@@ -619,6 +599,27 @@ async function copiarResumoCarrinho() {
 		texto += `Deseja fatura? ${fatura}\n`;
 		texto += `Total: ${total.toFixed(2)} $\n`;
 		texto += `Peso Total: ${pesoTotal.toFixed(2)} kg`;
+		const response = await fetch(BASEAPI + "/order", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				items: carrinho.map(item => ({
+					name: item.name,
+					quantity: item.qtd,
+					unitPrice: item.price
+				})),
+				finalPrice: total.toFixed(2),
+				totalWeight: pesoTotal.toFixed(2),
+				meetingPlace: cpEntrega
+			})
+		});
+
+		if (response.ok) console.log("all good, order placed!");
+
+		const res = await response.json();
+		texto = `Encomenda: ${res.orderId}\n\n` + texto;
 		navigator.clipboard.writeText(texto);
 	})();
 
