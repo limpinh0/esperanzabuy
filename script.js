@@ -120,6 +120,7 @@ async function login() {
 	document.getElementById('main-container').style.display = 'flex';
 
 	error.textContent = '';
+	fetchProdutos();
 }
 
 function handleLogin(e) {
@@ -290,10 +291,11 @@ function logoutToIndex() {
 }
 
 async function fetchProdutos() {
-	const token = localStorage.getItem('jwt');
 	const res = await fetch('https://api.yourbestbot.pt/unlock-items', {
 		method: "POST",
-		headers: { 'Authorization': `Bearer ${token}` }
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem("jwt")}`
+		}
 	});
 	if (!res.ok) return;
 	const produtos = await res.json();
@@ -431,4 +433,4 @@ window.showSection = function (section) {
 	if (section === 'produtos') fetchProdutos();
 };
 // Se já estiver na secção produtos ao carregar, buscar produtos
-if (document.getElementById('section-produtos').style.display !== 'none') fetchProdutos();
+//if (document.getElementById('section-produtos').style.display !== 'none') setTimeout(() => { fetchProdutos(); }, 500); // give time for token/code to load
