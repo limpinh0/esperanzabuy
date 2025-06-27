@@ -29,11 +29,11 @@ async function submitCreateProduct() {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${token}`
 		},
-		body: JSON.stringify({ newItem: { name, image, category, price, promo, weight, stock, vpn }})
+		body: JSON.stringify({ newItem: { name, image, category, price, promo, weight, stock, vpn } })
 	});
 
-	const result = document.getElementById('result');
-	result.textContent = res.ok ? "✅ Product created." : "❌ Failed to create product.";
+
+	alert(res.ok ? "✅ Produto criado com sucesso." : "❌ Falha ao criar produto.");
 	closeModal('createProductModal');
 }
 
@@ -99,6 +99,7 @@ async function submitEditProduct() {
 async function login() {
 	const username = document.getElementById('username').value;
 	const password = document.getElementById('password').value;
+	const error = document.getElementById('login-error');
 
 	const res = await fetch('https://api.yourbestbot.pt/loginEBuy', {
 		method: 'POST',
@@ -108,16 +109,24 @@ async function login() {
 		body: JSON.stringify({ username, password })
 	});
 
-	const resultEl = document.getElementById('result');
-
+	// const resultEl = document.getElementById('result');
 	if (!res.ok) {
-		resultEl.textContent = "❌ Invalid login";
-		return;
+		error.textContent = 'Credenciais inválidas!';
+		return false;
 	}
 
 	const data = await res.json();
 	localStorage.setItem('jwt', data.token);
-	resultEl.textContent = "✅ Login successful!";
+	document.getElementById('login-container').style.display = 'none';
+	document.getElementById('main-container').style.display = 'flex';
+
+	error.textContent = '';
+}
+
+function handleLogin(e) {
+	e.preventDefault();
+	login();
+	return false;
 }
 
 async function getDashboard() {
@@ -151,8 +160,8 @@ async function getDashboard() {
 	}); */
 	renderOrders();
 
-	// refresh order timers every minute
-	setInterval(() => renderOrders(), 60 * 1000);
+	// refresh order timers every five minutes
+	setInterval(() => renderOrders(), 5 * 60 * 1000);
 }
 
 async function renderOrders() {
@@ -161,23 +170,75 @@ async function renderOrders() {
 	const ordersEl = document.getElementById('orders');
 
 	if (!Array.isArray(orders) || orders.length === 0) {
-		ordersEl.innerHTML = "<p>No pending orders.</p>";
+		ordersEl.innerHTML = "<p>Sem encomendas pendentes.</p>";
 		return;
 	}
 
-	ordersEl.innerHTML = "<h3>Pending Orders</h3>" + orders.map(order => `
-		<div class="order">
-			<strong>Order ID:</strong> ${order.orderId}<br>
-			<strong>Expira:</strong> ${formatRelativeTime(order.expiresAt)}<br>
-			<strong>Items:</strong>
-			<ul>
-				${order.items.map(item => `<li>${item.name} | ${item.quantity} x ${item.unitPrice}$ = ${item.quantity * item.unitPrice}$</li>`).join('')}
-			</ul>
-			<strong>Preço Final:</strong> $${order.finalPrice}<br>
-			<strong>Peso Encomenda:</strong> ${order.totalWeight} Kg<br>
-			<strong>Local de Entrega:</strong> ${order.meetingPlace}<br>
-		</div>
-	`).join('');
+	let html = `
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Expira</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Peso</th>
+                    <th>Local</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${orders.map(order => `
+                    <tr>
+                        <td>${order.orderId}</td>
+                        <td>${formatRelativeTime(order.expiresAt)}</td>
+                        <td>
+                            <ul style="padding-left:16px;text-align:left;">
+                                ${order.items.map(item => `<li>${item.name} | ${item.quantity} x ${item.unitPrice} $ = ${item.quantity * item.unitPrice}$</li>`).join('')}
+                            </ul>
+                        </td>
+                        <td>${order.finalPrice} $</td>
+                        <td>${order.totalWeight} Kg</td>
+                        <td>${order.meetingPlace}</td>
+                        <td>
+                            <button style="background:#27ae60;" onclick="completeOrder('${order.orderId}')">Finalizar</button>
+                            <button style="background:#e74c3c;" onclick="cancelOrder('${order.orderId}')">Cancelar</button>
+                        </td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+	ordersEl.innerHTML = html;
+}
+
+// Adicione estas funções ao seu script:
+async function completeOrder(orderId) {
+	const token = localStorage.getItem('jwt');
+	const res = await fetch('https://api.yourbestbot.pt/admin/complete-order', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`
+		},
+		body: JSON.stringify({ orderId })
+	});
+	alert(res.ok ? "✅ Encomenda finalizada!" : "❌ Erro ao finalizar encomenda.");
+	renderOrders();
+}
+
+async function cancelOrder(orderId) {
+	const token = localStorage.getItem('jwt');
+	const res = await fetch('https://api.yourbestbot.pt/admin/cancel-order', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`
+		},
+		body: JSON.stringify({ orderId })
+	});
+	alert(res.ok ? "✅ Encomenda cancelada!" : "❌ Erro ao cancelar encomenda.");
+	renderOrders();
 }
 
 function formatRelativeTime(timestamp) {
@@ -203,3 +264,143 @@ function formatRelativeTime(timestamp) {
 
 	return `${relativeTime} | ${exactTime}`;
 }
+
+// Dark/Light mode
+function toggleMode() {
+	document.body.classList.toggle('dark');
+	localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+(function () {
+	if (localStorage.getItem('theme') === 'dark') {
+		document.body.classList.add('dark');
+	}
+})();
+
+// Sidebar navigation
+function showSection(section) {
+	document.getElementById('section-produtos').style.display = section === 'produtos' ? '' : 'none';
+	document.getElementById('section-encomendas').style.display = section === 'encomendas' ? '' : 'none';
+	document.getElementById('btn-produtos').classList.toggle('active', section === 'produtos');
+	document.getElementById('btn-encomendas').classList.toggle('active', section === 'encomendas');
+	if (section === 'encomendas') renderOrders();
+}
+
+
+function logoutToIndex() {
+	localStorage.removeItem('jwt');
+	window.location.href = "index.html";
+}
+
+async function fetchProdutos() {
+	const token = localStorage.getItem('jwt');
+	const res = await fetch('https://api.yourbestbot.pt/shop', {
+		headers: { 'Authorization': `Bearer ${token}` }
+	});
+	if (!res.ok) return;
+	const produtos = await res.json();
+	renderProdutosTable(produtos);
+}
+
+function renderProdutosTable(produtos) {
+	// Alphabetic order
+	produtos.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+
+	const tbody = document.querySelector('#produtos-table tbody');
+	tbody.innerHTML = '';
+	produtos.forEach(prod => {
+		const tr = document.createElement('tr');
+		tr.innerHTML = `
+				<td>${prod.name}</td>
+				<td><input value="${prod.category}" style="width:90px" /></td>
+				<td><input type="number" value="${prod.price}" style="width:60px" /></td>
+				<td><input type="number" value="${prod.promo}" style="width:60px" /></td>
+				<td><input type="number" value="${prod.weight}" style="width:60px" /></td>
+				<td><input type="number" value="${prod.stock}" style="width:60px" /></td>
+				<td><input type="number" value="${prod.vpn}" style="width:60px" /></td>
+				<td>
+					<button onclick="submitEditProductFromRow(this, '${encodeURIComponent(prod.name)}')">💾</button>
+					<button onclick="submitDeleteProductFromRow(this, '${encodeURIComponent(prod.name)}')">🗑️</button>
+				</td>
+			`;
+		tbody.appendChild(tr);
+	});
+}
+
+// Edição de produto diretamente na grelha:
+async function submitEditProductFromRow(btn, encodedName) {
+	const tr = btn.closest('tr');
+	const inputs = tr.querySelectorAll('input');
+	const [categoryInput, priceInput, promoInput, weightInput, stockInput, vpnInput] = inputs;
+	const updates = {
+		category: categoryInput.value,
+		price: parseFloat(priceInput.value),
+		promo: parseFloat(promoInput.value),
+		weight: parseFloat(weightInput.value),
+		stock: parseInt(stockInput.value),
+		vpn: parseFloat(vpnInput.value)
+	};
+	const token = localStorage.getItem('jwt');
+	const res = await fetch(`https://api.yourbestbot.pt/admin/editProduct/${encodedName}`, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`
+		},
+		body: JSON.stringify(updates)
+	});
+	alert(res.ok ? "✅ Produto atualizado." : "❌ Falha ao atualizar produto.");
+	fetchProdutos();
+}
+
+async function submitDeleteProductFromRow(btn, encodedName) {
+	const name = decodeURIComponent(encodedName);
+	const token = localStorage.getItem('jwt');
+	const res = await fetch('https://api.yourbestbot.pt/admin/deleteProduct', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`
+		},
+		body: JSON.stringify({ itemsToRemove: [name] })
+	});
+	alert(res.ok ? "✅ Produto apagado." : "❌ Falha ao apagar produto.");
+	fetchProdutos();
+}
+
+// Atualizar todos os produtos da grelha
+async function atualizarTodosProdutos() {
+	const rows = document.querySelectorAll('#produtos-table tbody tr');
+	for (const tr of rows) {
+		const name = tr.querySelector('td').textContent.trim();
+		const inputs = tr.querySelectorAll('input');
+		const [categoryInput, priceInput, promoInput, weightInput, stockInput, vpnInput] = inputs;
+		const updates = {
+			category: categoryInput.value,
+			price: parseFloat(priceInput.value),
+			promo: parseFloat(promoInput.value),
+			weight: parseFloat(weightInput.value),
+			stock: parseInt(stockInput.value),
+			vpn: parseFloat(vpnInput.value)
+		};
+		const token = localStorage.getItem('jwt');
+		await fetch(`https://api.yourbestbot.pt/admin/editProduct/${encodeURIComponent(name)}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${token}`
+			},
+			body: JSON.stringify(updates)
+		});
+	}
+	console.log("✅ Todos os produtos foram atualizados.");
+	fetchProdutos();
+}
+
+// Chame fetchProdutos ao mostrar a secção de produtos
+const oldShowSection = window.showSection;
+window.showSection = function (section) {
+	oldShowSection(section);
+	if (section === 'produtos') fetchProdutos();
+};
+// Se já estiver na secção produtos ao carregar, buscar produtos
+if (document.getElementById('section-produtos').style.display !== 'none') fetchProdutos();
