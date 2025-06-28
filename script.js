@@ -269,47 +269,47 @@ function logoutToIndex() {
 }
 
 async function fetchProdutos() {
-    const res = await fetch('https://api.yourbestbot.pt/unlock-items', {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`
-        }
-    });
-    if (!res.ok) return;
-    allProdutos = await res.json();
-    ordemAtual = 'nome'; // Garante ordem nome ao carregar
-    document.getElementById('ordemProdutos').value = 'nome'; // Atualiza o select visualmente
-    filtrarEOrdenarProdutos();
+	const res = await fetch('https://api.yourbestbot.pt/unlock-items', {
+		method: "POST",
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem("jwt")}`
+		}
+	});
+	if (!res.ok) return;
+	allProdutos = await res.json();
+	ordemAtual = 'nome'; // Garante ordem nome ao carregar
+	document.getElementById('ordemProdutos').value = 'nome'; // Atualiza o select visualmente
+	filtrarEOrdenarProdutos();
 }
 
 document.getElementById('searchProdutos').addEventListener('input', filtrarEOrdenarProdutos);
-document.getElementById('ordemProdutos').addEventListener('change', function() {
-    ordemAtual = this.value;
-    filtrarEOrdenarProdutos();
+document.getElementById('ordemProdutos').addEventListener('change', function () {
+	ordemAtual = this.value;
+	filtrarEOrdenarProdutos();
 });
 
 function filtrarEOrdenarProdutos() {
-    const termo = document.getElementById('searchProdutos').value.trim().toLowerCase();
-    let filtrados = allProdutos.filter(p => p.name.toLowerCase().includes(termo));
-    switch (ordemAtual) {
-        case 'nome':
-            filtrados.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
-            break;
-        case 'categoria':
-            filtrados.sort((a, b) => a.category.localeCompare(b.category, undefined, { sensitivity: 'base' }));
-            break;
-        case 'stock':
-            filtrados.sort((a, b) => (b.stock || 0) - (a.stock || 0));
-            break;
-        case 'vpn':
-            filtrados.sort((a, b) => (b.vpn || 0) - (a.vpn || 0));
-            break;
-        case 'nenhum':
-        default:
-            // Não ordenar
-            break;
-    }
-    renderProdutosTable(filtrados);
+	const termo = document.getElementById('searchProdutos').value.trim().toLowerCase();
+	let filtrados = allProdutos.filter(p => p.name.toLowerCase().includes(termo));
+	switch (ordemAtual) {
+		case 'nome':
+			filtrados.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+			break;
+		case 'categoria':
+			filtrados.sort((a, b) => a.category.localeCompare(b.category, undefined, { sensitivity: 'base' }));
+			break;
+		case 'stock':
+			filtrados.sort((a, b) => (b.stock || 0) - (a.stock || 0));
+			break;
+		case 'vpn':
+			filtrados.sort((a, b) => (b.vpn || 0) - (a.vpn || 0));
+			break;
+		case 'nenhum':
+		default:
+			// Não ordenar
+			break;
+	}
+	renderProdutosTable(filtrados);
 }
 
 function renderProdutosTable(produtos) {
@@ -448,5 +448,39 @@ window.showSection = function (section) {
 	oldShowSection(section);
 	if (section === 'produtos') fetchProdutos();
 };
-// Se já estiver na secção produtos ao carregar, buscar produtos
-//if (document.getElementById('section-produtos').style.display !== 'none') setTimeout(() => { fetchProdutos(); }, 500); // give time for token/code to load
+
+window.addEventListener('DOMContentLoaded', async () => {
+	const token = localStorage.getItem('jwt');
+
+	if (!token) {
+		// No token, show login form
+		document.getElementById('login-container').style.display = 'flex';
+		return;
+	}
+
+	try {
+		// Validate token with the backend
+		const res = await fetch('https://api.yourbestbot.pt/admin/verifyToken', {
+			method: 'GET',
+			headers: {
+				'Authorization': `Bearer ${token}`
+			}
+		});
+
+		if (res.ok) {
+			// Token is valid, redirect or show logged-in content
+			//window.location.href = '/dashboard'; // or load dashboard directly
+			document.getElementById('login-container').style.display = 'none';
+			document.getElementById('main-container').style.display = 'flex';
+			fetchProdutos();
+		} else {
+			// Invalid token
+			localStorage.removeItem('jwt');
+			document.getElementById('login-container').style.display = 'flex';
+		}
+	} catch (err) {
+		console.error('Token validation failed:', err);
+		localStorage.removeItem('jwt');
+		document.getElementById('login-container').style.display = 'flex';
+	}
+});
