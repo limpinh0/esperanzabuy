@@ -137,35 +137,6 @@ function handleLogin(e) {
 	return false;
 }
 
-async function getDashboard() {
-	const token = localStorage.getItem('jwt');
-	const resultEl = document.getElementById('result');
-	const ordersEl = document.getElementById('orders');
-
-	if (!token) {
-		resultEl.textContent = "❌ You must log in first.";
-		return;
-	}
-
-	// Dashboard
-	const dashRes = await fetch('https://api.yourbestbot.pt/admin/dashboard', {
-		headers: {
-			'Authorization': `Bearer ${token}`
-		}
-	});
-	if (!dashRes.ok) {
-		resultEl.textContent = "❌ Unauthorized or session expired";
-		return;
-	}
-	const dashboard = await dashRes.json();
-	resultEl.textContent = "✅ Dashboard:\n" + JSON.stringify(dashboard, '\t', 4);
-
-	renderOrders();
-
-	// refresh order timers every five minutes
-	setInterval(() => renderOrders(), 5 * 60 * 1000);
-}
-
 async function renderOrders() {
 	const token = localStorage.getItem('jwt');
 	const orderRes = await fetch('https://api.yourbestbot.pt/admin/pendingOrders', {
