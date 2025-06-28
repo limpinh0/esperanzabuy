@@ -160,12 +160,6 @@ async function getDashboard() {
 	const dashboard = await dashRes.json();
 	resultEl.textContent = "✅ Dashboard:\n" + JSON.stringify(dashboard, '\t', 4);
 
-	// Pending orders
-	/* const orderRes = await fetch('https://api.yourbestbot.pt/pendingOrders', {
-		headers: {
-			'Authorization': `Bearer ${token}`
-		}
-	}); */
 	renderOrders();
 
 	// refresh order timers every five minutes
@@ -173,7 +167,12 @@ async function getDashboard() {
 }
 
 async function renderOrders() {
-	const orderRes = await fetch('https://api.yourbestbot.pt/pendingOrders');
+	const token = localStorage.getItem('jwt');
+	const orderRes = await fetch('https://api.yourbestbot.pt/admin/pendingOrders', {
+		headers: {
+			'Authorization': `Bearer ${token}`
+		}
+	});
 	const orders = await orderRes.json();
 	const ordersEl = document.getElementById('orders');
 
