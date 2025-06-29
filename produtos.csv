@@ -7,7 +7,7 @@ Borracha,img/rubber.png,3.49,0.1,Materiais,544,0,3.49
 Aço,img/steel.png,1.5,0.1,Materiais,1265,0,1.5
 Cobre,img/cooper.png,3,0.1,Materiais,1350,0,3
 Vidro,img/glass.png,1.99,0.1,Materiais,733,0,1.99
-Tábuas de madeira,img/wood.png,5.9,0.25,Materiais,35,0,5.9
+Tábuas de madeira,img/wood.png,5.9,0.25,Materiais,80,0,5.9
 Trapos,img/trapos.png,10,0.1,Materiais,9,0,15
 Chumbo,img/leadore.png,4.49,0.1,Minérios,557,0,6
 Estanho,img/tinore.png,6,0.1,Minérios,171,0,6
@@ -15,7 +15,7 @@ Nefrit,img/nefrit.png,6,0.1,Minérios,144,0,6
 Prata,img/silverore.png,6,0.1,Minérios,199,0,6
 Cristal,img/crystal.png,6,0.1,Minérios,389,0,6
 Quartz,img/quartz.png,6,0.1,Minérios,152,0,6
-Sulfur,img/sulfur.png,9.99,0.1,Minérios,77,0,12.5
+Sulfur,img/sulfur.png,9.99,0.1,Minérios,133,0,12.5
 Carvão,img/coal.png,12.49,0.5,Minérios,167,0,15
 Ácido de bateria,img/battery_acid.png,20,0.5,Baterias,0,0,20
 Kit eletrónico,img/electronic-kit.png,50,0.5,Electrónicos,1,0,50
@@ -37,7 +37,7 @@ Chaves cofre banco CP940,img/chavesbanco.png,149,0.5,Chaves,1,1,149
 Soqueira,img/knuckle.png,666,1,Arma,2,1,666
 Chess Board,img/checkers.png,15,1,Jogos,2,0,15
 Checkers Board,img/checkers2.png,15,1,Jogos,2,0,15
-Couro,img/leather.png,19,0.5,Materiais,148,0,19
+Couro,img/leather.png,15,0.5,Materiais,148,0,19
 Carne,img/meat.png,5,0.2,Alimentação,954,0,5
 Frango cru empacotado,img/chickenmeat.png,5,0.1,Alimentação,240,0,5
 Peixe cru,img/preixecru.png,5,0.5,Alimentação,28,0,5
