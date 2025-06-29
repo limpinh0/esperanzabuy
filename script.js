@@ -1,3 +1,4 @@
+const BASEAPI = "https://api.esperanzabuy.pt";
 let currentAction = '';
 let allProdutos = [];
 let ordemAtual = 'nome';
@@ -31,7 +32,7 @@ async function submitCreateProduct() {
 
 	const image = 'img/' + name.toLowerCase() + ".png";
 	if (document.getElementById('createVpn').value == '') vpn = 1;
-	const res = await fetch('https://api.esperanzabuy.pt/admin/createProduct', {
+	const res = await fetch(BASEAPI + '/admin/createProduct', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -48,7 +49,7 @@ async function submitDeleteProduct() {
 	const names = document.getElementById('deleteName').value;
 	const token = localStorage.getItem('jwt');
 
-	const res = await fetch('https://api.esperanzabuy.pt/admin/deleteProduct', {
+	const res = await fetch(BASEAPI + '/admin/deleteProduct', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -90,7 +91,7 @@ async function submitEditProduct() {
 		return;
 	}
 
-	const res = await fetch(`https://api.esperanzabuy.pt/admin/editProduct/${encodeURIComponent(name)}`, {
+	const res = await fetch(BASEAPI + `/admin/editProduct/${encodeURIComponent(name)}`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
@@ -108,7 +109,7 @@ async function login() {
 	const password = document.getElementById('password').value;
 	const error = document.getElementById('login-error');
 
-	const res = await fetch('https://api.esperanzabuy.pt/loginEBuy', {
+	const res = await fetch(BASEAPI + '/loginEBuy', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
@@ -139,7 +140,7 @@ function handleLogin(e) {
 
 async function renderOrders() {
 	const token = localStorage.getItem('jwt');
-	const orderRes = await fetch('https://api.esperanzabuy.pt/admin/pendingOrders', {
+	const orderRes = await fetch(BASEAPI + '/admin/pendingOrders', {
 		headers: {
 			'Authorization': `Bearer ${token}`
 		}
@@ -193,7 +194,7 @@ async function renderOrders() {
 // Adicione estas funções ao seu script:
 async function completeOrder(orderId) {
 	const token = localStorage.getItem('jwt');
-	const res = await fetch('https://api.esperanzabuy.pt/admin/complete-order', {
+	const res = await fetch(BASEAPI + '/admin/complete-order', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -207,7 +208,7 @@ async function completeOrder(orderId) {
 
 async function cancelOrder(orderId) {
 	const token = localStorage.getItem('jwt');
-	const res = await fetch('https://api.esperanzabuy.pt/admin/cancel-order', {
+	const res = await fetch(BASEAPI + '/admin/cancel-order', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -269,7 +270,7 @@ function logoutToIndex() {
 }
 
 async function fetchProdutos() {
-	const res = await fetch('https://api.esperanzabuy.pt/unlock-items', {
+	const res = await fetch(BASEAPI + '/unlock-items', {
 		method: "POST",
 		headers: {
 			Authorization: `Bearer ${localStorage.getItem("jwt")}`
@@ -359,7 +360,7 @@ async function submitEditProductFromRow(btn, encodedName) {
 		vpn: parseInt(vpnInput.value)
 	};
 	const token = localStorage.getItem('jwt');
-	const res = await fetch(`https://api.esperanzabuy.pt/admin/editProduct/${encodedName}`, {
+	const res = await fetch(BASEAPI + `/admin/editProduct/${encodedName}`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
@@ -374,7 +375,7 @@ async function submitEditProductFromRow(btn, encodedName) {
 async function submitDeleteProductFromRow(btn, encodedName) {
 	const name = decodeURIComponent(encodedName);
 	const token = localStorage.getItem('jwt');
-	const res = await fetch('https://api.esperanzabuy.pt/admin/deleteProduct', {
+	const res = await fetch(BASEAPI + '/admin/deleteProduct', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -389,7 +390,7 @@ async function submitDeleteProductFromRow(btn, encodedName) {
 // Atualizar todos os produtos da grelha
 async function atualizarTodosProdutos() {
 	const rows = document.querySelectorAll('#produtos-table tbody tr');
-	const dbItems = await fetch("https://api.esperanzabuy.pt/unlock-items", {
+	const dbItems = await fetch(BASEAPI + "/unlock-items", {
 		method: "POST",
 		headers: {
 			Authorization: `Bearer ${localStorage.getItem("jwt")}`
@@ -427,7 +428,7 @@ async function atualizarTodosProdutos() {
 		);
 
 		if (changed) {
-			await fetch(`https://api.esperanzabuy.pt/admin/editProduct/${encodeURIComponent(name)}`, {
+			await fetch(BASEAPI + `/admin/editProduct/${encodeURIComponent(name)}`, {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json',
@@ -460,7 +461,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 	try {
 		// Validate token with the backend
-		const res = await fetch('https://api.esperanzabuy.pt/admin/verifyToken', {
+		const res = await fetch(BASEAPI + '/admin/verifyToken', {
 			method: 'GET',
 			headers: {
 				'Authorization': `Bearer ${token}`
