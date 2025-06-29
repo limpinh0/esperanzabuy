@@ -1,4 +1,4 @@
-const BASEAPI = "https://api.esperanzabuy.pt";
+const BASEAPI = "http://api.esperanzabuy.pt";
 let currentAction = '';
 let allProdutos = [];
 let ordemAtual = 'nome';
