@@ -1,8 +1,7 @@
-const BASEAPI = "https://api.yourbestbot.pt";
-let test = "sim";
+const BASEAPI = "https://api.esperanzabuy.pt";
 async function carregarProdutos() {
 	try {
-		const response = await fetch("https://api.yourbestbot.pt/shop");
+		const response = await fetch(BASEAPI + "/shop");
 		const data = await response.json();
 		return data;
 	} catch (error) {
