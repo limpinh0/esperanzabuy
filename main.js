@@ -1,4 +1,4 @@
-const BASEAPI = "http://api.esperanzabuy.pt";
+const BASEAPI = "https://api.esperanzabuy.pt";
 async function carregarProdutos() {
 	try {
 		const response = await fetch(BASEAPI + "/shop");
