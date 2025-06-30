@@ -25,7 +25,8 @@
         <div class="sidebar">
             <button id="btn-logout" onclick="logoutToIndex()" style="background:#e74c3c;color:#fff;margin-top:1.5rem;padding:6px 16px;font-size:0.95rem;width:auto;align-self:flex-start;border-radius:5px;">Sair</button>
             <button id="btn-produtos" class="active" onclick="showSection('produtos')">Produtos</button>
-            <button id="btn-encomendas" onclick="showSection('encomendas')">Encomendas</button>
+            <button id="btn-encomendas" onclick="showSection('encomendas')">Encomendas</button>          
+            <div id="vpn-ip-result" style="color:#ff9900;font-size:0.98rem;margin-top:4px;text-align: center;"></div>
             <button class="toggle-mode" onclick="toggleMode()">🌙/☀️ Mudar Tema</button>
         </div>
         <div class="content">
@@ -94,46 +95,6 @@
 			<button onclick="closeModal('createProductModal')">Cancel</button>
 		</div>
 	</div>
-
-	<!-- Delete Product Modal -->
-	<!-- <div id="deleteProductModal" class="modal">
-		<div class="modal-content">
-			<h3>Delete Product</h3>
-			<input id="deleteName" placeholder="Nomes separados por '|'" />
-			<button onclick="submitDeleteProduct()">Delete</button>
-			<button onclick="closeModal('deleteProductModal')">Cancel</button>
-		</div>
-	</div> -->
-
-	<!-- Edit Product Modal -->
-	<!-- <div id="editProductModal" class="modal">
-		<div class="modal-content">
-			<h3>Edit Product</h3>
-			<input id="editName" placeholder="Product Name (e.g. Tablet)" />
-			<input id="editImagem" type="text" placeholder="New Image Path" />
-			<input id="editCategory" type="text" placeholder="New Category" />
-			<input id="editPrice" type="number" placeholder="New Price" />
-			<input id="editPromo" type="number" placeholder="New Promo" />
-			<input id="editWeight" type="number" placeholder="New Weight" />
-			<input id="editStock" type="number" placeholder="New Stock" />
-			<input id="editVPN" type="number" placeholder="New VPN" />
-
-			<button onclick="submitEditProduct()">Update</button>
-			<button onclick="closeModal('editProductModal')">Cancel</button>
-		</div>
-	</div> -->
-
-	<!-- Modal -->
-	<!-- <div class="modal" id="modal">
-		<div class="modal-content">
-			<h3 id="modalTitle">Action</h3>
-			<input id="productName" placeholder="Product Name">
-			<input id="productPrice" placeholder="Product Price">
-			<input id="productId" placeholder="Product ID (if needed)">
-			<button onclick="submitAction()">Send</button>
-			<button onclick="closeModal()">Cancel</button>
-		</div>
-	</div> -->
 	<script src="script.js"></script>  
 </body>
 

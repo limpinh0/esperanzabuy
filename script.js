@@ -2,7 +2,6 @@ const BASEAPI = "https://api.esperanzabuy.pt";
 let currentAction = '';
 let allProdutos = [];
 let ordemAtual = 'nome';
-
 function openModal(id) {
 	document.getElementById(id).style.display = 'flex';
 }
@@ -43,6 +42,9 @@ async function submitCreateProduct() {
 
 	alert(res.ok ? "✅ Produto criado com sucesso." : "❌ Falha ao criar produto.");
 	closeModal('createProductModal');
+	if (res.ok) {
+		await fetchProdutos(); // Atualiza a grelha dos produtos após criar
+	}
 }
 
 async function submitDeleteProduct() {
@@ -125,6 +127,7 @@ async function login() {
 
 	const data = await res.json();
 	localStorage.setItem('jwt', data.token);
+	document.getElementById('vpn-ip-result').textContent = data.ip || '';
 	document.getElementById('login-container').style.display = 'none';
 	document.getElementById('main-container').style.display = 'flex';
 
