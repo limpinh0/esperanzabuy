@@ -586,8 +586,7 @@ async function copiarResumoCarrinho() {
 	let total = 0;
 	let pesoTotal = 0;
 
-	alert("Carrinho copiado, pode agora colar o carrinho por mensagem para o Instapic @EsperanzaBuy! \n\nIremos responder assim que possível.");
-	(async () => {
+	 (async () => {
 		const fatura = document.getElementById("fatura").checked ? "Sim" : "Não";
 		const cpEntrega = document.getElementById("cpEntrega").value || "---";
 		carrinho.forEach((item) => {
@@ -628,7 +627,7 @@ async function copiarResumoCarrinho() {
         await navigator.clipboard.writeText(texto);
         alert("Carrinho copiado, pode agora colar o carrinho por mensagem para o Instapic @EsperanzaBuy! \n\nIremos responder assim que possível.");
     } catch (e) {
-        alert("Não foi possível copiar para a área de transferência.");
+        alert("Não foi possível copiar para a área de transferência. Informe-nos desta situação em Instapic @EsperanzaBuy!");
     }
 
 	})();
