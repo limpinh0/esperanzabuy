@@ -623,7 +623,14 @@ async function copiarResumoCarrinho() {
 
 		const res = await response.json();
 		texto = `Encomenda: ${res.orderId}\n\n` + texto;
-		navigator.clipboard.writeText(texto);
+		 // Copia imediatamente ao clicar
+    try {
+        await navigator.clipboard.writeText(texto);
+        alert("Carrinho copiado, pode agora colar o carrinho por mensagem para o Instapic @EsperanzaBuy! \n\nIremos responder assim que possível.");
+    } catch (e) {
+        alert("Não foi possível copiar para a área de transferência.");
+    }
+
 	})();
 
 	// cool object for webhook if we use it in the future
