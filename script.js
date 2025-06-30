@@ -1,7 +1,7 @@
+const BASEAPI = "https://api.esperanzabuy.pt";
 let currentAction = '';
 let allProdutos = [];
 let ordemAtual = 'nome';
-
 function openModal(id) {
 	document.getElementById(id).style.display = 'flex';
 }
@@ -31,7 +31,7 @@ async function submitCreateProduct() {
 
 	const image = 'img/' + name.toLowerCase() + ".png";
 	if (document.getElementById('createVpn').value == '') vpn = 1;
-	const res = await fetch('https://api.yourbestbot.pt/admin/createProduct', {
+	const res = await fetch(BASEAPI + '/admin/createProduct', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -42,13 +42,16 @@ async function submitCreateProduct() {
 
 	alert(res.ok ? "✅ Produto criado com sucesso." : "❌ Falha ao criar produto.");
 	closeModal('createProductModal');
+	if (res.ok) {
+        await fetchProdutos(); // Atualiza a grelha dos produtos após criar
+    }
 }
 
 async function submitDeleteProduct() {
 	const names = document.getElementById('deleteName').value;
 	const token = localStorage.getItem('jwt');
 
-	const res = await fetch('https://api.yourbestbot.pt/admin/deleteProduct', {
+	const res = await fetch(BASEAPI + '/admin/deleteProduct', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -90,7 +93,7 @@ async function submitEditProduct() {
 		return;
 	}
 
-	const res = await fetch(`https://api.yourbestbot.pt/admin/editProduct/${encodeURIComponent(name)}`, {
+	const res = await fetch(BASEAPI + `/admin/editProduct/${encodeURIComponent(name)}`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
@@ -108,7 +111,7 @@ async function login() {
 	const password = document.getElementById('password').value;
 	const error = document.getElementById('login-error');
 
-	const res = await fetch('https://api.yourbestbot.pt/loginEBuy', {
+	const res = await fetch(BASEAPI + '/loginEBuy', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
@@ -124,6 +127,7 @@ async function login() {
 
 	const data = await res.json();
 	localStorage.setItem('jwt', data.token);
+	document.getElementById('vpn-ip-result').textContent = data.ip || '';
 	document.getElementById('login-container').style.display = 'none';
 	document.getElementById('main-container').style.display = 'flex';
 
@@ -137,43 +141,13 @@ function handleLogin(e) {
 	return false;
 }
 
-async function getDashboard() {
+async function renderOrders() {
 	const token = localStorage.getItem('jwt');
-	const resultEl = document.getElementById('result');
-	const ordersEl = document.getElementById('orders');
-
-	if (!token) {
-		resultEl.textContent = "❌ You must log in first.";
-		return;
-	}
-
-	// Dashboard
-	const dashRes = await fetch('https://api.yourbestbot.pt/admin/dashboard', {
+	const orderRes = await fetch(BASEAPI + '/admin/pendingOrders', {
 		headers: {
 			'Authorization': `Bearer ${token}`
 		}
 	});
-	if (!dashRes.ok) {
-		resultEl.textContent = "❌ Unauthorized or session expired";
-		return;
-	}
-	const dashboard = await dashRes.json();
-	resultEl.textContent = "✅ Dashboard:\n" + JSON.stringify(dashboard, '\t', 4);
-
-	// Pending orders
-	/* const orderRes = await fetch('https://api.yourbestbot.pt/pendingOrders', {
-		headers: {
-			'Authorization': `Bearer ${token}`
-		}
-	}); */
-	renderOrders();
-
-	// refresh order timers every five minutes
-	setInterval(() => renderOrders(), 5 * 60 * 1000);
-}
-
-async function renderOrders() {
-	const orderRes = await fetch('https://api.yourbestbot.pt/pendingOrders');
 	const orders = await orderRes.json();
 	const ordersEl = document.getElementById('orders');
 
@@ -223,7 +197,7 @@ async function renderOrders() {
 // Adicione estas funções ao seu script:
 async function completeOrder(orderId) {
 	const token = localStorage.getItem('jwt');
-	const res = await fetch('https://api.yourbestbot.pt/admin/complete-order', {
+	const res = await fetch(BASEAPI + '/admin/complete-order', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -237,7 +211,7 @@ async function completeOrder(orderId) {
 
 async function cancelOrder(orderId) {
 	const token = localStorage.getItem('jwt');
-	const res = await fetch('https://api.yourbestbot.pt/admin/cancel-order', {
+	const res = await fetch(BASEAPI + '/admin/cancel-order', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -299,47 +273,47 @@ function logoutToIndex() {
 }
 
 async function fetchProdutos() {
-    const res = await fetch('https://api.yourbestbot.pt/unlock-items', {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`
-        }
-    });
-    if (!res.ok) return;
-    allProdutos = await res.json();
-    ordemAtual = 'nome'; // Garante ordem nome ao carregar
-    document.getElementById('ordemProdutos').value = 'nome'; // Atualiza o select visualmente
-    filtrarEOrdenarProdutos();
+	const res = await fetch(BASEAPI + '/unlock-items', {
+		method: "POST",
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem("jwt")}`
+		}
+	});
+	if (!res.ok) return;
+	allProdutos = await res.json();
+	ordemAtual = 'nome'; // Garante ordem nome ao carregar
+	document.getElementById('ordemProdutos').value = 'nome'; // Atualiza o select visualmente
+	filtrarEOrdenarProdutos();
 }
 
 document.getElementById('searchProdutos').addEventListener('input', filtrarEOrdenarProdutos);
-document.getElementById('ordemProdutos').addEventListener('change', function() {
-    ordemAtual = this.value;
-    filtrarEOrdenarProdutos();
+document.getElementById('ordemProdutos').addEventListener('change', function () {
+	ordemAtual = this.value;
+	filtrarEOrdenarProdutos();
 });
 
 function filtrarEOrdenarProdutos() {
-    const termo = document.getElementById('searchProdutos').value.trim().toLowerCase();
-    let filtrados = allProdutos.filter(p => p.name.toLowerCase().includes(termo));
-    switch (ordemAtual) {
-        case 'nome':
-            filtrados.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
-            break;
-        case 'categoria':
-            filtrados.sort((a, b) => a.category.localeCompare(b.category, undefined, { sensitivity: 'base' }));
-            break;
-        case 'stock':
-            filtrados.sort((a, b) => (b.stock || 0) - (a.stock || 0));
-            break;
-        case 'vpn':
-            filtrados.sort((a, b) => (b.vpn || 0) - (a.vpn || 0));
-            break;
-        case 'nenhum':
-        default:
-            // Não ordenar
-            break;
-    }
-    renderProdutosTable(filtrados);
+	const termo = document.getElementById('searchProdutos').value.trim().toLowerCase();
+	let filtrados = allProdutos.filter(p => p.name.toLowerCase().includes(termo));
+	switch (ordemAtual) {
+		case 'nome':
+			filtrados.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+			break;
+		case 'categoria':
+			filtrados.sort((a, b) => a.category.localeCompare(b.category, undefined, { sensitivity: 'base' }));
+			break;
+		case 'stock':
+			filtrados.sort((a, b) => (b.stock || 0) - (a.stock || 0));
+			break;
+		case 'vpn':
+			filtrados.sort((a, b) => (b.vpn || 0) - (a.vpn || 0));
+			break;
+		case 'nenhum':
+		default:
+			// Não ordenar
+			break;
+	}
+	renderProdutosTable(filtrados);
 }
 
 function renderProdutosTable(produtos) {
@@ -389,7 +363,7 @@ async function submitEditProductFromRow(btn, encodedName) {
 		vpn: parseInt(vpnInput.value)
 	};
 	const token = localStorage.getItem('jwt');
-	const res = await fetch(`https://api.yourbestbot.pt/admin/editProduct/${encodedName}`, {
+	const res = await fetch(BASEAPI + `/admin/editProduct/${encodedName}`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
@@ -404,7 +378,7 @@ async function submitEditProductFromRow(btn, encodedName) {
 async function submitDeleteProductFromRow(btn, encodedName) {
 	const name = decodeURIComponent(encodedName);
 	const token = localStorage.getItem('jwt');
-	const res = await fetch('https://api.yourbestbot.pt/admin/deleteProduct', {
+	const res = await fetch(BASEAPI + '/admin/deleteProduct', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -419,7 +393,7 @@ async function submitDeleteProductFromRow(btn, encodedName) {
 // Atualizar todos os produtos da grelha
 async function atualizarTodosProdutos() {
 	const rows = document.querySelectorAll('#produtos-table tbody tr');
-	const dbItems = await fetch("https://api.yourbestbot.pt/unlock-items", {
+	const dbItems = await fetch(BASEAPI + "/unlock-items", {
 		method: "POST",
 		headers: {
 			Authorization: `Bearer ${localStorage.getItem("jwt")}`
@@ -457,7 +431,7 @@ async function atualizarTodosProdutos() {
 		);
 
 		if (changed) {
-			await fetch(`https://api.yourbestbot.pt/admin/editProduct/${encodeURIComponent(name)}`, {
+			await fetch(BASEAPI + `/admin/editProduct/${encodeURIComponent(name)}`, {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json',
@@ -468,7 +442,7 @@ async function atualizarTodosProdutos() {
 		}
 	}
 
-	console.log("✅ Produtos atualizados com sucesso (apenas os que mudaram).");
+	alert("✅ Produtos atualizados com sucesso (apenas os que mudaram).");
 	fetchProdutos();
 }
 
@@ -478,5 +452,40 @@ window.showSection = function (section) {
 	oldShowSection(section);
 	if (section === 'produtos') fetchProdutos();
 };
-// Se já estiver na secção produtos ao carregar, buscar produtos
-//if (document.getElementById('section-produtos').style.display !== 'none') setTimeout(() => { fetchProdutos(); }, 500); // give time for token/code to load
+
+window.addEventListener('DOMContentLoaded', async () => {
+	const token = localStorage.getItem('jwt');
+
+	if (!token) {
+		// No token, show login form
+		document.getElementById('login-container').style.display = 'flex';
+		return;
+	}
+
+	try {
+		// Validate token with the backend
+		const res = await fetch(BASEAPI + '/admin/verifyToken', {
+			method: 'GET',
+			headers: {
+				'Authorization': `Bearer ${token}`
+			}
+		});
+
+		if (res.ok) {
+			// Token is valid, redirect or show logged-in content
+			//window.location.href = '/dashboard'; // or load dashboard directly
+			document.getElementById('login-container').style.display = 'none';
+			document.getElementById('main-container').style.display = 'flex';
+			fetchProdutos();
+		} else {
+			// Invalid token
+			localStorage.removeItem('jwt');
+			document.getElementById('login-container').style.display = 'flex';
+		}
+	} catch (err) {
+		console.error('Token validation failed:', err);
+		localStorage.removeItem('jwt');
+		document.getElementById('login-container').style.display = 'flex';
+	}
+});
+
