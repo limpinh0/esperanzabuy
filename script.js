@@ -384,14 +384,27 @@ async function submitEditProductFromRow(btn, encodedName) {
 	fetchProdutos();
 }
 
-function toggleActive(td, prodName) {
+async function toggleActive(td, prodName) {
     // Encontra o produto no array global
     const prod = allProdutos.find(p => p.name === prodName);
     if (!prod) return;
     prod.active = !prod.active;
-    // Atualiza o ícone visualmente
+
+    // Prepara o objeto updates corretamente
+    const updates = { active: prod.active };
+
+    const token = localStorage.getItem('jwt');
+    const res = await fetch(BASEAPI + `/admin/updateVisibility/${prodName}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(updates)
+    }); 
+    
+    alert(res.ok ? "✅ Produto atualizado." : "❌ Falha ao atualizar produto.");
     td.innerHTML = `<span title="Clique para alternar">${prod.active ? '✅' : '❌'}</span>`;
-	
 }
 
 // async function submitDeleteProductFromRow(btn, encodedName) {
