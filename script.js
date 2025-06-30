@@ -176,7 +176,7 @@ async function renderOrders() {
                         <td>${formatRelativeTime(order.expiresAt)}</td>
                         <td>
                             <ul style="padding-left:16px;text-align:left;">
-                                ${order.items.map(item => `<li>${item.name} | ${item.quantity} x ${item.unitPrice} $ = ${item.quantity * item.unitPrice}$</li>`).join('')}
+                                ${order.items.map(item => `<li>${item.name} | ${item.quantity} x ${item.price} $ = ${item.quantity * item.price}$</li>`).join('')}
                             </ul>
                         </td>
                         <td>${order.finalPrice} $</td>
