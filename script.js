@@ -299,9 +299,13 @@ function filtrarEOrdenarProdutos() {
 		case 'nome':
 			filtrados.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
 			break;
-		case 'categoria':
-			filtrados.sort((a, b) => a.category.localeCompare(b.category, undefined, { sensitivity: 'base' }));
-			break;
+		  case 'categoria':
+            filtrados.sort((a, b) => {
+                const cat = a.category.localeCompare(b.category, undefined, { sensitivity: 'base' });
+                if (cat !== 0) return cat;
+                return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
+            });
+            break;
 		case 'stock':
 			filtrados.sort((a, b) => (b.stock || 0) - (a.stock || 0));
 			break;
