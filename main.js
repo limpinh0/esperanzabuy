@@ -157,6 +157,7 @@ function renderProducts(productsToRender) {
 	}
 
 	productsToRender.forEach((p, i) => {
+		if (!p.active) return;
 		const originalIndex = produtos.findIndex((prod) => prod.name === p.name);
 		// Calcula promoção se existir
 		let promoBadge = "";
@@ -381,6 +382,7 @@ function renderProductsVPN(productsToRender) {
 	}
 
 	productsToRender.forEach((p, i) => {
+		if (!p.active) return;
 		const originalIndex = produtos.findIndex((prod) => prod.name === p.name);
 		// Calcula promoção se existir
 		let promoBadge = "";
@@ -498,6 +500,7 @@ function renderHomeProdutos() {
 
 	homeProdutosDiv.innerHTML = "";
 	produtosHomeAleatorios.forEach((p, i) => {
+		if (!p.active) return;
 		const originalIndex = produtos.findIndex((prod) => prod.name === p.name);
 		// Badge de promoção se aplicável
 		let promoBadge = "";
