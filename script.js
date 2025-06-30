@@ -24,10 +24,10 @@ async function submitCreateProduct() {
 		return alert(`Existem campos vazios.`);
 	if (vpn !== 0 && vpn !== 1)
 		return alert(`VPN so pode ser '0' ou '1'`);
-	if (price <= 0) return alert(`Não pode ter preço negativo!`);
-	if (promo <= 0) return alert(`Não pode ter uma promoção negativa!`);
-	if (weight <= 0) return alert(`Não pode ter um peso negativo!`);
-	if (stock <= 0) return alert(`Não da para ter stock negativo!`);
+	if (price < 0) return alert(`Não pode ter preço negativo!`);
+	if (promo < 0) return alert(`Não pode ter uma promoção negativa!`);
+	if (weight < 0) return alert(`Não pode ter um peso negativo!`);
+	if (stock < 0) return alert(`Não da para ter stock negativo!`);
 
 	const image = 'img/' + name.toLowerCase() + ".png";
 	if (document.getElementById('createVpn').value == '') vpn = 1;
@@ -43,27 +43,27 @@ async function submitCreateProduct() {
 	alert(res.ok ? "✅ Produto criado com sucesso." : "❌ Falha ao criar produto.");
 	closeModal('createProductModal');
 	if (res.ok) {
-		await fetchProdutos(); // Atualiza a grelha dos produtos após criar
-	}
+        await fetchProdutos(); // Atualiza a grelha dos produtos após criar
+    }
 }
 
-async function submitDeleteProduct() {
-	const names = document.getElementById('deleteName').value;
-	const token = localStorage.getItem('jwt');
+// async function submitDeleteProduct() {
+// 	const names = document.getElementById('deleteName').value;
+// 	const token = localStorage.getItem('jwt');
 
-	const res = await fetch(BASEAPI + '/admin/deleteProduct', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${token}`
-		},
-		body: JSON.stringify({ itemsToRemove: names.split("|") })
-	});
+// 	const res = await fetch(BASEAPI + '/admin/deleteProduct', {
+// 		method: 'POST',
+// 		headers: {
+// 			'Content-Type': 'application/json',
+// 			'Authorization': `Bearer ${token}`
+// 		},
+// 		body: JSON.stringify({ itemsToRemove: names.split("|") })
+// 	});
 
-	const result = document.getElementById('result');
-	result.textContent = res.ok ? "✅ Product/s deleted." : "❌ Failed to delete product/s.";
-	closeModal('deleteProductModal');
-}
+// 	const result = document.getElementById('result');
+// 	result.textContent = res.ok ? "✅ Product/s deleted." : "❌ Failed to delete product/s.";
+// 	closeModal('deleteProductModal');
+// }
 
 async function submitEditProduct() {
 	const name = document.getElementById('editName').value.trim();
@@ -317,28 +317,33 @@ function filtrarEOrdenarProdutos() {
 }
 
 function renderProdutosTable(produtos) {
-	// Alphabetic order
-
-	const tbody = document.querySelector('#produtos-table tbody');
-	tbody.innerHTML = '';
-	produtos.forEach(prod => {
-		const tr = document.createElement('tr');
-		tr.innerHTML = `
-				<td>${prod.name}</td>
-				<td><input value="${prod.category}" style="width:90px" /></td>
-				<td><input type="number" value="${prod.price}" style="width:60px" /></td>
-				<td><input type="number" value="${prod.promo}" style="width:60px" /></td>
-				<td><input type="number" value="${prod.weight}" style="width:60px" /></td>
-				<td><input type="number" value="${prod.stock}" style="width:60px" /></td>
-				<td><input type="number" value="${prod.vpn}" style="width:60px" /></td>
-				<td>
-					<button onclick="submitEditProductFromRow(this, '${prod.name}')">💾</button>
-					<button onclick="submitDeleteProductFromRow(this, '${prod.name}')">🗑️</button>
-				</td>
-			`;
-		tbody.appendChild(tr);
-	});
-
+    const tbody = document.querySelector('#produtos-table tbody');
+    tbody.innerHTML = '';
+    produtos.forEach(prod => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>
+                <a href="#" onclick="showImageModal('${prod.imagem || prod.image || ''}', '${prod.name}');return false;" style="color:var(--primary);text-decoration:underline;cursor:pointer;">
+                    ${prod.name}
+                </a>
+            </td>
+            <td><input value="${prod.category}" style="width:90px" /></td>
+            <td><input type="number" value="${prod.price}" style="width:60px" /></td>
+            <td><input type="number" value="${prod.promo}" style="width:60px" /></td>
+            <td><input type="number" value="${prod.weight}" style="width:60px" /></td>
+            <td><input type="number" value="${prod.stock}" style="width:60px" /></td>
+            <td><input type="number" value="${prod.vpn}" style="width:60px" /></td>
+              <td style="text-align:center;cursor:pointer;" onclick="toggleActive(this, '${prod.name}')">
+                <span title="Clique para alternar">${prod.active === true ? '✅' : '❌'}</span>
+            </td>
+			<td>
+                <button onclick="submitEditProductFromRow(this, '${prod.name}')">💾</button>
+                
+            </td>
+        `;
+		// <button onclick="submitDeleteProductFromRow(this, '${prod.name}')">🗑️</button>
+        tbody.appendChild(tr);
+    });
 }
 
 // Edição de produto diretamente na grelha:
@@ -348,10 +353,10 @@ async function submitEditProductFromRow(btn, encodedName) {
 	const [categoryInput, priceInput, promoInput, weightInput, stockInput, vpnInput] = inputs;
 	if (vpnInput.value.trim() !== '0' && vpnInput.value.trim() !== '1')
 		return alert(`VPN so pode ser '0' ou '1'`);
-	if (priceInput.value.trim() <= 0) return alert(`Não pode ter preço negativo!`);
-	if (promoInput.value.trim() <= 0) return alert(`Não pode ter uma promoção negativa!`);
-	if (weightInput.value.trim() <= 0) return alert(`Não pode ter um peso negativo!`);
-	if (stockInput.value.trim() <= 0) return alert(`Não da para ter stock negativo!`);
+	if (priceInput.value.trim() < 0) return alert(`Não pode ter preço negativo!`);
+	if (promoInput.value.trim() < 0) return alert(`Não pode ter uma promoção negativa!`);
+	if (weightInput.value.trim() < 0) return alert(`Não pode ter um peso negativo!`);
+	if (stockInput.value.trim() < 0) return alert(`Não da para ter stock negativo!`);
 
 	const updates = {
 		name: encodedName,
@@ -375,20 +380,30 @@ async function submitEditProductFromRow(btn, encodedName) {
 	fetchProdutos();
 }
 
-async function submitDeleteProductFromRow(btn, encodedName) {
-	const name = decodeURIComponent(encodedName);
-	const token = localStorage.getItem('jwt');
-	const res = await fetch(BASEAPI + '/admin/deleteProduct', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${token}`
-		},
-		body: JSON.stringify({ itemsToRemove: [name] })
-	});
-	alert(res.ok ? "✅ Produto apagado." : "❌ Falha ao apagar produto.");
-	fetchProdutos();
+function toggleActive(td, prodName) {
+    // Encontra o produto no array global
+    const prod = allProdutos.find(p => p.name === prodName);
+    if (!prod) return;
+    prod.active = !prod.active;
+    // Atualiza o ícone visualmente
+    td.innerHTML = `<span title="Clique para alternar">${prod.active ? '✅' : '❌'}</span>`;
+	
 }
+
+// async function submitDeleteProductFromRow(btn, encodedName) {
+// 	const name = decodeURIComponent(encodedName);
+// 	const token = localStorage.getItem('jwt');
+// 	const res = await fetch(BASEAPI + '/admin/deleteProduct', {
+// 		method: 'POST',
+// 		headers: {
+// 			'Content-Type': 'application/json',
+// 			'Authorization': `Bearer ${token}`
+// 		},
+// 		body: JSON.stringify({ itemsToRemove: [name] })
+// 	});
+// 	alert(res.ok ? "✅ Produto apagado." : "❌ Falha ao apagar produto.");
+// 	fetchProdutos();
+// }
 
 // Atualizar todos os produtos da grelha
 async function atualizarTodosProdutos() {
@@ -442,7 +457,7 @@ async function atualizarTodosProdutos() {
 		}
 	}
 
-	console.log("✅ Produtos atualizados com sucesso (apenas os que mudaram).");
+	alert("✅ Produtos atualizados com sucesso (apenas os que mudaram).");
 	fetchProdutos();
 }
 
@@ -474,7 +489,6 @@ window.addEventListener('DOMContentLoaded', async () => {
 		if (res.ok) {
 			// Token is valid, redirect or show logged-in content
 			//window.location.href = '/dashboard'; // or load dashboard directly
-			document.getElementById('vpn-ip-result').textContent = data.ip || '';
 			document.getElementById('login-container').style.display = 'none';
 			document.getElementById('main-container').style.display = 'flex';
 			fetchProdutos();
@@ -489,3 +503,27 @@ window.addEventListener('DOMContentLoaded', async () => {
 		document.getElementById('login-container').style.display = 'flex';
 	}
 });
+
+// Adicione esta função ao seu script.js se ainda não existir:
+function showImageModal(imagePath, prodName) {
+    const modalId = 'imageModal';
+    let modal = document.getElementById(modalId);
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = modalId;
+        modal.className = 'modal';
+        modal.innerHTML = `
+            <div class="modal-content" style="align-items:center;">
+                <h3>Imagem de <span id="modalProdName"></span></h3>
+                <img id="modalProdImg" src="" alt="Imagem do produto" style="max-width:220px;max-height:220px;border-radius:10px;margin-bottom:1rem;">
+                <button onclick="closeModal('imageModal')">Fechar</button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+    document.getElementById('modalProdName').textContent = prodName;
+    const imgUrl = imagePath ? `https://api.esperanzabuy.pt/img/${imagePath}` : '';
+    document.getElementById('modalProdImg').src = imgUrl;
+    modal.style.display = 'flex';
+}
+
