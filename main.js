@@ -173,7 +173,7 @@ function renderProducts(productsToRender) {
       <div class="product">
       ${promoBadge}
       <div class="product-img">
-        <img src="https://api.esperanzabuy.pt/${p.image}" alt="${p.name}">
+        <img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
       </div>
         <p style="font-weight:bold">${p.name}<br>
         <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
@@ -397,7 +397,7 @@ function renderProductsVPN(productsToRender) {
      <div class="product">
       ${promoBadge}
       <div class="product-img">
-        <img src="https://api.esperanzabuy.pt/${p.image}" alt="${p.name}">
+        <img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
       </div>
         <p style="font-weight:bold">${p.name}<br>
         <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
@@ -514,7 +514,7 @@ function renderHomeProdutos() {
     <div class="product">
     ${promoBadge}
     <div class="product-img">
-      <img src="https://api.esperanzabuy.pt/${p.image}" alt="${p.name}">
+      <img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
     </div>
     <p style="font-weight:bold">${p.name}<br>
       <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
