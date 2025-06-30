@@ -461,7 +461,7 @@ async function atualizarTodosProdutos() {
 		}
 	}
 
-	alert("✅ Produtos atualizados com sucesso (apenas os que mudaram).");
+	console.log("✅ Produtos atualizados com sucesso (apenas os que mudaram).");
 	fetchProdutos();
 }
 
