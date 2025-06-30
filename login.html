@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylelogin.css">
+	<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/limpinh0/esperanzabuy/main/img/banner.png">
+</head>
+<body>
+    <div id="login-container">
+        <form id="login-box" onsubmit="return handleLogin(event)" autocomplete="on">
+            <h2>Admin Login</h2>
+            <input id="username" name="username" type="text" placeholder="Username" autocomplete="username" required />
+            <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" required />
+            <button type="submit">Login</button>
+            <button type="button" onclick="window.location.href='index.html'" style="background:#e74c3c;color:#fff;">Voltar</button>
+	    <button type="button" class="toggle-mode" onclick="toggleMode()">🌙/☀️ Mudar Tema</button>
+            <pre id="login-error" style="color:crimson; background:none; border:none; margin:0; padding:0;"></pre>
+        </form>
+    </div>
+
+    <div id="main-container" style="display:none;">
+        <div class="sidebar">
+            <button id="btn-logout" onclick="logoutToIndex()" style="background:#e74c3c;color:#fff;margin-top:1.5rem;padding:6px 16px;font-size:0.95rem;width:auto;align-self:flex-start;border-radius:5px;">Sair</button>
+            <button id="btn-produtos" class="active" onclick="showSection('produtos')">Produtos</button>
+            <button id="btn-encomendas" onclick="showSection('encomendas')">Encomendas</button>          
+            <div id="vpn-ip-result" style="color:#ff9900;font-size:0.98rem;margin-top:4px;text-align: center;"></div>
+            <button class="toggle-mode" onclick="toggleMode()">🌙/☀️ Mudar Tema</button>
+        </div>
+        <div class="content">
+            <div id="section-produtos">
+                <h2 style="margin-top:0;">Gestão de Produtos</h2>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <input id="searchProdutos" type="text" placeholder="Pesquisar produto..." style="padding:8px 12px;border-radius:6px;border:1px solid #ccc;font-size:1rem;max-width:220px;">
+                        Ordenar por:<select id="ordemProdutos" style="padding:8px 12px;border-radius:6px;border:1px solid #ccc;font-size:1rem;">
+                            <option value="nome" selected>Nome</option>
+                            <option value="categoria">Categoria</option>
+                            <option value="stock">Stock</option>
+                            <option value="vpn">VPN</option>
+                            <option value="nenhum">Sem ordem</option>
+                        </select>
+                    </div>
+                    <button onclick="openModal('createProductModal')" style="background:var(--primary);color:#fff;padding:8px 18px;border:none;border-radius:6px;font-size:1rem;cursor:pointer;transition:background 0.2s;">
+                        ➕ Novo Produto
+                    </button>
+                </div>
+                <div class="produtos-table-wrapper" style="height:calc(100vh - 270px);min-height:200px;">
+                    <table id="produtos-table" style="width:100%;border-collapse:collapse;">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
+                                <th>Promo</th>
+                                <th>Peso</th>
+                                <th>Stock</th>
+                                <th>VPN</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Produtos serão inseridos aqui por JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div style="display:flex;justify-content:flex-end;margin-top:1rem;">
+                    <button onclick="atualizarTodosProdutos()" style="background:var(--primary);color:#fff;padding:8px 18px;border:none;border-radius:6px;font-size:1rem;cursor:pointer;transition:background 0.2s;">
+                        💾 Atualizar Todos
+                    </button>
+                </div>
+            </div>
+            <div id="section-encomendas" style="display:none;">
+                <h2 style="margin-top:0;">Gestão de Encomendas</h2>
+                <div id="orders" class="orders-table-wrapper"></div>
+            </div>
+        </div>
+    </div>
+
+	<!-- Create Product Modal -->
+	<div id="createProductModal" class="modal">
+		<div class="modal-content">
+			<h3>Introduzir Produto</h3>
+			<input id="createName" placeholder="Nome Produto" />
+			<input id="createCategory" placeholder="Categoria" />
+			<input id="createPrice" type="number" placeholder="Preço" />
+			<input id="createPromo" type="number" placeholder="Promo" />
+			<input id="createWeight" type="number" placeholder="Peso" />
+			<input id="createStock" type="number" placeholder="Stock" />
+			<input id="createVpn" type="number" placeholder="VPN" />
+			<div id="createProductResult" style="color:crimson;min-height:1.2em;"></div>
+			<button onclick="submitCreateProduct()">Introduzir</button>
+			<button onclick="closeModal('createProductModal')">Cancel</button>
+		</div>
+	</div>
+	<script src="script.js"></script>  
+</body>
+
+</html>
