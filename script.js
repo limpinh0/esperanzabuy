@@ -490,9 +490,11 @@ window.addEventListener('DOMContentLoaded', async () => {
 			}
 		});
 
+		const data = res.json();
 		if (res.ok) {
 			// Token is valid, redirect or show logged-in content
 			//window.location.href = '/dashboard'; // or load dashboard directly
+			document.getElementById('vpn-ip-result').textContent = data.ip || '';
 			document.getElementById('login-container').style.display = 'none';
 			document.getElementById('main-container').style.display = 'flex';
 			fetchProdutos();
