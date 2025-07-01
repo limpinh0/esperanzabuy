@@ -474,7 +474,7 @@ async function atualizarTodosProdutos() {
 		}
 	}
 
-	console.log("✅ Produtos atualizados com sucesso (apenas os que mudaram).");
+	alert("✅ Produtos atualizados com sucesso (apenas os que mudaram).");
 	fetchProdutos();
 }
 
