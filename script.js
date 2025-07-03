@@ -2,6 +2,456 @@ const BASEAPI = "https://api.esperanzabuy.pt";
 let currentAction = '';
 let allProdutos = [];
 let ordemAtual = 'nome';
+
+const craftsData = [
+    
+	{
+        name: "Skateboard",
+        materiais: {
+            "Tábua": 1,
+            "Plástico": 3,
+            "Borracha": 8
+        }
+    },
+    {
+        name: "Head bag",
+        materiais: {
+            "Couro": 3
+        }
+    },
+    {
+        name: "Checkers Board",
+        materiais: {
+            "Borracha": 8,
+            "Tábuas de madeira": 2,
+            "Plástico": 6
+        }
+    },
+    {
+        name: "Chess Board",
+        materiais: {
+            "Borracha": 8,
+            "Tábuas de madeira": 2,
+            "Plástico": 6
+        }
+    },
+	{
+        name: "Gazua",
+        materiais: {
+            "Plástico": 4,
+            "Sucata de metal": 4,
+            "Aluminio": 2
+        }
+    }, 
+    {
+        name: "Gazua Avançada",
+        materiais: {
+            "Sucata de metal": 9,
+            "Plástico": 5,
+            "Aluminio": 2,
+            "Borracha": 14
+        }
+    },
+    {
+        name: "Pá",
+        materiais: {
+            "Tábuas de madeira": 1,
+            "Aço": 3,
+			"Sucata de metal": 3,
+			"Plástico": 2
+        }
+    },
+    {
+        name: "Quadro branco",
+        materiais: {
+            "Sucata de metal": 5,
+            "Plástico": 15,
+            "Borracha": 30
+        }
+    },
+    {
+        name: "Basketball",
+        materiais: {
+            "Borracha": 45,
+            "Couro": 5
+        }
+    },
+    {
+        name: "Basketball Hoop",
+        materiais: {
+            "Vidro": 45,
+            "Aço": 20,
+            "Plástico": 20,
+            "Sucata de metal": 10
+        }
+    },
+    {
+        name: "Maçarico",
+        materiais: {
+            "Sucata de metal": 1,
+            "Aço": 5,
+            "Sulfur": 1,
+            "Ferro": 1,
+            "Carvão": 2
+        }
+    },
+    {
+        name: "Faca Utilitária",
+        materiais: {
+            "Aço": 2,
+            "Madeira": 1
+        }
+    },
+    {
+        name: "Pólvora",
+        materiais: {
+            "Sulfur": 1,
+            "Carvão": 1
+        }
+    },
+    {
+        name: "Ácido de Bateria",
+        materiais: {
+            "Cobre": 1,
+            "Sulfur": 1,
+            "Ferro": 2
+        }
+    },
+    {
+        name: "Caixa de ferramentas",
+        materiais: {
+            "Sucata de metal": 5,
+            "Plástico": 1,
+            "Borracha": 14
+        }
+    },
+    {
+        name: "Kit Eletrónico",
+        materiais: {
+            "Aliminio": 8,
+            "Vidro": 12,
+            "Cobre": 8,
+            "Plástico": 5,
+            "Sulfur": 2
+        }
+    },
+    {
+        name: "Sledge Hammer",
+        materiais: {
+            "Sucata de metal": 3,
+            "Plástico": 3,
+            "Aço": 5,
+            "Tábuas de madeira": 5,
+            "Borracha": 5
+        }
+    },
+    {
+        name: "Algemas",
+        materiais: {
+            "Aluminio": 15,
+            "Ferro": 8,
+            "Sucata de metal": 10
+        }
+    },
+    {
+        name: "Lata de Tinta",
+        materiais: {
+            "Sucata de metal": 3,
+            "CocaCola": 1,
+            "Plástico": 1,
+            "Borracha": 15
+        }
+    },
+    {
+        name: "Colete Blindado",
+        materiais: {
+            "Chumbo": 2,
+            "Couro": 2,
+            "Aluminio": 5,
+            "Aço": 25
+        }
+    },
+    {
+        name: "Mascara de Gás",
+        materiais: {
+            "Plástico": 20,
+            "Vidro": 15,
+            "Aço": 5,
+            "Couro": 3,
+            "Borracha": 30
+        }
+    },
+    {
+        name: "Jaula",
+        materiais: {
+            "Borracha": 20,
+            "Aluminio": 30,
+            "Aço": 60,
+            "Ferro": 20,
+            "Tábuas de madeira": 5
+        }
+    },
+    {
+        name: "Ligaduras",
+        materiais: {
+            "Trapos": 1,
+            "Borracha": 3
+        }
+    },
+    {
+        name: "Glitcher Tensao",
+        materiais: {
+            "Cobre": 28,
+            "Kit Eletrónico": 1,
+            "Aluminio": 4,
+            "Pólvora": 1,
+            "Ácido Bateria": 1
+        }
+    },
+    {
+        name: "Bloqueador de Circuito",
+        materiais: {
+            "Nefrit": 6,
+            "Quartz": 5,
+            "Chumbo": 2,
+            "Kit Eletrónico": 1,
+            "Estanho": 8
+        }
+    },
+    {
+        name: "Pen Testes",
+        materiais: {
+            "Kit Eletrónico": 1,
+            "Chumbo": 1,
+            "Plástico": 3,
+            "Aluminio": 5,
+            "Ácido Bateria": 1,
+            "Cobre": 8,
+            "Sucata de metal": 3
+        }
+    },
+    {
+        name: "Decibelímetro",
+        materiais: {
+            "Chumbo": 2,
+            "Sulfur": 1,
+            "Aluminio": 20,
+            "Borracha": 10,
+            "Plástico": 35,
+            "Sucata de metal": 10
+        }
+    },
+    {
+        name: "Super Regador",
+        materiais: {
+            "BP de regador": 1,
+            "Aço": 4,
+            "Ferro": 1,
+            "Garrafas água": 5
+        }
+    },
+    {
+        name: "Super Fertelizante",
+        materiais: {
+            "Composto": 1,
+            "Fertelizante": 1
+        }
+    },
+    {
+        name: "Bomba Caseira",
+        materiais: {
+            "Pólvora": 5,
+            "Cobre": 5,
+            "Borracha": 5,
+            "Chumbo": 2,
+            "Ácido bateria": 1,
+            "Kit Eletrónico": 1,
+            "Telemovel": 1,
+            "Thermite": 1
+        }
+    },
+    {
+        name: "ATM Cracker",
+        materiais: {
+            "Borracha": 8,
+            "Kit Eletrónico": 1,
+            "Aluminio": 20,
+            "Pólvora": 5,
+            "Sucata de metal": 8,
+            "Cobre": 4,
+            "Plástico": 8,
+            "Ácido Bateria": 1,
+            "Chumbo": 2
+        }
+    },
+    {
+        name: "Pen Boosting",
+        materiais: {
+            "Sucata de metal": 20,
+            "Plástico": 35,
+            "Chumbo": 2,
+            "Aluminio": 45,
+            "Kit Eletrónico": 3,
+            "Ácido de bateria": 1
+        }
+    },
+    {
+        name: "VPN",
+        materiais: {
+            "Sucata de metal": 2,
+            "Plástico": 5,
+            "Aluminio": 2,
+            "Chumbo": 1,
+            "Kit Eletrónico": 1,
+            "Ácido Bateria": 1
+        }
+    },
+    {
+        name: "Exercício Básico",
+        materiais: {
+            "Sucata de metal": 10,
+            "Chumbo": 1,
+            "Ácido Bateria": 1,
+            "Kit Eletrónico": 1,
+            "Aluminio": 5,
+            "Plástico": 5,
+            "Aço": 5,
+            "Bateria Pequena": 1
+        }
+    },
+    {
+        name: "Desencriptador Básico",
+        materiais: {
+            "Sucata de metal": 5,
+            "Vidro": 15,
+            "Plástico": 5,
+            "Chumbo": 2,
+            "Aluminio": 5,
+            "Aço": 2,
+            "Kit Eletrónico": 1,
+            "Ácido Bateria": 2
+        }
+    },
+    {
+        name: "DeAuth Básico",
+        materiais: {
+            "Sucata de metal": 5,
+            "Chumbo": 1,
+            "Plástico": 5,
+            "Ácido Bateria": 1,
+            "Aluminio": 5,
+            "Aço": 5,
+            "Kit Eletrónico": 1,
+            "Vidro": 15
+        }
+    },
+    {
+        name: "Perfuradora Avançada",
+        materiais: {
+            "Sucata de metal": 15,
+            "Chumbo": 5,
+            "Plástico": 5,
+            "Ácido Bateria": 1,
+            "Aluminio": 5,
+            "Aço": 10,
+            "Kit Eletrónico": 1,
+            "Bateria Pequena": 1
+        }
+    },
+    {
+        name: "Desencriptador Avançado",
+        materiais: {
+            "Sucata de metal": 10,
+            "Vidro": 20,
+            "Plástico": 7,
+            "Chumbo": 2,
+            "Aluminio": 7,
+            "Aço": 5,
+            "Kit Eletrónico": 1,
+            "Ácido Bateria": 2
+        }
+    },
+    {
+        name: "DeAuth Avançado",
+        materiais: {
+            "Chumbo": 2,
+            "Aço": 10,
+            "Kit Eletrónico": 1,
+            "Plástico": 10,
+            "Ácido Bateria": 1,
+            "Vidro": 30,
+            "Sucata de metal": 10,
+            "Aluminio": 10
+        }
+    },
+    {
+        name: "Glitcher de Tensao Avançado",
+        materiais: {
+            "Plástico": 10,
+            "Aço": 5,
+            "Sucata de metal": 15,
+            "Vidro": 15,
+            "Aluminio": 5,
+            "Chumbo": 2,
+            "Kit Eletrónico": 2,
+            "Ácido Bateria": 2,
+            "Bateria Pequena": 2
+        }
+    },
+    {
+        name: "Desencriptador Harden",
+        materiais: {
+            "Plástico": 10,
+            "Aço": 10,
+            "Sucata de metal": 15,
+            "Vidro": 25,
+            "Aluminio": 10,
+            "Chumbo": 2,
+            "Kit Eletrónico": 1,
+            "Ácido Bateria": 2,
+            "Bateria Pequena": 1
+        }
+    },
+    {
+        name: "Dados do Dumper",
+        materiais: {
+            "Bateria Pequena": 1,
+            "Plástico": 7,
+            "Aço": 12,
+            "Sucata de metal": 10,
+            "Chumbo": 2,
+            "Aluminio": 5,
+            "Ácido Bateria": 2,
+            "Kit Eletrónico": 2,
+            "Vidro": 15
+        }
+    },
+    {
+        name: "Ground Drill",
+        materiais: {
+            "Sucata de metal": 10,
+            "Vidro": 5,
+            "Chumbo": 2,
+            "Kit Eletrónico": 1,
+            "Aluminio": 15,
+            "Plástico": 5,
+            "Ácido Bateria": 1,
+            "Bateria Pequena": 1
+        }
+    },
+    {
+        name: "Bolt Cutter",
+        materiais: {
+            "Sucata de metal": 15,
+            "Vidro": 5,
+            "Aço": 15,
+            "Ferro": 25,
+            "Chumbo": 2
+        }
+    }
+];
+
+
 function openModal(id) {
 	document.getElementById(id).style.display = 'flex';
 }
@@ -260,13 +710,23 @@ function toggleMode() {
 
 // Sidebar navigation
 function showSection(section) {
-	document.getElementById('section-produtos').style.display = section === 'produtos' ? '' : 'none';
-	document.getElementById('section-encomendas').style.display = section === 'encomendas' ? '' : 'none';
-	document.getElementById('btn-produtos').classList.toggle('active', section === 'produtos');
-	document.getElementById('btn-encomendas').classList.toggle('active', section === 'encomendas');
-	if (section === 'encomendas') renderOrders();
+    document.getElementById("section-produtos").style.display = "none";
+    document.getElementById("section-encomendas").style.display = "none";
+    document.getElementById("section-Crafts").style.display = "none";
+    document.querySelectorAll(".sidebar button").forEach(btn => btn.classList.remove("active"));
+    if (section === "produtos") {
+        document.getElementById("section-produtos").style.display = "";
+        document.getElementById("btn-produtos").classList.add("active");
+    } else if (section === "encomendas") {
+        document.getElementById("section-encomendas").style.display = "";
+        document.getElementById("btn-encomendas").classList.add("active");
+    } else if (section === "Crafts") {
+        document.getElementById("section-Crafts").style.display = "";
+        document.getElementById("btn-Crafts").classList.add("active");
+        renderCraftsTable();
+        document.getElementById("craft-result").innerHTML = "";
+    }
 }
-
 function logoutToIndex() {
 	localStorage.removeItem('jwt');
 	window.location.href = "index.html";
@@ -546,3 +1006,83 @@ function showImageModal(imagePath, prodName) {
     modal.style.display = 'flex';
 }
 
+// Renderiza a grelha de crafts
+function renderCraftsTable() {
+    const tbody = document.querySelector("#crafts-table tbody");
+    tbody.innerHTML = "";
+    craftsData.forEach((craft, idx) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>
+                <a href="#" onclick="showCraftPopup(${idx});return false;" style="color:var(--primary);text-decoration:underline;cursor:pointer;">
+                    ${craft.name}
+                </a>
+            </td>
+            <td>
+                <input type="number" min="0" id="craft-qty-${idx}" style="width:60px;" placeholder="Qtd">
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+window.renderCraftsTable = renderCraftsTable;
+
+// Novo: calcula o total de materiais para todos os crafts
+function calcularMateriaisTotal() {
+    let totalMateriais = {};
+    let algumPreenchido = false;
+    craftsData.forEach((craft, idx) => {
+        const qty = parseInt(document.getElementById(`craft-qty-${idx}`).value, 10) || 0;
+        if (qty > 0) {
+            algumPreenchido = true;
+            for (const [mat, val] of Object.entries(craft.materiais)) {
+                totalMateriais[mat] = (totalMateriais[mat] || 0) + val * qty;
+            }
+        }
+    });
+    if (!algumPreenchido) {
+        document.getElementById("craft-result").innerHTML = `<span style="color:crimson;">Indique pelo menos uma quantidade.</span>`;
+        return;
+    }
+    let html = `<b>Materiais necessários para todos os crafts:</b><ul style="margin-top:0.5em;">`;
+    for (const [mat, val] of Object.entries(totalMateriais)) {
+        html += `<li>${mat}: <b>${val}</b></li>`;
+    }
+    html += "</ul>";
+    document.getElementById("craft-result").innerHTML = html;
+}
+window.calcularMateriaisTotal = calcularMateriaisTotal;
+
+// Função para mostrar popup com materiais necessários para 1 unidade do item
+function showCraftPopup(idx) {
+    const craft = craftsData[idx];
+    let html = `<b>Materiais para 1 ${craft.name}:</b><ul style="margin-top:0.5em;">`;
+    for (const [mat, val] of Object.entries(craft.materiais)) {
+        html += `<li>${mat}: <b>${val}</b></li>`;
+    }
+    html += "</ul>";
+    // Cria ou mostra o popup com o mesmo estilo do site (usa classes modal/modal-content)
+    let popup = document.getElementById("craft-popup");
+    if (!popup) {
+        popup = document.createElement("div");
+        popup.id = "craft-popup";
+        popup.className = "modal";
+        popup.innerHTML = `
+            <div class="modal-content">
+                <button onclick="closeCraftPopup()" class="close-modal" title="Fechar" style="position:absolute;top:10px;right:14px;">&times;</button>
+                <div id="craft-popup-content"></div>
+            </div>
+        `;
+        document.body.appendChild(popup);
+    } else {
+        popup.style.display = "flex";
+    }
+    document.getElementById("craft-popup-content").innerHTML = html;
+}
+window.showCraftPopup = showCraftPopup;
+
+function closeCraftPopup() {
+    const popup = document.getElementById("craft-popup");
+    if (popup) popup.style.display = "none";
+}
+window.closeCraftPopup = closeCraftPopup;
