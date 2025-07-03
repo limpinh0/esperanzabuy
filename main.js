@@ -495,7 +495,7 @@ function renderHomeProdutos() {
 		const semPromoShuffled = shuffle(semPromo);
 
 		// Junta, dando prioridade aos em promoção, e pega os 9 primeiros
-		produtosHomeAleatorios = [...emPromoShuffled, ...semPromoShuffled].slice(0, 9);
+		produtosHomeAleatorios = [...emPromoShuffled, ...semPromoShuffled].slice(0, 12);
 	}
 
 	homeProdutosDiv.innerHTML = "";
