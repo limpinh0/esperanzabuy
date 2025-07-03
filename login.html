@@ -25,7 +25,8 @@
         <div class="sidebar">
             <button id="btn-logout" onclick="logoutToIndex()" style="background:#e74c3c;color:#fff;margin-top:1.5rem;padding:6px 16px;font-size:0.95rem;width:auto;align-self:flex-start;border-radius:5px;">Sair</button>
             <button id="btn-produtos" class="active" onclick="showSection('produtos')">Produtos</button>
-            <button id="btn-encomendas" onclick="showSection('encomendas')">Encomendas</button>          
+            <button id="btn-encomendas" onclick="showSection('encomendas')">Encomendas</button>    
+            <button id="btn-Crafts" onclick="showSection('Crafts')">Crafts</button>          
             <div id="vpn-ip-result" style="color:#ff9900;font-size:0.98rem;margin-top:4px;text-align: center;"></div>
             <button class="toggle-mode" onclick="toggleMode()">🌙/☀️ Mudar Tema</button>
         </div>
@@ -77,6 +78,26 @@
                 <h2 style="margin-top:0;">Gestão de Encomendas</h2>
                 <div id="orders" class="orders-table-wrapper"></div>
             </div>
+            <div id="section-Crafts" style="display:none;">
+                <h2 style="margin-top:0;">Crafts</h2>
+                <div style="overflow-x:auto;">
+                    <table id="crafts-table" style="width:100%;max-width:600px;margin:auto;border-collapse:collapse;">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantidade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Linhas dos crafts serão inseridas por JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div style="text-align:center;margin-top:1.5rem;">
+                    <button onclick="calcularMateriaisTotal()" style="padding:10px 28px;font-size:1.1em;">Calcular Materiais</button>
+                </div>
+                <div id="craft-result" style="margin-top:2rem;font-size:1.1em;"></div>
+            </div>
         </div>
     </div>
 
@@ -96,6 +117,13 @@
 			<button onclick="closeModal('createProductModal')">Cancel</button>
 		</div>
 	</div>
+	<!-- Popup para detalhes dos materiais -->
+	<div id="craft-popup" class="modal" style="display:none;">
+    <div class="modal-content" style="max-width:90vw;min-width:260px;position:relative;">
+        <button onclick="closeCraftPopup()" style="position:absolute;top:10px;right:14px;font-size:1.5em;background:none;border:none;cursor:pointer;">&times;</button>
+        <div id="craft-popup-content"></div>
+    </div>
+</div>
 	<script src="script.js"></script>  
 </body>
 
