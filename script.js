@@ -709,24 +709,30 @@ function toggleMode() {
 })();
 
 // Sidebar navigation
-function showSection(section) {
-    document.getElementById("section-produtos").style.display = "none";
-    document.getElementById("section-encomendas").style.display = "none";
-    document.getElementById("section-Crafts").style.display = "none";
-    document.querySelectorAll(".sidebar button").forEach(btn => btn.classList.remove("active"));
-    if (section === "produtos") {
-        document.getElementById("section-produtos").style.display = "";
-        document.getElementById("btn-produtos").classList.add("active");
-    } else if (section === "encomendas") {
-        document.getElementById("section-encomendas").style.display = "";
-        document.getElementById("btn-encomendas").classList.add("active");
-    } else if (section === "Crafts") {
-        document.getElementById("section-Crafts").style.display = "";
-        document.getElementById("btn-Crafts").classList.add("active");
-        renderCraftsTable();
-        document.getElementById("craft-result").innerHTML = "";
+function showSection(sec) {
+    document.getElementById('section-produtos').style.display = 'none';
+    document.getElementById('section-encomendas').style.display = 'none';
+    document.getElementById('section-Crafts').style.display = 'none';
+    document.getElementById('btn-produtos').classList.remove('active');
+    document.getElementById('btn-encomendas').classList.remove('active');
+    document.getElementById('btn-Crafts').classList.remove('active');
+
+    if (sec === 'produtos') {
+        document.getElementById('section-produtos').style.display = '';
+        document.getElementById('btn-produtos').classList.add('active');
+    }
+    if (sec === 'encomendas') {
+        document.getElementById('section-encomendas').style.display = '';
+        document.getElementById('btn-encomendas').classList.add('active');
+        renderOrders && renderOrders();
+    }
+    if (sec === 'Crafts') {
+        document.getElementById('section-Crafts').style.display = '';
+        document.getElementById('btn-Crafts').classList.add('active');
+        renderCraftsTable && renderCraftsTable();
     }
 }
+
 function logoutToIndex() {
 	localStorage.removeItem('jwt');
 	window.location.href = "index.html";
