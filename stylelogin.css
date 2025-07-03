@@ -436,3 +436,156 @@ body.dark #ordemProdutos {
     outline: 2px solid var(--primary);
     border-color: var(--primary);
 }
+
+/* Modal dos crafts igual ao modal-content dos produtos, com suporte night/light */
+#craft-popup.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(34,34,34,0.35);
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+#craft-popup .modal-content {
+    background: #fff;
+    color: #222;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.12); /* sombra mais suave */
+    padding: 2rem 2.5rem 1.5rem 2.5rem;
+    min-width: 320px;
+    max-width: 95vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    transition: background 0.3s, color 0.3s;
+}
+body.dark #craft-popup .modal-content {
+    background: #23272f;
+    color: #eee;
+}
+
+/* Botão fechar no modal dos crafts */
+#craft-popup .modal-content button {
+    background: none;
+    color: #ff9900;
+    border: none;
+    font-size: 1.5em;
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+#craft-popup .modal-content button:hover {
+    color: #e67c00;
+}
+
+/* Crafts Table igual ao style dos produtos */
+#crafts-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: inherit;
+    color: inherit;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+#crafts-table th,
+#crafts-table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px 6px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+#crafts-table th {
+    background: var(--sidebar-light);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    font-weight: 600;
+    font-size: 1.05em;
+    letter-spacing: 0.01em;
+    transition: background 0.3s;
+}
+
+body.dark #crafts-table th {
+    background: var(--sidebar-dark);
+}
+
+body.dark #crafts-table td {
+    border-bottom: 1px solid #333;
+}
+
+#crafts-table input[type="number"] {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 2px 4px;
+    width: 60px;
+    background: inherit;
+    color: inherit;
+    text-align: center;
+    font-size: 1em;
+    transition: background 0.3s, color 0.3s, border 0.2s;
+}
+
+body.dark #crafts-table input[type="number"] {
+    background: #232323;
+    color: #eee;
+    border: 1px solid #444;
+}
+
+#crafts-table tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+    transition: background 0.2s;
+}
+
+#crafts-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+#crafts-table tbody tr:hover {
+    background: #f5f7fa;
+}
+
+body.dark #crafts-table tbody tr:hover {
+    background: #23272f;
+}
+
+/* Botão calcular igual aos produtos */
+#section-Crafts button,
+#section-Crafts .content button {
+    background: #ff9900;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+
+#section-Crafts button:hover,
+#section-Crafts .content button:hover {
+    background: #f90;
+    filter: brightness(0.95);
+}
+
+/* Links dos crafts (nome do item) igual aos produtos */
+#crafts-table a {
+    color: var(--primary);
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+#crafts-table a:hover {
+    color: #e67c00;
+}
