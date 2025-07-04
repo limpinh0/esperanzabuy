@@ -747,8 +747,8 @@ async function fetchProdutos() {
 	});
 	if (!res.ok) return;
 	allProdutos = await res.json();
-	ordemAtual = 'nome'; // Garante ordem nome ao carregar
-	document.getElementById('ordemProdutos').value = 'nome'; // Atualiza o select visualmente
+	// ordemAtual = 'nome'; // Garante ordem nome ao carregar
+	// document.getElementById('ordemProdutos').value = 'nome'; // Atualiza o select visualmente
 	filtrarEOrdenarProdutos();
 }
 
@@ -759,31 +759,34 @@ document.getElementById('ordemProdutos').addEventListener('change', function () 
 });
 
 function filtrarEOrdenarProdutos() {
-	const termo = document.getElementById('searchProdutos').value.trim().toLowerCase();
-	let filtrados = allProdutos.filter(p => p.name.toLowerCase().includes(termo));
-	switch (ordemAtual) {
-		case 'nome':
-			filtrados.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
-			break;
-		  case 'categoria':
+    const termo = document.getElementById('searchProdutos').value.trim().toLowerCase();
+    let filtrados = allProdutos.filter(p =>
+        p.name.toLowerCase().includes(termo) ||
+        (p.category && p.category.toLowerCase().includes(termo))
+    );
+    switch (ordemAtual) {
+        case 'nome':
+            filtrados.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+            break;
+        case 'categoria':
             filtrados.sort((a, b) => {
                 const cat = a.category.localeCompare(b.category, undefined, { sensitivity: 'base' });
                 if (cat !== 0) return cat;
                 return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
             });
             break;
-		case 'stock':
-			filtrados.sort((a, b) => (b.stock || 0) - (a.stock || 0));
-			break;
-		case 'vpn':
-			filtrados.sort((a, b) => (b.vpn || 0) - (a.vpn || 0));
-			break;
-		case 'nenhum':
-		default:
-			// Não ordenar
-			break;
-	}
-	renderProdutosTable(filtrados);
+        case 'stock':
+            filtrados.sort((a, b) => (b.stock || 0) - (a.stock || 0));
+            break;
+        case 'vpn':
+            filtrados.sort((a, b) => (b.vpn || 0) - (a.vpn || 0));
+            break;
+        case 'nenhum':
+        default:
+            // Não ordenar
+            break;
+    }
+    renderProdutosTable(filtrados);
 }
 
 function renderProdutosTable(produtos) {
@@ -847,7 +850,9 @@ async function submitEditProductFromRow(btn, encodedName) {
 		body: JSON.stringify(updates)
 	});
 	alert(res.ok ? "✅ Produto atualizado." : "❌ Falha ao atualizar produto.");
-	fetchProdutos();
+     await fetchProdutos();
+    filtrarEOrdenarProdutos(); // Mantém a ordem e filtro atuais após atualizar
+
 }
 
 async function toggleActive(td, prodName) {
