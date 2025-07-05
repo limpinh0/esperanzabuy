@@ -11,13 +11,15 @@ const craftsData = [
             "Tábua": 1,
             "Plástico": 3,
             "Borracha": 8
-        }
+        },
+        imagem: "skateboard.png"
     },
     {
         name: "Head bag",
         materiais: {
             "Couro": 3
-        }
+        },
+        imagem: "HeadBag.png"
     },
     {
         name: "Checkers Board",
@@ -25,7 +27,8 @@ const craftsData = [
             "Borracha": 8,
             "Tábuas de madeira": 2,
             "Plástico": 6
-        }
+        },
+        imagem: "checkers.png"
     },
     {
         name: "Chess Board",
@@ -33,7 +36,8 @@ const craftsData = [
             "Borracha": 8,
             "Tábuas de madeira": 2,
             "Plástico": 6
-        }
+        },
+        imagem: "chess.png"
     },
 	{
         name: "Gazua",
@@ -41,7 +45,8 @@ const craftsData = [
             "Plástico": 4,
             "Sucata de metal": 4,
             "Aluminio": 2
-        }
+        },
+        imagem: "lockpick.png"
     }, 
     {
         name: "Gazua Avançada",
@@ -50,7 +55,8 @@ const craftsData = [
             "Plástico": 5,
             "Aluminio": 2,
             "Borracha": 14
-        }
+        },
+        imagem: "lockpick2.png"
     },
     {
         name: "Pá",
@@ -59,7 +65,8 @@ const craftsData = [
             "Aço": 3,
 			"Sucata de metal": 3,
 			"Plástico": 2
-        }
+        },
+        imagem: "Pa.png"
     },
     {
         name: "Quadro branco",
@@ -67,14 +74,16 @@ const craftsData = [
             "Sucata de metal": 5,
             "Plástico": 15,
             "Borracha": 30
-        }
+        },
+        imagem: "QuadroBranco.png"
     },
     {
         name: "Basketball",
         materiais: {
             "Borracha": 45,
             "Couro": 5
-        }
+        },
+        imagem: "BasketBall.png"
     },
     {
         name: "Basketball Hoop",
@@ -83,7 +92,8 @@ const craftsData = [
             "Aço": 20,
             "Plástico": 20,
             "Sucata de metal": 10
-        }
+        },
+        imagem: "BasketBallHoop.png"
     },
     {
         name: "Maçarico",
@@ -93,21 +103,24 @@ const craftsData = [
             "Sulfur": 1,
             "Ferro": 1,
             "Carvão": 2
-        }
+        },
+        imagem: "torch.png"
     },
     {
         name: "Faca Utilitária",
         materiais: {
             "Aço": 2,
             "Madeira": 1
-        }
+        },
+        imagem: "FacaUtilitaria.png"
     },
     {
         name: "Pólvora",
         materiais: {
             "Sulfur": 1,
             "Carvão": 1
-        }
+        },
+        imagem: "Polvora.png"
     },
     {
         name: "Ácido de Bateria",
@@ -115,7 +128,8 @@ const craftsData = [
             "Cobre": 1,
             "Sulfur": 1,
             "Ferro": 2
-        }
+        },
+        imagem: "battery_acid.png"
     },
     {
         name: "Caixa de ferramentas",
@@ -123,7 +137,8 @@ const craftsData = [
             "Sucata de metal": 5,
             "Plástico": 1,
             "Borracha": 14
-        }
+        },
+        imagem: "CaixaFerramentas.png"
     },
     {
         name: "Kit Eletrónico",
@@ -133,7 +148,8 @@ const craftsData = [
             "Cobre": 8,
             "Plástico": 5,
             "Sulfur": 2
-        }
+        },
+        imagem: "electronic-kit.png"
     },
     {
         name: "Sledge Hammer",
@@ -143,7 +159,8 @@ const craftsData = [
             "Aço": 5,
             "Tábuas de madeira": 5,
             "Borracha": 5
-        }
+        },
+        imagem: "SledgeHammer.png"
     },
     {
         name: "Algemas",
@@ -151,7 +168,8 @@ const craftsData = [
             "Aluminio": 15,
             "Ferro": 8,
             "Sucata de metal": 10
-        }
+        },
+        imagem: "handcuffs.png"
     },
     {
         name: "Lata de Tinta",
@@ -160,7 +178,8 @@ const craftsData = [
             "CocaCola": 1,
             "Plástico": 1,
             "Borracha": 15
-        }
+        },
+        imagem: "LataTinta.png"
     },
     {
         name: "Colete Blindado",
@@ -169,7 +188,8 @@ const craftsData = [
             "Couro": 2,
             "Aluminio": 5,
             "Aço": 25
-        }
+        },
+        imagem: "Colete.png"
     },
     {
         name: "Mascara de Gás",
@@ -179,7 +199,8 @@ const craftsData = [
             "Aço": 5,
             "Couro": 3,
             "Borracha": 30
-        }
+        },
+        imagem: "mascaragas.png"
     },
     {
         name: "Jaula",
@@ -189,14 +210,16 @@ const craftsData = [
             "Aço": 60,
             "Ferro": 20,
             "Tábuas de madeira": 5
-        }
+        },
+        imagem: "Jaula.png"
     },
     {
         name: "Ligaduras",
         materiais: {
             "Trapos": 1,
             "Borracha": 3
-        }
+        },
+        imagem: "bandage.png"
     },
     {
         name: "Glitcher Tensao",
@@ -206,7 +229,8 @@ const craftsData = [
             "Aluminio": 4,
             "Pólvora": 1,
             "Ácido Bateria": 1
-        }
+        },
+        imagem: "GlitcherTensao.png"
     },
     {
         name: "Bloqueador de Circuito",
@@ -216,7 +240,8 @@ const craftsData = [
             "Chumbo": 2,
             "Kit Eletrónico": 1,
             "Estanho": 8
-        }
+        },
+        imagem: "BloqueadorCircuito.png"
     },
     {
         name: "Pen Testes",
@@ -228,7 +253,8 @@ const craftsData = [
             "Ácido Bateria": 1,
             "Cobre": 8,
             "Sucata de metal": 3
-        }
+        },
+        imagem: "penTestes.png"
     },
     {
         name: "Decibelímetro",
@@ -239,26 +265,29 @@ const craftsData = [
             "Borracha": 10,
             "Plástico": 35,
             "Sucata de metal": 10
-        }
+        },
+        imagem: "Decibelimetro.png"
     },
     {
-        name: "Super Regador",
+        name: "Regador",
         materiais: {
             "BP de regador": 1,
             "Aço": 4,
             "Ferro": 1,
             "Garrafas água": 5
-        }
+        },
+        imagem: "SuperRegador.png"
     },
     {
         name: "Super Fertelizante",
         materiais: {
             "Composto": 1,
             "Fertelizante": 1
-        }
+        },
+        imagem: "superfert.png"
     },
     {
-        name: "Bomba Caseira",
+        name: "Explosivo Caseiro",
         materiais: {
             "Pólvora": 5,
             "Cobre": 5,
@@ -268,7 +297,8 @@ const craftsData = [
             "Kit Eletrónico": 1,
             "Telemovel": 1,
             "Thermite": 1
-        }
+        },
+        imagem: "BombaCaseira.png"
     },
     {
         name: "ATM Cracker",
@@ -282,7 +312,8 @@ const craftsData = [
             "Plástico": 8,
             "Ácido Bateria": 1,
             "Chumbo": 2
-        }
+        },
+        imagem: "ATMCracker.png"
     },
     {
         name: "Pen Boosting",
@@ -293,7 +324,8 @@ const craftsData = [
             "Aluminio": 45,
             "Kit Eletrónico": 3,
             "Ácido de bateria": 1
-        }
+        },
+        imagem: "penBoosting.png"
     },
     {
         name: "VPN",
@@ -304,7 +336,23 @@ const craftsData = [
             "Chumbo": 1,
             "Kit Eletrónico": 1,
             "Ácido Bateria": 1
-        }
+        },
+        imagem: "antenavpn.png"
+    },
+    {
+        name: "Anti-Localizador",
+        materiais: {
+            "Sucata": 40,
+            "Aluminio": 20,
+            "Cobre": 35,
+            "Pólvora": 7,
+            "Borracha": 20,
+            "Kit eletrónico": 3,
+            "Ácido Bateria": 2,
+            "Chumbo": 4,
+            "Plástico": 40
+        },
+        imagem: "antiTracker.png"
     },
     {
         name: "Exercício Básico",
@@ -317,7 +365,8 @@ const craftsData = [
             "Plástico": 5,
             "Aço": 5,
             "Bateria Pequena": 1
-        }
+        },
+        imagem: "ExercicioBasico.png"
     },
     {
         name: "Desencriptador Básico",
@@ -330,7 +379,8 @@ const craftsData = [
             "Aço": 2,
             "Kit Eletrónico": 1,
             "Ácido Bateria": 2
-        }
+        },
+        imagem: "penBasica.png"
     },
     {
         name: "DeAuth Básico",
@@ -343,7 +393,8 @@ const craftsData = [
             "Aço": 5,
             "Kit Eletrónico": 1,
             "Vidro": 15
-        }
+        },
+        imagem: "tablet.png"
     },
     {
         name: "Perfuradora Avançada",
@@ -356,7 +407,8 @@ const craftsData = [
             "Aço": 10,
             "Kit Eletrónico": 1,
             "Bateria Pequena": 1
-        }
+        },
+        imagem: "PerfuradoraAvancada.png"
     },
     {
         name: "Desencriptador Avançado",
@@ -369,7 +421,8 @@ const craftsData = [
             "Aço": 5,
             "Kit Eletrónico": 1,
             "Ácido Bateria": 2
-        }
+        },
+        imagem: "penAvancada.png"
     },
     {
         name: "DeAuth Avançado",
@@ -382,7 +435,8 @@ const craftsData = [
             "Vidro": 30,
             "Sucata de metal": 10,
             "Aluminio": 10
-        }
+        },
+        imagem: "DeAuthAvancado.png"
     },
     {
         name: "Glitcher de Tensao Avançado",
@@ -396,7 +450,8 @@ const craftsData = [
             "Kit Eletrónico": 2,
             "Ácido Bateria": 2,
             "Bateria Pequena": 2
-        }
+        },
+        imagem: "GlitcherTensaoAvancado.png"
     },
     {
         name: "Desencriptador Harden",
@@ -410,7 +465,8 @@ const craftsData = [
             "Kit Eletrónico": 1,
             "Ácido Bateria": 2,
             "Bateria Pequena": 1
-        }
+        },
+        imagem: "penHarden.png"
     },
     {
         name: "Dados do Dumper",
@@ -424,7 +480,8 @@ const craftsData = [
             "Ácido Bateria": 2,
             "Kit Eletrónico": 2,
             "Vidro": 15
-        }
+        },
+        imagem: "DadosDumper.png"
     },
     {
         name: "Ground Drill",
@@ -437,7 +494,8 @@ const craftsData = [
             "Plástico": 5,
             "Ácido Bateria": 1,
             "Bateria Pequena": 1
-        }
+        },
+        imagem: "GroundDrill.png"
     },
     {
         name: "Bolt Cutter",
@@ -447,7 +505,8 @@ const craftsData = [
             "Aço": 15,
             "Ferro": 25,
             "Chumbo": 2
-        }
+        },
+        imagem: "boltcutter.png"
     }
 ];
 
@@ -1019,21 +1078,86 @@ function showImageModal(imagePath, prodName) {
 
 // Renderiza a grelha de crafts
 function renderCraftsTable() {
-    const tbody = document.querySelector("#crafts-table tbody");
-    tbody.innerHTML = "";
+    const gridContainerId = "crafts-grid";
+    let grid = document.getElementById(gridContainerId);
+    if (!grid) {
+        // Cria o container se não existir
+        grid = document.createElement("div");
+        grid.id = gridContainerId;
+        grid.style.display = "grid";
+        grid.style.gridTemplateColumns = "repeat(5, 1fr)";
+        grid.style.gap = "18px";
+        grid.style.margin = "0 auto";
+        grid.style.maxWidth = "1200px";
+        grid.style.padding = "10px 0 20px 0";
+        const craftsTable = document.getElementById("crafts-table");
+        if (craftsTable) {
+            craftsTable.parentNode.replaceChild(grid, craftsTable);
+        } else {
+            // fallback: insere no lugar correto
+            const craftsSection = document.getElementById("section-Crafts");
+            if (craftsSection) craftsSection.appendChild(grid);
+        }
+    } else {
+        grid.innerHTML = "";
+    }
+
     craftsData.forEach((craft, idx) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-            <td>
-                <a href="#" onclick="showCraftPopup(${idx});return false;" style="color:var(--primary);text-decoration:underline;cursor:pointer;">
-                    ${craft.name}
-                </a>
-            </td>
-            <td>
-                <input type="number" min="0" id="craft-qty-${idx}" style="width:60px;" placeholder="Qtd">
-            </td>
-        `;
-        tbody.appendChild(tr);
+        const cell = document.createElement("div");
+        cell.className = "craft-cell";
+        cell.style.borderRadius = "12px";
+        cell.style.boxShadow = "0 2px 8px #0001";
+        cell.style.padding = "14px 8px 10px 8px";
+        cell.style.display = "flex";
+        cell.style.flexDirection = "column";
+        cell.style.alignItems = "center";
+        cell.style.cursor = "pointer";
+        cell.style.transition = "box-shadow 0.2s, background 0.2s";
+        cell.style.position = "relative";
+        cell.tabIndex = 0;
+        cell.onmouseenter = () => cell.style.boxShadow = "0 4px 16px #0002";
+        cell.onmouseleave = () => cell.style.boxShadow = "0 2px 8px #0001";
+        cell.onclick = (e) => {
+            // Só abre popup se não for o input
+            if (e.target.tagName !== "INPUT") showCraftPopup(idx);
+        };
+
+         // Nome
+        const name = document.createElement("div");
+        name.textContent = craft.name;
+        name.style.fontWeight = "bold";
+        name.style.fontSize = "1.05em";
+        name.style.textAlign = "center";
+        name.style.marginBottom = "8px";
+        name.style.color = "var(--primary)";
+
+        // Imagem (usa nome do item, pode adaptar para o seu sistema de imagens)
+        const img = document.createElement("img");
+        img.src = `https://api.esperanzabuy.pt/img/${encodeURIComponent(craft.imagem)}`;
+        img.alt = craft.name;
+        img.style.width = "60px";
+        img.style.height = "60px";
+        img.style.objectFit = "contain";
+        img.style.marginBottom = "8px";
+        img.onerror = function() { this.style.display = "none"; };
+
+       
+
+        // Input quantidade
+        const input = document.createElement("input");
+        input.className = "input-cell";
+        input.type = "number";
+        input.min = "0";
+        input.id = `craft-qty-${idx}`;
+        input.placeholder = "Qtd";
+        input.onclick = (e) => e.stopPropagation(); // Não abrir popup ao clicar no input
+
+        // Monta a célula
+        cell.appendChild(name);
+        cell.appendChild(img);
+        cell.appendChild(input);
+
+        grid.appendChild(cell);
     });
 }
 window.renderCraftsTable = renderCraftsTable;
