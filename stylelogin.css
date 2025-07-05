@@ -589,3 +589,37 @@ body.dark #crafts-table tbody tr:hover {
 #crafts-table a:hover {
     color: #e67c00;
 }
+body.dark .craft-cell {
+    background: var(--sidebar-dark);
+    color: var(--text-dark);
+}
+
+/* Adicione ao seu stylelogin.css ou style.css */
+
+/* Input da grelha de crafts (modo claro) */
+.input-cell {
+    background: #fff;
+    color: #222;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 4px 6px;
+    font-size: 1em;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+    outline: none;
+    width: 60px;
+    /* marginTop = "8px"; */
+    text-align: center;
+}
+.input-cell:focus {
+    border-color: var(--primary);
+}
+
+/* Input da grelha de crafts (modo escuro) */
+body.dark .input-cell {
+    background: #232323;
+    color: #eee;
+    border: 1px solid #444;
+}
+body.dark .input-cell:focus {
+    border-color: var(--primary);
+}
