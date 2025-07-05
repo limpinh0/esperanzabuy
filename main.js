@@ -598,7 +598,7 @@ async function copiarResumoCarrinho() {
 		});
 		texto += `CP de entrega: ${cpEntrega}\n`;
 		texto += `Deseja fatura? ${fatura}\n`;
-		texto += `Total: ${total.toFixed(2)} $\n`;
+		texto += `Total: ${total.toFixed(2)} $ + Transporte\n`;
 		texto += `Peso Total: ${pesoTotal.toFixed(2)} kg`;
 		const response = await fetch(BASEAPI + "/order", {
 			method: "POST",
@@ -622,6 +622,7 @@ async function copiarResumoCarrinho() {
 
 		const res = await response.json();
 		texto = `Encomenda: ${res.orderId}\n\n` + texto;
+		texto = texto + '\n\nTaxa de Transporte 150$ + 25$ por quilómetro.'
 		 // Copia imediatamente ao clicar
     try {
         await navigator.clipboard.writeText(texto);
