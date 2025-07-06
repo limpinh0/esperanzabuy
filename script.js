@@ -8,18 +8,20 @@ const craftsData = [
 	{
         name: "Skateboard",
         materiais: {
-            "Tábua": 1,
+            "Tábuas de madeira": 1,
             "Plástico": 3,
             "Borracha": 8
         },
-        imagem: "skateboard.png"
+        imagem: "skateboard.png",
+        preco: 0
     },
     {
         name: "Head bag",
         materiais: {
             "Couro": 3
         },
-        imagem: "HeadBag.png"
+        imagem: "HeadBag.png",
+        preco: 0
     },
     {
         name: "Checkers Board",
@@ -28,7 +30,8 @@ const craftsData = [
             "Tábuas de madeira": 2,
             "Plástico": 6
         },
-        imagem: "checkers.png"
+        imagem: "checkers.png",
+        preco: 0
     },
     {
         name: "Chess Board",
@@ -37,7 +40,8 @@ const craftsData = [
             "Tábuas de madeira": 2,
             "Plástico": 6
         },
-        imagem: "chess.png"
+        imagem: "chess.png",
+        preco: 0
     },
 	{
         name: "Gazua",
@@ -46,7 +50,8 @@ const craftsData = [
             "Sucata de metal": 4,
             "Aluminio": 2
         },
-        imagem: "lockpick.png"
+        imagem: "lockpick.png",
+        preco: 0
     }, 
     {
         name: "Gazua Avançada",
@@ -56,7 +61,8 @@ const craftsData = [
             "Aluminio": 2,
             "Borracha": 14
         },
-        imagem: "lockpick2.png"
+        imagem: "lockpick2.png",
+        preco: 0
     },
     {
         name: "Pá",
@@ -66,7 +72,8 @@ const craftsData = [
 			"Sucata de metal": 3,
 			"Plástico": 2
         },
-        imagem: "Pa.png"
+        imagem: "Pa.png",
+        preco: 0
     },
     {
         name: "Quadro branco",
@@ -75,7 +82,8 @@ const craftsData = [
             "Plástico": 15,
             "Borracha": 30
         },
-        imagem: "QuadroBranco.png"
+        imagem: "QuadroBranco.png",
+        preco: 0
     },
     {
         name: "Basketball",
@@ -83,7 +91,8 @@ const craftsData = [
             "Borracha": 45,
             "Couro": 5
         },
-        imagem: "BasketBall.png"
+        imagem: "BasketBall.png",
+        preco: 0
     },
     {
         name: "Basketball Hoop",
@@ -93,7 +102,8 @@ const craftsData = [
             "Plástico": 20,
             "Sucata de metal": 10
         },
-        imagem: "BasketBallHoop.png"
+        imagem: "BasketBallHoop.png",
+        preco: 0
     },
     {
         name: "Maçarico",
@@ -104,15 +114,17 @@ const craftsData = [
             "Ferro": 1,
             "Carvão": 2
         },
-        imagem: "torch.png"
+        imagem: "torch.png",
+        preco: 0
     },
     {
         name: "Faca Utilitária",
         materiais: {
             "Aço": 2,
-            "Madeira": 1
+            "Tábuas de madeira": 1
         },
-        imagem: "FacaUtilitaria.png"
+        imagem: "FacaUtilitaria.png",
+        preco: 0
     },
     {
         name: "Pólvora",
@@ -120,7 +132,8 @@ const craftsData = [
             "Sulfur": 1,
             "Carvão": 1
         },
-        imagem: "Polvora.png"
+        imagem: "Polvora.png",
+        preco: 0
     },
     {
         name: "Ácido de Bateria",
@@ -129,7 +142,8 @@ const craftsData = [
             "Sulfur": 1,
             "Ferro": 2
         },
-        imagem: "battery_acid.png"
+        imagem: "battery_acid.png",
+        preco: 0
     },
     {
         name: "Caixa de ferramentas",
@@ -138,18 +152,20 @@ const craftsData = [
             "Plástico": 1,
             "Borracha": 14
         },
-        imagem: "CaixaFerramentas.png"
+        imagem: "CaixaFerramentas.png",
+        preco: 0
     },
     {
         name: "Kit Eletrónico",
         materiais: {
-            "Aliminio": 8,
+            "Aluminio": 8,
             "Vidro": 12,
             "Cobre": 8,
             "Plástico": 5,
             "Sulfur": 2
         },
-        imagem: "electronic-kit.png"
+        imagem: "electronic-kit.png",
+        preco: 0
     },
     {
         name: "Sledge Hammer",
@@ -160,7 +176,8 @@ const craftsData = [
             "Tábuas de madeira": 5,
             "Borracha": 5
         },
-        imagem: "SledgeHammer.png"
+        imagem: "SledgeHammer.png",
+        preco: 0
     },
     {
         name: "Algemas",
@@ -169,17 +186,19 @@ const craftsData = [
             "Ferro": 8,
             "Sucata de metal": 10
         },
-        imagem: "handcuffs.png"
+        imagem: "handcuffs.png",
+        preco: 0
     },
     {
         name: "Lata de Tinta",
         materiais: {
             "Sucata de metal": 3,
-            "CocaCola": 1,
+            "Coca Cola": 1,
             "Plástico": 1,
             "Borracha": 15
         },
-        imagem: "LataTinta.png"
+        imagem: "LataTinta.png",
+        preco: 0
     },
     {
         name: "Colete Blindado",
@@ -189,7 +208,8 @@ const craftsData = [
             "Aluminio": 5,
             "Aço": 25
         },
-        imagem: "Colete.png"
+        imagem: "Colete.png",
+        preco: 0
     },
     {
         name: "Mascara de Gás",
@@ -200,7 +220,8 @@ const craftsData = [
             "Couro": 3,
             "Borracha": 30
         },
-        imagem: "mascaragas.png"
+        imagem: "mascaragas.png",
+        preco: 0
     },
     {
         name: "Jaula",
@@ -211,7 +232,8 @@ const craftsData = [
             "Ferro": 20,
             "Tábuas de madeira": 5
         },
-        imagem: "Jaula.png"
+        imagem: "Jaula.png",
+        preco: 0
     },
     {
         name: "Ligaduras",
@@ -219,7 +241,8 @@ const craftsData = [
             "Trapos": 1,
             "Borracha": 3
         },
-        imagem: "bandage.png"
+        imagem: "bandage.png",
+        preco: 0
     },
     {
         name: "Glitcher Tensao",
@@ -228,9 +251,10 @@ const craftsData = [
             "Kit Eletrónico": 1,
             "Aluminio": 4,
             "Pólvora": 1,
-            "Ácido Bateria": 1
+            "Ácido de bateria": 1
         },
-        imagem: "GlitcherTensao.png"
+        imagem: "GlitcherTensao.png",
+        preco: 0
     },
     {
         name: "Bloqueador de Circuito",
@@ -241,7 +265,8 @@ const craftsData = [
             "Kit Eletrónico": 1,
             "Estanho": 8
         },
-        imagem: "BloqueadorCircuito.png"
+        imagem: "BloqueadorCircuito.png",
+        preco: 0
     },
     {
         name: "Pen Testes",
@@ -250,11 +275,12 @@ const craftsData = [
             "Chumbo": 1,
             "Plástico": 3,
             "Aluminio": 5,
-            "Ácido Bateria": 1,
+            "Ácido de bateria": 1,
             "Cobre": 8,
             "Sucata de metal": 3
         },
-        imagem: "penTestes.png"
+        imagem: "penTestes.png",
+        preco: 0
     },
     {
         name: "Decibelímetro",
@@ -266,7 +292,8 @@ const craftsData = [
             "Plástico": 35,
             "Sucata de metal": 10
         },
-        imagem: "Decibelimetro.png"
+        imagem: "Decibelimetro.png",
+        preco: 0
     },
     {
         name: "Regador",
@@ -276,7 +303,8 @@ const craftsData = [
             "Ferro": 1,
             "Garrafas água": 5
         },
-        imagem: "SuperRegador.png"
+        imagem: "SuperRegador.png",
+        preco: 0
     },
     {
         name: "Super Fertelizante",
@@ -284,7 +312,8 @@ const craftsData = [
             "Composto": 1,
             "Fertelizante": 1
         },
-        imagem: "superfert.png"
+        imagem: "superfert.png",
+        preco: 0
     },
     {
         name: "Explosivo Caseiro",
@@ -293,12 +322,13 @@ const craftsData = [
             "Cobre": 5,
             "Borracha": 5,
             "Chumbo": 2,
-            "Ácido bateria": 1,
+            "Ácido de bateria": 1,
             "Kit Eletrónico": 1,
-            "Telemovel": 1,
+            "Telemóvel": 1,
             "Thermite": 1
         },
-        imagem: "BombaCaseira.png"
+        imagem: "BombaCaseira.png",
+        preco: 0
     },
     {
         name: "ATM Cracker",
@@ -310,10 +340,11 @@ const craftsData = [
             "Sucata de metal": 8,
             "Cobre": 4,
             "Plástico": 8,
-            "Ácido Bateria": 1,
+            "Ácido de bateria": 1,
             "Chumbo": 2
         },
-        imagem: "ATMCracker.png"
+        imagem: "ATMCracker.png",
+        preco: 0
     },
     {
         name: "Pen Boosting",
@@ -325,7 +356,8 @@ const craftsData = [
             "Kit Eletrónico": 3,
             "Ácido de bateria": 1
         },
-        imagem: "penBoosting.png"
+        imagem: "penBoosting.png",
+        preco: 0
     },
     {
         name: "VPN",
@@ -335,38 +367,41 @@ const craftsData = [
             "Aluminio": 2,
             "Chumbo": 1,
             "Kit Eletrónico": 1,
-            "Ácido Bateria": 1
+            "Ácido de bateria": 1
         },
-        imagem: "antenavpn.png"
+        imagem: "antenavpn.png",
+        preco: 0
     },
     {
         name: "Anti-Localizador",
         materiais: {
-            "Sucata": 40,
+            "Sucata de metal": 40,
             "Aluminio": 20,
             "Cobre": 35,
             "Pólvora": 7,
             "Borracha": 20,
             "Kit eletrónico": 3,
-            "Ácido Bateria": 2,
+            "Ácido de bateria": 2,
             "Chumbo": 4,
             "Plástico": 40
         },
-        imagem: "antiTracker.png"
+        imagem: "antiTracker.png",
+        preco: 0
     },
     {
         name: "Exercício Básico",
         materiais: {
             "Sucata de metal": 10,
             "Chumbo": 1,
-            "Ácido Bateria": 1,
+            "Ácido de bateria": 1,
             "Kit Eletrónico": 1,
             "Aluminio": 5,
             "Plástico": 5,
             "Aço": 5,
             "Bateria Pequena": 1
         },
-        imagem: "ExercicioBasico.png"
+        imagem: "ExercicioBasico.png",
+        preco: 0
     },
     {
         name: "Desencriptador Básico",
@@ -378,9 +413,10 @@ const craftsData = [
             "Aluminio": 5,
             "Aço": 2,
             "Kit Eletrónico": 1,
-            "Ácido Bateria": 2
+            "Ácido de bateria": 2
         },
-        imagem: "penBasica.png"
+        imagem: "penBasica.png",
+        preco: 0
     },
     {
         name: "DeAuth Básico",
@@ -388,13 +424,14 @@ const craftsData = [
             "Sucata de metal": 5,
             "Chumbo": 1,
             "Plástico": 5,
-            "Ácido Bateria": 1,
+            "Ácido de bateria": 1,
             "Aluminio": 5,
             "Aço": 5,
             "Kit Eletrónico": 1,
             "Vidro": 15
         },
-        imagem: "tablet.png"
+        imagem: "tablet.png",
+        preco: 0
     },
     {
         name: "Perfuradora Avançada",
@@ -402,13 +439,14 @@ const craftsData = [
             "Sucata de metal": 15,
             "Chumbo": 5,
             "Plástico": 5,
-            "Ácido Bateria": 1,
+            "Ácido de bateria": 1,
             "Aluminio": 5,
             "Aço": 10,
             "Kit Eletrónico": 1,
             "Bateria Pequena": 1
         },
-        imagem: "PerfuradoraAvancada.png"
+        imagem: "PerfuradoraAvancada.png",
+        preco: 0
     },
     {
         name: "Desencriptador Avançado",
@@ -420,9 +458,10 @@ const craftsData = [
             "Aluminio": 7,
             "Aço": 5,
             "Kit Eletrónico": 1,
-            "Ácido Bateria": 2
+            "Ácido de bateria": 2
         },
-        imagem: "penAvancada.png"
+        imagem: "penAvancada.png",
+        preco: 0
     },
     {
         name: "DeAuth Avançado",
@@ -431,12 +470,13 @@ const craftsData = [
             "Aço": 10,
             "Kit Eletrónico": 1,
             "Plástico": 10,
-            "Ácido Bateria": 1,
+            "Ácido de bateria": 1,
             "Vidro": 30,
             "Sucata de metal": 10,
             "Aluminio": 10
         },
-        imagem: "DeAuthAvancado.png"
+        imagem: "DeAuthAvancado.png",
+        preco: 0
     },
     {
         name: "Glitcher de Tensao Avançado",
@@ -448,10 +488,11 @@ const craftsData = [
             "Aluminio": 5,
             "Chumbo": 2,
             "Kit Eletrónico": 2,
-            "Ácido Bateria": 2,
+            "Ácido de bateria": 2,
             "Bateria Pequena": 2
         },
-        imagem: "GlitcherTensaoAvancado.png"
+        imagem: "GlitcherTensaoAvancado.png",
+        preco: 0
     },
     {
         name: "Desencriptador Harden",
@@ -463,10 +504,11 @@ const craftsData = [
             "Aluminio": 10,
             "Chumbo": 2,
             "Kit Eletrónico": 1,
-            "Ácido Bateria": 2,
+            "Ácido de bateria": 2,
             "Bateria Pequena": 1
         },
-        imagem: "penHarden.png"
+        imagem: "penHarden.png",
+        preco: 0
     },
     {
         name: "Dados do Dumper",
@@ -477,11 +519,12 @@ const craftsData = [
             "Sucata de metal": 10,
             "Chumbo": 2,
             "Aluminio": 5,
-            "Ácido Bateria": 2,
+            "Ácido de bateria": 2,
             "Kit Eletrónico": 2,
             "Vidro": 15
         },
-        imagem: "DadosDumper.png"
+        imagem: "DadosDumper.png",
+        preco: 0
     },
     {
         name: "Ground Drill",
@@ -492,10 +535,11 @@ const craftsData = [
             "Kit Eletrónico": 1,
             "Aluminio": 15,
             "Plástico": 5,
-            "Ácido Bateria": 1,
+            "Ácido de bateria": 1,
             "Bateria Pequena": 1
         },
-        imagem: "GroundDrill.png"
+        imagem: "GroundDrill.png",
+        preco: 0
     },
     {
         name: "Bolt Cutter",
@@ -506,7 +550,8 @@ const craftsData = [
             "Ferro": 25,
             "Chumbo": 2
         },
-        imagem: "boltcutter.png"
+        imagem: "boltcutter.png",
+        preco: 0
     }
 ];
 
@@ -1118,11 +1163,11 @@ function renderCraftsTable() {
         cell.onmouseenter = () => cell.style.boxShadow = "0 4px 16px #0002";
         cell.onmouseleave = () => cell.style.boxShadow = "0 2px 8px #0001";
         cell.onclick = (e) => {
-            // Só abre popup se não for o input
-            if (e.target.tagName !== "INPUT") showCraftPopup(idx);
+            // Só abre popup se não for o input ou o botão
+            if (e.target.tagName !== "INPUT" && !e.target.classList.contains("calc-price-btn")) showCraftPopup(idx);
         };
 
-         // Nome
+        // Nome
         const name = document.createElement("div");
         name.textContent = craft.name;
         name.style.fontWeight = "bold";
@@ -1131,7 +1176,7 @@ function renderCraftsTable() {
         name.style.marginBottom = "8px";
         name.style.color = "var(--primary)";
 
-        // Imagem (usa nome do item, pode adaptar para o seu sistema de imagens)
+        // Imagem
         const img = document.createElement("img");
         img.src = `https://api.esperanzabuy.pt/img/${encodeURIComponent(craft.imagem)}`;
         img.alt = craft.name;
@@ -1141,8 +1186,6 @@ function renderCraftsTable() {
         img.style.marginBottom = "8px";
         img.onerror = function() { this.style.display = "none"; };
 
-       
-
         // Input quantidade
         const input = document.createElement("input");
         input.className = "input-cell";
@@ -1150,12 +1193,94 @@ function renderCraftsTable() {
         input.min = "0";
         input.id = `craft-qty-${idx}`;
         input.placeholder = "Qtd";
-        input.onclick = (e) => e.stopPropagation(); // Não abrir popup ao clicar no input
+        input.style.width = "60px";
+        input.style.marginLeft = "8px";
+        input.style.textAlign = "center";
+        input.onclick = (e) => e.stopPropagation();
+
+        // Botão calcular preço
+        const calcBtn = document.createElement("button");
+        calcBtn.type = "button";
+        calcBtn.className = "calc-price-btn";
+        calcBtn.innerHTML = "💲";
+        calcBtn.title = "Calcular preço";
+        // calcBtn.style.marginRight = "0px";
+       
+        calcBtn.onmouseenter = function() {
+            this.title = "Calcular preço";
+        };
+        // Mostra o preço ao clicar
+        calcBtn.onclick = function(e) {
+            e.stopPropagation();
+            if (calcBtn.dataset.calculated === "1") return;
+            const qty = parseInt(input.value, 10) || 1;
+            let total = 0;
+            let missing = [];
+
+            // Função auxiliar igual à do showCraftPopup
+            function calcularPrecoCraft(nome) {
+                const craftInterno = craftsData.find(c => c.name.toLowerCase() === nome.toLowerCase());
+                if (!craftInterno) return null;
+                let subtotal = 0;
+                for (const [mat, val] of Object.entries(craftInterno.materiais)) {
+                    const prod = allProdutos.find(p => p.name.toLowerCase() === mat.toLowerCase());
+                    if (prod && typeof prod.price === "number") {
+                        subtotal += prod.price * val;
+                    } else {
+                        const subPreco = calcularPrecoCraft(mat);
+                        if (subPreco !== null) {
+                            subtotal += subPreco * val;
+                        } else {
+                            return null;
+                        }
+                    }
+                }
+                return subtotal;
+            }
+
+            for (const [mat, val] of Object.entries(craft.materiais)) {
+                // 1º: tenta calcular pelo craftsData (recursivo)
+                const precoCraft = calcularPrecoCraft(mat);
+                if (precoCraft !== null) {
+                    total += precoCraft * val * qty;
+                } else {
+                    // 2º: tenta pelo allProdutos
+                    const prod = allProdutos.find(p => p.name.toLowerCase() === mat.toLowerCase());
+                    if (prod && typeof prod.price === "number") {
+                        total += prod.price * val * qty;
+                    } else {
+                        missing.push(mat);
+                    }
+                }
+            }
+
+            if (missing.length > 0) {
+                calcBtn.innerHTML = `<span style="font-size:0.9em;color:#d00;" title="Sem preço para: ${missing.join(', ')}">❓</span>`;
+            } else {
+                calcBtn.innerHTML = `<span style="font-size:0.95em; color: #222;">${total.toFixed(2)}$</span>`;
+            }
+            calcBtn.dataset.calculated = "1";
+            calcBtn.title = "";
+            // // Volta ao símbolo após 2.5s
+            // setTimeout(() => {
+            //     calcBtn.innerHTML = "💲";
+            //     calcBtn.dataset.calculated = "0";
+            //     calcBtn.title = "Calcular preço";
+            // }, 2500);
+        };
+
+        // Linha horizontal para input e botão
+        const inputRow = document.createElement("div");
+        inputRow.style.display = "flex";
+        inputRow.style.alignItems = "center";
+        inputRow.style.justifyContent = "center";
+        inputRow.appendChild(calcBtn);
+        inputRow.appendChild(input);
 
         // Monta a célula
         cell.appendChild(name);
         cell.appendChild(img);
-        cell.appendChild(input);
+        cell.appendChild(inputRow);
 
         grid.appendChild(cell);
     });
@@ -1192,10 +1317,61 @@ window.calcularMateriaisTotal = calcularMateriaisTotal;
 function showCraftPopup(idx) {
     const craft = craftsData[idx];
     let html = `<b>Materiais para 1 ${craft.name}:</b><ul style="margin-top:0.5em;">`;
+    let total = 0;
+    let missing = [];
+    // Função auxiliar para calcular preço de um craft pelo nome
+    function calcularPrecoCraft(nome) {
+        const craftInterno = craftsData.find(c => c.name.toLowerCase() === nome.toLowerCase());
+        if (!craftInterno) return null;
+        let subtotal = 0;
+        for (const [mat, val] of Object.entries(craftInterno.materiais)) {
+            // Recursivo: tenta calcular preço do material
+            // Primeiro tenta pelo preço do produto, depois pelo craft
+            const prod = allProdutos.find(p => p.name.toLowerCase() === mat.toLowerCase());
+            if (prod && typeof prod.price === "number") {
+                subtotal += prod.price * val;
+            } else {
+                // Tenta calcular recursivamente se for craft
+                const subPreco = calcularPrecoCraft(mat);
+                if (subPreco !== null) {
+                    subtotal += subPreco * val;
+                } else {
+                    return null; // Falha se não conseguir calcular
+                }
+            }
+        }
+        return subtotal;
+    }
+
     for (const [mat, val] of Object.entries(craft.materiais)) {
-        html += `<li>${mat}: <b>${val}</b></li>`;
+        let priceStr = '';
+        let subtotal = 0;
+        // 1º: tenta calcular pelo craftsData (recursivo)
+        const precoCraft = calcularPrecoCraft(mat);
+        if (precoCraft !== null) {
+            subtotal = precoCraft * val;
+            priceStr = ` x ${precoCraft.toFixed(2)}$ = <b>${subtotal.toFixed(2)} $</b> <span style="color:#888;font-size:0.9em;">(craft)</span>`;
+            total += subtotal;
+        } else {
+            // 2º: tenta pelo allProdutos
+            const prod = allProdutos.find(p => p.name.toLowerCase() === mat.toLowerCase());
+            if (prod && typeof prod.price === "number") {
+                subtotal = prod.price * val;
+                priceStr = ` x ${prod.price}$ = <b>${subtotal.toFixed(2)} $</b>`;
+                total += subtotal;
+            } else {
+                priceStr = ` <span style="color:#d00;">(sem preço)</span>`;
+                missing.push(mat);
+            }
+        }
+        html += `<li>${mat}: <b>${val}</b>${priceStr}</li>`;
     }
     html += "</ul>";
+    if (missing.length > 0) {
+        html += `<div style="color:#d00;font-size:0.95em;">Atenção: falta preço para ${missing.join(', ')}</div>`;
+    }
+    html += `<div style="margin-top:10px;font-weight:bold;font-size:1.1em;">Total: ${total.toFixed(2)} $</div>`;
+
     // Cria ou mostra o popup com o mesmo estilo do site (usa classes modal/modal-content)
     let popup = document.getElementById("craft-popup");
     if (!popup) {
@@ -1203,7 +1379,7 @@ function showCraftPopup(idx) {
         popup.id = "craft-popup";
         popup.className = "modal";
         popup.innerHTML = `
-            <div class="modal-content">
+            <div class="modal-content" id="craft-popup-modal-content">
                 <button onclick="closeCraftPopup()" class="close-modal" title="Fechar" style="position:absolute;top:10px;right:14px;">&times;</button>
                 <div id="craft-popup-content"></div>
             </div>
@@ -1213,6 +1389,11 @@ function showCraftPopup(idx) {
         popup.style.display = "flex";
     }
     document.getElementById("craft-popup-content").innerHTML = html;
+
+    // Adiciona o event listener para fechar ao clicar fora do modal-content
+    popup.onclick = function(e) {
+        if (e.target === popup) closeCraftPopup();
+    };
 }
 window.showCraftPopup = showCraftPopup;
 
