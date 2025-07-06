@@ -607,8 +607,9 @@ body.dark .craft-cell {
     transition: background 0.2s, color 0.2s, border 0.2s;
     outline: none;
     width: 60px;
-    /* marginTop = "8px"; */
+    margin-top: 8px;
     text-align: center;
+    appearance: textfield; /* Remove spinner in number inputs */
 }
 .input-cell:focus {
     border-color: var(--primary);
@@ -622,4 +623,34 @@ body.dark .input-cell {
 }
 body.dark .input-cell:focus {
     border-color: var(--primary);
+}
+
+.craft-cell .input-row {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    /* margin-top: 8px; */
+    gap: 6px;
+}
+
+.craft-cell .calc-price-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    min-width: 60px; 
+    font-size: 1em;
+    border-radius: 6px;
+    border: none;
+    background: var(--primary);
+    color: #222;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.craft-cell .input-cell {
+    width: 60px;
+    text-align: center;
+    margin-left: 0;
 }
