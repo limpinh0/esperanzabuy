@@ -201,6 +201,27 @@ const craftsData = [
         preco: 0
     },
     {
+        name: "Óxido de ferro",
+        materiais: {
+            "Vidro": 10,
+            "Ferro": 14,
+            "Sulfur": 5
+        },
+        imagem: "",
+        preco: 0
+    },
+    
+    {
+        name: "Aluminio em pó",
+        materiais: {
+            "Vidro": 10,
+            "Aluminio": 14,
+            "Sulfur": 5
+        },
+        imagem: "",
+        preco: 0
+    },
+    {
         name: "Colete Blindado",
         materiais: {
             "Chumbo": 2,
