@@ -84,7 +84,8 @@ function showPage(p) {
 function renderCategoryFilters() {
 	const categoriesContainer = document.getElementById("categoryFilters");
 	// Só categorys de produtos com vpn: 0
-	const categories = [...new Set(produtos.filter((p) => !p.vpn || p.vpn === 0).map((p) => p.category))].sort((a, b) => a.localeCompare(b)); // <-- Ordena alfabeticamente
+	const categories = [...new Set(produtos.filter((p) => (!p.vpn || p.vpn === 0) && p.active).map((p) => p.category))].sort((a, b) => a.localeCompare(b)); // <-- Ordena alfabeticamente
+
 
 	categoriesContainer.innerHTML = "";
 
