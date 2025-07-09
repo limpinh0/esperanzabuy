@@ -71,21 +71,14 @@ function showPage(p) {
 		renderCategoryFilters();
 		filterProducts();
 		// Scroll suave para o topo da secção produtos
-		setTimeout(() => {
-			const produtosSection = document.getElementById("produtos");
-			if (produtosSection) {
-				produtosSection.scrollIntoView({ behavior: "smooth", block: "start" });
-			}
-		}, 0);
 	}
-	if (p === "carrinho") renderCarrinho();
+	if (p === "carrinho") renderCarrinho(); 
 }
 
 function renderCategoryFilters() {
 	const categoriesContainer = document.getElementById("categoryFilters");
 	// Só categorys de produtos com vpn: 0
 	const categories = [...new Set(produtos.filter((p) => (!p.vpn || p.vpn === 0) && p.active).map((p) => p.category))].sort((a, b) => a.localeCompare(b)); // <-- Ordena alfabeticamente
-
 
 	categoriesContainer.innerHTML = "";
 
@@ -539,28 +532,7 @@ function renderHomeProdutos() {
 	});
 }
 
-// Sempre que entrar na home, gera nova lista aleatória
-function showPage(p) {
-	document.querySelectorAll(".container").forEach((el) => el.classList.add("hidden"));
-	document.getElementById(p).classList.remove("hidden");
-	if (p === "home") {
-		produtosHomeAleatorios = []; // Limpa para forçar nova geração
-		renderHomeProdutos();
-	}
-	if (p === "produtos") {
-		document.getElementById("sortSelect").value = "name-asc"; // força seleção
-		renderCategoryFilters();
-		filterProducts();
-		// Scroll suave para o topo da secção produtos
-		setTimeout(() => {
-			const produtosSection = document.getElementById("produtos");
-			if (produtosSection) {
-				produtosSection.scrollIntoView({ behavior: "smooth", block: "start" });
-			}
-		}, 0);
-	}
-	if (p === "carrinho") renderCarrinho();
-}
+ 
 
 function addCarrinhoHome(i) {
 	const qtd = parseInt(document.getElementById(`qtd-home-${i}`).value);
