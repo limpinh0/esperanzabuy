@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EsperanzaBuy - Loja Online de Produtos Exclusivos</title>
-  <meta name="description" content="EsperanzaBuy é a sua loja online de confiança para produtos exclusivos, VPN, ferramentas e muito mais. Entregas rápidas e atendimento personalizado.">
-  <meta name="keywords" content="EsperanzaBuy, loja online, VPN, ferramentas, encomendas, comprar, produtos exclusivos, Puerto Esperanza">
+  <meta name="description"
+    content="EsperanzaBuy é a sua loja online de confiança para produtos exclusivos, VPN, ferramentas e muito mais. Entregas rápidas e atendimento personalizado.">
+  <meta name="keywords"
+    content="EsperanzaBuy, loja online, VPN, ferramentas, encomendas, comprar, produtos exclusivos, Puerto Esperanza">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://esperanzabuy.pt/">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/limpinh0/esperanzabuy/main/img/banner.png">
   <meta property="og:title" content="EsperanzaBuy - Loja Online de Produtos Exclusivos">
-  <meta property="og:description" content="EsperanzaBuy é a sua loja online de confiança para produtos exclusivos, VPN, ferramentas e muito mais.">
+  <meta property="og:description"
+    content="EsperanzaBuy é a sua loja online de confiança para produtos exclusivos, VPN, ferramentas e muito mais.">
   <meta property="og:url" content="https://esperanzabuy.pt/">
   <meta property="og:image" content="https://api.esperanzabuy.pt/img/banner.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="EsperanzaBuy - Loja Online de Produtos Exclusivos">
-  <meta name="twitter:description" content="EsperanzaBuy é a sua loja online de confiança para produtos exclusivos, VPN, ferramentas e muito mais.">
+  <meta name="twitter:description"
+    content="EsperanzaBuy é a sua loja online de confiança para produtos exclusivos, VPN, ferramentas e muito mais.">
   <meta name="twitter:image" content="https://api.esperanzabuy.pt/img/banner.png">
   <meta name="theme-color" content="#ff9900">
   <script type="application/ld+json">
@@ -34,132 +39,186 @@
 }
 </script>
 </head>
+
 <body>
-  <header>
-  <a href="#home" onclick="showPage('home')" style="color: inherit; text-decoration: none;">
-    <img src="https://api.esperanzabuy.pt/img/banner.png" alt="EsperanzaBuy Banner"
-       style="height:300px; display:block; text-align:center; margin:0 auto;">
-    <!-- <h1 style="margin:0; font-size:2.5rem; letter-spacing:2px; font-weight: bold; transition: color 0.2s;">EsperanzaBuy</h1> -->
-  </a>
-</header>
+  <header id ="header">
+    <div style="display: flex; justify-content: center; align-items: center; height: 320px;">
+      <div
+        style="margin-right: 150px; width:250px;height:250px;  display: flex; justify-content: center; align-items: center; border: 1px solid #ff9900; padding: 4px 8px; border-radius: 9px;">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
+          <span style="font-weight: bold; color: #ff9900; font-size: 1.2rem; text-align: center;">ANUNCIE AQUI!</span>
+          <span style="font-size: 0.9rem; color: #ff9900; text-align: center; margin-top: 8px;">Entre em contacto para
+            mais informações.<br>250x250</span>
+        </div>
+      </div>
+      <div style="  display: flex; justify-content: center; align-items: center;">
+        <a href="#header" onclick="showPage('home')" style="color: inherit; text-decoration: none;">
+          <img src="https://api.esperanzabuy.pt/img/banner.png" alt="EsperanzaBuy Banner"
+            style="height:300px; display:block;">
+        </a>
+      </div>
+      <div
+        style="margin-left: 150px; width:250px;height:250px;  display: flex; justify-content: center; align-items: center; border: 1px solid #ff9900; padding: 4px 8px; border-radius: 9px;">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
+          <span style="font-weight: bold; color: #ff9900; font-size: 1.2rem; text-align: center;">ANUNCIE AQUI!</span>
+          <span style="font-size: 0.9rem; color: #ff9900; text-align: center; margin-top: 8px;">Entre em contacto para
+            mais informações.<br>250x250</span>
+        </div>
+      </div>
+    </div>
+  </header>
 
   <nav>
-  <div class="nav-flex">
-    <div class="nav-left">
-       <a href="https://puerto-esperanza.tebex.io/">
-      <img src="img/pelogo.gif"
-       alt="Logo" style="height:60px; margin-right:18px; margin-left:8px; display:block;">
-    </a>
-    </div>
-    <div class="nav-center">
-      <a href="#produtos" onclick="showPage('produtos')">Produtos</a>
-      <a href="#contactos" onclick="showPage('contactos')">Contactos</a>
-      <a href="#carrinho" onclick="showPage('carrinho')" style="position:relative;">
-        🛒Carrinho
-        <span id="carrinhoBadge" style="display:none;position:absolute;top:14px;right:84px;background:#d00;color:#fff;border-radius:50%;padding:2px 7px;font-size:12px;font-weight:bold;"></span>
-      </a>
-    </div>
-    <div class="nav-right">
-      <a href="#vpn" id="vpnLink" onclick="showPage('vpn')">🔐VPN</a>
-      <button id="toggleTheme">🌙</button>
-    </div>
-  </div>
-</nav>
+    <div id="navbar" class="nav-flex">
+      <div class="nav-left">
+        <a href="https://puerto-esperanza.tebex.io/">
+          <img src="img/pelogo.gif" alt="Logo" style="height:60px; margin-right:18px; margin-left:8px; display:block;">
+        </a>
+      </div>
+      <div class="nav-center">
+        <a href="#navbar" onclick="showPage('produtos')">Produtos</a>
+        <a href="#navbar" onclick="showPage('contactos')">Contactos</a>
+        <a href="#navbar" onclick="showPage('carrinho')" style="position:relative;">
+          🛒Carrinho
+          <span id="carrinhoBadge"
+            style="display:none;position:absolute;top:14px;right:84px;background:#d00;color:#fff;border-radius:50%;padding:2px 7px;font-size:12px;font-weight:bold;"></span>
+        </a>
 
-  <div id="home" class="container">
-  <h1 style="text-align:center;">EsperanzaBuy - Loja Online</h1>
-  <h2 style="text-align:center;">Bem-vindo!</h2>
-  <div id="homeProdutos" class="products-grid"></div>
-  <div style="text-align:center;margin-top:2rem;">
-    <button onclick="showPage('produtos')">Ver mais</button>
-  </div>
-</div>
+      </div>
+      <div class="nav-right">
+        <a href="#vpn" id="vpnLink" onclick="showPage('vpn')">🔐VPN</a>
+        <button id="toggleTheme">🌙</button>
+      </div>
+    </div>
+  </nav>
 
-  <div id="produtos" class="container hidden">
-    <h2>Produtos</h2>
-    <div class="products-container">
-      <div class="filters-sidebar">
-        <div class="search-sort-container">
-          <input type="text" id="searchInput" placeholder="Pesquisar..." oninput="filterProducts()">
-          <select id="sortSelect" onchange="filterProducts()">
-            <option value="name-asc" selected>Nome (A-Z)</option>
-            <option value="name-desc">Nome (Z-A)</option>
-            <option value="price-asc">Preço (menor primeiro)</option>
-            <option value="price-desc">Preço (maior primeiro)</option>
-          </select>
-          <label style="margin-top:8px;">
-            <input type="checkbox" id="apenasStock" onchange="filterProducts()"> Apenas com stock
-          </label>
-          <label style="margin-top:8px;">
-            <input type="checkbox" id="apenasPromo" onchange="filterProducts()"> Em promoção
-          </label>
+  <div style="display: flex; flex-direction: row; min-height: 80vh;">
+    <!-- Coluna esquerda para ads -->
+    <div
+      style="margin-left: 20px; flex: 0 0 220px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start;">
+      <div id="ads-fixed-container-left" style="width: 200px; height: 250px; margin-top: 2rem;">
+        <!-- Conteúdo do anúncio esquerdo -->
+        <div
+          style="width: 200px; height: 250px; border: 2px solid #ff9900; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>
+          <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>200x250</span>
         </div>
-        <h4>Categorias</h4>
-        <div id="categoryFilters"></div>
       </div>
-      <div id="listaProdutos" class="products-grid"></div>
+    </div>
+
+    <!-- Coluna central para conteúdo principal -->
+    <div style="flex: 1 1 auto;  width: 90%;">
+      <div id="home" class="container">
+        <h1 style="text-align:center;">EsperanzaBuy - Loja Online</h1>
+        <h2 style="text-align:center;">Bem-vindo!</h2>
+        <div id="homeProdutos" class="products-grid"></div>
+        <div style="text-align:center;margin-top:2rem;">
+          <button onclick="showPage('produtos')">Ver mais</button>
+        </div>
+      </div>
+
+      <div id="produtos" class="container hidden">
+        <h2>Produtos</h2>
+        <div class="products-container">
+          <div class="filters-sidebar">
+            <div class="search-sort-container">
+              <input type="text" id="searchInput" placeholder="Pesquisar..." oninput="filterProducts()">
+              <select id="sortSelect" onchange="filterProducts()">
+                <option value="name-asc" selected>Nome (A-Z)</option>
+                <option value="name-desc">Nome (Z-A)</option>
+                <option value="price-asc">Preço (menor primeiro)</option>
+                <option value="price-desc">Preço (maior primeiro)</option>
+              </select>
+              <label style="margin-top:8px;">
+                <input type="checkbox" id="apenasStock" onchange="filterProducts()"> Apenas com stock
+              </label>
+              <label style="margin-top:8px;">
+                <input type="checkbox" id="apenasPromo" onchange="filterProducts()"> Em promoção
+              </label>
+            </div>
+            <h4>Categorias</h4>
+            <div id="categoryFilters"></div>
+          </div>
+          <div id="listaProdutos" class="products-grid"></div>
+        </div>
+      </div>
+
+      <div id="carrinho" class="container hidden">
+        <h2>Carrinho</h2>
+        <div id="listaCarrinho"></div>
+        <label><input type="checkbox" id="fatura"> Deseja fatura?</label>
+        <p>
+          <label>
+            CP de entrega: <input type="number" id="cpEntrega" min="1" max="999999" style="width:100px;">
+          </label>
+        </p>
+        <p><strong>Total:</strong> <span id="total"></span></p>
+        <p><strong>Peso Total:</strong> <span id="pesoTotal"></span></p>
+        <p><strong>Taxa de Transporte 150$ + 25$ por quilómetro.</strong> <span id="taxa"></span></p>
+        <button onclick="copiarResumoCarrinho()">Copiar carrinho</button>
+
+      </div>
+
+
+      <div id="contactos" class="container hidden">
+        <h2>Contactos</h2>
+        <p>O contacto para encomendas ou alguma ajuda relativa à compra é feito a partir do nosso Instapic
+          @EsperanzaBuy.</p>
+        <p>Porquê o Instapic? <br>É um meio centralizado e seguro para lhe dar uma maior velocidade de resposta.</p>
+      </div>
+
+      <div id="vpn" class="container hidden">
+        <h2>Produtos VPN</h2>
+        <div class="products-container">
+          <div class="filters-sidebar">
+            <div class="search-sort-container">
+              <input type="text" id="searchInputVPN" placeholder="Pesquisar..." oninput="filterProductsVPN()">
+              <select id="sortSelectVPN" onchange="filterProductsVPN()">
+                <option value="name-asc" selected>Nome (A-Z)</option>
+                <option value="name-desc">Nome (Z-A)</option>
+                <option value="price-asc">Preço (menor primeiro)</option>
+                <option value="price-desc">Preço (maior primeiro)</option>
+              </select>
+              <label style="margin-top:8px;">
+                <input type="checkbox" id="apenasStockVPN" onchange="filterProductsVPN()"> Apenas com stock
+              </label>
+              <label style="margin-top:8px;">
+                <input type="checkbox" id="apenasPromoVPN" onchange="filterProductsVPN()"> Em promoção
+              </label>
+            </div>
+            <h4>Categorias</h4>
+            <div id="categoryFiltersVPN"></div>
+          </div>
+          <div id="listaProdutosVPN" class="products-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coluna direita para ads -->
+    <div
+      style="margin-right: 20px;flex: 0 0 220px; display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-start;">
+      <div id="ads-fixed-container-right" style="width: 200px; height: 250px; margin-top: 2rem;">
+        <!-- Conteúdo do anúncio direito -->
+        <div
+          style="width: 200px; height: 250px;   border: 2px solid #ff9900; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>
+          <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>200x250</span>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div id="carrinho" class="container hidden">
-    <h2>Carrinho</h2>
-    <div id="listaCarrinho"></div>
-    <label><input type="checkbox" id="fatura"> Deseja fatura?</label>
-    <p>
-    <label>
-      CP de entrega: <input type="number" id="cpEntrega" min="1" max="999999" style="width:100px;">
-    </label>
-    </p>
-    <p><strong>Total:</strong> <span id="total"></span></p>
-    <p><strong>Peso Total:</strong> <span id="pesoTotal"></span></p> 
-<p><strong>Taxa de Transporte 150$ + 25$ por quilómetro.</strong> <span id="taxa"></span></p>    
-   
-    <button onclick="copiarResumoCarrinho()">Copiar carrinho</button>
-    
-  </div>
-  
-
-  <div id="contactos" class="container hidden">
-    <h2>Contactos</h2>
-    <p>O contacto para encomendas ou alguma ajuda relativa à compra é feito a partir do nosso Instapic @EsperanzaBuy.</p>
-    <p>Porquê o Instapic? <br>É um meio centralizado e seguro para lhe dar uma maior velocidade de resposta.</p>    
-  </div>
-
-  <div id="vpn" class="container hidden">
-  <h2>Produtos VPN</h2>
-  <div class="products-container">
-    <div class="filters-sidebar">
-      <div class="search-sort-container">
-        <input type="text" id="searchInputVPN" placeholder="Pesquisar..." oninput="filterProductsVPN()">
-        <select id="sortSelectVPN" onchange="filterProductsVPN()">
-          <option value="name-asc" selected>Nome (A-Z)</option>
-          <option value="name-desc">Nome (Z-A)</option>
-          <option value="price-asc">Preço (menor primeiro)</option>
-          <option value="price-desc">Preço (maior primeiro)</option>
-        </select>
-        <label style="margin-top:8px;">
-          <input type="checkbox" id="apenasStockVPN" onchange="filterProductsVPN()"> Apenas com stock
-        </label>
-        <label style="margin-top:8px;">
-          <input type="checkbox" id="apenasPromoVPN" onchange="filterProductsVPN()"> Em promoção
-        </label>
-      </div>
-      <h4>Categorias</h4>
-      <div id="categoryFiltersVPN"></div>
-    </div>
-    <div id="listaProdutosVPN" class="products-grid"></div>
-  </div>
-</div>
 
   <footer>
-  <p>
-	<a href="./login.html" style="text-decoration: none;">
-		<img src="https://api.esperanzabuy.pt/img/banner.png" alt="Logo" style="height:24px;vertical-align:middle;margin-right:8px;">
-	</a>
-    &copy; 2025 EsperanzaBuy. Todos os direitos reservados.
-  </p>
-</footer>
-  
+    <p>
+      <a href="./login.html" style="text-decoration: none;">
+        <img src="https://api.esperanzabuy.pt/img/banner.png" alt="Logo"
+          style="height:24px;vertical-align:middle;margin-right:8px;">
+      </a>
+      &copy; 2025 EsperanzaBuy. Todos os direitos reservados.
+    </p>
+  </footer>
+
   <script src="main.js"></script>
 </body>
+
 </html>
