@@ -631,7 +631,7 @@ async function carregarAnuncios() {
         return obj;
     }).filter(a => a.date >= hojeStr); 
 
-    function setAd(divId, url) {
+    function setAd(divId, url, duration = 6000, progress = 1) {
         const el = document.getElementById(divId);
         if (el) {
             // Overlay HTML
@@ -649,12 +649,22 @@ async function carregarAnuncios() {
                 pointer-events:none;
             ">PUBLICIDADE</div>`;
 
-            // Garante que o div é relativo para overlay funcionar
+            // Barrinha de tempo
+            const barra = `<div class="ad-progress-bar" style="
+                position:absolute;
+                left:0; right:0; bottom:1px;
+                height:1px;
+                background:linear-gradient(90deg,#ff9900 85%,#fff0 100%);
+                width:${Math.max(0, Math.min(1, progress)) * 100}%;
+                z-index:0;
+                transition:width 0.2s linear;
+            "></div>`;
+
             el.style.position = "relative";
 
             if (divId === 'ads-fixed-container-left' || divId === 'ads-fixed-container-right') {
                 if (!url || url.trim() === "") {
-                    el.innerHTML = '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>200x250</span>' ;
+                    el.innerHTML = '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>200x250</span>'
                     el.style.width = "200px";
                     el.style.height = "250px";
                     el.style.border = "1px solid #ff9900";
@@ -664,7 +674,7 @@ async function carregarAnuncios() {
                     el.style.justifyContent = "center";
                     el.style.alignItems = "center";
                 } else {
-                    el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:200px;height:250px;object-fit:contain;border-radius:12px;"></a>${overlay}`;
+                    el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:200px;height:250px;object-fit:contain;border-radius:12px;"></a>${barra}${overlay}`;
                     el.style.width = "200px";
                     el.style.height = "250px";
                     el.style.border = "0px";
@@ -683,7 +693,7 @@ async function carregarAnuncios() {
                     el.style.justifyContent = "center";
                     el.style.alignItems = "center";
                 } else {
-                    el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:250px;height:250px;object-fit:contain;border-radius:12px;"></a>${overlay}`;
+                    el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:250px;height:250px;object-fit:contain;border-radius:12px;"></a>${barra}${overlay}`;
                     el.style.width = "250px";
                     el.style.height = "250px";
                     el.style.border = "0px";
@@ -693,37 +703,52 @@ async function carregarAnuncios() {
     }
 
     ['l_top', 'r_top', 'l_lat', 'r_lat'].forEach(pos => {
-
     const staticAd = anuncios.find(a => a.type === 'static' && a.pos === pos);
     if (staticAd) {
-        if (pos === 'l_top') setAd('header-ad-top-left', staticAd.url);
-        if (pos === 'r_top') setAd('header-ad-top-right', staticAd.url);
-        if (pos === 'l_lat') setAd('ads-fixed-container-left', staticAd.url);
-        if (pos === 'r_lat') setAd('ads-fixed-container-right', staticAd.url);
+        if (pos === 'l_top') setAd('header-ad-top-left', staticAd.url, 6000, 0);
+        if (pos === 'r_top') setAd('header-ad-top-right', staticAd.url, 6000, 0);
+        if (pos === 'l_lat') setAd('ads-fixed-container-left', staticAd.url, 6000, 0);
+        if (pos === 'r_lat') setAd('ads-fixed-container-right', staticAd.url, 6000, 0);
     } else {
-        // Só faz rotation se NÃO existir static para esta posição
         const rotAds = anuncios.filter(a => a.type === 'rotation' && a.pos === pos);
+		console.log(rotAds);
         if (rotAds.length > 0) {
             let idx = 0;
+            let startTime = Date.now();
+            let intervalId = null;
+
             function rotate() {
-                // Mostra imagem se idx < rotAds.length, senão mostra vazio
-                if (idx < rotAds.length) {
-                    const ad = rotAds[idx];
-                    if (pos === 'l_top') setAd('header-ad-top-left', ad.url);
-                    if (pos === 'r_top') setAd('header-ad-top-right', ad.url);
-                    if (pos === 'l_lat') setAd('ads-fixed-container-left', ad.url);
-                    if (pos === 'r_lat') setAd('ads-fixed-container-right', ad.url);
-                } else {
-                    // Mostra sem imagem (vazio)
-                    if (pos === 'l_top') setAd('header-ad-top-left', "");
-                    if (pos === 'r_top') setAd('header-ad-top-right', "");
-                    if (pos === 'l_lat') setAd('ads-fixed-container-left', "");
-                    if (pos === 'r_lat') setAd('ads-fixed-container-right', "");
+                let progress = 1;
+                if (intervalId) clearInterval(intervalId);
+                startTime = Date.now();
+
+                function updateBar() {
+                    const elapsed = Date.now() - startTime;
+                    progress = 1 - Math.min(elapsed / 6000, 1);
+                    if (idx < rotAds.length) {
+                        const ad = rotAds[idx];
+                        if (pos === 'l_top') setAd('header-ad-top-left', ad.url, 6000, progress);
+                        if (pos === 'r_top') setAd('header-ad-top-right', ad.url, 6000, progress);
+                        if (pos === 'l_lat') setAd('ads-fixed-container-left', ad.url, 6000, progress);
+                        if (pos === 'r_lat') setAd('ads-fixed-container-right', ad.url, 6000, progress);
+                    } else {
+                        if (pos === 'l_top') setAd('header-ad-top-left', "", 6000, progress);
+                        if (pos === 'r_top') setAd('header-ad-top-right', "", 6000, progress);
+                        if (pos === 'l_lat') setAd('ads-fixed-container-left', "", 6000, progress);
+                        if (pos === 'r_lat') setAd('ads-fixed-container-right', "", 6000, progress);
+                    }
+                    if (progress > 0) {
+                        requestAnimationFrame(updateBar);
+                    }
                 }
-                idx = (idx + 1) % (rotAds.length + 1); // +1 para o ciclo vazio
-            }
-            rotate();
-            setInterval(rotate, 6000); // muda a cada 6s
+                updateBar();
+
+				intervalId = setTimeout(() => {
+				idx = (idx + 1) % (rotAds.length + 1);
+				rotate();
+			}, 6000);
+		}
+		rotate();
         }
     }
 });
