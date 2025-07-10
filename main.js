@@ -634,89 +634,63 @@ async function carregarAnuncios() {
     function setAd(divId, url) {
         const el = document.getElementById(divId);
         if (el) {
-			if (divId === 'ads-fixed-container-left') {
-				if (!url || url.trim() === ""){
-					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>200x250</span>';
-					el.style.width = "200px";
-					el.style.height = "250px";
-					el.style.border = "1px solid #ff9900";
-					el.style.borderRadius = "12px"; 
-					el.style.display = "flex";
-					el.style.flexDirection = "column";
-					el.style.justifyContent = "center";
-					el.style.alignItems = "center";
+            // Overlay HTML
+            const overlay = `<div style="
+                position:absolute;
+                bottom:0px;
+                right:1px;
+                background:rgba(0,0,0,0.3);
+                color:rgba(255,255,255,0.4);
+                font-size:8px;
+                font-weight:bold;
+                padding:2px 7px;
+                border-radius:6px;
+                z-index:2;
+                pointer-events:none;
+            ">PUBLICIDADE</div>`;
 
-				} else {
-					el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:200px;height:250px;object-fit:cover;border-radius:12px;"></a>`;
-					el.style.width = "200px";
-					el.style.height = "250px";
-					el.style.border = "0px ";
-				}
-			}
+            // Garante que o div é relativo para overlay funcionar
+            el.style.position = "relative";
 
-			if (divId === 'ads-fixed-container-right') {
-				if (!url || url.trim() === ""){
-					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>200x250</span>';
-					el.style.width = "200px";
-					el.style.height = "250px";
-					el.style.border = "1px solid #ff9900";
-					el.style.borderRadius = "12px"; 
-					el.style.display = "flex";
-					el.style.flexDirection = "column";
-					el.style.justifyContent = "center";
-					el.style.alignItems = "center";
+            if (divId === 'ads-fixed-container-left' || divId === 'ads-fixed-container-right') {
+                if (!url || url.trim() === "") {
+                    el.innerHTML = '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>200x250</span>' ;
+                    el.style.width = "200px";
+                    el.style.height = "250px";
+                    el.style.border = "1px solid #ff9900";
+                    el.style.borderRadius = "12px";
+                    el.style.display = "flex";
+                    el.style.flexDirection = "column";
+                    el.style.justifyContent = "center";
+                    el.style.alignItems = "center";
+                } else {
+                    el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:200px;height:250px;object-fit:contain;border-radius:12px;"></a>${overlay}`;
+                    el.style.width = "200px";
+                    el.style.height = "250px";
+                    el.style.border = "0px";
+                }
+            }
 
-				} else {
-					el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:200px;height:250px;object-fit: contain;border-radius:12px;"></a>`;
-					el.style.width = "200px";
-					el.style.height = "250px";
-					el.style.border = "0px ";
-				}
-			}
-
-			if (divId === 'header-ad-top-left') {
-				if (!url || url.trim() === ""){
-					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>250x250</span>';
-					el.style.width = "250px";
-					el.style.height = "250px";
-					el.style.border = "1px solid #ff9900";
-					el.style.borderRadius = "12px";
-					el.style.boxShadow = "0 2px 12px rgba(0,0,0,0.08)";
-					el.style.display = "flex";
-					el.style.flexDirection = "column";
-					el.style.justifyContent = "center";
-					el.style.alignItems = "center";
-
-				} else {
-					el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:250px;height:250px;object-fit:cover;border-radius:12px;"></a>`;
-					el.style.width = "200px";
-					el.style.height = "250px";
-					el.style.border = "0px ";
-				}
-			}
-
-			if (divId === 'header-ad-top-right') {
-				if (!url || url.trim() === ""){
-					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>250x250</span>';
-					el.style.marginLeft = "150px";
-					el.style.width = "250px";
-					el.style.height = "250px";
-					el.style.display = "flex";
-					el.style.justifyContent = "center";
-					el.style.alignItems = "center";
-					el.style.border = "1px solid #ff9900";
-					el.style.padding = "4px 8px";
-					el.style.borderRadius = "9px";
-
-				} else {
-					el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:250px;height:250px;object-fit:cover;border-radius:12px;"></a>`;
-					el.style.width = "250px";
-					el.style.height = "250px";
-					el.style.border = "0px ";
-				}
-			}
-		}
-	}
+            if (divId === 'header-ad-top-left' || divId === 'header-ad-top-right') {
+                if (!url || url.trim() === "") {
+                    el.innerHTML = '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>250x250</span>' ;
+                    el.style.width = "250px";
+                    el.style.height = "250px";
+                    el.style.border = "1px solid #ff9900";
+                    el.style.borderRadius = "12px";
+                    el.style.display = "flex";
+                    el.style.flexDirection = "column";
+                    el.style.justifyContent = "center";
+                    el.style.alignItems = "center";
+                } else {
+                    el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:250px;height:250px;object-fit:contain;border-radius:12px;"></a>${overlay}`;
+                    el.style.width = "250px";
+                    el.style.height = "250px";
+                    el.style.border = "0px";
+                }
+            }
+        }
+    }
 
     ['l_top', 'r_top', 'l_lat', 'r_lat'].forEach(pos => {
 
