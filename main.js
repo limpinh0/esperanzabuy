@@ -636,7 +636,7 @@ async function carregarAnuncios() {
         if (el) {
 			if (divId === 'ads-fixed-container-left') {
 				if (!url || url.trim() === ""){
-					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.</span>';
+					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>200x250</span>';
 					el.style.width = "200px";
 					el.style.height = "250px";
 					el.style.border = "1px solid #ff9900";
@@ -656,7 +656,7 @@ async function carregarAnuncios() {
 
 			if (divId === 'ads-fixed-container-right') {
 				if (!url || url.trim() === ""){
-					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.</span>';
+					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>200x250</span>';
 					el.style.width = "200px";
 					el.style.height = "250px";
 					el.style.border = "1px solid #ff9900";
@@ -676,7 +676,7 @@ async function carregarAnuncios() {
 
 			if (divId === 'header-ad-top-left') {
 				if (!url || url.trim() === ""){
-					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.</span>';
+					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>250x250</span>';
 					el.style.width = "250px";
 					el.style.height = "250px";
 					el.style.border = "1px solid #ff9900";
@@ -697,7 +697,7 @@ async function carregarAnuncios() {
 
 			if (divId === 'header-ad-top-right') {
 				if (!url || url.trim() === ""){
-					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.</span>';
+					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>250x250</span>';
 					el.style.marginLeft = "150px";
 					el.style.width = "250px";
 					el.style.height = "250px";
