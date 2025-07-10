@@ -256,7 +256,7 @@ body.dark-mode nav {
       color: #fff;
     }
     button:hover {
-      background: #f90;
+      background: #ff9900;
       filter: brightness(0.95);
     }
     button.remove, .remove {
