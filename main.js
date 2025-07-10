@@ -42,6 +42,7 @@ async function initApp() {
 	}
 
 	// Inicializa a aplicação
+	carregarAnuncios();
 	showPage("home");
 	updateCarrinhoBadge();
 
@@ -612,4 +613,145 @@ async function copiarResumoCarrinho() {
 	} */
 }
 
+// NOVO CÓDIGO PARA CARREGAR ANÚNCIOS
+async function carregarAnuncios() {
+    const response = await fetch('https://raw.githubusercontent.com/limpinh0/esperanzabuy/refs/heads/main/anuncios.csv');
+    const csv = await response.text();
+    const hoje = new Date();
+    const hojeStr = hoje.getFullYear().toString() +
+        String(hoje.getMonth() + 1).padStart(2, '0') +
+        String(hoje.getDate()).padStart(2, '0');
+
+    const linhas = csv.trim().split('\n');
+    const headers = linhas[0].split(',');
+    const anuncios = linhas.slice(1).map(linha => {
+        const campos = linha.split(',');
+        let obj = {};
+        headers.forEach((h, i) => obj[h.trim()] = campos[i]?.trim());
+        return obj;
+    }).filter(a => a.date >= hojeStr); 
+
+    function setAd(divId, url) {
+        const el = document.getElementById(divId);
+        if (el) {
+			if (divId === 'ads-fixed-container-left') {
+				if (!url || url.trim() === ""){
+					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.</span>';
+					el.style.width = "200px";
+					el.style.height = "250px";
+					el.style.border = "1px solid #ff9900";
+					el.style.borderRadius = "12px"; 
+					el.style.display = "flex";
+					el.style.flexDirection = "column";
+					el.style.justifyContent = "center";
+					el.style.alignItems = "center";
+
+				} else {
+					el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:200px;height:250px;object-fit:cover;border-radius:12px;"></a>`;
+					el.style.width = "200px";
+					el.style.height = "250px";
+					el.style.border = "0px ";
+				}
+			}
+
+			if (divId === 'ads-fixed-container-right') {
+				if (!url || url.trim() === ""){
+					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.</span>';
+					el.style.width = "200px";
+					el.style.height = "250px";
+					el.style.border = "1px solid #ff9900";
+					el.style.borderRadius = "12px"; 
+					el.style.display = "flex";
+					el.style.flexDirection = "column";
+					el.style.justifyContent = "center";
+					el.style.alignItems = "center";
+
+				} else {
+					el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:200px;height:250px;object-fit: contain;border-radius:12px;"></a>`;
+					el.style.width = "200px";
+					el.style.height = "250px";
+					el.style.border = "0px ";
+				}
+			}
+
+			if (divId === 'header-ad-top-left') {
+				if (!url || url.trim() === ""){
+					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.</span>';
+					el.style.width = "250px";
+					el.style.height = "250px";
+					el.style.border = "1px solid #ff9900";
+					el.style.borderRadius = "12px";
+					el.style.boxShadow = "0 2px 12px rgba(0,0,0,0.08)";
+					el.style.display = "flex";
+					el.style.flexDirection = "column";
+					el.style.justifyContent = "center";
+					el.style.alignItems = "center";
+
+				} else {
+					el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:250px;height:250px;object-fit:cover;border-radius:12px;"></a>`;
+					el.style.width = "200px";
+					el.style.height = "250px";
+					el.style.border = "0px ";
+				}
+			}
+
+			if (divId === 'header-ad-top-right') {
+				if (!url || url.trim() === ""){
+					el.innerHTML =  '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span>   <br>       <span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.</span>';
+					el.style.marginLeft = "150px";
+					el.style.width = "250px";
+					el.style.height = "250px";
+					el.style.display = "flex";
+					el.style.justifyContent = "center";
+					el.style.alignItems = "center";
+					el.style.border = "1px solid #ff9900";
+					el.style.padding = "4px 8px";
+					el.style.borderRadius = "9px";
+
+				} else {
+					el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:250px;height:250px;object-fit:cover;border-radius:12px;"></a>`;
+					el.style.width = "250px";
+					el.style.height = "250px";
+					el.style.border = "0px ";
+				}
+			}
+		}
+	}
+
+    ['l_top', 'r_top', 'l_lat', 'r_lat'].forEach(pos => {
+
+    const staticAd = anuncios.find(a => a.type === 'static' && a.pos === pos);
+    if (staticAd) {
+        if (pos === 'l_top') setAd('header-ad-top-left', staticAd.url);
+        if (pos === 'r_top') setAd('header-ad-top-right', staticAd.url);
+        if (pos === 'l_lat') setAd('ads-fixed-container-left', staticAd.url);
+        if (pos === 'r_lat') setAd('ads-fixed-container-right', staticAd.url);
+    } else {
+        // Só faz rotation se NÃO existir static para esta posição
+        const rotAds = anuncios.filter(a => a.type === 'rotation' && a.pos === pos);
+        if (rotAds.length > 0) {
+            let idx = 0;
+            function rotate() {
+                // Mostra imagem se idx < rotAds.length, senão mostra vazio
+                if (idx < rotAds.length) {
+                    const ad = rotAds[idx];
+                    if (pos === 'l_top') setAd('header-ad-top-left', ad.url);
+                    if (pos === 'r_top') setAd('header-ad-top-right', ad.url);
+                    if (pos === 'l_lat') setAd('ads-fixed-container-left', ad.url);
+                    if (pos === 'r_lat') setAd('ads-fixed-container-right', ad.url);
+                } else {
+                    // Mostra sem imagem (vazio)
+                    if (pos === 'l_top') setAd('header-ad-top-left', "");
+                    if (pos === 'r_top') setAd('header-ad-top-right', "");
+                    if (pos === 'l_lat') setAd('ads-fixed-container-left', "");
+                    if (pos === 'r_lat') setAd('ads-fixed-container-right', "");
+                }
+                idx = (idx + 1) % (rotAds.length + 1); // +1 para o ciclo vazio
+            }
+            rotate();
+            setInterval(rotate, 6000); // muda a cada 6s
+        }
+    }
+});
+}
 showPage("home");
