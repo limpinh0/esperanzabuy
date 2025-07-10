@@ -636,35 +636,38 @@ async function carregarAnuncios() {
         if (el) {
             // Overlay HTML
             const overlay = `<div style="
-                position:absolute;
-                bottom:0px;
-                right:1px;
-                background:rgba(0,0,0,0.3);
-                color:rgba(255,255,255,0.4);
-                font-size:8px;
-                font-weight:bold;
-                padding:2px 7px;
-                border-radius:6px;
-                z-index:2;
-                pointer-events:none;
-            ">PUBLICIDADE</div>`;
+				position:absolute;
+				bottom:0px;
+				right:1px;
+				background:rgba(0,0,0,0.3);
+				color:rgba(255,255,255,0.4);
+				font-size:8px;
+				font-weight:bold;
+				padding:2px 7px;
+				border-radius:6px;
+				z-index:2;
+				pointer-events:none;
+			">PUBLICIDADE</div>`;
 
             // Barrinha de tempo
-            const barra = `<div class="ad-progress-bar" style="
-                position:absolute;
-                left:0; right:0; bottom:1px;
-                height:1px;
-                background:linear-gradient(90deg,#ff9900 85%,#fff0 100%);
-                width:${Math.max(0, Math.min(1, progress)) * 100}%;
-                z-index:0;
-                transition:width 0.2s linear;
-            "></div>`;
+            const barraId = `${divId}-progress-bar`;
+const barra = `<div id="${barraId}" class="ad-progress-bar" style="
+    position:absolute;
+    left:0; right:0;
+    bottom:1px;
+    height:1px;
+    background:linear-gradient(90deg,#ff9900 85%,#fff0 100%);
+    width:${Math.max(0, Math.min(1, progress)) * 100}%;
+    z-index:1;
+    transition:width 0.2s linear;
+    pointer-events:none;
+"></div>`;
 
             el.style.position = "relative";
 
             if (divId === 'ads-fixed-container-left' || divId === 'ads-fixed-container-right') {
                 if (!url || url.trim() === "") {
-                    el.innerHTML = '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>200x250</span>'
+                    el.innerHTML = '<span  style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;">Entre em contacto para mais informações.<br>200x250</span>'
                     el.style.width = "200px";
                     el.style.height = "250px";
                     el.style.border = "1px dashed #ff9900";
@@ -673,9 +676,18 @@ async function carregarAnuncios() {
                     el.style.flexDirection = "column";
                     el.style.justifyContent = "center";
                     el.style.alignItems = "center";
+                    el.style.position = "sticky";
+					el.style.top = "40px"; // Alinha ao topo como .container 
                 } else {
-                    el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:200px;height:250px;object-fit:contain;border-radius:12px;"></a>${barra}${overlay}`;
-					el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:200px;height:250px;object-fit:contain;border-radius:12px;"></a>${barra}${overlay}`;
+                    el.innerHTML = `
+            <div style="position:relative;width:200px;height:250px;">
+                <a href="${url}" target="_blank" rel="noopener">
+                    <img src="${url}" style="width:200px;height:250px;object-fit:contain;border-radius:12px;">
+                </a>
+                ${barra}
+                ${overlay}
+            </div>
+        `;
 					el.style.width = "200px";
 					el.style.height = "250px";
 					el.style.border = "0px";
@@ -684,9 +696,8 @@ async function carregarAnuncios() {
 					el.style.justifyContent = "center";
 					el.style.alignItems = "center"; 
 					el.style.boxSizing = "border-box";
-					el.style.marginTop= "2em";
-					el.style.top = "0"; // Alinha ao topo como .container
-					el.style.position = "sticky"; // Mantém sticky se já estiver
+                    el.style.position = "sticky";
+					el.style.top = "40px"; // Alinha ao topo como .container 
                 }
             }
 
@@ -702,7 +713,15 @@ async function carregarAnuncios() {
                     el.style.justifyContent = "center";
                     el.style.alignItems = "center";
                 } else {
-                    el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:250px;height:250px;object-fit:contain;border-radius:12px;"></a>${barra}${overlay}`;
+                    el.innerHTML = `
+            <div style="position:relative;width:250px;height:250px;">
+                <a href="${url}" target="_blank" rel="noopener">
+                    <img src="${url}" style="width:250px;height:250px;object-fit:contain;border-radius:12px;">
+                </a>
+                ${barra}
+                ${overlay}
+            </div>
+        `;
                     el.style.width = "250px";
                     el.style.height = "250px";
                     el.style.border = "0px";
@@ -719,12 +738,21 @@ async function carregarAnuncios() {
         if (pos === 'l_lat') setAd('ads-fixed-container-left', staticAd.url, 6000, 0);
         if (pos === 'r_lat') setAd('ads-fixed-container-right', staticAd.url, 6000, 0);
     } else {
-        const rotAds = anuncios.filter(a => a.type === 'rotation' && a.pos === pos);
-		console.log(rotAds);
+        let rotAds = anuncios.filter(a => a.type === 'rotation' && a.pos === pos); 
         if (rotAds.length > 0) {
+            // Adiciona um ciclo extra para o "ANUNCIE AQUI"
+            rotAds = [...rotAds, { url: "", type: "rotation", pos }];
+
             let idx = 0;
             let startTime = Date.now();
             let intervalId = null;
+            const divId =
+                pos === 'l_top' ? 'header-ad-top-left' :
+                pos === 'r_top' ? 'header-ad-top-right' :
+                pos === 'l_lat' ? 'ads-fixed-container-left' :
+                pos === 'r_lat' ? 'ads-fixed-container-right' : '';
+
+            const barraId = `${divId}-progress-bar`;
 
             function rotate() {
                 let progress = 1;
@@ -733,18 +761,10 @@ async function carregarAnuncios() {
 
                 function updateBar() {
                     const elapsed = Date.now() - startTime;
-                    progress = 1 - Math.min(elapsed / 6000, 1);
-                    if (idx < rotAds.length) {
-                        const ad = rotAds[idx];
-                        if (pos === 'l_top') setAd('header-ad-top-left', ad.url, 6000, progress);
-                        if (pos === 'r_top') setAd('header-ad-top-right', ad.url, 6000, progress);
-                        if (pos === 'l_lat') setAd('ads-fixed-container-left', ad.url, 6000, progress);
-                        if (pos === 'r_lat') setAd('ads-fixed-container-right', ad.url, 6000, progress);
-                    } else {
-                        if (pos === 'l_top') setAd('header-ad-top-left', "", 6000, progress);
-                        if (pos === 'r_top') setAd('header-ad-top-right', "", 6000, progress);
-                        if (pos === 'l_lat') setAd('ads-fixed-container-left', "", 6000, progress);
-                        if (pos === 'r_lat') setAd('ads-fixed-container-right', "", 6000, progress);
+                    const progress = 1 - Math.min(elapsed / 6000, 1);
+                    const barraEl = document.getElementById(barraId);
+                    if (barraEl) {
+                        barraEl.style.width = `${Math.max(0, Math.min(1, progress)) * 100}%`;
                     }
                     if (progress > 0) {
                         requestAnimationFrame(updateBar);
@@ -752,12 +772,15 @@ async function carregarAnuncios() {
                 }
                 updateBar();
 
-				intervalId = setTimeout(() => {
-				idx = (idx + 1) % (rotAds.length + 1);
-				rotate();
-			}, 6000);
-		}
-		rotate();
+                intervalId = setTimeout(() => {
+                    idx = (idx + 1) % rotAds.length;
+                    setAd(divId, rotAds[idx].url, 6000, 1);
+                    rotate();
+                }, 6000);
+            }
+
+            setAd(divId, rotAds[idx].url, 6000, 1);
+            rotate();
         }
     }
 });
