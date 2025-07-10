@@ -667,7 +667,7 @@ async function carregarAnuncios() {
                     el.innerHTML = '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>200x250</span>'
                     el.style.width = "200px";
                     el.style.height = "250px";
-                    el.style.border = "1px solid #ff9900";
+                    el.style.border = "1px dashed #ff9900";
                     el.style.borderRadius = "12px";
                     el.style.display = "flex";
                     el.style.flexDirection = "column";
@@ -675,9 +675,18 @@ async function carregarAnuncios() {
                     el.style.alignItems = "center";
                 } else {
                     el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:200px;height:250px;object-fit:contain;border-radius:12px;"></a>${barra}${overlay}`;
-                    el.style.width = "200px";
-                    el.style.height = "250px";
-                    el.style.border = "0px";
+					el.innerHTML = `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" style="width:200px;height:250px;object-fit:contain;border-radius:12px;"></a>${barra}${overlay}`;
+					el.style.width = "200px";
+					el.style.height = "250px";
+					el.style.border = "0px";
+					el.style.display = "flex";
+					el.style.flexDirection = "column";
+					el.style.justifyContent = "center";
+					el.style.alignItems = "center"; 
+					el.style.boxSizing = "border-box";
+					el.style.marginTop= "2em";
+					el.style.top = "0"; // Alinha ao topo como .container
+					el.style.position = "sticky"; // Mantém sticky se já estiver
                 }
             }
 
@@ -686,7 +695,7 @@ async function carregarAnuncios() {
                     el.innerHTML = '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>250x250</span>' ;
                     el.style.width = "250px";
                     el.style.height = "250px";
-                    el.style.border = "1px solid #ff9900";
+                    el.style.border = "1px dashed #ff9900";
                     el.style.borderRadius = "12px";
                     el.style.display = "flex";
                     el.style.flexDirection = "column";
