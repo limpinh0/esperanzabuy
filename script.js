@@ -201,27 +201,6 @@ const craftsData = [
         preco: 0
     },
     {
-        name: "Óxido de ferro",
-        materiais: {
-            "Vidro": 10,
-            "Ferro": 14,
-            "Sulfur": 5
-        },
-        imagem: "",
-        preco: 0
-    },
-    
-    {
-        name: "Aluminio em pó",
-        materiais: {
-            "Vidro": 10,
-            "Aluminio": 14,
-            "Sulfur": 5
-        },
-        imagem: "",
-        preco: 0
-    },
-    {
         name: "Colete Blindado",
         materiais: {
             "Chumbo": 2,
@@ -717,57 +696,101 @@ function handleLogin(e) {
 }
 
 async function renderOrders() {
-	const token = localStorage.getItem('jwt');
-	const orderRes = await fetch(BASEAPI + '/admin/pendingOrders', {
-		headers: {
-			'Authorization': `Bearer ${token}`
-		}
-	});
-	const orders = await orderRes.json();
-	const ordersEl = document.getElementById('orders');
+    const token = localStorage.getItem('jwt');
+    const orderRes = await fetch(BASEAPI + '/admin/pendingOrders', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    const orders = await orderRes.json();
+    const ordersEl = document.getElementById('orders');
 
-	if (!Array.isArray(orders) || orders.length === 0) {
-		ordersEl.innerHTML = "<p>Sem encomendas pendentes.</p>";
-		return;
-	}
+    if (!Array.isArray(orders) || orders.length === 0) {
+        ordersEl.innerHTML = "<p>Sem encomendas pendentes.</p>";
+        return;
+    }
 
-	let html = `
-        <table class="orders-table">
+    let html = "";
+
+orders.forEach(order => {
+    let encomendaTotal = 0;
+    let orderIdVar = order.orderId;
+    if (!orderIdVar) {
+        // Gera um stamp aleatório de 10 caracteres (alfanumérico)
+        orderIdVar = Math.random().toString(36).substring(2, 12);
+    }
+    let tableId = `order-table-${orderIdVar}`;
+    html += `
+        <table id="${tableId}" class="orders-table" style="margin-bottom:28px;width:100%;border-collapse:separate;border-spacing:0;border:1px solid #8b8b8bff;border-top:3px solid #3498db; border-radius:15px;overflow:hidden;">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Expira</th>
-                    <th>Items</th>
-                    <th>Total</th>
-                    <th>Peso</th>
-                    <th>Local</th>
-                    <th>Ações</th>
+                    <th style="border:1px solid #8b8b8bff;">Data</th>
+                    <th style="border:1px solid #8b8b8bff;">Cliente</th>
+                    <th style="border:1px solid #8b8b8bff;">Nº Encomenda</th>
+                    <th style="border:1px solid #8b8b8bff;">Descrição</th>
+                    <th style="border:1px solid #8b8b8bff;">Quant.</th>
+                    <th style="border:1px solid #8b8b8bff;">Valor Unit. ($)</th>
+                    <th style="border:1px solid #8b8b8bff;">Valor Total ($)</th>
                 </tr>
             </thead>
             <tbody>
-                ${orders.map(order => `
-                    <tr>
-                        <td>${order.orderId}</td>
-                        <td>${formatRelativeTime(order.expiresAt)}</td>
-                        <td>
-                            <ul style="padding-left:16px;text-align:left;">
-                                ${order.items.map(item => `<li>${item.name} | ${item.quantity} x ${item.price} $ = ${item.quantity * item.price}$</li>`).join('')}
-                            </ul>
-                        </td>
-                        <td>${order.finalPrice} $</td>
-                        <td>${order.totalWeight} Kg</td>
-                        <td>${order.meetingPlace}</td>
-                        <td>
-                            <button style="background:#27ae60;" onclick="completeOrder('${order.orderId}')">Finalizar</button>
-                            <button style="background:#e74c3c;" onclick="cancelOrder('${order.orderId}')">Cancelar</button>
-                        </td>
-                    </tr>
-                `).join('')}
+    `;
+    order.items.forEach((item, idx) => {
+        const valorTotal = (item.quantity * item.price);
+        encomendaTotal += valorTotal;
+        html += `
+            <tr>
+                <td style="border:1px solid #8b8b8bff;">${order.expiresAt ? new Date(order.expiresAt).toLocaleDateString('pt-PT') : ''}</td>
+                <td style="border:1px solid #8b8b8bff;">Adicionar Nome</td>
+                <td style="border:1px solid #8b8b8bff;">${orderIdVar}</td>
+                <td style="border:1px solid #8b8b8bff;">${item.name}</td>
+                <td style="border:1px solid #8b8b8bff;">${String(item.quantity).replace('.', ',')}</td>
+                <td style="border:1px solid #8b8b8bff;">${Number(item.price).toFixed(2).replace('.', ',')}</td>
+                <td style="border:1px solid #8b8b8bff;">${valorTotal.toFixed(2).replace('.', ',')}</td>
+            </tr>
+        `;
+    });
+    html += `
+        <tr>
+            <td colspan="5">Peso Total: ${order.totalWeight} Kg | CP: ${order.meetingPlace} | Expira ${formatRelativeTime(order.expiresAt)}</td>
+            <td style="font-weight:bold;text-align:center;border:1px solid #8b8b8bff;">Total:</td>
+            <td style="font-weight:bold;border:1px solid #8b8b8bff;">${encomendaTotal.toFixed(2)} $</td>
+        </tr>
+        <tr>
+            <td colspan="7" style="text-align:center;">
+                <button style="background:#3498db;border:none;border-radius:5px;cursor:pointer;font-size:0.97em;" onclick="copyOrderToClipboard('${tableId}')">Copiar para Excel</button>
+                <button style="background:#27ae60;border:none;border-radius:5px;cursor:pointer;font-size:0.97em;" onclick="completeOrder('${order.orderId}')">Finalizar</button>
+                <button style="background:#e74c3c;border:none;border-radius:5px;cursor:pointer;font-size:0.97em;" onclick="cancelOrder('${order.orderId}')">Cancelar</button>
+            </td>
+        </tr>
+    `;
+    html += `
             </tbody>
         </table>
     `;
-	ordersEl.innerHTML = html;
+});
+
+ordersEl.innerHTML = html;
 }
+
+
+// Função para copiar para clipboard (adicione ao seu script.js)
+window.copyOrderToClipboard = function(tableId) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+    let rows = Array.from(table.querySelectorAll('tbody tr'));
+    // Só linhas de produtos (ignora as duas últimas linhas de total e botões)
+    rows = rows.slice(0, -2);
+    let text = '';
+    // Linhas
+    rows.forEach(tr => {
+        const cols = Array.from(tr.querySelectorAll('td')).slice(0, -1).map(td => td.innerText.trim());
+        text += cols.join('\t') + '\n';
+    });
+    navigator.clipboard.writeText(text).then(() => {
+        alert('Linhas copiadas para o clipboard!');
+    });
+};
 
 // Adicione estas funções ao seu script:
 async function completeOrder(orderId) {
