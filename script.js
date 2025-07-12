@@ -1313,12 +1313,72 @@ function renderCraftsTable() {
             // }, 2500);
         };
 
-        // Linha horizontal para input e botão
+        // Substitua o botão por um span para mostrar o preço
+        const priceSpan = document.createElement("span");
+        priceSpan.className = "craft-price-span";
+        priceSpan.style.fontWeight = "bold";
+        priceSpan.style.marginRight = "8px";
+        priceSpan.style.fontSize = "1em";
+
+        // Função para calcular e mostrar o preço
+        function updatePrice() {
+            const qty = parseInt(input.value, 10) || 1;
+            let total = 0;
+            let missing = [];
+
+            function calcularPrecoCraft(nome) {
+                const craftInterno = craftsData.find(c => c.name.toLowerCase() === nome.toLowerCase());
+                if (!craftInterno) return null;
+                let subtotal = 0;
+                for (const [mat, val] of Object.entries(craftInterno.materiais)) {
+                    const prod = allProdutos.find(p => p.name.toLowerCase() === mat.toLowerCase());
+                    if (prod && typeof prod.price === "number") {
+                        subtotal += prod.price * val;
+                    } else {
+                        const subPreco = calcularPrecoCraft(mat);
+                        if (subPreco !== null) {
+                            subtotal += subPreco * val;
+                        } else {
+                            return null;
+                        }
+                    }
+                }
+                return subtotal;
+            }
+
+            for (const [mat, val] of Object.entries(craft.materiais)) {
+                const precoCraft = calcularPrecoCraft(mat);
+                if (precoCraft !== null) {
+                    total += precoCraft * val * qty;
+                } else {
+                    const prod = allProdutos.find(p => p.name.toLowerCase() === mat.toLowerCase());
+                    if (prod && typeof prod.price === "number") {
+                        total += prod.price * val * qty;
+                    } else {
+                        missing.push(mat);
+                    }
+                }
+            }
+
+            if (missing.length > 0) {
+                priceSpan.innerHTML = `<span style="font-size:0.9em;color:#d00;" title="Sem preço para: ${missing.join(', ')}">❓</span>`;
+            } else {
+                priceSpan.innerHTML = `${total.toFixed(2)}$`;
+            }
+        }
+
+        // Atualiza o preço ao mudar a quantidade
+        input.addEventListener("input", updatePrice);
+
+        // Chame uma vez ao criar
+        updatePrice();
+
+        // Linha horizontal para input e preço
         const inputRow = document.createElement("div");
         inputRow.style.display = "flex";
         inputRow.style.alignItems = "center";
         inputRow.style.justifyContent = "center";
-        inputRow.appendChild(calcBtn);
+        inputRow.appendChild(priceSpan);
         inputRow.appendChild(input);
 
         // Monta a célula
