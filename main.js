@@ -74,6 +74,8 @@ function showPage(p) {
 		// Scroll suave para o topo da secção produtos
 	}
 	if (p === "carrinho") renderCarrinho(); 
+
+	if (p === "compramos") {renderCompramos();}
 }
 
 function renderCategoryFilters() {
@@ -784,5 +786,97 @@ const barra = `<div id="${barraId}" class="ad-progress-bar" style="
         }
     }
 });
+}
+
+function renderCompramos() {
+    const produtosCompramos = produtos
+        .filter(p =>
+            (p.name === "Ácido de bateria" ||
+                p.name === "Kit eletrónico" ||
+                (p.category === "Minérios" && p.stock <= 200) || (p.category === "Materiais" && p.stock < 500)) &&
+            p.active &&
+            (!p.vpn || p.vpn === 0)
+        )
+        .sort((a, b) => {
+            if (a.category !== b.category) return a.category.localeCompare(b.category);
+            return a.name.localeCompare(b.name);
+        });
+
+    let html = `
+         <table class="compramos-table">
+            <thead>
+                <tr>
+                    <th class="compramos-th compramos-th-produto">Produto</th>
+                    <th class="compramos-th">Categoria</th>
+                    <th class="compramos-th">Preço compra</th>
+                    <th class="compramos-th">Quantidade</th>
+                    <th class="compramos-th compramos-th-total">Total linha</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    produtosCompramos.forEach((p, idx) => {
+        const precoCompra = (p.price * 0.75).toFixed(2).replace('.', ',');
+		html += `
+			<tr class="compramos-tr">
+			<td class="compramos-td compramos-td-produto">
+				<img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}" style="width:32px;height:32px;object-fit:scale-down;vertical-align:middle;margin-right:6px;border-radius:4px;">
+				${p.name}
+			</td>
+			<td class="compramos-td">${p.category}</td>
+			<td class="compramos-td" align="right" id="preco-compra-${idx}">${precoCompra}</td>
+			<td class="compramos-td" align="center">
+				<input type="number" min="0" value="0" class="compramos-input"
+				onchange="atualizaTotalLinhaCompramos(${idx})"
+				id="compramos-qtd-${idx}"
+				step="1"
+				oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+				>
+			</td>
+			<td class="compramos-td compramos-td-total" align="right" id="compramos-total-linha-${idx}">0,00</td>
+			</tr>
+		`;
+    });
+
+    html += `</tbody></table>`;
+    document.getElementById("compramos-lista").innerHTML = html;
+    document.getElementById("compramos-total").textContent = "0,00";
+    window.atualizaTotalLinhaCompramos = function(idx) {
+        const qtd = parseFloat(document.getElementById(`compramos-qtd-${idx}`).value) || 0;
+        const preco = parseFloat(document.getElementById(`preco-compra-${idx}`).textContent.replace(',', '.'));
+        const totalLinha = qtd * preco;
+        document.getElementById(`compramos-total-linha-${idx}`).textContent = totalLinha.toFixed(2).replace('.', ',');
+        // Atualiza total global
+        let totalGlobal = 0;
+        for (let i = 0; i < produtosCompramos.length; i++) {
+            const t = parseFloat(document.getElementById(`compramos-total-linha-${i}`).textContent.replace(',', '.')) || 0;
+            totalGlobal += t;
+        }
+		document.getElementById("compramos-total").textContent = totalGlobal.toFixed(2).replace('.', ',');
+    };
+}
+// Função para copiar a lista de compra
+function copiarListaCompra() {
+	const tabela = document.querySelector('.compramos-table tbody');
+	let texto = "Lista de compra:\n\n";
+	for (const row of tabela.rows) {
+		const produto = row.cells[0].textContent.trim();
+		const preco = row.cells[2].textContent.trim();
+		const qtd = row.cells[3].querySelector('input').value.trim();
+		const totalLinha = row.cells[4].textContent.trim();
+		if (qtd !== "0" && qtd !== "") {
+			texto += `🔸${produto} ${preco} x ${qtd} = ${totalLinha}\n`;
+		}
+	}
+	const total = document.getElementById("compramos-total").textContent.trim();
+	if (parseFloat(total.replace(',', '.')) > 0) {
+		texto += `\n🔷Total: ${total} $`;
+		navigator.clipboard.writeText(texto)
+			.then(() => alert("Lista de compra copiada!"))
+			.catch(() => alert("Não foi possível copiar para o clipboard."));
+	} else {
+		alert("Adicione pelo menos um produto para copiar a lista.");
+	}
 }
 showPage("home");
