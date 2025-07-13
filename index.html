@@ -75,6 +75,33 @@
       </div>
       <div class="nav-center">
         <a href="#navbar" onclick="showPage('produtos')">Produtos</a>
+        <a href="#navbar" onclick="showPage('compramos')" id="nav-compramos" style="position:relative;">
+          Nós Compramos
+          <span style="
+            position:absolute;
+            top:-10px; right:-18px;
+            display:inline-block;
+            font-size:3em;
+              rotate: 35deg;
+            color:#ff1900;
+            filter:drop-shadow(0 0 4px gold);
+            z-index:1;
+            ">
+            ✸
+            </span>
+            <span style="
+              position:absolute;
+              top:20px; right:-6px; 
+              font-size:0.6em; 
+              rotate: 15deg;
+              color:#ffffff;
+              font-weight:bold;
+              filter:none;
+              text-shadow:0 0 2px gold;
+              z-index:2;">
+              Novo
+          </span>
+        </a>
         <a href="#navbar" onclick="showPage('contactos')">Contactos</a>
         <a href="#navbar" onclick="showPage('carrinho')" style="position:relative;">
           🛒Carrinho
@@ -138,6 +165,26 @@
           </div>
           <div id="listaProdutos" class="products-grid"></div>
         </div>
+      </div>
+
+      <div id="compramos" class="container hidden">
+        <h2>Nós Compramos</h2>
+        
+        <div id="compramos-lista"></div>      
+		<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5em;">
+			<div>
+				<button onclick="copiarListaCompra()">Copiar lista</button>
+			</div>
+			<div>
+				<strong>Total: <span id="compramos-total">0,00</span> $</strong>
+			</div>
+		</div>
+        	<div style="margin-top:1.5em;text-align:justify; font-size: 0.8em;">
+				<p>
+					Esta lista contém os produtos que compramos de momento, a lista atualiza conforme a necessidade interna.<br>
+					Entre em contacto com a cópia da lista para o nosso Instagram @EsperanzaBuy. Para fechar-mos negócio, obrigado!
+				</p>		        
+        	</div>
       </div>
 
       <div id="carrinho" class="container hidden">
