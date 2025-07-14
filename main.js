@@ -792,9 +792,10 @@ function renderCompramos() {
     const produtosCompramos = produtos
         .filter(p =>
             (p.name === "Ácido de bateria" ||
-                p.name === "Kit eletrónico" ||
+                p.name === "Kit eletrónico" ||		
                 (p.category === "Minérios" && p.stock < 200) || (p.category === "Materiais" && p.stock < 500)) &&
-            p.active &&
+		p.name !== "Thermite" &&
+            p.active && 
             (!p.vpn || p.vpn === 0)
         )
         .sort((a, b) => {
