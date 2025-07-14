@@ -256,6 +256,35 @@ const craftsData = [
         imagem: "GlitcherTensao.png",
         preco: 0
     },
+	{
+        name: "Óxido de ferro",
+        materiais: {
+            "Vidro": 10,
+            "Ferro": 14,
+            "Sulfur": 5
+        },
+        imagem: "aluminioPo.png",
+        preco: 0
+    },
+	{
+        name: "Aluminio em pó",
+        materiais: {
+            "Vidro": 10,
+            "Aluminio": 14,
+            "Sulfur": 5
+        },
+        imagem: "oxidoFerro.png",
+        preco: 0
+    },
+	{
+        name: "Thermite",
+        materiais: {
+            "Aluminio em pó": 1,
+            "Óxido de ferro": 1
+        },
+        imagem: "thermite.png",
+        preco: 0
+    },
     {
         name: "Bloqueador de Circuito",
         materiais: {
