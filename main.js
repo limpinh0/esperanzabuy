@@ -793,7 +793,7 @@ function renderCompramos() {
         .filter(p =>
             (p.name === "Ácido de bateria" ||
                 p.name === "Kit eletrónico" ||
-                (p.category === "Minérios" && p.stock <= 200) || (p.category === "Materiais" && p.stock < 500)) &&
+                (p.category === "Minérios" && p.stock < 200) || (p.category === "Materiais" && p.stock < 500)) &&
             p.active &&
             (!p.vpn || p.vpn === 0)
         )
