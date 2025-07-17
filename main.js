@@ -792,11 +792,13 @@ function renderCompramos() {
     const produtosCompramos = produtos
         .filter(p =>
             (p.name === "Ácido de bateria" ||
-                p.name === "Kit eletrónico" ||		
-                (p.category === "Minérios" && p.stock < 200) || (p.category === "Materiais" && p.stock < 500)) &&
-		p.name !== "Thermite" &&
-            p.active && 
-            (!p.vpn || p.vpn === 0)
+                p.name === "Kit eletrónico" ||
+                (p.category === "Minérios" && p.stock < 200) || 
+				(p.name === "Tábuas de madeira" && p.category === "Materiais" && p.stock < 200) ||
+				(p.name !== "Tábuas de madeira" && p.category === "Materiais" && p.stock < 500)) &&
+				p.name !== "Thermite" &&
+            	p.active &&
+            	(!p.vpn || p.vpn === 0)
         )
         .sort((a, b) => {
             if (a.category !== b.category) return a.category.localeCompare(b.category);
