@@ -1,5 +1,6 @@
-type,pos,date,url 
-static,l_top,20300710,https://static.wikia.nocookie.net/gtawiki/images/8/8e/GlobeOil-Logo.PNG
-rotation,r_top,20250708,https://imgv3.fotor.com/images/side/resize-a-female-portrait-with-Fotors-free-image-resizer-app.jpg 
-rotation,r_lat,20300710,https://i.postimg.cc/4xwJJrFn/imagem-2025-07-10-030355159.png
-rotation,r_lat,20300710,https://static.wikia.nocookie.net/gtawiki/images/3/33/Vapid-GTAO-Logo.png
+type,pos,date,url,href
+static,l_top,20300710,https://static.wikia.nocookie.net/gtawiki/images/8/8e/GlobeOil-Logo.PNG,https://static.wikia.nocookie.net/gtawiki/images/8/8e/GlobeOil-Logo.PNG
+static,r_top,20300710,https://i.postimg.cc/fyh3HHXj/image.png,https://catalogopdmpe.vercel.app
+rotation,r_top,20250708,https://imgv3.fotor.com/images/side/resize-a-female-portrait-with-Fotors-free-image-resizer-app.jpg,https://imgv3.fotor.com/images/side/resize-a-female-portrait-with-Fotors-free-image-resizer-app.jpg
+rotation,r_lat,20300710,https://i.postimg.cc/4xwJJrFn/imagem-2025-07-10-030355159.png,https://i.postimg.cc/4xwJJrFn/imagem-2025-07-10-030355159.png
+rotation,r_lat,20300710,https://static.wikia.nocookie.net/gtawiki/images/3/33/Vapid-GTAO-Logo.png,https://static.wikia.nocookie.net/gtawiki/images/3/33/Vapid-GTAO-Logo.png
