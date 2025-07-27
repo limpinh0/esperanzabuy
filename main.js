@@ -633,13 +633,13 @@ async function carregarAnuncios() {
         return obj;
     }).filter(a => a.date >= hojeStr); 
 
-    function setAd(divId, url, duration = 6000, progress = 1) {
+    function setAd(divId, url, href, duration = 6000, progress = 1) {
         const el = document.getElementById(divId);
         if (el) {
             // Overlay HTML
             const overlay = `<div style="
 				position:absolute;
-				bottom:0px;
+				bottom:0px;w
 				right:1px;
 				background:rgba(0,0,0,0.3);
 				color:rgba(255,255,255,0.4);
@@ -683,7 +683,7 @@ const barra = `<div id="${barraId}" class="ad-progress-bar" style="
                 } else {
                     el.innerHTML = `
             <div style="position:relative;width:200px;height:250px;">
-                <a href="${url}" target="_blank" rel="noopener">
+                <a href="${href}" target="_blank" rel="noopener">
                     <img src="${url}" style="width:200px;height:250px;object-fit:contain;border-radius:12px;">
                 </a>
                 ${barra}
@@ -717,7 +717,7 @@ const barra = `<div id="${barraId}" class="ad-progress-bar" style="
                 } else {
                     el.innerHTML = `
             <div style="position:relative;width:250px;height:250px;">
-                <a href="${url}" target="_blank" rel="noopener">
+                <a href="${href}" target="_blank" rel="noopener">
                     <img src="${url}" style="width:250px;height:250px;object-fit:contain;border-radius:12px;">
                 </a>
                 ${barra}
@@ -735,10 +735,10 @@ const barra = `<div id="${barraId}" class="ad-progress-bar" style="
     ['l_top', 'r_top', 'l_lat', 'r_lat'].forEach(pos => {
     const staticAd = anuncios.find(a => a.type === 'static' && a.pos === pos);
     if (staticAd) {
-        if (pos === 'l_top') setAd('header-ad-top-left', staticAd.url, 6000, 0);
-        if (pos === 'r_top') setAd('header-ad-top-right', staticAd.url, 6000, 0);
-        if (pos === 'l_lat') setAd('ads-fixed-container-left', staticAd.url, 6000, 0);
-        if (pos === 'r_lat') setAd('ads-fixed-container-right', staticAd.url, 6000, 0);
+        if (pos === 'l_top') setAd('header-ad-top-left', staticAd.url, staticAd.href, 6000, 0);
+        if (pos === 'r_top') setAd('header-ad-top-right', staticAd.url, staticAd.href, 6000, 0);
+        if (pos === 'l_lat') setAd('ads-fixed-container-left', staticAd.url, staticAd.href, 6000, 0);
+        if (pos === 'r_lat') setAd('ads-fixed-container-right', staticAd.url, staticAd.href, 6000, 0);
     } else {
         let rotAds = anuncios.filter(a => a.type === 'rotation' && a.pos === pos); 
         if (rotAds.length > 0) {
@@ -776,12 +776,12 @@ const barra = `<div id="${barraId}" class="ad-progress-bar" style="
 
                 intervalId = setTimeout(() => {
                     idx = (idx + 1) % rotAds.length;
-                    setAd(divId, rotAds[idx].url, 6000, 1);
+                    setAd(divId, rotAds[idx].url, rotAds[idx].href, 6000, 1);
                     rotate();
                 }, 6000);
             }
 
-            setAd(divId, rotAds[idx].url, 6000, 1);
+            setAd(divId, rotAds[idx].url, rotAds[idx].href, 6000, 1);
             rotate();
         }
     }
