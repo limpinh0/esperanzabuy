@@ -797,6 +797,7 @@ function renderCompramos() {
 				(p.name === "Tábuas de madeira" && p.category === "Materiais" && p.stock < 200) ||
 				(p.name !== "Tábuas de madeira" && p.category === "Materiais" && p.stock < 500)) &&
 				p.name !== "Thermite" &&
+				p.name !== "Couro" &&
             	p.active &&
             	(!p.vpn || p.vpn === 0)
         )
