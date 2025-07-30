@@ -792,7 +792,7 @@ function renderCompramos() {
     const produtosCompramos = produtos
         .filter(p =>
             (p.name === "Ácido de bateria" ||
-                p.name === "Kit eletrónico" ||
+                (p.name === "Kit eletrónico" && p.stock < 25) ||
                 (p.category === "Minérios" && p.stock < 200) || 
 				(p.name === "Tábuas de madeira" && p.category === "Materiais" && p.stock < 200) ||
 				(p.name !== "Tábuas de madeira" && p.category === "Materiais" && p.stock < 500)) &&
