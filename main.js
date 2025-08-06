@@ -405,7 +405,7 @@ function renderProductsVPN(productsToRender) {
         </p>
       <p>
         <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
-        <span style="font-size:1.2em;font-weight:bold;color:#770000;">${p.price/0.4} $</span> <br>
+        <span style="font-size:1.2em;font-weight:bold;color:#770000;">${p.price/0.5} $</span> <br>
         <span style="font-size:0.9em;">
         Peso: ${p.weight} kg <br>
         ${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
