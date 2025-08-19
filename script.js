@@ -1830,3 +1830,4 @@ window.clearWordleInputs = clearWordleInputs;
 window.toggleGrayLetter = toggleGrayLetter;
 window.clearGrayLetters = clearGrayLetters;
 window.updateKeyboardState = updateKeyboardState;
+	
