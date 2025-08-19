@@ -890,9 +890,11 @@ function showSection(sec) {
     document.getElementById('section-produtos').style.display = 'none';
     document.getElementById('section-encomendas').style.display = 'none';
     document.getElementById('section-Crafts').style.display = 'none';
+    document.getElementById('section-Boosting').style.display = 'none';
     document.getElementById('btn-produtos').classList.remove('active');
     document.getElementById('btn-encomendas').classList.remove('active');
     document.getElementById('btn-Crafts').classList.remove('active');
+    document.getElementById('btn-Boosting').classList.remove('active');
 
     if (sec === 'produtos') {
         document.getElementById('section-produtos').style.display = '';
@@ -907,6 +909,15 @@ function showSection(sec) {
         document.getElementById('section-Crafts').style.display = '';
         document.getElementById('btn-Crafts').classList.add('active');
         renderCraftsTable && renderCraftsTable();
+    }
+
+    if (sec === 'Boosting') {
+        document.getElementById('section-Boosting').style.display = '';
+        document.getElementById('btn-Boosting').classList.add('active');
+        // Carregar palavras do Wordle se ainda não foram carregadas
+        if (wordleWords.length === 0) {
+            loadWordleWords();
+        }
     }
 }
 
@@ -1535,3 +1546,287 @@ function closeCraftPopup() {
     if (popup) popup.style.display = "none";
 }
 window.closeCraftPopup = closeCraftPopup;
+
+// ===== WORDLE SOLVER =====
+let wordleWords = [];
+
+// Carregar palavras do ficheiro wordle.csv
+async function loadWordleWords() {
+    try {
+        const response = await fetch('https://raw.githubusercontent.com/limpinh0/esperanzabuy/refs/heads/main/wordle.csv');
+        const text = await response.text();
+        // Dividir por linhas e processar cada linha
+        const lines = text.split('\n')
+            .map(line => line.trim())
+            .filter(line => line && line !== 'words,'); // Remove linha vazia e cabeçalho
+        
+        // Remover vírgulas e filtrar palavras
+        const allWords = lines
+            .map(word => word.replace(/,$/, '').trim().toUpperCase()) // Remove vírgula final se existir
+            .filter(word => word.length >= 4 && word.length <= 5); // Filtrar apenas palavras de 4-5 letras
+        
+        wordleWords = allWords;
+        console.log(`Carregadas ${wordleWords.length} palavras do wordle.csv`);
+        initializeWordleInputs();
+    } catch (error) {
+        console.error('Erro ao carregar wordle.csv:', error);
+        document.getElementById('possible-words').innerHTML = '<em style="color:red;">Erro ao carregar palavras do ficheiro wordle.csv</em>';
+    }
+}
+
+// Inicializar inputs baseado no tamanho da palavra selecionado
+function initializeWordleInputs() {
+    const wordSize = document.querySelector('input[name="wordSize"]:checked').value;
+    const correctLettersDiv = document.getElementById('correct-letters');
+    
+    // Limpar inputs existentes
+    correctLettersDiv.innerHTML = '';
+    
+    // Criar inputs baseado no tamanho
+    for (let i = 0; i < parseInt(wordSize); i++) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'position-input';
+        input.maxLength = 1;
+        input.placeholder = '_';
+        input.style.cssText = 'width:40px;height:40px;text-align:center;font-size:18px;text-transform:uppercase;';
+        input.addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
+            // Auto-focus próximo input
+            if (this.value && this.nextElementSibling) {
+                this.nextElementSibling.focus();
+            }
+            // Atualizar estado do teclado
+            updateKeyboardState();
+        });
+        input.addEventListener('keydown', function(e) {
+            // Backspace move para input anterior
+            if (e.key === 'Backspace' && !this.value && this.previousElementSibling) {
+                this.previousElementSibling.focus();
+            }
+        });
+        // Atualizar teclado quando perder foco
+        input.addEventListener('blur', updateKeyboardState);
+        correctLettersDiv.appendChild(input);
+    }
+
+    // Configurar event listeners para inputs de letras amarelas
+    setupYellowInputs();
+}
+
+// Configurar event listeners para inputs de letras amarelas
+function setupYellowInputs() {
+    const yellowInputs = document.querySelectorAll('.yellow-input');
+    yellowInputs.forEach((input, index) => {
+        input.addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
+            // Auto-focus próximo input
+            if (this.value && this.nextElementSibling) {
+                this.nextElementSibling.focus();
+            }
+            // Atualizar estado do teclado
+            updateKeyboardState();
+        });
+        input.addEventListener('keydown', function(e) {
+            // Backspace move para input anterior
+            if (e.key === 'Backspace' && !this.value && this.previousElementSibling) {
+                this.previousElementSibling.focus();
+            }
+        });
+        // Atualizar teclado quando perder foco
+        input.addEventListener('blur', updateKeyboardState);
+    });
+}
+
+// Resolver Wordle
+function solveWordle() {
+    const wordSize = parseInt(document.querySelector('input[name="wordSize"]:checked').value);
+    const correctInputs = document.querySelectorAll('.position-input');
+    
+    // Obter letras amarelas dos inputs individuais
+    const yellowInputs = document.querySelectorAll('.yellow-input');
+    const yellowLetters = [];
+    yellowInputs.forEach(input => {
+        if (input.value.trim()) {
+            yellowLetters.push(input.value.toUpperCase().trim());
+        }
+    });
+    
+    // Obter letras cinzentas do campo de texto
+    const grayLetters = document.getElementById('gray-letters').value.toUpperCase().split(',').map(l => l.trim()).filter(l => l);
+    
+    // Filtrar palavras pelo tamanho
+    let filteredWords = wordleWords.filter(word => word.length === wordSize);
+    
+    // Aplicar filtros
+    filteredWords = filteredWords.filter(word => {
+        // Verificar letras corretas (verdes)
+        for (let i = 0; i < correctInputs.length; i++) {
+            const inputValue = correctInputs[i].value.toUpperCase();
+            if (inputValue && word[i] !== inputValue) {
+                return false;
+            }
+        }
+        
+        // Verificar letras presentes mas posição errada (amarelas)
+        for (const letter of yellowLetters) {
+            if (!letter) continue;
+            // A letra deve existir na palavra
+            if (!word.includes(letter)) {
+                return false;
+            }
+            // Verificar se a letra não está nas posições onde já temos letras corretas (verdes)
+            let letterFoundInCorrectPosition = false;
+            for (let i = 0; i < correctInputs.length; i++) {
+                const inputValue = correctInputs[i].value.toUpperCase();
+                if (inputValue === letter) {
+                    letterFoundInCorrectPosition = true;
+                    if (word[i] !== letter) {
+                        return false; // Se temos a letra como verde numa posição, ela deve estar lá
+                    }
+                }
+            }
+        }
+        
+        // Verificar letras ausentes (cinzentas)
+        for (const letter of grayLetters) {
+            if (!letter) continue;
+            if (word.includes(letter)) {
+                return false;
+            }
+        }
+        
+        return true;
+    });
+    
+    // Exibir resultados
+    const possibleWordsDiv = document.getElementById('possible-words');
+    const wordCountDiv = document.getElementById('word-count');
+    
+    if (filteredWords.length === 0) {
+        possibleWordsDiv.innerHTML = '<em style="color:red;">Nenhuma palavra encontrada com esses critérios</em>';
+        wordCountDiv.textContent = '';
+    } else {
+        possibleWordsDiv.innerHTML = filteredWords.map(word => 
+            `<span class="word-badge">${word}</span>`
+        ).join('');
+        wordCountDiv.textContent = `${filteredWords.length} palavra${filteredWords.length !== 1 ? 's' : ''} encontrada${filteredWords.length !== 1 ? 's' : ''}`;
+    }
+}
+
+// Função para toggle das letras cinzentas no teclado
+function toggleGrayLetter(letter) {
+    const keyBtn = document.querySelector(`.key-btn[onclick="toggleGrayLetter('${letter}')"]`);
+    
+    // Verificar se a tecla está desabilitada (verde ou amarela)
+    if (keyBtn.classList.contains('green-letter') || keyBtn.classList.contains('yellow-letter')) {
+        return; // Não fazer nada se a tecla estiver desabilitada
+    }
+    
+    const grayLettersInput = document.getElementById('gray-letters');
+    
+    // Obter letras atuais
+    let currentLetters = grayLettersInput.value ? grayLettersInput.value.split(',').map(l => l.trim()).filter(l => l) : [];
+    
+    if (currentLetters.includes(letter)) {
+        // Remover letra
+        currentLetters = currentLetters.filter(l => l !== letter);
+        keyBtn.classList.remove('selected');
+    } else {
+        // Adicionar letra
+        currentLetters.push(letter);
+        keyBtn.classList.add('selected');
+    }
+    
+    // Atualizar campo de texto
+    grayLettersInput.value = currentLetters.join(',');
+}
+
+// Função para atualizar o estado do teclado baseado nas letras verdes e amarelas
+function updateKeyboardState() {
+    // Resetar todas as teclas
+    document.querySelectorAll('.key-btn').forEach(btn => {
+        if (!btn.classList.contains('clear-btn')) {
+            btn.classList.remove('green-letter', 'yellow-letter', 'selected');
+        }
+    });
+    
+    // Limpar campo de letras cinzentas se necessário
+    const grayLettersInput = document.getElementById('gray-letters');
+    let currentGrayLetters = grayLettersInput.value ? grayLettersInput.value.split(',').map(l => l.trim()).filter(l => l) : [];
+    
+    // Coletar letras verdes (corretas)
+    const greenLetters = new Set();
+    document.querySelectorAll('.position-input').forEach(input => {
+        if (input.value.trim()) {
+            greenLetters.add(input.value.toUpperCase().trim());
+        }
+    });
+    
+    // Coletar letras amarelas (presentes mas posição errada)
+    const yellowLetters = new Set();
+    document.querySelectorAll('.yellow-input').forEach(input => {
+        if (input.value.trim()) {
+            yellowLetters.add(input.value.toUpperCase().trim());
+        }
+    });
+    
+    // Atualizar estado das teclas
+    document.querySelectorAll('.key-btn').forEach(btn => {
+        if (btn.classList.contains('clear-btn')) return;
+        
+        const letter = btn.textContent;
+        
+        if (greenLetters.has(letter)) {
+            btn.classList.add('green-letter');
+            // Remover das letras cinzentas se existir
+            currentGrayLetters = currentGrayLetters.filter(l => l !== letter);
+        } else if (yellowLetters.has(letter)) {
+            btn.classList.add('yellow-letter');
+            // Remover das letras cinzentas se existir
+            currentGrayLetters = currentGrayLetters.filter(l => l !== letter);
+        } else if (currentGrayLetters.includes(letter)) {
+            btn.classList.add('selected');
+        }
+    });
+    
+    // Atualizar campo de letras cinzentas
+    grayLettersInput.value = currentGrayLetters.join(',');
+}
+
+// Função para limpar todas as letras cinzentas
+function clearGrayLetters() {
+    document.getElementById('gray-letters').value = '';
+    document.querySelectorAll('.key-btn.selected').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+}
+
+// Limpar todos os inputs
+function clearWordleInputs() {
+    document.querySelectorAll('.position-input').forEach(input => input.value = '');
+    document.querySelectorAll('.yellow-input').forEach(input => input.value = '');
+    clearGrayLetters();
+    document.getElementById('possible-words').innerHTML = '<em>Configure os filtros acima e clique em "Encontrar Palavras"</em>';
+    document.getElementById('word-count').textContent = '';
+    // Atualizar estado do teclado
+    updateKeyboardState();
+}
+
+// Event listeners para radio buttons de tamanho de palavra
+document.addEventListener('DOMContentLoaded', function() {
+    const wordSizeRadios = document.querySelectorAll('input[name="wordSize"]');
+    wordSizeRadios.forEach(radio => {
+        radio.addEventListener('change', initializeWordleInputs);
+    });
+    
+    // Carregar palavras quando a página carrega
+    loadWordleWords();
+});
+
+// Tornar funções globais
+window.solveWordle = solveWordle;
+window.clearWordleInputs = clearWordleInputs;
+window.toggleGrayLetter = toggleGrayLetter;
+window.clearGrayLetters = clearGrayLetters;
+window.updateKeyboardState = updateKeyboardState;
