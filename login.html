@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stylelogin.css">
 	<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/limpinh0/esperanzabuy/main/img/banner.png">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div id="login-container">
@@ -196,6 +197,63 @@
                     </div>
                 </div>
             </div>
+			<div id="section-Support" style="display: none;">
+				<!-- <h2 style="margin-top: 0;">Support</h2> -->
+				<div style="overflow-x: auto;">
+					<div class="staff-container">
+						<div class="sidebar">
+							<div class="sidebar-header">
+								<h1><i class="fas fa-headset"></i> Staff Dashboard</h1>
+								<div class="connection-status" id="connectionStatus">Not connected</div>
+								<div class="config-toggle" onclick="toggleConfig()" id="configToggle">⚙️ Server Settings
+								</div>
+								<div class="server-config" id="serverConfig" style="display: none;">
+									<input type="text" id="serverUrl" placeholder="Backend server URL">
+									<button onclick="connectToServer()">Connect</button>
+									<button onclick="testConnection()">Test</button>
+								</div>
+							</div>
+							<div class="chat-rooms" id="chatRooms">
+								<div class="connection-setup">
+									<h3>Connect to Backend</h3>
+									<div id="errorContainer"></div>
+									<input type="text" id="mainServerUrl" placeholder="Enter backend server URL">
+									<br>
+									<button onclick="initialConnect()">Connect to Server</button>
+									<button onclick="testMainConnection()">Test Connection</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="main-area">
+							<div class="chat-header" id="chatHeader">
+								<div class="chat-title">Connect to backend server</div>
+								<div class="chat-actions">
+									<button class="action-btn" onclick="refreshRooms()" disabled id="refreshBtn">
+										<i class="fas fa-refresh"></i> Refresh
+									</button>
+								</div>
+							</div>
+
+							<div class="empty-state" id="emptyState">
+								<i class="fas fa-server"></i>
+								<h2>Staff Dashboard</h2>
+								<p>Please connect to your backend server to start managing customer chats</p>
+							</div>
+
+							<div class="messages-area" id="messagesArea" style="display: none;"></div>
+
+							<div class="input-area" id="inputArea" style="display: none;">
+								<textarea class="message-input" id="messageInput" placeholder="Type your response..."
+									rows="1"></textarea>
+								<button class="send-btn" id="sendBtn" onclick="sendMessage()">
+									<i class="fas fa-paper-plane"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
             <div id="section-encomendas" style="display:none;">
                 <h2 style="margin-top:0;">Gestão de Encomendas</h2>
                 <div id="orders" class="orders-table-wrapper"></div>
@@ -234,6 +292,7 @@
         <div id="craft-popup-content"></div>
     </div>
 </div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
 	<script src="script.js"></script>  
 </body>
 
