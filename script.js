@@ -891,10 +891,12 @@ function showSection(sec) {
     document.getElementById('section-encomendas').style.display = 'none';
     document.getElementById('section-Crafts').style.display = 'none';
     document.getElementById('section-Boosting').style.display = 'none';
+	document.getElementById('section-Support').style.display = 'none';
     document.getElementById('btn-produtos').classList.remove('active');
     document.getElementById('btn-encomendas').classList.remove('active');
     document.getElementById('btn-Crafts').classList.remove('active');
     document.getElementById('btn-Boosting').classList.remove('active');
+	document.getElementById('btn-Support').classList.remove('active');
 
     if (sec === 'produtos') {
         document.getElementById('section-produtos').style.display = '';
@@ -919,6 +921,10 @@ function showSection(sec) {
             loadWordleWords();
         }
     }
+	if (sec === 'Support') {
+		document.getElementById('section-Support').style.display = '';
+		document.getElementById('btn-Support').classList.add('active');
+	}
 }
 
 function logoutToIndex() {
