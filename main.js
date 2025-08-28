@@ -73,9 +73,9 @@ function showPage(p) {
 		filterProducts();
 		// Scroll suave para o topo da secção produtos
 	}
-	if (p === "carrinho") renderCarrinho(); 
+	if (p === "carrinho") renderCarrinho();
 
-	if (p === "compramos") {renderCompramos();}
+	if (p === "compramos") renderCompramos();
 }
 
 function renderCategoryFilters() {
@@ -161,34 +161,34 @@ function renderProducts(productsToRender) {
 		if (p.promo > p.price) {
 			const desconto = Math.round((100 * (p.promo - p.price)) / p.promo);
 			promoBadge = `
-      <div class="promo-badge">
-        Promoção ${desconto}%<br>
-        <span class="promo-antes">Antes ${p.promo} $</span>
-      </div>
-      `;
+	  <div class="promo-badge">
+		Promoção ${desconto}%<br>
+		<span class="promo-antes">Antes ${p.promo} $</span>
+	  </div>
+	  `;
 		}
 		lista.innerHTML += `
-      <div class="product">
-      ${promoBadge}
-      <div class="product-img">
-        <img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
-      </div>
-        <p style="font-weight:bold">${p.name}<br>
-        <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
-          ${p.category}
-        </a>    
-        </p>
-      <p>
-        <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
-        <span style="font-size:0.9em;">
-        Peso: ${p.weight} kg <br>
-        ${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
-        </span>
-      </p>
-      <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
-      <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
-      </div>
-    `;
+	  <div class="product">
+	  ${promoBadge}
+	  <div class="product-img">
+		<img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
+	  </div>
+		<p style="font-weight:bold">${p.name}<br>
+		<a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
+		  ${p.category}
+		</a>	
+		</p>
+	  <p>
+		<span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
+		<span style="font-size:0.9em;">
+		Peso: ${p.weight} kg <br>
+		${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
+		</span>
+	  </p>
+	  <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
+	  <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
+	  </div>
+	`;
 	});
 }
 
@@ -386,34 +386,34 @@ function renderProductsVPN(productsToRender) {
 		if (p.promo > p.price) {
 			const desconto = Math.round((100 * (p.promo - p.price)) / p.promo);
 			promoBadge = `
-      <div class="promo-badge">
-        Promoção ${desconto}%<br>
-        <span class="promo-antes">Antes ${p.promo} $</span>
-      </div>
-      `;
+	  <div class="promo-badge">
+		Promoção ${desconto}%<br>
+		<span class="promo-antes">Antes ${p.promo} $</span>
+	  </div>
+	  `;
 		}
 		lista.innerHTML += `
-     <div class="product">
-      ${promoBadge}
-      <div class="product-img">
-        <img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
-      </div>
-        <p style="font-weight:bold">${p.name}<br>
-        <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
-          ${p.category}
-        </a>    
-        </p>
-      <p>
-        <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
-        <span style="font-size:1.2em;font-weight:bold;color:#770000;">${p.price/0.5} $</span> <br>
-        <span style="font-size:0.9em;">
-        Peso: ${p.weight} kg <br>
-        ${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
-        </span>
-      </p>
-      <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
-      <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
-      </div>
+	 <div class="product">
+	  ${promoBadge}
+	  <div class="product-img">
+		<img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
+	  </div>
+		<p style="font-weight:bold">${p.name}<br>
+		<a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
+		  ${p.category}
+		</a>	
+		</p>
+	  <p>
+		<span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
+		<span style="font-size:1.2em;font-weight:bold;color:#770000;">${p.price / 0.5} $</span> <br>
+		<span style="font-size:0.9em;">
+		Peso: ${p.weight} kg <br>
+		${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
+		</span>
+	  </p>
+	  <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
+	  <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
+	  </div>
   `;
 	});
 }
@@ -505,38 +505,37 @@ function renderHomeProdutos() {
 		if (p.promo && p.promo > p.price) {
 			const desconto = Math.round((100 * (p.promo - p.price)) / p.promo);
 			promoBadge = `
-    <div class="promo-badge">
-      Promoção ${desconto}%<br>
-      <span class="promo-antes">Antes ${p.promo} $</span>
-    </div>
-    `;
+	<div class="promo-badge">
+	  Promoção ${desconto}%<br>
+	  <span class="promo-antes">Antes ${p.promo} $</span>
+	</div>
+	`;
 		}
 		homeProdutosDiv.innerHTML += `
-    <div class="product">
-    ${promoBadge}
-    <div class="product-img">
-      <img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
-    </div>
-    <p style="font-weight:bold">${p.name}<br>
-      <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
-      ${p.category}
-      </a>    
-    </p>
-    <p>
-      <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
-      <span style="font-size:0.9em;">
-      Peso: ${p.weight} kg <br>
-      ${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
-      </span>
-    </p>
-    <input type="number" id="qtd-home-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
-    <button onclick="addCarrinhoHome(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
-    </div>
+	<div class="product">
+	${promoBadge}
+	<div class="product-img">
+	  <img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
+	</div>
+	<p style="font-weight:bold">${p.name}<br>
+	  <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
+	  ${p.category}
+	  </a>	
+	</p>
+	<p>
+	  <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
+	  <span style="font-size:0.9em;">
+	  Peso: ${p.weight} kg <br>
+	  ${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
+	  </span>
+	</p>
+	<input type="number" id="qtd-home-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
+	<button onclick="addCarrinhoHome(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
+	</div>
   `;
 	});
 }
 
- 
 
 function addCarrinhoHome(i) {
 	const qtd = parseInt(document.getElementById(`qtd-home-${i}`).value);
@@ -563,7 +562,7 @@ async function copiarResumoCarrinho() {
 	let total = 0;
 	let pesoTotal = 0;
 
-	 (async () => {
+	(async () => {
 		const fatura = document.getElementById("fatura").checked ? "Sim" : "Não";
 		const cpEntrega = document.getElementById("cpEntrega").value || "---";
 		carrinho.forEach((item) => {
@@ -601,12 +600,12 @@ async function copiarResumoCarrinho() {
 		texto = `Encomenda: ${res.orderId}\n\n` + texto;
 		texto = texto + '\n\nTaxa de Transporte 150$ + 25$ por quilómetro.'
 		 // Copia imediatamente ao clicar
-    try {
-        await navigator.clipboard.writeText(texto);
-        alert("Carrinho copiado, pode agora colar o carrinho por mensagem para o Instapic @EsperanzaBuy! \n\nIremos responder assim que possível.");
-    } catch (e) {
-        alert("Não foi possível copiar para a área de transferência. Informe-nos desta situação em Instapic @EsperanzaBuy!");
-    }
+		try {
+			await navigator.clipboard.writeText(texto);
+			alert("Carrinho copiado, pode agora colar o carrinho por mensagem para o Instapic @EsperanzaBuy! \n\nIremos responder assim que possível.");
+		} catch (e) {
+			alert("Não foi possível copiar para a área de transferência. Informe-nos desta situação em Instapic @EsperanzaBuy!");
+		}
 
 	})();
 
@@ -618,27 +617,27 @@ async function copiarResumoCarrinho() {
 
 // NOVO CÓDIGO PARA CARREGAR ANÚNCIOS
 async function carregarAnuncios() {
-    const response = await fetch('https://raw.githubusercontent.com/limpinh0/esperanzabuy/refs/heads/main/anuncios.csv');
-    const csv = await response.text();
-    const hoje = new Date();
-    const hojeStr = hoje.getFullYear().toString() +
-        String(hoje.getMonth() + 1).padStart(2, '0') +
-        String(hoje.getDate()).padStart(2, '0');
+	const response = await fetch('https://raw.githubusercontent.com/limpinh0/esperanzabuy/refs/heads/main/anuncios.csv');
+	const csv = await response.text();
+	const hoje = new Date();
+	const hojeStr = hoje.getFullYear().toString() +
+		String(hoje.getMonth() + 1).padStart(2, '0') +
+		String(hoje.getDate()).padStart(2, '0');
 
-    const linhas = csv.trim().split('\n');
-    const headers = linhas[0].split(',');
-    const anuncios = linhas.slice(1).map(linha => {
-        const campos = linha.split(',');
-        let obj = {};
-        headers.forEach((h, i) => obj[h.trim()] = campos[i]?.trim());
-        return obj;
-    }).filter(a => a.date >= hojeStr); 
+	const linhas = csv.trim().split('\n');
+	const headers = linhas[0].split(',');
+	const anuncios = linhas.slice(1).map(linha => {
+		const campos = linha.split(',');
+		let obj = {};
+		headers.forEach((h, i) => obj[h.trim()] = campos[i]?.trim());
+		return obj;
+	}).filter(a => a.date >= hojeStr); 
 
-    function setAd(divId, url, href, duration = 6000, progress = 1) {
-        const el = document.getElementById(divId);
-        if (el) {
-            // Overlay HTML
-            const overlay = `<div style="
+	function setAd(divId, url, href, duration = 6000, progress = 1) {
+		const el = document.getElementById(divId);
+		if (el) {
+			// Overlay HTML
+			const overlay = `<div style="
 				position:absolute;
 				bottom:0px;w
 				right:1px;
@@ -652,45 +651,45 @@ async function carregarAnuncios() {
 				pointer-events:none;
 			">PUBLICIDADE</div>`;
 
-            // Barrinha de tempo
-            const barraId = `${divId}-progress-bar`;
+			// Barrinha de tempo
+			const barraId = `${divId}-progress-bar`;
 const barra = `<div id="${barraId}" class="ad-progress-bar" style="
-    position:absolute;
-    left:0; right:0;
-    bottom:1px;
-    height:1px;
-    background:linear-gradient(90deg,#ff9900 85%,#fff0 100%);
-    width:${Math.max(0, Math.min(1, progress)) * 100}%;
-    z-index:1;
-    transition:width 0.2s linear;
-    pointer-events:none;
+	position:absolute;
+	left:0; right:0;
+	bottom:1px;
+	height:1px;
+	background:linear-gradient(90deg,#ff9900 85%,#fff0 100%);
+	width:${Math.max(0, Math.min(1, progress)) * 100}%;
+	z-index:1;
+	transition:width 0.2s linear;
+	pointer-events:none;
 "></div>`;
 
-            el.style.position = "relative";
+			el.style.position = "relative";
 
-            if (divId === 'ads-fixed-container-left' || divId === 'ads-fixed-container-right') {
-                if (!url || url.trim() === "") {
-                    el.innerHTML = '<span  style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;">Entre em contacto para mais informações.<br>200x250</span>'
-                    el.style.width = "200px";
-                    el.style.height = "250px";
-                    el.style.border = "1px dashed #ff9900";
-                    el.style.borderRadius = "12px";
-                    el.style.display = "flex";
-                    el.style.flexDirection = "column";
-                    el.style.justifyContent = "center";
-                    el.style.alignItems = "center";
-                    el.style.position = "sticky";
+			if (divId === 'ads-fixed-container-left' || divId === 'ads-fixed-container-right') {
+				if (!url || url.trim() === "") {
+					el.innerHTML = '<span  style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;">Entre em contacto para mais informações.<br>200x250</span>'
+					el.style.width = "200px";
+					el.style.height = "250px";
+					el.style.border = "1px dashed #ff9900";
+					el.style.borderRadius = "12px";
+					el.style.display = "flex";
+					el.style.flexDirection = "column";
+					el.style.justifyContent = "center";
+					el.style.alignItems = "center";
+					el.style.position = "sticky";
 					el.style.top = "40px"; // Alinha ao topo como .container 
-                } else {
-                    el.innerHTML = `
-            <div style="position:relative;width:200px;height:250px;">
-                <a href="${href}" target="_blank" rel="noopener">
-                    <img src="${url}" style="width:200px;height:250px;object-fit:contain;border-radius:12px;">
-                </a>
-                ${barra}
-                ${overlay}
-            </div>
-        `;
+				} else {
+					el.innerHTML = `
+			<div style="position:relative;width:200px;height:250px;">
+				<a href="${href}" target="_blank" rel="noopener">
+					<img src="${url}" style="width:200px;height:250px;object-fit:contain;border-radius:12px;">
+				</a>
+				${barra}
+				${overlay}
+			</div>
+		`;
 					el.style.width = "200px";
 					el.style.height = "250px";
 					el.style.border = "0px";
@@ -699,130 +698,130 @@ const barra = `<div id="${barraId}" class="ad-progress-bar" style="
 					el.style.justifyContent = "center";
 					el.style.alignItems = "center"; 
 					el.style.boxSizing = "border-box";
-                    el.style.position = "sticky";
+					el.style.position = "sticky";
 					el.style.top = "40px"; // Alinha ao topo como .container 
-                }
-            }
+				}
+			}
 
-            if (divId === 'header-ad-top-left' || divId === 'header-ad-top-right') {
-                if (!url || url.trim() === "") {
-                    el.innerHTML = '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>250x250</span>' ;
-                    el.style.width = "250px";
-                    el.style.height = "250px";
-                    el.style.border = "1px dashed #ff9900";
-                    el.style.borderRadius = "12px";
-                    el.style.display = "flex";
-                    el.style.flexDirection = "column";
-                    el.style.justifyContent = "center";
-                    el.style.alignItems = "center";
-                } else {
-                    el.innerHTML = `
-            <div style="position:relative;width:250px;height:250px;">
-                <a href="${href}" target="_blank" rel="noopener">
-                    <img src="${url}" style="width:250px;height:250px;object-fit:contain;border-radius:12px;">
-                </a>
-                ${barra}
-                ${overlay}
-            </div>
-        `;
-                    el.style.width = "250px";
-                    el.style.height = "250px";
-                    el.style.border = "0px";
-                }
-            }
-        }
-    }
+			if (divId === 'header-ad-top-left' || divId === 'header-ad-top-right') {
+				if (!url || url.trim() === "") {
+					el.innerHTML = '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>250x250</span>' ;
+					el.style.width = "250px";
+					el.style.height = "250px";
+					el.style.border = "1px dashed #ff9900";
+					el.style.borderRadius = "12px";
+					el.style.display = "flex";
+					el.style.flexDirection = "column";
+					el.style.justifyContent = "center";
+					el.style.alignItems = "center";
+				} else {
+					el.innerHTML = `
+			<div style="position:relative;width:250px;height:250px;">
+				<a href="${href}" target="_blank" rel="noopener">
+					<img src="${url}" style="width:250px;height:250px;object-fit:contain;border-radius:12px;">
+				</a>
+				${barra}
+				${overlay}
+			</div>
+		`;
+					el.style.width = "250px";
+					el.style.height = "250px";
+					el.style.border = "0px";
+				}
+			}
+		}
+	}
 
-    ['l_top', 'r_top', 'l_lat', 'r_lat'].forEach(pos => {
-    const staticAd = anuncios.find(a => a.type === 'static' && a.pos === pos);
-    if (staticAd) {
-        if (pos === 'l_top') setAd('header-ad-top-left', staticAd.url, staticAd.href, 6000, 0);
-        if (pos === 'r_top') setAd('header-ad-top-right', staticAd.url, staticAd.href, 6000, 0);
-        if (pos === 'l_lat') setAd('ads-fixed-container-left', staticAd.url, staticAd.href, 6000, 0);
-        if (pos === 'r_lat') setAd('ads-fixed-container-right', staticAd.url, staticAd.href, 6000, 0);
-    } else {
-        let rotAds = anuncios.filter(a => a.type === 'rotation' && a.pos === pos); 
-        if (rotAds.length > 0) {
-            // Adiciona um ciclo extra para o "ANUNCIE AQUI"
-            rotAds = [...rotAds, { url: "", type: "rotation", pos }];
+	['l_top', 'r_top', 'l_lat', 'r_lat'].forEach(pos => {
+	const staticAd = anuncios.find(a => a.type === 'static' && a.pos === pos);
+	if (staticAd) {
+		if (pos === 'l_top') setAd('header-ad-top-left', staticAd.url, staticAd.href, 6000, 0);
+		if (pos === 'r_top') setAd('header-ad-top-right', staticAd.url, staticAd.href, 6000, 0);
+		if (pos === 'l_lat') setAd('ads-fixed-container-left', staticAd.url, staticAd.href, 6000, 0);
+		if (pos === 'r_lat') setAd('ads-fixed-container-right', staticAd.url, staticAd.href, 6000, 0);
+	} else {
+		let rotAds = anuncios.filter(a => a.type === 'rotation' && a.pos === pos); 
+		if (rotAds.length > 0) {
+			// Adiciona um ciclo extra para o "ANUNCIE AQUI"
+			rotAds = [...rotAds, { url: "", type: "rotation", pos }];
 
-            let idx = 0;
-            let startTime = Date.now();
-            let intervalId = null;
-            const divId =
-                pos === 'l_top' ? 'header-ad-top-left' :
-                pos === 'r_top' ? 'header-ad-top-right' :
-                pos === 'l_lat' ? 'ads-fixed-container-left' :
-                pos === 'r_lat' ? 'ads-fixed-container-right' : '';
+			let idx = 0;
+			let startTime = Date.now();
+			let intervalId = null;
+			const divId =
+				pos === 'l_top' ? 'header-ad-top-left' :
+				pos === 'r_top' ? 'header-ad-top-right' :
+				pos === 'l_lat' ? 'ads-fixed-container-left' :
+				pos === 'r_lat' ? 'ads-fixed-container-right' : '';
 
-            const barraId = `${divId}-progress-bar`;
+			const barraId = `${divId}-progress-bar`;
 
-            function rotate() {
-                let progress = 1;
-                if (intervalId) clearInterval(intervalId);
-                startTime = Date.now();
+			function rotate() {
+				let progress = 1;
+				if (intervalId) clearInterval(intervalId);
+				startTime = Date.now();
 
-                function updateBar() {
-                    const elapsed = Date.now() - startTime;
-                    const progress = 1 - Math.min(elapsed / 6000, 1);
-                    const barraEl = document.getElementById(barraId);
-                    if (barraEl) {
-                        barraEl.style.width = `${Math.max(0, Math.min(1, progress)) * 100}%`;
-                    }
-                    if (progress > 0) {
-                        requestAnimationFrame(updateBar);
-                    }
-                }
-                updateBar();
+				function updateBar() {
+					const elapsed = Date.now() - startTime;
+					const progress = 1 - Math.min(elapsed / 6000, 1);
+					const barraEl = document.getElementById(barraId);
+					if (barraEl) {
+						barraEl.style.width = `${Math.max(0, Math.min(1, progress)) * 100}%`;
+					}
+					if (progress > 0) {
+						requestAnimationFrame(updateBar);
+					}
+				}
+				updateBar();
 
-                intervalId = setTimeout(() => {
-                    idx = (idx + 1) % rotAds.length;
-                    setAd(divId, rotAds[idx].url, rotAds[idx].href, 6000, 1);
-                    rotate();
-                }, 6000);
-            }
+				intervalId = setTimeout(() => {
+					idx = (idx + 1) % rotAds.length;
+					setAd(divId, rotAds[idx].url, rotAds[idx].href, 6000, 1);
+					rotate();
+				}, 6000);
+			}
 
-            setAd(divId, rotAds[idx].url, rotAds[idx].href, 6000, 1);
-            rotate();
-        }
-    }
+			setAd(divId, rotAds[idx].url, rotAds[idx].href, 6000, 1);
+			rotate();
+		}
+	}
 });
 }
 
 function renderCompramos() {
-    const produtosCompramos = produtos
-        .filter(p =>
-            (p.name === "Ácido de bateria" ||
-                (p.name === "Kit eletrónico" && p.stock < 25) ||
-                (p.category === "Minérios" && p.stock < 200) || 
+	const produtosCompramos = produtos
+		.filter(p =>
+			(p.name === "Ácido de bateria" ||
+				(p.name === "Kit eletrónico" && p.stock < 25) ||
+				(p.category === "Minérios" && p.stock < 200) || 
 				(p.name === "Tábuas de madeira" && p.category === "Materiais" && p.stock < 200) ||
 				(p.name !== "Tábuas de madeira" && p.category === "Materiais" && p.stock < 500)) &&
 				p.name !== "Thermite" &&
 				p.name !== "Couro" &&
-            	p.active &&
-            	(!p.vpn || p.vpn === 0)
-        )
-        .sort((a, b) => {
-            if (a.category !== b.category) return a.category.localeCompare(b.category);
-            return a.name.localeCompare(b.name);
-        });
+				p.active &&
+				(!p.vpn || p.vpn === 0)
+		)
+		.sort((a, b) => {
+			if (a.category !== b.category) return a.category.localeCompare(b.category);
+			return a.name.localeCompare(b.name);
+		});
 
-    let html = `
-         <table class="compramos-table">
-            <thead>
-                <tr>
-                    <th class="compramos-th compramos-th-produto">Produto</th>
-                    <th class="compramos-th">Categoria</th>
-                    <th class="compramos-th">Preço compra</th>
-                    <th class="compramos-th">Quantidade</th>
-                    <th class="compramos-th compramos-th-total">Total linha</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
+	let html = `
+		 <table class="compramos-table">
+			<thead>
+				<tr>
+					<th class="compramos-th compramos-th-produto">Produto</th>
+					<th class="compramos-th">Categoria</th>
+					<th class="compramos-th">Preço compra</th>
+					<th class="compramos-th">Quantidade</th>
+					<th class="compramos-th compramos-th-total">Total linha</th>
+				</tr>
+			</thead>
+			<tbody>
+	`;
 
-    produtosCompramos.forEach((p, idx) => {
-        const precoCompra = (p.price * 0.75).toFixed(2).replace('.', ',');
+	produtosCompramos.forEach((p, idx) => {
+		const precoCompra = (p.price * 0.75).toFixed(2).replace('.', ',');
 		html += `
 			<tr class="compramos-tr">
 			<td class="compramos-td compramos-td-produto">
@@ -842,24 +841,24 @@ function renderCompramos() {
 			<td class="compramos-td compramos-td-total" align="right" id="compramos-total-linha-${idx}">0,00</td>
 			</tr>
 		`;
-    });
+	});
 
-    html += `</tbody></table>`;
-    document.getElementById("compramos-lista").innerHTML = html;
-    document.getElementById("compramos-total").textContent = "0,00";
-    window.atualizaTotalLinhaCompramos = function(idx) {
-        const qtd = parseFloat(document.getElementById(`compramos-qtd-${idx}`).value) || 0;
-        const preco = parseFloat(document.getElementById(`preco-compra-${idx}`).textContent.replace(',', '.'));
-        const totalLinha = qtd * preco;
-        document.getElementById(`compramos-total-linha-${idx}`).textContent = totalLinha.toFixed(2).replace('.', ',');
-        // Atualiza total global
-        let totalGlobal = 0;
-        for (let i = 0; i < produtosCompramos.length; i++) {
-            const t = parseFloat(document.getElementById(`compramos-total-linha-${i}`).textContent.replace(',', '.')) || 0;
-            totalGlobal += t;
-        }
+	html += `</tbody></table>`;
+	document.getElementById("compramos-lista").innerHTML = html;
+	document.getElementById("compramos-total").textContent = "0,00";
+	window.atualizaTotalLinhaCompramos = function(idx) {
+		const qtd = parseFloat(document.getElementById(`compramos-qtd-${idx}`).value) || 0;
+		const preco = parseFloat(document.getElementById(`preco-compra-${idx}`).textContent.replace(',', '.'));
+		const totalLinha = qtd * preco;
+		document.getElementById(`compramos-total-linha-${idx}`).textContent = totalLinha.toFixed(2).replace('.', ',');
+		// Atualiza total global
+		let totalGlobal = 0;
+		for (let i = 0; i < produtosCompramos.length; i++) {
+			const t = parseFloat(document.getElementById(`compramos-total-linha-${i}`).textContent.replace(',', '.')) || 0;
+			totalGlobal += t;
+		}
 		document.getElementById("compramos-total").textContent = totalGlobal.toFixed(2).replace('.', ',');
-    };
+	};
 }
 // Função para copiar a lista de compra
 function copiarListaCompra() {
@@ -885,3 +884,284 @@ function copiarListaCompra() {
 	}
 }
 showPage("home");
+
+class PublicChatClient {
+	constructor() {
+		this.socket = null;
+		this.userName = '';
+		this.roomId = '';
+		this.isConnected = false;
+		this.serverUrl = this.getDefaultServerUrl();
+		this.init();
+	}
+
+	getDefaultServerUrl() {
+		// Try to get from localStorage first
+		const stored = localStorage.getItem('chat-server-url');
+		if (stored) return stored;
+
+		// Default URLs to try
+		const defaults = [
+			'http://localhost:3000',
+			'http://127.0.0.1:3000'
+		];
+
+		return defaults[0];
+	}
+
+	init() {
+		this.setupUI();
+		this.connectToServer();
+		this.setupEventListeners();
+	}
+
+	setupUI() {
+		document.getElementById('serverUrl').value = this.serverUrl;
+	}
+
+	connectToServer() {
+		if (this.socket) {
+			this.socket.disconnect();
+		}
+
+		this.updateConnectionStatus('Connecting...', 'pending');
+
+		try {
+			this.socket = io(this.serverUrl, {
+				transports: ['websocket', 'polling'],
+				timeout: 10000,
+				forceNew: true
+			});
+
+			this.setupSocketEvents();
+		} catch (error) {
+			this.showError('Failed to connect to server: ' + error.message);
+			this.updateConnectionStatus('Connection failed', 'error');
+		}
+	}
+
+	setupSocketEvents() {
+		this.socket.on('connect', () => {
+			this.isConnected = true;
+			this.updateConnectionStatus('Connected', 'success');
+			this.clearError();
+			document.getElementById('startChatBtn').disabled = false;
+		});
+
+		this.socket.on('disconnect', () => {
+			this.isConnected = false;
+			this.updateConnectionStatus('Disconnected', 'error');
+			document.getElementById('startChatBtn').disabled = true;
+			document.getElementById('sendBtn').disabled = true;
+		});
+
+		this.socket.on('room-joined', (data) => {
+			this.roomId = data.roomId;
+			this.showChatArea();
+
+			// Display existing messages
+			data.messages.forEach(message => {
+				this.displayMessage(message);
+			});
+		});
+
+		this.socket.on('message', (message) => {
+			this.displayMessage(message);
+		});
+
+		this.socket.on('connect_error', (error) => {
+			this.showError(`Connection failed: ${error.message}. Please check the server URL and try again.`);
+			this.updateConnectionStatus('Connection failed', 'error');
+			document.getElementById('startChatBtn').disabled = true;
+		});
+
+		this.socket.on('error', (error) => {
+			this.showError('Socket error: ' + error);
+		});
+	}
+
+	setupEventListeners() {
+		// Enter key to join chat
+		document.getElementById('userName').addEventListener('keypress', (e) => {
+			if (e.key === 'Enter' && !document.getElementById('startChatBtn').disabled) {
+				this.joinChat();
+			}
+		});
+
+		// Enter key to send message
+		document.getElementById('messageInput').addEventListener('keypress', (e) => {
+			if (e.key === 'Enter' && !document.getElementById('sendBtn').disabled) {
+				this.sendMessage();
+			}
+		});
+
+		// Server URL input
+		document.getElementById('serverUrl').addEventListener('keypress', (e) => {
+			if (e.key === 'Enter') {
+				this.connectToServer();
+			}
+		});
+	}
+
+	joinChat() {
+		const nameInput = document.getElementById('userName');
+		const name = nameInput.value.trim();
+
+		if (!name) {
+			this.showError('Please enter your name');
+			return;
+		}
+
+		if (!this.isConnected) {
+			this.showError('Not connected to server. Please check the server URL and connection.');
+			return;
+		}
+
+		this.userName = name;
+		this.socket.emit('user-join', {
+			userName: this.userName
+		});
+
+		document.getElementById('startChatBtn').disabled = true;
+		document.getElementById('startChatBtn').textContent = 'Joining...';
+	}
+
+	showChatArea() {
+		document.getElementById('userSetup').style.display = 'none';
+		document.getElementById('chatArea').style.display = 'flex';
+		document.getElementById('messageInput').focus();
+		document.getElementById('sendBtn').disabled = false;
+	}
+
+	sendMessage() {
+		const messageInput = document.getElementById('messageInput');
+		const message = messageInput.value.trim();
+
+		if (!message || !this.isConnected) return;
+
+		this.socket.emit('send-message', {
+			message: message,
+			roomId: this.roomId
+		});
+
+		messageInput.value = '';
+	}
+
+	displayMessage(messageData) {
+		const messagesDiv = document.getElementById('messages');
+		const messageEl = document.createElement('div');
+
+		messageEl.className = `message ${messageData.type}`;
+
+		let senderInfo = '';
+		if (messageData.type === 'staff') {
+			senderInfo = '<div class="message-sender">Staff</div>';
+		} else if (messageData.type === 'user' && messageData.sender !== this.userName) {
+			senderInfo = `<div class="message-sender">${messageData.sender}</div>`;
+		}
+
+		const timeStr = new Date(messageData.timestamp).toLocaleTimeString();
+
+		messageEl.innerHTML = `
+                    ${senderInfo}
+                    <div class="message-bubble">
+                        ${this.escapeHtml(messageData.message)}
+                    </div>
+                    <div class="message-time">${timeStr}</div>
+                `;
+
+		messagesDiv.appendChild(messageEl);
+		messagesDiv.scrollTop = messagesDiv.scrollHeight;
+	}
+
+	updateConnectionStatus(status, type) {
+		const statusEl = document.getElementById('connectionStatus');
+		statusEl.textContent = status;
+		statusEl.style.color = type === 'success' ? '#4ade80' :
+			type === 'error' ? '#f87171' :
+				type === 'pending' ? '#fbbf24' : 'inherit';
+	}
+
+	showError(message) {
+		const errorContainer = document.getElementById('errorContainer');
+		errorContainer.innerHTML = `<div class="error-message">${message}</div>`;
+	}
+
+	clearError() {
+		document.getElementById('errorContainer').innerHTML = '';
+	}
+
+	escapeHtml(text) {
+		const div = document.createElement('div');
+		div.textContent = text;
+		return div.innerHTML;
+	}
+
+	// Server configuration methods
+	updateServerUrl(url) {
+		this.serverUrl = url;
+		localStorage.setItem('chat-server-url', url);
+		this.connectToServer();
+	}
+
+	async testConnection() {
+		const url = document.getElementById('serverUrl').value.trim();
+		if (!url) {
+			this.showError('Please enter a server URL');
+			return;
+		}
+
+		try {
+			const response = await fetch(url + '/health');
+			if (response.ok) {
+				const data = await response.json();
+				alert(`✅ Server is reachable!\n\nStatus: ${data.status}\nActive rooms: ${data.activeRooms}\nStaff online: ${data.connectedStaff}`);
+			} else {
+				alert('❌ Server responded but with an error: ' + response.status);
+			}
+		} catch (error) {
+			alert('❌ Cannot reach server: ' + error.message);
+		}
+	}
+}
+
+// Initialize chat when page loads
+let chatClient;
+document.addEventListener('DOMContentLoaded', () => {
+	chatClient = new PublicChatClient();
+});
+
+// Global functions for button clicks
+function joinChat() {
+	chatClient.joinChat();
+}
+
+function sendMessage() {
+	chatClient.sendMessage();
+}
+
+function toggleConfig() {
+	const config = document.getElementById('serverConfig');
+	const toggle = document.getElementById('configToggle');
+
+	if (config.style.display === 'none') {
+		config.style.display = 'block';
+		toggle.textContent = '⚙️ Hide Settings';
+	} else {
+		config.style.display = 'none';
+		toggle.textContent = '⚙️ Server Settings';
+	}
+}
+
+function connectToServer() {
+	const url = document.getElementById('serverUrl').value.trim();
+	if (!url) {
+		chatClient.showError('Please enter a server URL');
+		return;
+	}
+	chatClient.updateServerUrl(url);
+}
+
+function testConnection() {
+	chatClient.testConnection();
+}

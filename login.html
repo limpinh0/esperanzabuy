@@ -2,214 +2,273 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Panel</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stylelogin.css">
+	<meta charset="UTF-8">
+	<title>Admin Panel</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="stylelogin.css">
 	<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/limpinh0/esperanzabuy/main/img/banner.png">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div id="login-container">
-        <form id="login-box" onsubmit="return handleLogin(event)" autocomplete="on">
-            <h2>Admin Login</h2>
-            <input id="username" name="username" type="text" placeholder="Username" autocomplete="username" required />
-            <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" required />
-            <button type="submit">Login</button>
-            <button type="button" onclick="window.location.href='index.html'" style="background:#e74c3c;color:#fff;">Voltar</button>
-	    <button type="button" class="toggle-mode" onclick="toggleMode()">🌙/☀️ Mudar Tema</button>
-            <pre id="login-error" style="color:crimson; background:none; border:none; margin:0; padding:0;"></pre>
-        </form>
-    </div>
+	<div id="login-container">
+		<form id="login-box" onsubmit="return handleLogin(event)" autocomplete="on">
+			<h2>Admin Login</h2>
+			<input id="username" name="username" type="text" placeholder="Username" autocomplete="username" required />
+			<input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" required />
+			<button type="submit">Login</button>
+			<button type="button" onclick="window.location.href='index.html'" style="background:#e74c3c;color:#fff;">Voltar</button>
+		<button type="button" class="toggle-mode" onclick="toggleMode()">🌙/☀️ Mudar Tema</button>
+			<pre id="login-error" style="color:crimson; background:none; border:none; margin:0; padding:0;"></pre>
+		</form>
+	</div>
 
-    <div id="main-container" style="display:none;">
-        <div class="sidebar">
-            <button id="btn-logout" onclick="logoutToIndex()" style="background:#e74c3c;color:#fff;margin-top:1.5rem;padding:6px 16px;font-size:0.95rem;width:auto;align-self:flex-start;border-radius:5px;">Sair</button>
-            <button id="btn-produtos" class="active" onclick="showSection('produtos')">Produtos</button>
-            <button id="btn-encomendas" onclick="showSection('encomendas')">Encomendas</button>    
-            <button id="btn-Crafts" onclick="showSection('Crafts')">Crafts</button>       
-            <button id="btn-Boosting" onclick="showSection('Boosting')">Boosting</button>          
-            <div id="vpn-ip-result" style="color:#ff9900;font-size:0.98rem;margin-top:4px;text-align: center;"></div>
-            <button class="toggle-mode" onclick="toggleMode()">🌙/☀️ Mudar Tema</button>
-        </div>
-        <div class="content">
-            <div id="section-produtos">
-                <h2 style="margin-top:0;">Gestão de Produtos</h2>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
-                    <div style="display:flex;gap:8px;align-items:center;">
-                        <input id="searchProdutos" type="text" placeholder="🔎 Produto/Categoria..." style="padding:8px 12px;border-radius:6px;border:1px solid #ccc;font-size:1rem;max-width:220px;">
-                        Ordenar por:<select id="ordemProdutos" style="padding:8px 12px;border-radius:6px;border:1px solid #ccc;font-size:1rem;">
-                            <option value="nome" selected>Nome</option>
-                            <option value="categoria">Categoria</option>
-                            <option value="stock">Stock</option>
-                            <option value="vpn">VPN</option>
-                            <option value="nenhum">Sem ordem</option>
-                        </select>
-                    </div>
-                    <button onclick="openModal('createProductModal')" style="background:var(--primary);color:#fff;padding:8px 18px;border:none;border-radius:6px;font-size:1rem;cursor:pointer;transition:background 0.2s;">
-                        ➕ Novo Produto
-                    </button>
-                </div>
-                <div class="produtos-table-wrapper" style="height:calc(100vh - 270px);min-height:200px;">
-                    <table id="produtos-table" style="width:100%;border-collapse:collapse;">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Categoria</th>
-                                <th>Preço</th>
-                                <th>Promo</th>
-                                <th>Peso</th>
-                                <th>Stock</th>
-                                <th>VPN</th>
-                                <th>Activo ?</th>
-                                <th>Gravar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Produtos serão inseridos aqui por JS -->
-                        </tbody>
-                    </table>
-                </div>
-                <div style="display:flex;justify-content:flex-end;margin-top:1rem;">
-                    <button onclick="atualizarTodosProdutos()" style="background:var(--primary);color:#fff;padding:8px 18px;border:none;border-radius:6px;font-size:1rem;cursor:pointer;transition:background 0.2s;">
-                        💾 Atualizar Todos
-                    </button>
-                </div>
-            </div>
-            <div id="section-Crafts" style="display:none;">
-                <h2 style="margin-top:0;">Crafts</h2>
-                <div style="overflow-x:auto;">
-                    <table id="crafts-table" style="width:100%;max-width:600px;margin:auto;border-collapse:collapse;">
-                        <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Quantidade</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Linhas dos crafts serão inseridas por JS -->
-                        </tbody>
-                    </table>
-                </div>
-                <div style="text-align:center;margin-top:1.5rem;">
-                    <button onclick="calcularMateriaisTotal()" style="padding:10px 28px;font-size:1.1em;">Calcular Materiais</button>
-                </div>
-                <div id="craft-result" style="margin-top:2rem;font-size:1.1em;"></div>
-            </div>
-            <div id="section-Boosting" style="display:none;">
-                <div class="wordle-section">
-                    <h2 style="margin-top:0;">🎯 Boosting Solver</h2>
-                    
-                    <!-- Seleção do tamanho da palavra -->
-                    <div class="wordle-word-size">
-                        <label style="font-weight:bold;margin-right:10px;">📏 Tamanho da palavra:</label>
-                        <input type="radio" id="wordle4" name="wordSize" value="4" checked>
-                        <label for="wordle4" style="margin-right:15px;">4 letras</label>
-                        <input type="radio" id="wordle5" name="wordSize" value="5">
-                        <label for="wordle5">5 letras</label>
-                    </div>
+	<div id="main-container" style="display:none;">
+		<div class="sidebar">
+			<button id="btn-logout" onclick="logoutToIndex()" style="background:#e74c3c;color:#fff;margin-top:1.5rem;padding:6px 16px;font-size:0.95rem;width:auto;align-self:flex-start;border-radius:5px;">Sair</button>
+			<button id="btn-produtos" class="active" onclick="showSection('produtos')">Produtos</button>
+			<button id="btn-encomendas" onclick="showSection('encomendas')">Encomendas</button>	
+			<button id="btn-Crafts" onclick="showSection('Crafts')">Crafts</button>	   
+			<button id="btn-Boosting" onclick="showSection('Boosting')">Boosting</button>		  
+			<button id="btn-Support" onclick="showSection('Support')">Support</button>
+			<div id="vpn-ip-result" style="color:#ff9900;font-size:0.98rem;margin-top:4px;text-align: center;"></div>
+			<button class="toggle-mode" onclick="toggleMode()">🌙/☀️ Mudar Tema</button>
+		</div>
+		<div class="content">
+			<div id="section-produtos">
+				<h2 style="margin-top:0;">Gestão de Produtos</h2>
+				<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+					<div style="display:flex;gap:8px;align-items:center;">
+						<input id="searchProdutos" type="text" placeholder="🔎 Produto/Categoria..." style="padding:8px 12px;border-radius:6px;border:1px solid #ccc;font-size:1rem;max-width:220px;">
+						Ordenar por:<select id="ordemProdutos" style="padding:8px 12px;border-radius:6px;border:1px solid #ccc;font-size:1rem;">
+							<option value="nome" selected>Nome</option>
+							<option value="categoria">Categoria</option>
+							<option value="stock">Stock</option>
+							<option value="vpn">VPN</option>
+							<option value="nenhum">Sem ordem</option>
+						</select>
+					</div>
+					<button onclick="openModal('createProductModal')" style="background:var(--primary);color:#fff;padding:8px 18px;border:none;border-radius:6px;font-size:1rem;cursor:pointer;transition:background 0.2s;">
+						➕ Novo Produto
+					</button>
+				</div>
+				<div class="produtos-table-wrapper" style="height:calc(100vh - 270px);min-height:200px;">
+					<table id="produtos-table" style="width:100%;border-collapse:collapse;">
+						<thead>
+							<tr>
+								<th>Nome</th>
+								<th>Categoria</th>
+								<th>Preço</th>
+								<th>Promo</th>
+								<th>Peso</th>
+								<th>Stock</th>
+								<th>VPN</th>
+								<th>Activo ?</th>
+								<th>Gravar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Produtos serão inseridos aqui por JS -->
+						</tbody>
+					</table>
+				</div>
+				<div style="display:flex;justify-content:flex-end;margin-top:1rem;">
+					<button onclick="atualizarTodosProdutos()" style="background:var(--primary);color:#fff;padding:8px 18px;border:none;border-radius:6px;font-size:1rem;cursor:pointer;transition:background 0.2s;">
+						💾 Atualizar Todos
+					</button>
+				</div>
+			</div>
+			<div id="section-Crafts" style="display:none;">
+				<h2 style="margin-top:0;">Crafts</h2>
+				<div style="overflow-x:auto;">
+					<table id="crafts-table" style="width:100%;max-width:600px;margin:auto;border-collapse:collapse;">
+						<thead>
+							<tr>
+								<th>Item</th>
+								<th>Quantidade</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Linhas dos crafts serão inseridas por JS -->
+						</tbody>
+					</table>
+				</div>
+				<div style="text-align:center;margin-top:1.5rem;">
+					<button onclick="calcularMateriaisTotal()" style="padding:10px 28px;font-size:1.1em;">Calcular Materiais</button>
+				</div>
+				<div id="craft-result" style="margin-top:2rem;font-size:1.1em;"></div>
+			</div>
+			<div id="section-Boosting" style="display:none;">
+				<div class="wordle-section">
+					<h2 style="margin-top:0;">🎯 Boosting Solver</h2>
+					
+					<!-- Seleção do tamanho da palavra -->
+					<div class="wordle-word-size">
+						<label style="font-weight:bold;margin-right:10px;">📏 Tamanho da palavra:</label>
+						<input type="radio" id="wordle4" name="wordSize" value="4" checked>
+						<label for="wordle4" style="margin-right:15px;">4 letras</label>
+						<input type="radio" id="wordle5" name="wordSize" value="5">
+						<label for="wordle5">5 letras</label>
+					</div>
 
-                    <!-- Campos de entrada -->
-                    <div class="wordle-grid">
-                        
-                        <!-- Letras corretas (verdes) -->
-                        <div class="wordle-input-section">
-                            <h3 style="color:green;">🟩 Letras Corretas (posição certa)</h3>
-                            <div id="correct-letters" style="display:flex;gap:5px;margin-bottom:10px;">
-                                <!-- Inputs serão gerados dinamicamente pelo JavaScript -->
-                            </div>
-                            <small>Digite as letras nas posições corretas</small>
-                        </div>
+					<!-- Campos de entrada -->
+					<div class="wordle-grid">
+						
+						<!-- Letras corretas (verdes) -->
+						<div class="wordle-input-section">
+							<h3 style="color:green;">🟩 Letras Corretas (posição certa)</h3>
+							<div id="correct-letters" style="display:flex;gap:5px;margin-bottom:10px;">
+								<!-- Inputs serão gerados dinamicamente pelo JavaScript -->
+							</div>
+							<small>Digite as letras nas posições corretas</small>
+						</div>
 
-                        <!-- Letras presentes mas posição errada (amarelas) -->
-                        <div class="wordle-input-section">
-                            <h3 style="color:orange;">🟨 Letras Presentes (posição errada)</h3>
-                            <div id="yellow-letters-container" style="display:flex;gap:5px;margin-bottom:10px;">
-                                <input type="text" class="yellow-input" maxlength="1" placeholder="_" style="width:40px;height:40px;text-align:center;font-size:18px;text-transform:uppercase;border:2px solid #ffa500;border-radius:6px;">
-                                <input type="text" class="yellow-input" maxlength="1" placeholder="_" style="width:40px;height:40px;text-align:center;font-size:18px;text-transform:uppercase;border:2px solid #ffa500;border-radius:6px;">
-                                <input type="text" class="yellow-input" maxlength="1" placeholder="_" style="width:40px;height:40px;text-align:center;font-size:18px;text-transform:uppercase;border:2px solid #ffa500;border-radius:6px;">
-                                <input type="text" class="yellow-input" maxlength="1" placeholder="_" style="width:40px;height:40px;text-align:center;font-size:18px;text-transform:uppercase;border:2px solid #ffa500;border-radius:6px;">
-                                <input type="text" class="yellow-input" maxlength="1" placeholder="_" style="width:40px;height:40px;text-align:center;font-size:18px;text-transform:uppercase;border:2px solid #ffa500;border-radius:6px;">
-                            </div>
-                            <small>Letras que existem mas estão em posições erradas</small>
-                        </div>
+						<!-- Letras presentes mas posição errada (amarelas) -->
+						<div class="wordle-input-section">
+							<h3 style="color:orange;">🟨 Letras Presentes (posição errada)</h3>
+							<div id="yellow-letters-container" style="display:flex;gap:5px;margin-bottom:10px;">
+								<input type="text" class="yellow-input" maxlength="1" placeholder="_" style="width:40px;height:40px;text-align:center;font-size:18px;text-transform:uppercase;border:2px solid #ffa500;border-radius:6px;">
+								<input type="text" class="yellow-input" maxlength="1" placeholder="_" style="width:40px;height:40px;text-align:center;font-size:18px;text-transform:uppercase;border:2px solid #ffa500;border-radius:6px;">
+								<input type="text" class="yellow-input" maxlength="1" placeholder="_" style="width:40px;height:40px;text-align:center;font-size:18px;text-transform:uppercase;border:2px solid #ffa500;border-radius:6px;">
+								<input type="text" class="yellow-input" maxlength="1" placeholder="_" style="width:40px;height:40px;text-align:center;font-size:18px;text-transform:uppercase;border:2px solid #ffa500;border-radius:6px;">
+								<input type="text" class="yellow-input" maxlength="1" placeholder="_" style="width:40px;height:40px;text-align:center;font-size:18px;text-transform:uppercase;border:2px solid #ffa500;border-radius:6px;">
+							</div>
+							<small>Letras que existem mas estão em posições erradas</small>
+						</div>
 
-                        <!-- Letras ausentes (cinzentas) -->
-                        <div class="wordle-input-section">
-                            <h3 style="color:gray;">⬜ Letras Ausentes</h3>
-                            <input type="text" id="gray-letters" placeholder="Letras excluídas aparecerão aqui..." class="wordle-text-input" style="text-transform:uppercase;" readonly>
-                            <div id="qwerty-keyboard" style="margin-top:10px;">
-                                <div class="keyboard-row">
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('Q')">Q</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('W')">W</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('E')">E</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('R')">R</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('T')">T</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('Y')">Y</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('U')">U</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('I')">I</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('O')">O</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('P')">P</button>
-                                </div>
-                                <div class="keyboard-row">
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('A')">A</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('S')">S</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('D')">D</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('F')">F</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('G')">G</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('H')">H</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('J')">J</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('K')">K</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('L')">L</button>
-                                </div>
-                                <div class="keyboard-row">
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('Z')">Z</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('X')">X</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('C')">C</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('V')">V</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('B')">B</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('N')">N</button>
-                                    <button type="button" class="key-btn" onclick="toggleGrayLetter('M')">M</button>
-                                    <button type="button" class="key-btn clear-btn" onclick="clearGrayLetters()">🗑️</button>
-                                </div>
-                            </div>
-                            <small>Clique nas letras para marcar/desmarcar como ausentes</small>
-                        </div>
-                    </div>
+						<!-- Letras ausentes (cinzentas) -->
+						<div class="wordle-input-section">
+							<h3 style="color:gray;">⬜ Letras Ausentes</h3>
+							<input type="text" id="gray-letters" placeholder="Letras excluídas aparecerão aqui..." class="wordle-text-input" style="text-transform:uppercase;" readonly>
+							<div id="qwerty-keyboard" style="margin-top:10px;">
+								<div class="keyboard-row">
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('Q')">Q</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('W')">W</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('E')">E</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('R')">R</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('T')">T</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('Y')">Y</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('U')">U</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('I')">I</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('O')">O</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('P')">P</button>
+								</div>
+								<div class="keyboard-row">
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('A')">A</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('S')">S</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('D')">D</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('F')">F</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('G')">G</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('H')">H</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('J')">J</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('K')">K</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('L')">L</button>
+								</div>
+								<div class="keyboard-row">
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('Z')">Z</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('X')">X</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('C')">C</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('V')">V</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('B')">B</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('N')">N</button>
+									<button type="button" class="key-btn" onclick="toggleGrayLetter('M')">M</button>
+									<button type="button" class="key-btn clear-btn" onclick="clearGrayLetters()">🗑️</button>
+								</div>
+							</div>
+							<small>Clique nas letras para marcar/desmarcar como ausentes</small>
+						</div>
+					</div>
 
-                    <!-- Botões -->
-                    <div class="wordle-buttons">
-                        <button onclick="solveWordle()" class="wordle-btn">
-                            🔍 Encontrar Palavras
-                        </button>
-                        <button onclick="clearWordleInputs()" class="wordle-btn secondary">
-                            🗑️ Limpar
-                        </button>
-                    </div>
+					<!-- Botões -->
+					<div class="wordle-buttons">
+						<button onclick="solveWordle()" class="wordle-btn">
+							🔍 Encontrar Palavras
+						</button>
+						<button onclick="clearWordleInputs()" class="wordle-btn secondary">
+							🗑️ Limpar
+						</button>
+					</div>
 
-                    <!-- Resultado -->
-                    <div class="wordle-result">
-                        <h3>💡 Palavras Possíveis:</h3>
-                        <div id="possible-words" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
-                            <em>Configure os filtros acima e clique em "Encontrar Palavras"</em>
-                        </div>
-                        <div id="word-count" class="word-count"></div>
-                    </div>
-                </div>
-            </div>
-            <div id="section-encomendas" style="display:none;">
-                <h2 style="margin-top:0;">Gestão de Encomendas</h2>
-                <div id="orders" class="orders-table-wrapper"></div>
-                <div id="pending-orders" class="orders-table-wrapper">
-                    <div style="display:flex;justify-content:center;margin:2rem 0;"></div>
-                        <a href="https://docs.google.com/spreadsheets/d/1bqMcx38iJL1ab7aSYbGjMZLzMpBpYvaPZJlOETH-8Ws/edit?usp=sharing" target="_blank" style="background:var(--primary,#3498db);color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-size:1.1em;box-shadow:0 2px 8px #0001;transition:background 0.2s;">
-                            📄 Ver Encomendas no Google Sheets
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
+					<!-- Resultado -->
+					<div class="wordle-result">
+						<h3>💡 Palavras Possíveis:</h3>
+						<div id="possible-words" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
+							<em>Configure os filtros acima e clique em "Encontrar Palavras"</em>
+						</div>
+						<div id="word-count" class="word-count"></div>
+					</div>
+				</div>
+			</div>
+			<div id="section-Support" style="display: none;">
+				<!-- <h2 style="margin-top: 0;">Support</h2> -->
+				<div style="overflow-x: auto;">
+					<div class="staff-container">
+						<div class="sidebar">
+							<div class="sidebar-header">
+								<h1><i class="fas fa-headset"></i> Staff Dashboard</h1>
+								<div class="connection-status" id="connectionStatus">Not connected</div>
+								<div class="config-toggle" onclick="toggleConfig()" id="configToggle">⚙️ Server Settings
+								</div>
+								<div class="server-config" id="serverConfig" style="display: none;">
+									<input type="text" id="serverUrl" placeholder="Backend server URL">
+									<button onclick="connectToServer()">Connect</button>
+									<button onclick="testConnection()">Test</button>
+								</div>
+							</div>
+							<div class="chat-rooms" id="chatRooms">
+								<div class="connection-setup">
+									<h3>Connect to Backend</h3>
+									<div id="errorContainer"></div>
+									<input type="text" id="mainServerUrl" placeholder="Enter backend server URL">
+									<br>
+									<button onclick="initialConnect()">Connect to Server</button>
+									<button onclick="testMainConnection()">Test Connection</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="main-area">
+							<div class="chat-header" id="chatHeader">
+								<div class="chat-title">Connect to backend server</div>
+								<div class="chat-actions">
+									<button class="action-btn" onclick="refreshRooms()" disabled id="refreshBtn">
+										<i class="fas fa-refresh"></i> Refresh
+									</button>
+								</div>
+							</div>
+
+							<div class="empty-state" id="emptyState">
+								<i class="fas fa-server"></i>
+								<h2>Staff Dashboard</h2>
+								<p>Please connect to your backend server to start managing customer chats</p>
+							</div>
+
+							<div class="messages-area" id="messagesArea" style="display: none;"></div>
+
+							<div class="input-area" id="inputArea" style="display: none;">
+								<textarea class="message-input" id="messageInput" placeholder="Type your response..."
+									rows="1"></textarea>
+								<button class="send-btn" id="sendBtn" onclick="sendMessage()">
+									<i class="fas fa-paper-plane"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="section-encomendas" style="display:none;">
+				<h2 style="margin-top:0;">Gestão de Encomendas</h2>
+				<div id="orders" class="orders-table-wrapper"></div>
+				<div id="pending-orders" class="orders-table-wrapper">
+					<div style="display:flex;justify-content:center;margin:2rem 0;"></div>
+						<a href="https://docs.google.com/spreadsheets/d/1bqMcx38iJL1ab7aSYbGjMZLzMpBpYvaPZJlOETH-8Ws/edit?usp=sharing" target="_blank" style="background:var(--primary,#3498db);color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-size:1.1em;box-shadow:0 2px 8px #0001;transition:background 0.2s;">
+							📄 Ver Encomendas no Google Sheets
+						</a>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
 
 	<!-- Create Product Modal -->
 	<div id="createProductModal" class="modal">
@@ -229,11 +288,12 @@
 	</div>
 	<!-- Popup para detalhes dos materiais -->
 	<div id="craft-popup" class="modal" style="display:none;">
-    <div class="modal-content" style="max-width:90vw;min-width:260px;position:relative;">
-        <button onclick="closeCraftPopup()" style="position:absolute;top:10px;right:14px;font-size:1.5em;background:none;border:none;cursor:pointer;">&times;</button>
-        <div id="craft-popup-content"></div>
-    </div>
+	<div class="modal-content" style="max-width:90vw;min-width:260px;position:relative;">
+		<button onclick="closeCraftPopup()" style="position:absolute;top:10px;right:14px;font-size:1.5em;background:none;border:none;cursor:pointer;">&times;</button>
+		<div id="craft-popup-content"></div>
+	</div>
 </div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
 	<script src="script.js"></script>  
 </body>
 
