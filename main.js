@@ -73,9 +73,9 @@ function showPage(p) {
 		filterProducts();
 		// Scroll suave para o topo da secção produtos
 	}
-	if (p === "carrinho") renderCarrinho(); 
+	if (p === "carrinho") renderCarrinho();
 
-	if (p === "compramos") {renderCompramos();}
+	if (p === "compramos") renderCompramos();
 }
 
 function renderCategoryFilters() {
@@ -405,7 +405,7 @@ function renderProductsVPN(productsToRender) {
         </p>
       <p>
         <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
-        <span style="font-size:1.2em;font-weight:bold;color:#770000;">${p.price/0.5} $</span> <br>
+        <span style="font-size:1.2em;font-weight:bold;color:#770000;">${p.price / 0.5} $</span> <br>
         <span style="font-size:0.9em;">
         Peso: ${p.weight} kg <br>
         ${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
@@ -536,7 +536,6 @@ function renderHomeProdutos() {
 	});
 }
 
- 
 
 function addCarrinhoHome(i) {
 	const qtd = parseInt(document.getElementById(`qtd-home-${i}`).value);
@@ -563,7 +562,7 @@ async function copiarResumoCarrinho() {
 	let total = 0;
 	let pesoTotal = 0;
 
-	 (async () => {
+	(async () => {
 		const fatura = document.getElementById("fatura").checked ? "Sim" : "Não";
 		const cpEntrega = document.getElementById("cpEntrega").value || "---";
 		carrinho.forEach((item) => {
@@ -601,12 +600,12 @@ async function copiarResumoCarrinho() {
 		texto = `Encomenda: ${res.orderId}\n\n` + texto;
 		texto = texto + '\n\nTaxa de Transporte 150$ + 25$ por quilómetro.'
 		 // Copia imediatamente ao clicar
-    try {
-        await navigator.clipboard.writeText(texto);
-        alert("Carrinho copiado, pode agora colar o carrinho por mensagem para o Instapic @EsperanzaBuy! \n\nIremos responder assim que possível.");
-    } catch (e) {
-        alert("Não foi possível copiar para a área de transferência. Informe-nos desta situação em Instapic @EsperanzaBuy!");
-    }
+		try {
+			await navigator.clipboard.writeText(texto);
+			alert("Carrinho copiado, pode agora colar o carrinho por mensagem para o Instapic @EsperanzaBuy! \n\nIremos responder assim que possível.");
+		} catch (e) {
+			alert("Não foi possível copiar para a área de transferência. Informe-nos desta situação em Instapic @EsperanzaBuy!");
+		}
 
 	})();
 
