@@ -161,34 +161,34 @@ function renderProducts(productsToRender) {
 		if (p.promo > p.price) {
 			const desconto = Math.round((100 * (p.promo - p.price)) / p.promo);
 			promoBadge = `
-      <div class="promo-badge">
-        Promoção ${desconto}%<br>
-        <span class="promo-antes">Antes ${p.promo} $</span>
-      </div>
-      `;
+	  <div class="promo-badge">
+		Promoção ${desconto}%<br>
+		<span class="promo-antes">Antes ${p.promo} $</span>
+	  </div>
+	  `;
 		}
 		lista.innerHTML += `
-      <div class="product">
-      ${promoBadge}
-      <div class="product-img">
-        <img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
-      </div>
-        <p style="font-weight:bold">${p.name}<br>
-        <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
-          ${p.category}
-        </a>    
-        </p>
-      <p>
-        <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
-        <span style="font-size:0.9em;">
-        Peso: ${p.weight} kg <br>
-        ${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
-        </span>
-      </p>
-      <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
-      <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
-      </div>
-    `;
+	  <div class="product">
+	  ${promoBadge}
+	  <div class="product-img">
+		<img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
+	  </div>
+		<p style="font-weight:bold">${p.name}<br>
+		<a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
+		  ${p.category}
+		</a>	
+		</p>
+	  <p>
+		<span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
+		<span style="font-size:0.9em;">
+		Peso: ${p.weight} kg <br>
+		${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
+		</span>
+	  </p>
+	  <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
+	  <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
+	  </div>
+	`;
 	});
 }
 
@@ -386,34 +386,34 @@ function renderProductsVPN(productsToRender) {
 		if (p.promo > p.price) {
 			const desconto = Math.round((100 * (p.promo - p.price)) / p.promo);
 			promoBadge = `
-      <div class="promo-badge">
-        Promoção ${desconto}%<br>
-        <span class="promo-antes">Antes ${p.promo} $</span>
-      </div>
-      `;
+	  <div class="promo-badge">
+		Promoção ${desconto}%<br>
+		<span class="promo-antes">Antes ${p.promo} $</span>
+	  </div>
+	  `;
 		}
 		lista.innerHTML += `
-     <div class="product">
-      ${promoBadge}
-      <div class="product-img">
-        <img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
-      </div>
-        <p style="font-weight:bold">${p.name}<br>
-        <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
-          ${p.category}
-        </a>    
-        </p>
-      <p>
-        <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
-        <span style="font-size:1.2em;font-weight:bold;color:#770000;">${p.price / 0.5} $</span> <br>
-        <span style="font-size:0.9em;">
-        Peso: ${p.weight} kg <br>
-        ${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
-        </span>
-      </p>
-      <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
-      <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
-      </div>
+	 <div class="product">
+	  ${promoBadge}
+	  <div class="product-img">
+		<img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
+	  </div>
+		<p style="font-weight:bold">${p.name}<br>
+		<a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
+		  ${p.category}
+		</a>	
+		</p>
+	  <p>
+		<span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
+		<span style="font-size:1.2em;font-weight:bold;color:#770000;">${p.price / 0.5} $</span> <br>
+		<span style="font-size:0.9em;">
+		Peso: ${p.weight} kg <br>
+		${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
+		</span>
+	  </p>
+	  <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
+	  <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
+	  </div>
   `;
 	});
 }
@@ -505,33 +505,33 @@ function renderHomeProdutos() {
 		if (p.promo && p.promo > p.price) {
 			const desconto = Math.round((100 * (p.promo - p.price)) / p.promo);
 			promoBadge = `
-    <div class="promo-badge">
-      Promoção ${desconto}%<br>
-      <span class="promo-antes">Antes ${p.promo} $</span>
-    </div>
-    `;
+	<div class="promo-badge">
+	  Promoção ${desconto}%<br>
+	  <span class="promo-antes">Antes ${p.promo} $</span>
+	</div>
+	`;
 		}
 		homeProdutosDiv.innerHTML += `
-    <div class="product">
-    ${promoBadge}
-    <div class="product-img">
-      <img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
-    </div>
-    <p style="font-weight:bold">${p.name}<br>
-      <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
-      ${p.category}
-      </a>    
-    </p>
-    <p>
-      <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
-      <span style="font-size:0.9em;">
-      Peso: ${p.weight} kg <br>
-      ${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
-      </span>
-    </p>
-    <input type="number" id="qtd-home-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
-    <button onclick="addCarrinhoHome(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
-    </div>
+	<div class="product">
+	${promoBadge}
+	<div class="product-img">
+	  <img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
+	</div>
+	<p style="font-weight:bold">${p.name}<br>
+	  <a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
+	  ${p.category}
+	  </a>	
+	</p>
+	<p>
+	  <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
+	  <span style="font-size:0.9em;">
+	  Peso: ${p.weight} kg <br>
+	  ${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
+	  </span>
+	</p>
+	<input type="number" id="qtd-home-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
+	<button onclick="addCarrinhoHome(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
+	</div>
   `;
 	});
 }
@@ -617,27 +617,27 @@ async function copiarResumoCarrinho() {
 
 // NOVO CÓDIGO PARA CARREGAR ANÚNCIOS
 async function carregarAnuncios() {
-    const response = await fetch('https://raw.githubusercontent.com/limpinh0/esperanzabuy/refs/heads/main/anuncios.csv');
-    const csv = await response.text();
-    const hoje = new Date();
-    const hojeStr = hoje.getFullYear().toString() +
-        String(hoje.getMonth() + 1).padStart(2, '0') +
-        String(hoje.getDate()).padStart(2, '0');
+	const response = await fetch('https://raw.githubusercontent.com/limpinh0/esperanzabuy/refs/heads/main/anuncios.csv');
+	const csv = await response.text();
+	const hoje = new Date();
+	const hojeStr = hoje.getFullYear().toString() +
+		String(hoje.getMonth() + 1).padStart(2, '0') +
+		String(hoje.getDate()).padStart(2, '0');
 
-    const linhas = csv.trim().split('\n');
-    const headers = linhas[0].split(',');
-    const anuncios = linhas.slice(1).map(linha => {
-        const campos = linha.split(',');
-        let obj = {};
-        headers.forEach((h, i) => obj[h.trim()] = campos[i]?.trim());
-        return obj;
-    }).filter(a => a.date >= hojeStr); 
+	const linhas = csv.trim().split('\n');
+	const headers = linhas[0].split(',');
+	const anuncios = linhas.slice(1).map(linha => {
+		const campos = linha.split(',');
+		let obj = {};
+		headers.forEach((h, i) => obj[h.trim()] = campos[i]?.trim());
+		return obj;
+	}).filter(a => a.date >= hojeStr); 
 
-    function setAd(divId, url, href, duration = 6000, progress = 1) {
-        const el = document.getElementById(divId);
-        if (el) {
-            // Overlay HTML
-            const overlay = `<div style="
+	function setAd(divId, url, href, duration = 6000, progress = 1) {
+		const el = document.getElementById(divId);
+		if (el) {
+			// Overlay HTML
+			const overlay = `<div style="
 				position:absolute;
 				bottom:0px;w
 				right:1px;
@@ -651,45 +651,45 @@ async function carregarAnuncios() {
 				pointer-events:none;
 			">PUBLICIDADE</div>`;
 
-            // Barrinha de tempo
-            const barraId = `${divId}-progress-bar`;
+			// Barrinha de tempo
+			const barraId = `${divId}-progress-bar`;
 const barra = `<div id="${barraId}" class="ad-progress-bar" style="
-    position:absolute;
-    left:0; right:0;
-    bottom:1px;
-    height:1px;
-    background:linear-gradient(90deg,#ff9900 85%,#fff0 100%);
-    width:${Math.max(0, Math.min(1, progress)) * 100}%;
-    z-index:1;
-    transition:width 0.2s linear;
-    pointer-events:none;
+	position:absolute;
+	left:0; right:0;
+	bottom:1px;
+	height:1px;
+	background:linear-gradient(90deg,#ff9900 85%,#fff0 100%);
+	width:${Math.max(0, Math.min(1, progress)) * 100}%;
+	z-index:1;
+	transition:width 0.2s linear;
+	pointer-events:none;
 "></div>`;
 
-            el.style.position = "relative";
+			el.style.position = "relative";
 
-            if (divId === 'ads-fixed-container-left' || divId === 'ads-fixed-container-right') {
-                if (!url || url.trim() === "") {
-                    el.innerHTML = '<span  style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;">Entre em contacto para mais informações.<br>200x250</span>'
-                    el.style.width = "200px";
-                    el.style.height = "250px";
-                    el.style.border = "1px dashed #ff9900";
-                    el.style.borderRadius = "12px";
-                    el.style.display = "flex";
-                    el.style.flexDirection = "column";
-                    el.style.justifyContent = "center";
-                    el.style.alignItems = "center";
-                    el.style.position = "sticky";
+			if (divId === 'ads-fixed-container-left' || divId === 'ads-fixed-container-right') {
+				if (!url || url.trim() === "") {
+					el.innerHTML = '<span  style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;">Entre em contacto para mais informações.<br>200x250</span>'
+					el.style.width = "200px";
+					el.style.height = "250px";
+					el.style.border = "1px dashed #ff9900";
+					el.style.borderRadius = "12px";
+					el.style.display = "flex";
+					el.style.flexDirection = "column";
+					el.style.justifyContent = "center";
+					el.style.alignItems = "center";
+					el.style.position = "sticky";
 					el.style.top = "40px"; // Alinha ao topo como .container 
-                } else {
-                    el.innerHTML = `
-            <div style="position:relative;width:200px;height:250px;">
-                <a href="${href}" target="_blank" rel="noopener">
-                    <img src="${url}" style="width:200px;height:250px;object-fit:contain;border-radius:12px;">
-                </a>
-                ${barra}
-                ${overlay}
-            </div>
-        `;
+				} else {
+					el.innerHTML = `
+			<div style="position:relative;width:200px;height:250px;">
+				<a href="${href}" target="_blank" rel="noopener">
+					<img src="${url}" style="width:200px;height:250px;object-fit:contain;border-radius:12px;">
+				</a>
+				${barra}
+				${overlay}
+			</div>
+		`;
 					el.style.width = "200px";
 					el.style.height = "250px";
 					el.style.border = "0px";
@@ -698,130 +698,130 @@ const barra = `<div id="${barraId}" class="ad-progress-bar" style="
 					el.style.justifyContent = "center";
 					el.style.alignItems = "center"; 
 					el.style.boxSizing = "border-box";
-                    el.style.position = "sticky";
+					el.style.position = "sticky";
 					el.style.top = "40px"; // Alinha ao topo como .container 
-                }
-            }
+				}
+			}
 
-            if (divId === 'header-ad-top-left' || divId === 'header-ad-top-right') {
-                if (!url || url.trim() === "") {
-                    el.innerHTML = '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>250x250</span>' ;
-                    el.style.width = "250px";
-                    el.style.height = "250px";
-                    el.style.border = "1px dashed #ff9900";
-                    el.style.borderRadius = "12px";
-                    el.style.display = "flex";
-                    el.style.flexDirection = "column";
-                    el.style.justifyContent = "center";
-                    el.style.alignItems = "center";
-                } else {
-                    el.innerHTML = `
-            <div style="position:relative;width:250px;height:250px;">
-                <a href="${href}" target="_blank" rel="noopener">
-                    <img src="${url}" style="width:250px;height:250px;object-fit:contain;border-radius:12px;">
-                </a>
-                ${barra}
-                ${overlay}
-            </div>
-        `;
-                    el.style.width = "250px";
-                    el.style.height = "250px";
-                    el.style.border = "0px";
-                }
-            }
-        }
-    }
+			if (divId === 'header-ad-top-left' || divId === 'header-ad-top-right') {
+				if (!url || url.trim() === "") {
+					el.innerHTML = '<span style="font-weight:bold;color:#ff9900;font-size:1.1rem;text-align:center;">ANUNCIE<br>AQUI!</span><br><span style="font-size:0.9rem;color:#ff9900;text-align:center;margin-top:8px;">Entre em contacto para mais informações.<br>250x250</span>' ;
+					el.style.width = "250px";
+					el.style.height = "250px";
+					el.style.border = "1px dashed #ff9900";
+					el.style.borderRadius = "12px";
+					el.style.display = "flex";
+					el.style.flexDirection = "column";
+					el.style.justifyContent = "center";
+					el.style.alignItems = "center";
+				} else {
+					el.innerHTML = `
+			<div style="position:relative;width:250px;height:250px;">
+				<a href="${href}" target="_blank" rel="noopener">
+					<img src="${url}" style="width:250px;height:250px;object-fit:contain;border-radius:12px;">
+				</a>
+				${barra}
+				${overlay}
+			</div>
+		`;
+					el.style.width = "250px";
+					el.style.height = "250px";
+					el.style.border = "0px";
+				}
+			}
+		}
+	}
 
-    ['l_top', 'r_top', 'l_lat', 'r_lat'].forEach(pos => {
-    const staticAd = anuncios.find(a => a.type === 'static' && a.pos === pos);
-    if (staticAd) {
-        if (pos === 'l_top') setAd('header-ad-top-left', staticAd.url, staticAd.href, 6000, 0);
-        if (pos === 'r_top') setAd('header-ad-top-right', staticAd.url, staticAd.href, 6000, 0);
-        if (pos === 'l_lat') setAd('ads-fixed-container-left', staticAd.url, staticAd.href, 6000, 0);
-        if (pos === 'r_lat') setAd('ads-fixed-container-right', staticAd.url, staticAd.href, 6000, 0);
-    } else {
-        let rotAds = anuncios.filter(a => a.type === 'rotation' && a.pos === pos); 
-        if (rotAds.length > 0) {
-            // Adiciona um ciclo extra para o "ANUNCIE AQUI"
-            rotAds = [...rotAds, { url: "", type: "rotation", pos }];
+	['l_top', 'r_top', 'l_lat', 'r_lat'].forEach(pos => {
+	const staticAd = anuncios.find(a => a.type === 'static' && a.pos === pos);
+	if (staticAd) {
+		if (pos === 'l_top') setAd('header-ad-top-left', staticAd.url, staticAd.href, 6000, 0);
+		if (pos === 'r_top') setAd('header-ad-top-right', staticAd.url, staticAd.href, 6000, 0);
+		if (pos === 'l_lat') setAd('ads-fixed-container-left', staticAd.url, staticAd.href, 6000, 0);
+		if (pos === 'r_lat') setAd('ads-fixed-container-right', staticAd.url, staticAd.href, 6000, 0);
+	} else {
+		let rotAds = anuncios.filter(a => a.type === 'rotation' && a.pos === pos); 
+		if (rotAds.length > 0) {
+			// Adiciona um ciclo extra para o "ANUNCIE AQUI"
+			rotAds = [...rotAds, { url: "", type: "rotation", pos }];
 
-            let idx = 0;
-            let startTime = Date.now();
-            let intervalId = null;
-            const divId =
-                pos === 'l_top' ? 'header-ad-top-left' :
-                pos === 'r_top' ? 'header-ad-top-right' :
-                pos === 'l_lat' ? 'ads-fixed-container-left' :
-                pos === 'r_lat' ? 'ads-fixed-container-right' : '';
+			let idx = 0;
+			let startTime = Date.now();
+			let intervalId = null;
+			const divId =
+				pos === 'l_top' ? 'header-ad-top-left' :
+				pos === 'r_top' ? 'header-ad-top-right' :
+				pos === 'l_lat' ? 'ads-fixed-container-left' :
+				pos === 'r_lat' ? 'ads-fixed-container-right' : '';
 
-            const barraId = `${divId}-progress-bar`;
+			const barraId = `${divId}-progress-bar`;
 
-            function rotate() {
-                let progress = 1;
-                if (intervalId) clearInterval(intervalId);
-                startTime = Date.now();
+			function rotate() {
+				let progress = 1;
+				if (intervalId) clearInterval(intervalId);
+				startTime = Date.now();
 
-                function updateBar() {
-                    const elapsed = Date.now() - startTime;
-                    const progress = 1 - Math.min(elapsed / 6000, 1);
-                    const barraEl = document.getElementById(barraId);
-                    if (barraEl) {
-                        barraEl.style.width = `${Math.max(0, Math.min(1, progress)) * 100}%`;
-                    }
-                    if (progress > 0) {
-                        requestAnimationFrame(updateBar);
-                    }
-                }
-                updateBar();
+				function updateBar() {
+					const elapsed = Date.now() - startTime;
+					const progress = 1 - Math.min(elapsed / 6000, 1);
+					const barraEl = document.getElementById(barraId);
+					if (barraEl) {
+						barraEl.style.width = `${Math.max(0, Math.min(1, progress)) * 100}%`;
+					}
+					if (progress > 0) {
+						requestAnimationFrame(updateBar);
+					}
+				}
+				updateBar();
 
-                intervalId = setTimeout(() => {
-                    idx = (idx + 1) % rotAds.length;
-                    setAd(divId, rotAds[idx].url, rotAds[idx].href, 6000, 1);
-                    rotate();
-                }, 6000);
-            }
+				intervalId = setTimeout(() => {
+					idx = (idx + 1) % rotAds.length;
+					setAd(divId, rotAds[idx].url, rotAds[idx].href, 6000, 1);
+					rotate();
+				}, 6000);
+			}
 
-            setAd(divId, rotAds[idx].url, rotAds[idx].href, 6000, 1);
-            rotate();
-        }
-    }
+			setAd(divId, rotAds[idx].url, rotAds[idx].href, 6000, 1);
+			rotate();
+		}
+	}
 });
 }
 
 function renderCompramos() {
-    const produtosCompramos = produtos
-        .filter(p =>
-            (p.name === "Ácido de bateria" ||
-                (p.name === "Kit eletrónico" && p.stock < 25) ||
-                (p.category === "Minérios" && p.stock < 200) || 
+	const produtosCompramos = produtos
+		.filter(p =>
+			(p.name === "Ácido de bateria" ||
+				(p.name === "Kit eletrónico" && p.stock < 25) ||
+				(p.category === "Minérios" && p.stock < 200) || 
 				(p.name === "Tábuas de madeira" && p.category === "Materiais" && p.stock < 200) ||
 				(p.name !== "Tábuas de madeira" && p.category === "Materiais" && p.stock < 500)) &&
 				p.name !== "Thermite" &&
 				p.name !== "Couro" &&
-            	p.active &&
-            	(!p.vpn || p.vpn === 0)
-        )
-        .sort((a, b) => {
-            if (a.category !== b.category) return a.category.localeCompare(b.category);
-            return a.name.localeCompare(b.name);
-        });
+				p.active &&
+				(!p.vpn || p.vpn === 0)
+		)
+		.sort((a, b) => {
+			if (a.category !== b.category) return a.category.localeCompare(b.category);
+			return a.name.localeCompare(b.name);
+		});
 
-    let html = `
-         <table class="compramos-table">
-            <thead>
-                <tr>
-                    <th class="compramos-th compramos-th-produto">Produto</th>
-                    <th class="compramos-th">Categoria</th>
-                    <th class="compramos-th">Preço compra</th>
-                    <th class="compramos-th">Quantidade</th>
-                    <th class="compramos-th compramos-th-total">Total linha</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
+	let html = `
+		 <table class="compramos-table">
+			<thead>
+				<tr>
+					<th class="compramos-th compramos-th-produto">Produto</th>
+					<th class="compramos-th">Categoria</th>
+					<th class="compramos-th">Preço compra</th>
+					<th class="compramos-th">Quantidade</th>
+					<th class="compramos-th compramos-th-total">Total linha</th>
+				</tr>
+			</thead>
+			<tbody>
+	`;
 
-    produtosCompramos.forEach((p, idx) => {
-        const precoCompra = (p.price * 0.75).toFixed(2).replace('.', ',');
+	produtosCompramos.forEach((p, idx) => {
+		const precoCompra = (p.price * 0.75).toFixed(2).replace('.', ',');
 		html += `
 			<tr class="compramos-tr">
 			<td class="compramos-td compramos-td-produto">
@@ -841,24 +841,24 @@ function renderCompramos() {
 			<td class="compramos-td compramos-td-total" align="right" id="compramos-total-linha-${idx}">0,00</td>
 			</tr>
 		`;
-    });
+	});
 
-    html += `</tbody></table>`;
-    document.getElementById("compramos-lista").innerHTML = html;
-    document.getElementById("compramos-total").textContent = "0,00";
-    window.atualizaTotalLinhaCompramos = function(idx) {
-        const qtd = parseFloat(document.getElementById(`compramos-qtd-${idx}`).value) || 0;
-        const preco = parseFloat(document.getElementById(`preco-compra-${idx}`).textContent.replace(',', '.'));
-        const totalLinha = qtd * preco;
-        document.getElementById(`compramos-total-linha-${idx}`).textContent = totalLinha.toFixed(2).replace('.', ',');
-        // Atualiza total global
-        let totalGlobal = 0;
-        for (let i = 0; i < produtosCompramos.length; i++) {
-            const t = parseFloat(document.getElementById(`compramos-total-linha-${i}`).textContent.replace(',', '.')) || 0;
-            totalGlobal += t;
-        }
+	html += `</tbody></table>`;
+	document.getElementById("compramos-lista").innerHTML = html;
+	document.getElementById("compramos-total").textContent = "0,00";
+	window.atualizaTotalLinhaCompramos = function(idx) {
+		const qtd = parseFloat(document.getElementById(`compramos-qtd-${idx}`).value) || 0;
+		const preco = parseFloat(document.getElementById(`preco-compra-${idx}`).textContent.replace(',', '.'));
+		const totalLinha = qtd * preco;
+		document.getElementById(`compramos-total-linha-${idx}`).textContent = totalLinha.toFixed(2).replace('.', ',');
+		// Atualiza total global
+		let totalGlobal = 0;
+		for (let i = 0; i < produtosCompramos.length; i++) {
+			const t = parseFloat(document.getElementById(`compramos-total-linha-${i}`).textContent.replace(',', '.')) || 0;
+			totalGlobal += t;
+		}
 		document.getElementById("compramos-total").textContent = totalGlobal.toFixed(2).replace('.', ',');
-    };
+	};
 }
 // Função para copiar a lista de compra
 function copiarListaCompra() {
