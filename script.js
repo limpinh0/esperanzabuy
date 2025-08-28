@@ -1830,4 +1830,485 @@ window.clearWordleInputs = clearWordleInputs;
 window.toggleGrayLetter = toggleGrayLetter;
 window.clearGrayLetters = clearGrayLetters;
 window.updateKeyboardState = updateKeyboardState;
-	
+
+class StaffDashboard {
+	constructor() {
+		this.socket = null;
+		this.currentRoomId = null;
+		this.chatRooms = new Map();
+		this.isConnected = false;
+		this.serverUrl = this.getDefaultServerUrl();
+		this.init();
+	}
+
+	getDefaultServerUrl() {
+		const stored = localStorage.getItem('staff-server-url');
+		if (stored) return stored;
+
+		const defaults = [
+			"https://api.esperanzabuy.pt",
+			'http://localhost:3000',
+			'http://127.0.0.1:3000'
+		];
+
+		return BASEAPI || defaults[0];
+	}
+
+	init() {
+		this.setupUI();
+		this.setupEventListeners();
+		// Don't auto-connect, wait for user to specify server
+	}
+
+	setupUI() {
+		document.getElementById('serverUrl').value = this.serverUrl;
+		document.getElementById('mainServerUrl').value = this.serverUrl;
+	}
+
+	connectToServer() {
+		const url = document.getElementById('serverUrl').value.trim() ||
+			document.getElementById('mainServerUrl').value.trim();
+
+		if (!url) {
+			this.showError('Please enter a server URL');
+			return;
+		}
+
+		this.serverUrl = BASEAPI;
+		localStorage.setItem('staff-server-url', url);
+
+		if (this.socket) {
+			this.socket.disconnect();
+		}
+
+		this.updateConnectionStatus('Connecting...', 'pending');
+
+		try {
+			this.socket = io(this.serverUrl, {
+				transports: ['websocket', 'polling'],
+				timeout: 10000,
+				forceNew: true
+			});
+
+			this.setupSocketEvents();
+		} catch (error) {
+			this.showError('Failed to connect to server: ' + error.message);
+			this.updateConnectionStatus('Connection failed', 'error');
+		}
+	}
+
+	setupSocketEvents() {
+		this.socket.on('connect', () => {
+			this.isConnected = true;
+			this.updateConnectionStatus('Connected', 'success');
+			//this.clearError();
+
+			// Register as staff
+			this.socket.emit('staff-connect');
+
+			// Update UI
+			this.showConnectedState();
+			document.getElementById('refreshBtn').disabled = false;
+		});
+
+		this.socket.on('disconnect', () => {
+			this.isConnected = false;
+			this.updateConnectionStatus('Disconnected', 'error');
+			document.getElementById('refreshBtn').disabled = true;
+			document.getElementById('sendBtn').disabled = true;
+		});
+
+		this.socket.on('chat-rooms-update', (rooms) => {
+			this.updateChatRooms(rooms);
+		});
+
+		this.socket.on('new-message', (message) => {
+			this.handleNewMessage(message);
+		});
+
+		this.socket.on('room-messages', (data) => {
+			this.displayRoomMessages(data.roomId, data.messages);
+		});
+
+		this.socket.on('connect_error', (error) => {
+			this.showError(`Connection failed: ${error.message}`);
+			this.updateConnectionStatus('Connection failed', 'error');
+		});
+
+		this.socket.on('error', (error) => {
+			this.showError('Socket error: ' + error);
+		});
+
+		//! Handle room closure
+		socket.on('room-closed', (data) => {
+			// Show closure message to user
+			// Redirect or disable chat interface
+		});
+
+		// Handle staff command responses
+		socket.on('staff-command-response', (data) => {
+			// Show command feedback to staff
+		});
+
+		// Handle disconnection by staff
+		socket.on('disconnected-by-staff', (data) => {
+			// Inform user that chat was ended by staff
+		});
+	}
+
+	setupEventListeners() {
+		const messageInput = document.getElementById('messageInput');
+
+		// Auto-resize textarea
+		messageInput.addEventListener('input', () => {
+			messageInput.style.height = 'auto';
+			messageInput.style.height = Math.min(messageInput.scrollHeight, 120) + 'px';
+		});
+
+		// Send message on Enter (Shift+Enter for new line)
+		messageInput.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter' && !e.shiftKey) {
+				e.preventDefault();
+				this.sendMessage();
+			}
+		});
+
+		// Server URL inputs
+		document.getElementById('serverUrl').addEventListener('keypress', (e) => {
+			if (e.key === 'Enter') {
+				this.connectToServer();
+			}
+		});
+
+		document.getElementById('mainServerUrl').addEventListener('keypress', (e) => {
+			if (e.key === 'Enter') {
+				this.connectToServer();
+			}
+		});
+	}
+
+	showConnectedState() {
+		document.querySelector('.connection-setup').style.display = 'none';
+		document.querySelector('.chat-title').textContent = 'Select a chat room';
+
+		// Show empty state initially
+		document.getElementById('emptyState').innerHTML = `
+                    <i class="fas fa-comment-dots"></i>
+                    <h2>Connected to Server</h2>
+                    <p>Select a chat room from the sidebar to start responding to customers</p>
+                `;
+	}
+
+	updateConnectionStatus(status, type) {
+		const statusEl = document.getElementById('connectionStatus');
+		statusEl.textContent = status;
+		statusEl.style.color = type === 'success' ? '#4ade80' :
+			type === 'error' ? '#f87171' :
+				type === 'pending' ? '#fbbf24' : 'inherit';
+	}
+
+	updateChatRooms(rooms) {
+		const chatRoomsEl = document.getElementById('chatRooms');
+
+		if (rooms.length === 0) {
+			chatRoomsEl.innerHTML = `
+                        <div class="no-rooms">
+                            <i class="fas fa-comments"></i>
+                            <h3>No active chats</h3>
+                            <p>Waiting for customers...</p>
+                        </div>
+                    `;
+			return;
+		}
+
+		// Update local rooms data
+		rooms.forEach(room => {
+			this.chatRooms.set(room.roomId, room);
+		});
+
+		chatRoomsEl.innerHTML = '';
+		rooms.forEach(room => {
+			const roomEl = this.createRoomElement(room);
+			chatRoomsEl.appendChild(roomEl);
+		});
+
+		// Update current room if selected
+		if (this.currentRoomId && this.chatRooms.has(this.currentRoomId)) {
+			this.highlightRoom(this.currentRoomId);
+		}
+	}
+
+	createRoomElement(room) {
+		const roomEl = document.createElement('div');
+		roomEl.className = 'room-item';
+		roomEl.dataset.roomId = room.roomId;
+
+		const lastActivity = new Date(room.lastActivity);
+		const timeAgo = this.getTimeAgo(lastActivity);
+
+		console.log(room, room.participants[0]);
+		roomEl.innerHTML = `
+                    <div class="room-info">
+                        <div class="room-details">
+                            <h3>Chat ${room.participants[0].username}</h3>
+                            <div class="room-meta">
+                                ${room.messageCount} messages • ${room.participantCount} participants
+                            </div>
+                            <div class="room-timestamp">${timeAgo}</div>
+                        </div>
+                        <div class="room-badge">${room.messageCount}</div>
+                    </div>
+                    <div class="participants">
+                        <i class="fas fa-users"></i> ${room.participants ? room.participants[0].username : 'No participants'}
+                    </div>
+                `;
+
+		roomEl.addEventListener('click', () => {
+			this.selectRoom(room.roomId);
+		});
+
+		return roomEl;
+	}
+
+	selectRoom(roomId) {
+		if (this.currentRoomId === roomId) return;
+
+		this.currentRoomId = roomId;
+		this.highlightRoom(roomId);
+		this.showChatArea(roomId);
+
+		// Request room messages
+		this.socket.emit('staff-join-room', roomId);
+	}
+
+	highlightRoom(roomId) {
+		// Remove active class from all rooms
+		document.querySelectorAll('.room-item').forEach(el => {
+			el.classList.remove('active');
+		});
+
+		// Add active class to selected room
+		const roomEl = document.querySelector(`[data-room-id="${roomId}"]`);
+		if (roomEl) {
+			roomEl.classList.add('active');
+		}
+	}
+
+	showChatArea(roomId) {
+		const room = this.chatRooms.get(roomId);
+
+		// Update header
+		const chatTitle = document.querySelector('.chat-title');
+		/* chatTitle.textContent = room ?
+			`Chat ${roomId.split('_')[1]} - ${room.participants.join(', ')}` :
+			`Chat ${roomId.split('_')[1]}`; */
+		chatTitle.textContent = room ?
+			`Chat ${roomId.split('_')[1]} - ${room.participants[0].username}` :
+			`Chat ${roomId.split('_')[1]}`;
+
+		// Show chat area
+		document.getElementById('emptyState').style.display = 'none';
+		document.getElementById('messagesArea').style.display = 'block';
+		document.getElementById('inputArea').style.display = 'flex';
+
+		// Clear messages
+		document.getElementById('messagesArea').innerHTML = '';
+
+		// Enable send button and focus input
+		document.getElementById('sendBtn').disabled = false;
+		document.getElementById('messageInput').focus();
+	}
+
+	displayRoomMessages(roomId, messages) {
+		if (roomId !== this.currentRoomId) return;
+
+		const messagesArea = document.getElementById('messagesArea');
+		messagesArea.innerHTML = '';
+
+		messages.forEach(message => {
+			this.displayMessage(message);
+		});
+
+		messagesArea.scrollTop = messagesArea.scrollHeight;
+	}
+
+	handleNewMessage(message) {
+		// Update room data
+		const room = this.chatRooms.get(message.roomId);
+		if (room) {
+			room.messageCount++;
+			room.lastActivity = message.timestamp;
+		}
+
+		// Display message if in current room
+		if (message.roomId === this.currentRoomId) {
+			this.displayMessage(message);
+		}
+
+		// Update room display
+		this.updateRoomDisplay(message.roomId);
+	}
+
+	displayMessage(message) {
+		const messagesArea = document.getElementById('messagesArea');
+		const messageEl = document.createElement('div');
+
+		messageEl.className = `message ${message.type}`;
+
+		let senderInfo = '';
+		if (message.type === 'user') {
+			senderInfo = `<div class="message-sender">${message.sender}</div>`;
+		} else if (message.type === 'staff') {
+			senderInfo = '<div class="message-sender">Staff</div>';
+		}
+
+		const timeStr = new Date(message.timestamp).toLocaleTimeString();
+
+		messageEl.innerHTML = `
+                    ${senderInfo}
+                    <div class="message-bubble">
+                        ${this.escapeHtml(message.message)}
+                    </div>
+                    <div class="message-info">${timeStr}</div>
+                `;
+
+		messagesArea.appendChild(messageEl);
+		messagesArea.scrollTop = messagesArea.scrollHeight;
+	}
+
+	updateRoomDisplay(roomId) {
+		const roomEl = document.querySelector(`[data-room-id="${roomId}"]`);
+		if (roomEl) {
+			const room = this.chatRooms.get(roomId);
+			if (room) {
+				const badge = roomEl.querySelector('.room-badge');
+				const meta = roomEl.querySelector('.room-meta');
+				const timestamp = roomEl.querySelector('.room-timestamp');
+
+				badge.textContent = room.messageCount;
+				meta.textContent = `${room.messageCount} messages • ${room.participantCount} participants`;
+				timestamp.textContent = this.getTimeAgo(new Date(room.lastActivity));
+			}
+		}
+	}
+
+	sendMessage() {
+		if (!this.currentRoomId || !this.isConnected) return;
+
+		const messageInput = document.getElementById('messageInput');
+		const message = messageInput.value.trim();
+
+		if (!message) return;
+
+		this.socket.emit('send-message', {
+			message: message,
+			roomId: this.currentRoomId
+		});
+
+		messageInput.value = '';
+		messageInput.style.height = 'auto';
+	}
+
+	refreshRooms() {
+		if (this.isConnected) {
+			this.socket.emit('staff-connect');
+		}
+	}
+
+	async testConnection() {
+		const url = document.getElementById('serverUrl').value.trim() ||
+			document.getElementById('mainServerUrl').value.trim();
+
+		if (!url) {
+			this.showError('Please enter a server URL');
+			return;
+		}
+
+		try {
+			const response = await fetch(url + '/health');
+			if (response.ok) {
+				const data = await response.json();
+				alert(`✅ Server is reachable!\n\nStatus: ${data.status}\nActive rooms: ${data.activeRooms}\nStaff online: ${data.connectedStaff}`);
+			} else {
+				alert('❌ Server responded but with an error: ' + response.status);
+			}
+		} catch (error) {
+			alert('❌ Cannot reach server: ' + error.message);
+		}
+	}
+
+	getTimeAgo(date) {
+		const now = new Date();
+		const diff = now - date;
+		const minutes = Math.floor(diff / 60000);
+
+		if (minutes < 1) return 'Just now';
+		if (minutes < 60) return `${minutes}m ago`;
+
+		const hours = Math.floor(minutes / 60);
+		if (hours < 24) return `${hours}h ago`;
+
+		const days = Math.floor(hours / 24);
+		return `${days}d ago`;
+	}
+
+	escapeHtml(text) {
+		const div = document.createElement('div');
+		div.textContent = text;
+		return div.innerHTML;
+	}
+
+	showError(message) {
+		const errorContainer = document.getElementById('errorContainer');
+		errorContainer.innerHTML = `<div class="error-message">${message}</div>`;
+	}
+
+	clearError() {
+		document.getElementById('errorContainer').innerHTML = '';
+	}
+}
+
+// Initialize dashboard
+let staffDashboard;
+document.addEventListener('DOMContentLoaded', () => {
+	staffDashboard = new StaffDashboard();
+	staffDashboard.connectToServer();
+});
+
+// Global functions
+function sendMessage() {
+	staffDashboard.sendMessage();
+}
+
+function refreshRooms() {
+	staffDashboard.refreshRooms();
+}
+
+function toggleConfig() {
+	const config = document.getElementById('serverConfig');
+	const toggle = document.getElementById('configToggle');
+
+	if (config.style.display === 'none') {
+		config.style.display = 'block';
+		toggle.textContent = '⚙️ Hide Settings';
+	} else {
+		config.style.display = 'none';
+		toggle.textContent = '⚙️ Server Settings';
+	}
+}
+
+function connectToServer() {
+	staffDashboard.connectToServer();
+}
+
+function initialConnect() {
+	staffDashboard.connectToServer();
+}
+
+function testConnection() {
+	staffDashboard.testConnection();
+}
+
+function testMainConnection() {
+	staffDashboard.testConnection();
+}
