@@ -167,30 +167,68 @@ function renderProducts(productsToRender) {
 	  </div>
 	  `;
 		}
+
+		// Se encomenda, permite qualquer quantidade e botão "Encomendar"
+		let inputHtml, buttonHtml;
+		if (p.encomenda === true) {
+			inputHtml = `<input type="number" id="qtd-${originalIndex}" value="1" min="1">`;
+			buttonHtml = `<button onclick="encomendarProduto(${originalIndex})">Adicionar ao carrinho</button>`;
+			stockHtml = '<span style="color:#0077cc;font-weight:bold;">Por encomenda</span>';
+		} else {
+			inputHtml = `<input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>`;
+			buttonHtml = `<button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>`;
+			if (p.stock === 0) {
+				stockHtml = '<span style="color:#d00;font-weight:bold;">Sem stock</span>';
+			} else {
+				stockHtml = `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`;
+			}
+		}
+
 		lista.innerHTML += `
-	  <div class="product">
-	  ${promoBadge}
-	  <div class="product-img">
-		<img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
-	  </div>
-		<p style="font-weight:bold">${p.name}<br>
-		<a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
-		  ${p.category}
-		</a>	
+		<div class="product">
+		${promoBadge}
+		<div class="product-img">
+			<img src="https://api.esperanzabuy.pt/img/${p.image}" alt="${p.name}">
+		</div>
+			<p style="font-weight:bold">${p.name}<br>
+			<a href="#" class="category-link" style="color:#ff9900;font-weight:bold;text-decoration:underline;font-size:0.8em" onclick="filtrarPorcategory('${p.category}');return false;">
+			${p.category}
+			</a>	
+			</p>
+		<p>
+			<span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
+			<span style="font-size:0.9em;">
+			Peso: ${p.weight} kg <br>
+			
+			${stockHtml} 
+			</span>
 		</p>
-	  <p>
-		<span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
-		<span style="font-size:0.9em;">
-		Peso: ${p.weight} kg <br>
-		${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
-		</span>
-	  </p>
-	  <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
-	  <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
+	  ${inputHtml}
+	  ${buttonHtml}
 	  </div>
 	`;
 	});
 }
+
+// Adiciona função global para encomendar produto
+function encomendarProduto(i) {
+	const qtd = parseInt(document.getElementById(`qtd-${i}`).value);
+	if (isNaN(qtd) || qtd < 1 ) {
+		alert("Stock insuficiente ou quantidade inválida");
+		return;
+	}
+	const item = { ...produtos[i] };
+	const existente = carrinho.find((p) => p.name === item.name);
+	console.log(qtd);
+	if (existente) existente.qtd += qtd;
+	else {
+		item.qtd = qtd;
+		carrinho.push(item);
+	}
+	filterProducts();
+	filterProductsVPN();
+	updateCarrinhoBadge();
+};
 
 function addCarrinho(i) {
 	const qtd = parseInt(document.getElementById(`qtd-${i}`).value);
@@ -392,6 +430,22 @@ function renderProductsVPN(productsToRender) {
 	  </div>
 	  `;
 		}
+
+		let inputHtml, buttonHtml;
+	if (p.encomenda === true) { 
+		inputHtml = `<input type="number" id="qtd-${originalIndex}" value="1" min="1">`;
+		buttonHtml = `<button onclick="encomendarProduto(${originalIndex})">Adicionar ao carrinho</button>`;
+		stockHtml = '<span style="color:#0077cc;font-weight:bold;">Por encomenda</span>';
+	} else {
+		inputHtml = `<input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>`;
+		buttonHtml = `<button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>`;
+		if (p.stock === 0) {
+			stockHtml = '<span style="color:#d00;font-weight:bold;">Sem stock</span>';
+		} else {
+			stockHtml = `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`;
+		}
+	} 
+	
 		lista.innerHTML += `
 	 <div class="product">
 	  ${promoBadge}
@@ -408,12 +462,14 @@ function renderProductsVPN(productsToRender) {
 		<span style="font-size:1.2em;font-weight:bold;color:#770000;">${p.price / 0.5} $</span> <br>
 		<span style="font-size:0.9em;">
 		Peso: ${p.weight} kg <br>
-		${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
-		</span>
-	  </p>
-	  <input type="number" id="qtd-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
-	  <button onclick="addCarrinho(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
-	  </div>
+		${stockHtml} 
+	  </span>
+	</p>
+	
+	
+	  ${inputHtml}
+	  ${buttonHtml}
+	</div>
   `;
 	});
 }
@@ -496,6 +552,8 @@ function renderHomeProdutos() {
 		produtosHomeAleatorios = [...emPromoShuffled, ...semPromoShuffled].slice(0, 12);
 	}
 
+	
+
 	homeProdutosDiv.innerHTML = "";
 	produtosHomeAleatorios.forEach((p, i) => {
 		if (!p.active) return;
@@ -511,7 +569,24 @@ function renderHomeProdutos() {
 	</div>
 	`;
 		}
-		homeProdutosDiv.innerHTML += `
+
+	// Se encomenda, permite qualquer quantidade e botão "Encomendar"
+	let inputHtml, buttonHtml;
+	if (p.encomenda === true) { 
+		inputHtml = `<input type="number" id="qtd-home-${originalIndex}" value="1" min="1">`;
+		buttonHtml = `<button onclick="encomendarProdutoHome(${originalIndex})">Adicionar ao carrinho</button>`;
+		stockHtml = '<span style="color:#0077cc;font-weight:bold;">Por encomenda</span>';
+	} else {
+		inputHtml = `<input type="number" id="qtd-home-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>`;
+		buttonHtml = `<button onclick="addCarrinhoHome(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>`;
+		if (p.stock === 0) {
+			stockHtml = '<span style="color:#d00;font-weight:bold;">Sem stock</span>';
+		} else {
+			stockHtml = `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`;
+		}
+	} 
+	
+	homeProdutosDiv.innerHTML += `
 	<div class="product">
 	${promoBadge}
 	<div class="product-img">
@@ -526,16 +601,37 @@ function renderHomeProdutos() {
 	  <span style="font-size:1.4em;font-weight:bold;">${p.price} $</span> <br>
 	  <span style="font-size:0.9em;">
 	  Peso: ${p.weight} kg <br>
-	  ${p.stock === 0 ? '<span style="color:#d00;font-weight:bold;">Sem stock</span>' : `Stock: <span style="color:#1bbf1b;font-weight:bold;">${p.stock}</span>`}
+	  ${stockHtml} 
 	  </span>
 	</p>
-	<input type="number" id="qtd-home-${originalIndex}" value="1" min="1" max="${p.stock}" ${p.stock === 0 ? "disabled" : ""}>
-	<button onclick="addCarrinhoHome(${originalIndex})" ${p.stock === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ""}>Adicionar ao carrinho</button>
+	
+	
+	  ${inputHtml}
+	  ${buttonHtml}
 	</div>
   `;
 	});
 }
 
+
+function encomendarProdutoHome(i) {
+	const qtd = parseInt(document.getElementById(`qtd-home-${i}`).value);
+	if (isNaN(qtd) || qtd < 1 ) {
+		alert("Stock insuficiente ou quantidade inválida");
+		return;
+	}
+	const item = { ...produtos[i] };
+	const existente = carrinho.find((p) => p.name === item.name);
+	if (existente) existente.qtd += qtd;
+	else {
+		item.qtd = qtd;
+		carrinho.push(item);
+	}
+	renderHomeProdutos();
+	filterProducts();
+	filterProductsVPN();
+	updateCarrinhoBadge();
+}
 
 function addCarrinhoHome(i) {
 	const qtd = parseInt(document.getElementById(`qtd-home-${i}`).value);
@@ -791,22 +887,16 @@ const barra = `<div id="${barraId}" class="ad-progress-bar" style="
 function renderCompramos() {
 	const produtosCompramos = produtos
 		.filter(p =>
-			(p.name === "Ácido de bateria" ||
-				(p.name === "Kit eletrónico" && p.stock < 25) ||
-				(p.category === "Minérios" && p.stock < 200) || 
-				(p.name === "Tábuas de madeira" && p.category === "Materiais" && p.stock < 200) ||
-				(p.name !== "Tábuas de madeira" && p.category === "Materiais" && p.stock < 500)) &&
-				p.name !== "Thermite" &&
-				p.name !== "Couro" &&
+			(p.stock < p.stockmin &&
 				p.active &&
-				(!p.vpn || p.vpn === 0)
+				(!p.vpn || p.vpn === 0))
 		)
 		.sort((a, b) => {
 			if (a.category !== b.category) return a.category.localeCompare(b.category);
 			return a.name.localeCompare(b.name);
 		});
 
-	let html = `
+		let html = `
 		 <table class="compramos-table">
 			<thead>
 				<tr>
