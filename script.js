@@ -408,7 +408,7 @@ const craftsData = [
 			"Cobre": 35,
 			"Pólvora": 7,
 			"Borracha": 20,
-			"Kit eletrónico": 3,
+			"Kit Eletrónico": 3,
 			"Ácido de bateria": 2,
 			"Chumbo": 4,
 			"Plástico": 40
