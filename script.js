@@ -998,8 +998,12 @@ function renderProdutosTable(produtos) {
 			<td><input type="number" value="${prod.promo}" style="width:60px" /></td>
 			<td><input type="number" value="${prod.weight}" style="width:60px" /></td>
 			<td><input type="number" value="${prod.stock}" style="width:60px" /></td>
+			<td><input type="number" value="${prod.stockmin}" style="width:60px" /></td>
+			<td style="text-align:center;cursor:pointer;" onclick="toggleEncomenda(this, '${prod.name}')">
+				<span title="Clique para alternar">${prod.encomenda === true ? '✅' : '❌'}</span>
+			</td>
 			<td><input type="number" value="${prod.vpn}" style="width:60px" /></td>
-			  <td style="text-align:center;cursor:pointer;" onclick="toggleActive(this, '${prod.name}')">
+			<td style="text-align:center;cursor:pointer;" onclick="toggleActive(this, '${prod.name}')">
 				<span title="Clique para alternar">${prod.active === true ? '✅' : '❌'}</span>
 			</td>
 			<td>
@@ -1014,37 +1018,43 @@ function renderProdutosTable(produtos) {
 
 // Edição de produto diretamente na grelha:
 async function submitEditProductFromRow(btn, encodedName) {
-	const tr = btn.closest('tr');
-	const inputs = tr.querySelectorAll('input');
-	const [categoryInput, priceInput, promoInput, weightInput, stockInput, vpnInput] = inputs;
-	if (vpnInput.value.trim() !== '0' && vpnInput.value.trim() !== '1')
-		return alert(`VPN so pode ser '0' ou '1'`);
-	if (priceInput.value.trim() < 0) return alert(`Não pode ter preço negativo!`);
-	if (promoInput.value.trim() < 0) return alert(`Não pode ter uma promoção negativa!`);
-	if (weightInput.value.trim() < 0) return alert(`Não pode ter um peso negativo!`);
-	if (stockInput.value.trim() < 0) return alert(`Não da para ter stock negativo!`);
+    const tr = btn.closest('tr');
+    const inputs = tr.querySelectorAll('input');
+    const [categoryInput, priceInput, promoInput, weightInput, stockInput, stockMinInput, vpnInput] = inputs;
+    
+    // Validations
+    if (vpnInput.value.trim() !== '0' && vpnInput.value.trim() !== '1')
+        return alert(`VPN so pode ser '0' ou '1'`);
+    if (priceInput.value.trim() < 0) return alert(`Não pode ter preço negativo!`);
+    if (promoInput.value.trim() < 0) return alert(`Não pode ter uma promoção negativa!`);
+    if (weightInput.value.trim() < 0) return alert(`Não pode ter um peso negativo!`);
+    if (stockInput.value.trim() < 0) return alert(`Não da para ter stock negativo!`);
+    if (stockMinInput.value.trim() < 0) return alert(`Não da para ter stock mínimo negativo!`);
 
-	const updates = {
-		name: encodedName,
-		category: categoryInput.value,
-		price: parseFloat(priceInput.value),
-		promo: parseFloat(promoInput.value),
-		weight: parseFloat(weightInput.value),
-		stock: parseInt(stockInput.value),
-		vpn: parseInt(vpnInput.value)
-	};
-	const token = localStorage.getItem('jwt');
-	const res = await fetch(BASEAPI + `/admin/editProduct/${encodedName}`, {
-		method: 'PATCH',
-		headers: {
-			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${token}`
-		},
-		body: JSON.stringify(updates)
-	});
-	alert(res.ok ? "✅ Produto atualizado." : "❌ Falha ao atualizar produto.");
-	 await fetchProdutos();
-	filtrarEOrdenarProdutos(); // Mantém a ordem e filtro atuais após atualizar
+    const updates = {
+        name: encodedName,
+        category: categoryInput.value,
+        price: parseFloat(priceInput.value),
+        promo: parseFloat(promoInput.value),
+        weight: parseFloat(weightInput.value),
+        stock: parseInt(stockInput.value),
+        stockmin: parseInt(stockMinInput.value), // Added stockmin field
+        vpn: parseInt(vpnInput.value)
+    };
+    
+    const token = localStorage.getItem('jwt');
+    const res = await fetch(BASEAPI + `/admin/editProduct/${encodedName}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(updates)
+    });
+    
+    alert(res.ok ? "✅ Produto atualizado." : "❌ Falha ao atualizar produto.");
+    await fetchProdutos();
+    filtrarEOrdenarProdutos(); // Mantém a ordem e filtro atuais após atualizar
 
 }
 
@@ -1071,6 +1081,29 @@ async function toggleActive(td, prodName) {
 	td.innerHTML = `<span title="Clique para alternar">${prod.active ? '✅' : '❌'}</span>`;
 }
 
+async function toggleEncomenda(td, prodName) {
+	// Encontra o produto no array global
+	const prod = allProdutos.find(p => p.name === prodName);
+	if (!prod) return;
+	prod.encomenda = !prod.encomenda;
+
+	// Prepara o objeto updates corretamente
+	const updates = { encomenda: prod.encomenda };
+
+	const token = localStorage.getItem('jwt');
+	const res = await fetch(BASEAPI + `/admin/editProduct/${prodName}`, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`
+		},
+		body: JSON.stringify(updates)
+	}); 
+		
+	alert(res.ok ? "✅ Produto atualizado." : "❌ Falha ao atualizar produto.");
+	td.innerHTML = `<span title="Clique para alternar">${prod.encomenda ? '✅' : '❌'}</span>`;
+}
+
 // async function submitDeleteProductFromRow(btn, encodedName) {
 // 	const name = decodeURIComponent(encodedName);
 // 	const token = localStorage.getItem('jwt');
@@ -1088,58 +1121,60 @@ async function toggleActive(td, prodName) {
 
 // Atualizar todos os produtos da grelha
 async function atualizarTodosProdutos() {
-	const rows = document.querySelectorAll('#produtos-table tbody tr');
-	const dbItems = await fetch(BASEAPI + "/unlock-items", {
-		method: "POST",
-		headers: {
-			Authorization: `Bearer ${localStorage.getItem("jwt")}`
-		}
-	}).then(res => res.json());
+    const rows = document.querySelectorAll('#produtos-table tbody tr');
+    const dbItems = await fetch(BASEAPI + "/unlock-items", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+        }
+    }).then(res => res.json());
 
-	const dbMap = new Map(dbItems.map(item => [item.name, item]));
+    const dbMap = new Map(dbItems.map(item => [item.name, item]));
 
-	for (const tr of rows) {
-		const name = tr.querySelector('td').textContent.trim();
-		const inputs = tr.querySelectorAll('input');
-		const [categoryInput, priceInput, promoInput, weightInput, stockInput, vpnInput] = inputs;
+    for (const tr of rows) {
+        const name = tr.querySelector('td').textContent.trim();
+        const inputs = tr.querySelectorAll('input');
+        const [categoryInput, priceInput, promoInput, weightInput, stockInput, stockMinInput, vpnInput] = inputs;
 
-		const updated = {
-			name,
-			category: categoryInput.value,
-			price: parseFloat(priceInput.value),
-			promo: parseFloat(promoInput.value),
-			weight: parseFloat(weightInput.value),
-			stock: parseInt(stockInput.value),
-			vpn: parseFloat(vpnInput.value)
-		};
+        const updated = {
+            name,
+            category: categoryInput.value,
+            price: parseFloat(priceInput.value),
+            promo: parseFloat(promoInput.value),
+            weight: parseFloat(weightInput.value),
+            stock: parseInt(stockInput.value),
+            stockmin: parseInt(stockMinInput.value), // Added stockmin field
+            vpn: parseFloat(vpnInput.value)
+        };
+        
+        const original = dbMap.get(name);
+        if (!original) continue;
 
-		const original = dbMap.get(name);
-		if (!original) continue;
+        // Only send update if anything changed
+        const changed = (
+            original.category !== updated.category ||
+            original.price !== updated.price ||
+            original.promo !== updated.promo ||
+            original.weight !== updated.weight ||
+            original.stock !== updated.stock ||
+            original.stockmin !== updated.stockmin || // Added stockmin comparison
+            original.vpn !== updated.vpn
+        );
 
-		// Only send update if anything changed
-		const changed = (
-			original.category !== updated.category ||
-			original.price !== updated.price ||
-			original.promo !== updated.promo ||
-			original.weight !== updated.weight ||
-			original.stock !== updated.stock ||
-			original.vpn !== updated.vpn
-		);
+        if (changed) {
+            await fetch(BASEAPI + `/admin/editProduct/${encodeURIComponent(name)}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                },
+                body: JSON.stringify(updated)
+            });
+        }
+    }
 
-		if (changed) {
-			await fetch(BASEAPI + `/admin/editProduct/${encodeURIComponent(name)}`, {
-				method: 'PATCH',
-				headers: {
-					'Content-Type': 'application/json',
-					'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-				},
-				body: JSON.stringify(updated)
-			});
-		}
-	}
-
-	alert("✅ Produtos atualizados com sucesso (apenas os que mudaram).");
-	fetchProdutos();
+    alert("✅ Produtos atualizados com sucesso (apenas os que mudaram).");
+    fetchProdutos();
 }
 
 // Chame fetchProdutos ao mostrar a secção de produtos
