@@ -16,15 +16,19 @@ let carrinho = [];
 let selectedCategory = null;
 let selectedCategoryVPN = null;
 let produtosHomeAleatorios = [];
+let veiculos = [];
+let selectedMarca = null;
 
 // Função principal de inicialização
 async function initApp() {
-	// Carrega produtos do CSV
-	produtos = await carregarProdutos();
+    // Carrega produtos do CSV
+    produtos = await carregarProdutos();
+    // Carrega veículos do CSV
+    veiculos = await carregarVeiculos(); 
 
-	// Fallback caso o CSV não carregue
-	if (produtos.length === 0) {
-		produtos = [
+    // Fallback caso o CSV não carregue
+    if (produtos.length === 0) {
+        produtos = [
 			{
 				name: "Sucata de metal",
 				image: "https://thumbs.dreamstime.com/b/sucata-met%C3%A1lica-para-oficina-de-motociclos-224852930.jpg",
@@ -39,17 +43,12 @@ async function initApp() {
 			{ name: "Antena VPN", image: "https://www.freshone.com.pk/content/images/thumbs/default-image_550.png", price: 99, weight: 1, category: "Ferramentas", stock: 5, vpn: 1 },
 			{ name: "F4 Coins", image: "https://www.freshone.com.pk/content/images/thumbs/default-image_550.png", price: 31, weight: 0, category: "Digital", stock: 2, vpn: 1 },
 		];
-	}
+    }
 
-	// Inicializa a aplicação
-	carregarAnuncios();
-	showPage("home");
-	updateCarrinhoBadge();
-
-	// Se já tem acesso VPN, mostra o link
-	/* if (sessionStorage.getItem("vpnAccess") === "1") {
-		document.getElementById("vpnLink").classList.remove("hidden");
-	} */
+    // Inicializa a aplicação
+    carregarAnuncios();
+    showPage("home");
+    updateCarrinhoBadge();
 }
 
 // Adiciona aviso antes de recarregar a página
@@ -61,21 +60,24 @@ window.addEventListener("beforeunload", function (e) {
 });
 
 function showPage(p) {
-	document.querySelectorAll(".container").forEach((el) => el.classList.add("hidden"));
-	document.getElementById(p).classList.remove("hidden");
-	if (p === "home") {
-		produtosHomeAleatorios = []; // Limpa para forçar nova geração
-		renderHomeProdutos();
-	}
-	if (p === "produtos") {
-		document.getElementById("sortSelect").value = "name-asc"; // força seleção
-		renderCategoryFilters();
-		filterProducts();
-		// Scroll suave para o topo da secção produtos
-	}
-	if (p === "carrinho") renderCarrinho();
-
-	if (p === "compramos") renderCompramos();
+    document.querySelectorAll(".container").forEach((el) => el.classList.add("hidden"));
+    document.getElementById(p).classList.remove("hidden");
+    if (p === "home") {
+        produtosHomeAleatorios = []; // Limpa para forçar nova geração
+        renderHomeProdutos();
+    }
+    if (p === "produtos") {
+        document.getElementById("sortSelect").value = "name-asc"; // força seleção
+        renderCategoryFilters();
+        filterProducts();
+        // Scroll suave para o topo da secção produtos
+    }
+    if (p === "carrinho") renderCarrinho();
+    if (p === "compramos") renderCompramos();
+    if (p === "veiculos") {
+        renderMarcaFilters();
+        filterVeiculos();
+    }
 }
 
 function renderCategoryFilters() {
@@ -219,7 +221,7 @@ function encomendarProduto(i) {
 	}
 	const item = { ...produtos[i] };
 	const existente = carrinho.find((p) => p.name === item.name);
-	console.log(qtd);
+	
 	if (existente) existente.qtd += qtd;
 	else {
 		item.qtd = qtd;
@@ -475,16 +477,7 @@ function renderProductsVPN(productsToRender) {
 }
 
 async function checkVPNAccess() {
-	// Se já tem acesso, não pede IP novamente
-	//! security problem, they will need to type the pass everytime they want to check the VPN protected area.
-	/* if (sessionStorage.getItem("vpnAccess") === "1") {
-		document.getElementById("vpnLink").classList.remove("hidden");
-		showPage("vpn");
-		renderCategoryFiltersVPN();
-		filterProductsVPN();
-		return;
-	} */
-	const ipUser = prompt("Introduza o IP para aceder à área VPN:");
+    const ipUser = prompt("Introduza o IP para aceder à área VPN:");
 	const response = await fetch(BASEAPI + "/unlock-items", {
 		method: "POST",
 		headers: {
@@ -495,6 +488,8 @@ async function checkVPNAccess() {
 	const res = await response.json();
 	if (response.ok) {
 		produtos = res;
+		
+		document.getElementById("veiculosLink").classList.remove("hidden"); // Mostra link dos veículos     
 		document.getElementById("vpnLink").classList.remove("hidden");
 		showPage("vpn");
 		renderCategoryFiltersVPN();
@@ -981,8 +976,8 @@ class PublicChatClient {
 		this.userName = '';
 		this.roomId = '';
 		this.isConnected = false;
-		this.serverUrl = this.getDefaultServerUrl();
-		this.init();
+		// this.serverUrl = this.getDefaultServerUrl();
+		// this.init();
 	}
 
 	getDefaultServerUrl() {
@@ -1000,14 +995,14 @@ class PublicChatClient {
 	}
 
 	init() {
-		//this.setupUI();
+		// this.setupUI();
 		this.connectToServer();
 		this.setupEventListeners();
 	}
 
-	/* setupUI() {
-		document.getElementById('serverUrl').value = this.serverUrl;
-	} */
+	// setupUI() {
+	// 	document.getElementById('serverUrl').value = this.serverUrl;
+	// }
 
 	connectToServer() {
 		if (this.socket) {
@@ -1254,4 +1249,182 @@ function connectToServer() {
 
 function testConnection() {
 	chatClient.testConnection();
+}
+
+async function carregarVeiculos() {
+    try {
+        const response = await fetch("https://raw.githubusercontent.com/limpinh0/esperanzabuy/refs/heads/main/cars.csv");
+        const csvText = await response.text();
+        const linhas = csvText.trim().split('\n');
+        const headers = linhas[0].split(',').map(header => header.trim());
+
+        return linhas.slice(1).map(linha => {
+            const valores = linha.split(',');
+            const veiculo = {};
+            
+            headers.forEach((header, index) => { 
+                if (header === 'obs') {
+                    // Converte # em quebras de linha
+                    veiculo[header] = valores[index] ? valores[index].replace(/#/g, '\n').split('\n') : [];
+                } else if (header.trim() === 'imagens') {
+                    // Separa imagens por ;;;
+                    veiculo[header] = valores[index] ? valores[index].replace(/;;;/g, '\n').split('\n') : [];
+                    // veiculo[header] = valores[index] ? valores[index].split(';;;') : [];
+                } else if (header === 'preco') {
+                    veiculo[header] = parseFloat(valores[index]) || 0;
+                } else {
+                    veiculo[header] = valores[index] || '';
+                }
+            });
+            
+            return veiculo;
+        });
+    } catch (error) {
+        console.error("Erro ao carregar veículos:", error);
+        return [];
+    }
+}
+
+function renderMarcaFilters() {
+    const marcasContainer = document.getElementById("marcaFilters");
+    const marcas = [...new Set(veiculos.map(v => v.marca))].sort();
+
+    marcasContainer.innerHTML = "";
+
+    // Adiciona opção "Todas as marcas"
+    const allMarcas = document.createElement("div");
+    allMarcas.textContent = "Todas as marcas";
+    allMarcas.className = `filter-category ${!selectedMarca ? "active-category" : ""}`;
+    allMarcas.onclick = () => {
+        selectedMarca = null;
+        renderMarcaFilters();
+        filterVeiculos();
+    };
+    marcasContainer.appendChild(allMarcas);
+
+    // Adiciona cada marca
+    marcas.forEach((marca) => {
+        const marcaElement = document.createElement("div");
+        marcaElement.textContent = marca;
+        marcaElement.className = `filter-category ${selectedMarca === marca ? "active-category" : ""}`;
+        marcaElement.onclick = () => {
+            selectedMarca = marca;
+            renderMarcaFilters();
+            filterVeiculos();
+        };
+        marcasContainer.appendChild(marcaElement);
+    });
+}
+
+function filterVeiculos() {
+    const searchTerm = document.getElementById("searchInputVeiculos").value.toLowerCase();
+    const sortOption = document.getElementById("sortSelectVeiculos").value;
+
+    let filtered = veiculos.filter(v => 
+        (v.marca.toLowerCase().includes(searchTerm) || 
+         v.modelo.toLowerCase().includes(searchTerm)) &&
+        (!selectedMarca || v.marca === selectedMarca)
+    );
+
+    // Aplica ordenação
+    switch (sortOption) {
+        case "marca-asc":
+            filtered.sort((a, b) => a.marca.localeCompare(b.marca));
+            break;
+        case "marca-desc":
+            filtered.sort((a, b) => b.marca.localeCompare(a.marca));
+            break;
+        case "preco-asc":
+            filtered.sort((a, b) => a.preco - b.preco);
+            break;
+        case "preco-desc":
+            filtered.sort((a, b) => b.preco - a.preco);
+            break;
+    }
+
+    renderVeiculos(filtered);
+}
+
+function renderVeiculos(veiculosToRender) {
+    const lista = document.getElementById("listaVeiculos");
+    lista.innerHTML = "";
+
+    if (veiculosToRender.length === 0) {
+        lista.innerHTML = "<p>Nenhum veículo encontrado.</p>";
+        return;
+    }
+
+    // Aplica estilo para um veículo por linha
+    lista.style.display = "flex";
+    lista.style.flexDirection = "column";
+    lista.style.gap = "20px";
+
+    veiculosToRender.forEach((veiculo, index) => {
+        const observacoesHtml = veiculo.obs && Array.isArray(veiculo.obs) && veiculo.obs.length > 0 ? 
+            `<div class="veiculo-observacoes">
+                <h4>Características:</h4>
+                <ul>
+                    ${veiculo.obs.map(obs => `<li>${obs}</li>`).join('')}
+                </ul>
+            </div>` : '';
+
+        // Garante que veiculo.imagens é sempre um array
+        const imagensArray = Array.isArray(veiculo.imagens) ? veiculo.imagens : (veiculo.imagens ? [veiculo.imagens] : []);
+        
+        const imagensHtml = imagensArray.length > 0 ?
+            `<div class="veiculo-galeria">
+                ${imagensArray.map((img, imgIndex) => 
+                    `<img src="${img}" alt="${veiculo.marca} ${veiculo.modelo}" 
+                         class="veiculo-imagem ${imgIndex === 0 ? '' : 'hidden'}" 
+                         data-index="${imgIndex}">`
+                ).join('')}
+                ${imagensArray.length > 1 ? 
+                    `<div class="galeria-controles">
+                        ${imagensArray.map((_, imgIndex) => 
+                            `<span class="galeria-dot ${imgIndex === 0 ? 'ativo' : ''}" 
+                                  onclick="trocarImagem(${index}, ${imgIndex})"></span>`
+                        ).join('')}
+                    </div>` : ''
+                }
+            </div>` : '';
+
+        const veiculoDiv = document.createElement('div');
+        veiculoDiv.className = 'veiculo';
+        veiculoDiv.style.width = '95%';
+        veiculoDiv.style.marginBottom = '20px';
+        
+		veiculoDiv.innerHTML = `
+			<div class="veiculo-header">
+			<div class="veiculo-info">
+				<h3>${veiculo.marca}</h3>
+				<p class="veiculo-modelo">${veiculo.modelo}</p>
+			</div>
+			<div class="veiculo-preco">
+				${veiculo.preco.toLocaleString('pt-PT')} $ /
+				<span style="color:#d00;font-weight:bold;">
+				${(2 * veiculo.preco).toLocaleString('pt-PT')} $
+				</span>
+			</div>
+			</div>
+			${imagensHtml}
+			${observacoesHtml}
+		`;
+        
+        lista.appendChild(veiculoDiv);
+    });
+}
+
+function trocarImagem(veiculoIndex, imagemIndex) {
+    const veiculo = document.querySelectorAll('.veiculo')[veiculoIndex];
+    const imagens = veiculo.querySelectorAll('.veiculo-imagem');
+    const dots = veiculo.querySelectorAll('.galeria-dot');
+
+    // Esconde todas as imagens
+    imagens.forEach(img => img.classList.add('hidden'));
+    // Mostra a imagem selecionada
+    imagens[imagemIndex].classList.remove('hidden');
+
+    // Atualiza os dots
+    dots.forEach(dot => dot.classList.remove('ativo'));
+    dots[imagemIndex].classList.add('ativo');
 }
