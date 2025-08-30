@@ -102,6 +102,7 @@
               Novo
           </span>
         </a>
+        <a href="#navbar" onclick="showPage('veiculos')" id="veiculosLink" class="hidden">🚗 Veículos</a>
         <a href="#navbar" onclick="showPage('contactos')">Contactos</a>
         <a href="#navbar" onclick="showPage('carrinho')" style="position:relative;">
           🛒Carrinho
@@ -209,6 +210,26 @@
         <p>O contacto para encomendas ou alguma ajuda relativa à compra é feito a partir do nosso Instapic
           @EsperanzaBuy.</p>
         <p>Porquê o Instapic? <br>É um meio centralizado e seguro para lhe dar uma maior velocidade de resposta.</p>
+      </div>
+
+      <div id="veiculos" class="container hidden">
+        <h2>Veículos</h2>
+        <div class="products-container">
+          <div class="filters-sidebar">
+            <div class="search-sort-container">
+              <input type="text" id="searchInputVeiculos" placeholder="Pesquisar marca/modelo..." oninput="filterVeiculos()">
+              <select id="sortSelectVeiculos" onchange="filterVeiculos()">
+                <option value="marca-asc" selected>Marca (A-Z)</option>
+                <option value="marca-desc">Marca (Z-A)</option>
+                <option value="preco-asc">Preço (menor primeiro)</option>
+                <option value="preco-desc">Preço (maior primeiro)</option>
+              </select>
+            </div>
+            <h4>Marcas</h4>
+            <div id="marcaFilters"></div>
+          </div>
+          <div id="listaVeiculos" class="products-grid"></div>
+        </div>
       </div>
 
       <div id="vpn" class="container hidden">
