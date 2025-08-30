@@ -1000,14 +1000,14 @@ class PublicChatClient {
 	}
 
 	init() {
-		this.setupUI();
+		//this.setupUI();
 		this.connectToServer();
 		this.setupEventListeners();
 	}
 
-	setupUI() {
+	/* setupUI() {
 		document.getElementById('serverUrl').value = this.serverUrl;
-	}
+	} */
 
 	connectToServer() {
 		if (this.socket) {
