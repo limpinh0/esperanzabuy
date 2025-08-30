@@ -639,3 +639,164 @@ body.dark-mode .compramos-input {
   color: #533200;
   border-radius: 8px 0 0 8px;
 }
+
+/* Estilos para veículos */
+.veiculo {
+  border: 1px solid #e5e7eb;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  background: #f9fafb;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+body.dark-mode .veiculo {
+  background: #23272e;
+  border-color: #333;
+  color: #e3e3e3;
+}
+
+.veiculo:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.veiculo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.veiculo-info h3 {
+  margin: 0 0 0.5rem 0;
+  color: #232f3e;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+body.dark-mode .veiculo-info h3 {
+  color: #fff;
+}
+
+.veiculo-modelo {
+  color: #666;
+  font-size: 1rem;
+  margin: 0;
+}
+
+body.dark-mode .veiculo-modelo {
+  color: #ccc;
+}
+
+.veiculo-preco {
+  background: linear-gradient(135deg, #ff9900, #ffb84d);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 8px rgba(255, 153, 0, 0.3);
+  white-space: nowrap;
+}
+
+.veiculo-galeria {
+  margin: 1rem 0;
+  position: relative;
+}
+
+.veiculo-imagem {
+  width: 100%;
+  /* height: 200px; */
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.veiculo-imagem.hidden {
+  display: none;
+}
+
+.galeria-controles {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  background: rgba(0,0,0,0.7);
+  padding: 8px 12px;
+  border-radius: 20px;
+}
+
+.galeria-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.galeria-dot.ativo {
+  background: #ff9900;
+}
+
+.veiculo-observacoes {
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  border-left: 4px solid #ff9900;
+}
+
+body.dark-mode .veiculo-observacoes {
+  background: #1a1e25;
+  color: #e3e3e3;
+}
+
+.veiculo-observacoes h4 {
+  margin: 0 0 0.5rem 0;
+  color: #ff9900;
+  font-size: 1rem;
+}
+
+.veiculo-observacoes ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.veiculo-observacoes li {
+  margin-bottom: 0.3rem;
+  color: #555;
+}
+
+body.dark-mode .veiculo-observacoes li {
+  color: #ccc;
+}
+
+/* Responsivo para veículos */
+@media (max-width: 700px) {
+  .veiculo {
+    padding: 1rem;
+  }
+  
+  .veiculo-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .veiculo-preco {
+    align-self: flex-start;
+    font-size: 1.1rem;
+  }
+  
+  .veiculo-imagem {
+    height: 150px;
+  }
+}
