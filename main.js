@@ -1396,8 +1396,8 @@ function renderVeiculos(veiculosToRender) {
 		veiculoDiv.innerHTML = `
 			<div class="veiculo-header">
 			<div class="veiculo-info">
-				<h3>${veiculo.marca}</h3>
-				<p class="veiculo-modelo">${veiculo.modelo}</p>
+				<h3>${veiculo.modelo}</h3>
+				<p class="veiculo-modelo">${veiculo.marca}</p>
 			</div>
 			<div class="veiculo-preco">
 				${veiculo.preco.toLocaleString('pt-PT')} $ /
