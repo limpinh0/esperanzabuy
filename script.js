@@ -580,6 +580,21 @@ const craftsData = [
 		},
 		imagem: "boltcutter.png",
 		preco: 0
+	},
+	{
+		name: "Rádio Avançado",
+		materiais: {
+			"Borracha": 40,
+			"Vidro": 50,
+			"Ácido de bateria": 2,
+			"Cobre": 4,
+			"Plástico": 40,
+			"Chumbo": 1,
+			"Kit Eletrónico": 1,			
+			"Aço": 10		
+		},
+		imagem: "advancedradio.png",
+		preco: 0
 	}
 ];
 
