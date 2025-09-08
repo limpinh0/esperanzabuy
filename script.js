@@ -71,7 +71,7 @@ const craftsData = [
 			"Sucata de metal": 3,
 			"Plástico": 2
 		},
-		imagem: "Pa.png",
+		imagem: "pa.png",
 		preco: 0
 	},
 	{
@@ -163,7 +163,7 @@ const craftsData = [
 			"Plástico": 5,
 			"Sulfur": 2
 		},
-		imagem: "electronic-kit.png",
+		imagem: "kitEletronico.png",
 		preco: 0
 	},
 	{
@@ -252,7 +252,7 @@ const craftsData = [
 			"Pólvora": 1,
 			"Ácido de bateria": 1
 		},
-		imagem: "GlitcherTensao.png",
+		imagem: "glitcherTensao.png",
 		preco: 0
 	},
 	{
@@ -355,7 +355,7 @@ const craftsData = [
 			"Telemóvel": 1,
 			"Thermite": 1
 		},
-		imagem: "BombaCaseira.png",
+		imagem: "bombaCaseira.png",
 		preco: 0
 	},
 	{
@@ -566,7 +566,7 @@ const craftsData = [
 			"Ácido de bateria": 1,
 			"Bateria Pequena": 1
 		},
-		imagem: "GroundDrill.png",
+		imagem: "groundDrill.png",
 		preco: 0
 	},
 	{
@@ -593,7 +593,7 @@ const craftsData = [
 			"Kit Eletrónico": 1,			
 			"Aço": 10		
 		},
-		imagem: "advancedradio.png",
+		imagem: "radioAvancada.png",
 		preco: 0
 	}
 ];
