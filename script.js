@@ -314,10 +314,11 @@ const craftsData = [
 		name: "Decibelímetro",
 		materiais: {
 			"Chumbo": 2,
-			"Sulfur": 1,
+			"Ácido de bateria": 1,
 			"Aluminio": 20,
 			"Borracha": 10,
 			"Plástico": 35,
+			"Kit Eletrónico": 1,
 			"Sucata de metal": 10
 		},
 		imagem: "Decibelimetro.png",
