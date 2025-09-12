@@ -2140,7 +2140,11 @@ function clearWordleInputs() {
     // Reset do textarea para as palavras padrão
     const testWordInput = document.getElementById('test-word-input');
     if (testWordInput) {
-        testWordInput.value = 'DOCE LIMA RSTB';
+		if (parseInt(document.querySelector('input[name="wordSize"]:checked').value) === 5) {
+			testWordInput.value = 'CHUVA FELIZ GRITO';
+		} else {
+			testWordInput.value = 'DOCE LIMA RSTB';
+		}
     }
     
     const possibleWordsDiv = document.getElementById('possible-words');
@@ -2188,29 +2192,35 @@ document.addEventListener('DOMContentLoaded', function() {
     if (boostingSection) {
         const possibleWordsDiv = document.getElementById('possible-words2');
         if (possibleWordsDiv && !document.getElementById('test-word-input')) {
-            possibleWordsDiv.insertAdjacentHTML('beforebegin', `
-                <div class="test-word-section">
-                    <h4>🧪 Teste de Palavras</h4>
-                    <p>Escreva uma ou mais palavras (separadas por espaços ou vírgulas) e clique nas letras para definir seus estados.</p>
-                    
-                    <div style="display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px;">
-                        <textarea id="test-word-input" placeholder="Ex: FEIO USAR ALMA" 
-                                  style="flex: 1; max-width: 200px; background: inherit; color: inherit; border: 1px solid #ccc; border-radius: 4px; text-transform: uppercase; font-weight: bold; padding: 6px; font-size: 0.9em;">DOCE LIMA RSTB</textarea>
-                        <button onclick="testWordletters()" class="wordle-btn" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">
-                            Testar
-                        </button>
-                    </div>
-                    
-                    <div id="test-word-display"></div>
-                    
-                    <div class="test-instructions">
-                        <strong>Estados:</strong>
-                        <span style="background: #6c757d; color: white; padding: 1px 4px; border-radius: 2px; font-size: 0.75em; margin: 0 2px;">Cinza</span> = Ausente |
-                        <span style="background: #28a745; color: white; padding: 1px 4px; border-radius: 2px; font-size: 0.75em; margin: 0 2px;">Verde</span> = Correto |
-                        <span style="background: #ffc107; color: black; padding: 1px 4px; border-radius: 2px; font-size: 0.75em; margin: 0 2px;">Amarelo</span> = Posição errada
-                    </div>
-                </div>
-            `);
+			// Define o valor inicial do textarea conforme o tamanho da palavra selecionada
+			let defaultWords = "DOCE LIMA RSTB";
+			const checkedRadio = document.querySelector('input[name="wordSize"]:checked');
+			if (checkedRadio && checkedRadio.value === "5") {
+				defaultWords = "CHUVA FELIZ GRITO";
+			}
+			possibleWordsDiv.insertAdjacentHTML('beforebegin', `
+				<div class="test-word-section">
+					<h4>🧪 Teste de Palavras</h4>
+					<p>Escreva uma ou mais palavras (separadas por espaços ou vírgulas) e clique nas letras para definir seus estados.</p>
+					
+					<div style="display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px;">
+						<textarea id="test-word-input" placeholder="Ex: FEIO USAR ALMA" 
+								  style="flex: 1; max-width: 200px; background: inherit; color: inherit; border: 1px solid #ccc; border-radius: 4px; text-transform: uppercase; font-weight: bold; padding: 6px; font-size: 0.9em;">${defaultWords}</textarea>
+						<button onclick="testWordletters()" class="wordle-btn" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">
+							Testar
+						</button>
+					</div>
+					
+					<div id="test-word-display"></div>
+					
+					<div class="test-instructions">
+						<strong>Estados:</strong>
+						<span style="background: #6c757d; color: white; padding: 1px 4px; border-radius: 2px; font-size: 0.75em; margin: 0 2px;">Cinza</span> = Ausente |
+						<span style="background: #28a745; color: white; padding: 1px 4px; border-radius: 2px; font-size: 0.75em; margin: 0 2px;">Verde</span> = Correto |
+						<span style="background: #ffc107; color: black; padding: 1px 4px; border-radius: 2px; font-size: 0.75em; margin: 0 2px;">Amarelo</span> = Posição errada
+					</div>
+				</div>
+			`);
         }
     }
     
