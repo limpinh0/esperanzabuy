@@ -135,7 +135,7 @@ const craftsData = [
 		preco: 0
 	},
 	{
-		name: "Ácido de Bateria",
+		name: "Ácido de bateria",
 		materiais: {
 			"Cobre": 1,
 			"Sulfur": 1,
@@ -1444,16 +1444,13 @@ function renderCraftsTable() {
 
 			for (const [mat, val] of Object.entries(craft.materiais)) {
 				const precoCraft = calcularPrecoCraft(mat);
-				if (precoCraft !== null) {
-					total += precoCraft * val * qty;
-				} else {
+				 
 					const prod = allProdutos.find(p => p.name.toLowerCase() === mat.toLowerCase());
 					if (prod && typeof prod.price === "number") {
 						total += prod.price * val * qty;
 					} else {
 						missing.push(mat);
-					}
-				}
+					} 
 			}
 
 			if (missing.length > 0) {
@@ -1544,28 +1541,32 @@ function showCraftPopup(idx) {
 	}
 
 	for (const [mat, val] of Object.entries(craft.materiais)) {
-		let priceStr = '';
-		let subtotal = 0;
-		// 1º: tenta calcular pelo craftsData (recursivo)
-		const precoCraft = calcularPrecoCraft(mat);
-		if (precoCraft !== null) {
-			subtotal = precoCraft * val;
-			priceStr = ` x ${precoCraft.toFixed(2)}$ = <b>${subtotal.toFixed(2)} $</b> <span style="color:#888;font-size:0.9em;">(craft)</span>`;
-			total += subtotal;
-		} else {
-			// 2º: tenta pelo allProdutos
-			const prod = allProdutos.find(p => p.name.toLowerCase() === mat.toLowerCase());
-			if (prod && typeof prod.price === "number") {
-				subtotal = prod.price * val;
-				priceStr = ` x ${prod.price}$ = <b>${subtotal.toFixed(2)} $</b>`;
-				total += subtotal;
-			} else {
-				priceStr = ` <span style="color:#d00;">(sem preço)</span>`;
-				missing.push(mat);
-			}
-		}
-		html += `<li>${mat}: <b>${val}</b>${priceStr}</li>`;
-	}
+    let priceStr = '';
+    let subtotal = 0;
+    const prod = allProdutos.find(p => p.name.toLowerCase() === mat.toLowerCase());
+    if (prod && typeof prod.price === "number") {
+        subtotal = prod.price * val;
+        priceStr = ` x <input type="number" min="0" step="0.01" value="${prod.price}" 
+            style="width:60px" 
+            data-mat="${mat}" 
+            data-prodname="${prod.name}"
+            onchange="updateMaterialPrice(this, '${prod.name}', ${idx})"
+        /> $ = <b>${subtotal.toFixed(2)} $</b>`;
+        total += subtotal;
+    } else {
+        // ...existing code for crafts recursivo e missing...
+        const precoCraft = calcularPrecoCraft(mat);
+        if (precoCraft !== null) {
+            subtotal = precoCraft * val;
+            priceStr = ` x ${precoCraft.toFixed(2)}$ = <b>${subtotal.toFixed(2)} $</b> <span style="color:#888;font-size:0.9em;">(craft)</span>`;
+            total += subtotal;
+        } else {
+            priceStr = ` <span style="color:#d00;">(sem preço)</span>`;
+            missing.push(mat);
+        }
+    }
+    html += `<li>${mat}: <b>${val}</b>${priceStr}</li>`;
+}
 	html += "</ul>";
 	if (missing.length > 0) {
 		html += `<div style="color:#d00;font-size:0.95em;">Atenção: falta preço para ${missing.join(', ')}</div>`;
@@ -1598,8 +1599,10 @@ function showCraftPopup(idx) {
 window.showCraftPopup = showCraftPopup;
 
 function closeCraftPopup() {
-	const popup = document.getElementById("craft-popup");
-	if (popup) popup.style.display = "none";
+    const popup = document.getElementById("craft-popup");
+    if (popup) popup.style.display = "none";
+    // Atualiza todos os preços na grelha
+    window.updateAllCraftPrices();
 }
 window.closeCraftPopup = closeCraftPopup;
 
@@ -2229,3 +2232,36 @@ document.addEventListener('DOMContentLoaded', function() {
         radio.addEventListener('change', initializeWordleInputs);
     });
 });
+ // Função para atualizar o preço de um material no craftsData e recarregar o popup
+function updateMaterialPrice(input, prodName, craftIdx) {
+    const newPrice = parseFloat(input.value);
+    if (isNaN(newPrice) || newPrice < 0) {
+        alert('Preço inválido!');
+        input.value = 0;
+        return;
+    }
+    // Atualiza o preço no craftsData (se existir esse produto como craft)
+    const craft = craftsData.find(c => c.name === prodName); 
+    if (craft) {
+        craft.preco = newPrice;
+    }
+    // Atualiza também no allProdutos se existir
+    const prod = allProdutos.find(p => p.name === prodName); 
+    if (prod) {
+        prod.price = newPrice;
+    }
+    // Re-renderiza o popup para mostrar o novo total
+    showCraftPopup(craftIdx);
+}
+window.updateMaterialPrice = updateMaterialPrice;
+
+window.updateAllCraftPrices = function() {
+    // Para cada input de quantidade na grelha, dispara o evento input para forçar updatePrice
+    craftsData.forEach((craft, idx) => {
+        const input = document.getElementById(`craft-qty-${idx}`);
+        if (input) {
+            // Dispara o evento input para atualizar o preço
+            input.dispatchEvent(new Event('input'));
+        }
+    });
+};
