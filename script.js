@@ -51,7 +51,7 @@ const craftsData = [
 		},
 		imagem: "lockpick.png",
 		preco: 0
-	}, 
+	},
 	{
 		name: "Gazua Avançada",
 		materiais: {
@@ -591,8 +591,8 @@ const craftsData = [
 			"Cobre": 4,
 			"Plástico": 40,
 			"Chumbo": 1,
-			"Kit Eletrónico": 1,			
-			"Aço": 10		
+			"Kit Eletrónico": 1,
+			"Aço": 10
 		},
 		imagem: "radioAvancada.png",
 		preco: 0
@@ -756,15 +756,15 @@ async function renderOrders() {
 
 	let html = "";
 
-orders.forEach(order => {
-	let encomendaTotal = 0;
-	let orderIdVar = order.orderId;
-	if (!orderIdVar) {
-		// Gera um stamp aleatório de 10 caracteres (alfanumérico)
-		orderIdVar = Math.random().toString(36).substring(2, 12);
-	}
-	let tableId = `order-table-${orderIdVar}`;
-	html += `
+	orders.forEach(order => {
+		let encomendaTotal = 0;
+		let orderIdVar = order.orderId;
+		if (!orderIdVar) {
+			// Gera um stamp aleatório de 10 caracteres (alfanumérico)
+			orderIdVar = Math.random().toString(36).substring(2, 12);
+		}
+		let tableId = `order-table-${orderIdVar}`;
+		html += `
 		<table id="${tableId}" class="orders-table" style="margin-bottom:28px;width:100%;border-collapse:separate;border-spacing:0;border:1px solid #8b8b8bff;border-top:3px solid #3498db; border-radius:15px;overflow:hidden;">
 			<thead>
 				<tr>
@@ -779,10 +779,10 @@ orders.forEach(order => {
 			</thead>
 			<tbody>
 	`;
-	order.items.forEach((item, idx) => {
-		const valorTotal = (item.quantity * item.price);
-		encomendaTotal += valorTotal;
-		html += `
+		order.items.forEach((item, idx) => {
+			const valorTotal = (item.quantity * item.price);
+			encomendaTotal += valorTotal;
+			html += `
 			<tr>
 				<td style="border:1px solid #8b8b8bff;">${order.expiresAt ? new Date(order.expiresAt).toLocaleDateString('pt-PT') : ''}</td>
 				<td style="border:1px solid #8b8b8bff;">Adicionar Nome</td>
@@ -793,8 +793,8 @@ orders.forEach(order => {
 				<td style="border:1px solid #8b8b8bff;">${valorTotal.toFixed(2).replace('.', ',')}</td>
 			</tr>
 		`;
-	});
-	html += `
+		});
+		html += `
 		<tr>
 			<td colspan="5">Peso Total: ${order.totalWeight} Kg | CP: ${order.meetingPlace} | Expira ${formatRelativeTime(order.expiresAt)}</td>
 			<td style="font-weight:bold;text-align:center;border:1px solid #8b8b8bff;">Total:</td>
@@ -808,18 +808,18 @@ orders.forEach(order => {
 			</td>
 		</tr>
 	`;
-	html += `
+		html += `
 			</tbody>
 		</table>
 	`;
-});
+	});
 
-ordersEl.innerHTML = html;
+	ordersEl.innerHTML = html;
 }
 
 
 // Função para copiar para clipboard (adicione ao seu script.js)
-window.copyOrderToClipboard = function(tableId) {
+window.copyOrderToClipboard = function (tableId) {
 	const table = document.getElementById(tableId);
 	if (!table) return;
 	let rows = Array.from(table.querySelectorAll('tbody tr'));
@@ -1034,43 +1034,43 @@ function renderProdutosTable(produtos) {
 
 // Edição de produto diretamente na grelha:
 async function submitEditProductFromRow(btn, encodedName) {
-    const tr = btn.closest('tr');
-    const inputs = tr.querySelectorAll('input');
-    const [categoryInput, priceInput, promoInput, weightInput, stockInput, stockMinInput, vpnInput] = inputs;
-    
-    // Validations
-    if (vpnInput.value.trim() !== '0' && vpnInput.value.trim() !== '1')
-        return alert(`VPN so pode ser '0' ou '1'`);
-    if (priceInput.value.trim() < 0) return alert(`Não pode ter preço negativo!`);
-    if (promoInput.value.trim() < 0) return alert(`Não pode ter uma promoção negativa!`);
-    if (weightInput.value.trim() < 0) return alert(`Não pode ter um peso negativo!`);
-    if (stockInput.value.trim() < 0) return alert(`Não da para ter stock negativo!`);
-    if (stockMinInput.value.trim() < 0) return alert(`Não da para ter stock mínimo negativo!`);
+	const tr = btn.closest('tr');
+	const inputs = tr.querySelectorAll('input');
+	const [categoryInput, priceInput, promoInput, weightInput, stockInput, stockMinInput, vpnInput] = inputs;
 
-    const updates = {
-        name: encodedName,
-        category: categoryInput.value,
-        price: parseFloat(priceInput.value),
-        promo: parseFloat(promoInput.value),
-        weight: parseFloat(weightInput.value),
-        stock: parseInt(stockInput.value),
-        stockmin: parseInt(stockMinInput.value), // Added stockmin field
-        vpn: parseInt(vpnInput.value)
-    };
-    
-    const token = localStorage.getItem('jwt');
-    const res = await fetch(BASEAPI + `/admin/editProduct/${encodedName}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(updates)
-    });
-    
-    alert(res.ok ? "✅ Produto atualizado." : "❌ Falha ao atualizar produto.");
-    await fetchProdutos();
-    filtrarEOrdenarProdutos(); // Mantém a ordem e filtro atuais após atualizar
+	// Validations
+	if (vpnInput.value.trim() !== '0' && vpnInput.value.trim() !== '1')
+		return alert(`VPN so pode ser '0' ou '1'`);
+	if (priceInput.value.trim() < 0) return alert(`Não pode ter preço negativo!`);
+	if (promoInput.value.trim() < 0) return alert(`Não pode ter uma promoção negativa!`);
+	if (weightInput.value.trim() < 0) return alert(`Não pode ter um peso negativo!`);
+	if (stockInput.value.trim() < 0) return alert(`Não da para ter stock negativo!`);
+	if (stockMinInput.value.trim() < 0) return alert(`Não da para ter stock mínimo negativo!`);
+
+	const updates = {
+		name: encodedName,
+		category: categoryInput.value,
+		price: parseFloat(priceInput.value),
+		promo: parseFloat(promoInput.value),
+		weight: parseFloat(weightInput.value),
+		stock: parseInt(stockInput.value),
+		stockmin: parseInt(stockMinInput.value), // Added stockmin field
+		vpn: parseInt(vpnInput.value)
+	};
+
+	const token = localStorage.getItem('jwt');
+	const res = await fetch(BASEAPI + `/admin/editProduct/${encodedName}`, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`
+		},
+		body: JSON.stringify(updates)
+	});
+
+	alert(res.ok ? "✅ Produto atualizado." : "❌ Falha ao atualizar produto.");
+	await fetchProdutos();
+	filtrarEOrdenarProdutos(); // Mantém a ordem e filtro atuais após atualizar
 
 }
 
@@ -1091,8 +1091,8 @@ async function toggleActive(td, prodName) {
 			'Authorization': `Bearer ${token}`
 		},
 		body: JSON.stringify(updates)
-	}); 
-		
+	});
+
 	alert(res.ok ? "✅ Produto atualizado." : "❌ Falha ao atualizar produto.");
 	td.innerHTML = `<span title="Clique para alternar">${prod.active ? '✅' : '❌'}</span>`;
 }
@@ -1114,8 +1114,8 @@ async function toggleEncomenda(td, prodName) {
 			'Authorization': `Bearer ${token}`
 		},
 		body: JSON.stringify(updates)
-	}); 
-		
+	});
+
 	alert(res.ok ? "✅ Produto atualizado." : "❌ Falha ao atualizar produto.");
 	td.innerHTML = `<span title="Clique para alternar">${prod.encomenda ? '✅' : '❌'}</span>`;
 }
@@ -1137,60 +1137,60 @@ async function toggleEncomenda(td, prodName) {
 
 // Atualizar todos os produtos da grelha
 async function atualizarTodosProdutos() {
-    const rows = document.querySelectorAll('#produtos-table tbody tr');
-    const dbItems = await fetch(BASEAPI + "/unlock-items", {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`
-        }
-    }).then(res => res.json());
+	const rows = document.querySelectorAll('#produtos-table tbody tr');
+	const dbItems = await fetch(BASEAPI + "/unlock-items", {
+		method: "POST",
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem("jwt")}`
+		}
+	}).then(res => res.json());
 
-    const dbMap = new Map(dbItems.map(item => [item.name, item]));
+	const dbMap = new Map(dbItems.map(item => [item.name, item]));
 
-    for (const tr of rows) {
-        const name = tr.querySelector('td').textContent.trim();
-        const inputs = tr.querySelectorAll('input');
-        const [categoryInput, priceInput, promoInput, weightInput, stockInput, stockMinInput, vpnInput] = inputs;
+	for (const tr of rows) {
+		const name = tr.querySelector('td').textContent.trim();
+		const inputs = tr.querySelectorAll('input');
+		const [categoryInput, priceInput, promoInput, weightInput, stockInput, stockMinInput, vpnInput] = inputs;
 
-        const updated = {
-            name,
-            category: categoryInput.value,
-            price: parseFloat(priceInput.value),
-            promo: parseFloat(promoInput.value),
-            weight: parseFloat(weightInput.value),
-            stock: parseInt(stockInput.value),
-            stockmin: parseInt(stockMinInput.value), // Added stockmin field
-            vpn: parseFloat(vpnInput.value)
-        };
-        
-        const original = dbMap.get(name);
-        if (!original) continue;
+		const updated = {
+			name,
+			category: categoryInput.value,
+			price: parseFloat(priceInput.value),
+			promo: parseFloat(promoInput.value),
+			weight: parseFloat(weightInput.value),
+			stock: parseInt(stockInput.value),
+			stockmin: parseInt(stockMinInput.value), // Added stockmin field
+			vpn: parseFloat(vpnInput.value)
+		};
 
-        // Only send update if anything changed
-        const changed = (
-            original.category !== updated.category ||
-            original.price !== updated.price ||
-            original.promo !== updated.promo ||
-            original.weight !== updated.weight ||
-            original.stock !== updated.stock ||
-            original.stockmin !== updated.stockmin || // Added stockmin comparison
-            original.vpn !== updated.vpn
-        );
+		const original = dbMap.get(name);
+		if (!original) continue;
 
-        if (changed) {
-            await fetch(BASEAPI + `/admin/editProduct/${encodeURIComponent(name)}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-                },
-                body: JSON.stringify(updated)
-            });
-        }
-    }
+		// Only send update if anything changed
+		const changed = (
+			original.category !== updated.category ||
+			original.price !== updated.price ||
+			original.promo !== updated.promo ||
+			original.weight !== updated.weight ||
+			original.stock !== updated.stock ||
+			original.stockmin !== updated.stockmin || // Added stockmin comparison
+			original.vpn !== updated.vpn
+		);
 
-    alert("✅ Produtos atualizados com sucesso (apenas os que mudaram).");
-    fetchProdutos();
+		if (changed) {
+			await fetch(BASEAPI + `/admin/editProduct/${encodeURIComponent(name)}`, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+				},
+				body: JSON.stringify(updated)
+			});
+		}
+	}
+
+	alert("✅ Produtos atualizados com sucesso (apenas os que mudaram).");
+	fetchProdutos();
 }
 
 // Chame fetchProdutos ao mostrar a secção de produtos
@@ -1324,7 +1324,7 @@ function renderCraftsTable() {
 		img.style.height = "60px";
 		img.style.objectFit = "contain";
 		img.style.marginBottom = "8px";
-		img.onerror = function() { this.style.display = "none"; };
+		img.onerror = function () { this.style.display = "none"; };
 
 		// Input quantidade
 		const input = document.createElement("input");
@@ -1345,12 +1345,12 @@ function renderCraftsTable() {
 		calcBtn.innerHTML = "💲";
 		calcBtn.title = "Calcular preço";
 		// calcBtn.style.marginRight = "0px";
-	   
-		calcBtn.onmouseenter = function() {
+
+		calcBtn.onmouseenter = function () {
 			this.title = "Calcular preço";
 		};
 		// Mostra o preço ao clicar
-		calcBtn.onclick = function(e) {
+		calcBtn.onclick = function (e) {
 			e.stopPropagation();
 			if (calcBtn.dataset.calculated === "1") return;
 			const qty = parseInt(input.value, 10) || 1;
@@ -1444,13 +1444,13 @@ function renderCraftsTable() {
 
 			for (const [mat, val] of Object.entries(craft.materiais)) {
 				const precoCraft = calcularPrecoCraft(mat);
-				 
-					const prod = allProdutos.find(p => p.name.toLowerCase() === mat.toLowerCase());
-					if (prod && typeof prod.price === "number") {
-						total += prod.price * val * qty;
-					} else {
-						missing.push(mat);
-					} 
+
+				const prod = allProdutos.find(p => p.name.toLowerCase() === mat.toLowerCase());
+				if (prod && typeof prod.price === "number") {
+					total += prod.price * val * qty;
+				} else {
+					missing.push(mat);
+				}
 			}
 
 			if (missing.length > 0) {
@@ -1541,32 +1541,32 @@ function showCraftPopup(idx) {
 	}
 
 	for (const [mat, val] of Object.entries(craft.materiais)) {
-    let priceStr = '';
-    let subtotal = 0;
-    const prod = allProdutos.find(p => p.name.toLowerCase() === mat.toLowerCase());
-    if (prod && typeof prod.price === "number") {
-        subtotal = prod.price * val;
-        priceStr = ` x <input type="number" min="0" step="0.01" value="${prod.price}" 
+		let priceStr = '';
+		let subtotal = 0;
+		const prod = allProdutos.find(p => p.name.toLowerCase() === mat.toLowerCase());
+		if (prod && typeof prod.price === "number") {
+			subtotal = prod.price * val;
+			priceStr = ` x <input type="number" min="0" step="0.01" value="${prod.price}" 
             style="width:60px" 
             data-mat="${mat}" 
             data-prodname="${prod.name}"
             onchange="updateMaterialPrice(this, '${prod.name}', ${idx})"
         /> $ = <b>${subtotal.toFixed(2)} $</b>`;
-        total += subtotal;
-    } else {
-        // ...existing code for crafts recursivo e missing...
-        const precoCraft = calcularPrecoCraft(mat);
-        if (precoCraft !== null) {
-            subtotal = precoCraft * val;
-            priceStr = ` x ${precoCraft.toFixed(2)}$ = <b>${subtotal.toFixed(2)} $</b> <span style="color:#888;font-size:0.9em;">(craft)</span>`;
-            total += subtotal;
-        } else {
-            priceStr = ` <span style="color:#d00;">(sem preço)</span>`;
-            missing.push(mat);
-        }
-    }
-    html += `<li>${mat}: <b>${val}</b>${priceStr}</li>`;
-}
+			total += subtotal;
+		} else {
+			// ...existing code for crafts recursivo e missing...
+			const precoCraft = calcularPrecoCraft(mat);
+			if (precoCraft !== null) {
+				subtotal = precoCraft * val;
+				priceStr = ` x ${precoCraft.toFixed(2)}$ = <b>${subtotal.toFixed(2)} $</b> <span style="color:#888;font-size:0.9em;">(craft)</span>`;
+				total += subtotal;
+			} else {
+				priceStr = ` <span style="color:#d00;">(sem preço)</span>`;
+				missing.push(mat);
+			}
+		}
+		html += `<li>${mat}: <b>${val}</b>${priceStr}</li>`;
+	}
 	html += "</ul>";
 	if (missing.length > 0) {
 		html += `<div style="color:#d00;font-size:0.95em;">Atenção: falta preço para ${missing.join(', ')}</div>`;
@@ -1592,17 +1592,17 @@ function showCraftPopup(idx) {
 	document.getElementById("craft-popup-content").innerHTML = html;
 
 	// Adiciona o event listener para fechar ao clicar fora do modal-content
-	popup.onclick = function(e) {
+	popup.onclick = function (e) {
 		if (e.target === popup) closeCraftPopup();
 	};
 }
 window.showCraftPopup = showCraftPopup;
 
 function closeCraftPopup() {
-    const popup = document.getElementById("craft-popup");
-    if (popup) popup.style.display = "none";
-    // Atualiza todos os preços na grelha
-    window.updateAllCraftPrices();
+	const popup = document.getElementById("craft-popup");
+	if (popup) popup.style.display = "none";
+	// Atualiza todos os preços na grelha
+	window.updateAllCraftPrices();
 }
 window.closeCraftPopup = closeCraftPopup;
 
@@ -1612,570 +1612,570 @@ let currentTestWord = '';
 
 // Carregar palavras do ficheiro wordle.csv
 async function loadWordleWords() {
-    try {
-        const response = await fetch('https://raw.githubusercontent.com/limpinh0/esperanzabuy/refs/heads/main/wordle.csv');
-        const text = await response.text();
-        // Dividir por linhas e processar cada linha
-        const lines = text.split('\n')
-            .map(line => line.trim())
-            .filter(line => line && line !== 'words,'); // Remove linha vazia e cabeçalho
-        
-        // Remover vírgulas e filtrar palavras
-        const allWords = lines
-            .map(word => word.replace(/,$/, '').trim().toUpperCase()) // Removes trailing comma if exists
-            .filter(word => word.length >= 4 && word.length <= 5); // Filtrar apenas palavras de 4-5 letras
-        
-        wordleWords = allWords;
-        console.log(`Carregadas ${wordleWords.length} palavras do wordle.csv`);
-        initializeWordleInputs();
-    } catch (error) {
-        console.error('Erro ao carregar wordle.csv:', error);
-        document.getElementById('possible-words').innerHTML = '<em style="color:red;">Erro ao carregar palavras do ficheiro wordle.csv</em>';
-    }
+	try {
+		const response = await fetch('https://raw.githubusercontent.com/limpinh0/esperanzabuy/refs/heads/main/wordle.csv');
+		const text = await response.text();
+		// Dividir por linhas e processar cada linha
+		const lines = text.split('\n')
+			.map(line => line.trim())
+			.filter(line => line && line !== 'words,'); // Remove linha vazia e cabeçalho
+
+		// Remover vírgulas e filtrar palavras
+		const allWords = lines
+			.map(word => word.replace(/,$/, '').trim().toUpperCase()) // Removes trailing comma if exists
+			.filter(word => word.length >= 4 && word.length <= 5); // Filtrar apenas palavras de 4-5 letras
+
+		wordleWords = allWords;
+		console.log(`Carregadas ${wordleWords.length} palavras do wordle.csv`);
+		initializeWordleInputs();
+	} catch (error) {
+		console.error('Erro ao carregar wordle.csv:', error);
+		document.getElementById('possible-words').innerHTML = '<em style="color:red;">Erro ao carregar palavras do ficheiro wordle.csv</em>';
+	}
 }
 
 // Inicializar inputs baseado no tamanho da palavra selecionado
 function initializeWordleInputs() {
-    const wordSize = document.querySelector('input[name="wordSize"]:checked').value;
-    const correctLettersDiv = document.getElementById('correct-letters');
-        
-    // Limpar inputs existentes
-    correctLettersDiv.innerHTML = '';
-        
-    // Criar inputs baseado no tamanho
-    for (let i = 0; i < parseInt(wordSize); i++) {
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.className = 'position-input';
-        input.maxLength = 1;
-        input.placeholder = '_';
-        input.style.cssText = 'width:40px;height:40px;text-align:center;font-size:18px;text-transform:uppercase;';
-        input.addEventListener('input', function() {
-            this.value = this.value.toUpperCase();
-            // Auto-focus próximo input
-            if (this.value && this.nextElementSibling) {
-                this.nextElementSibling.focus();
-            }
-            // Atualizar estado do teclado
-            updateKeyboardState();
-        });
-        input.addEventListener('keydown', function(e) {
-            // Backspace move para input anterior
-            if (e.key === 'Backspace' && !this.value && this.previousElementSibling) {
-                this.previousElementSibling.focus();
-            }
-        });
-        // Atualizar teclado quando perder foco
-        input.addEventListener('blur', updateKeyboardState);
-        correctLettersDiv.appendChild(input);
-    }
+	const wordSize = document.querySelector('input[name="wordSize"]:checked').value;
+	const correctLettersDiv = document.getElementById('correct-letters');
 
-    // Configurar event listeners para inputs de letras amarelas
-    setupYellowInputs();
+	// Limpar inputs existentes
+	correctLettersDiv.innerHTML = '';
+
+	// Criar inputs baseado no tamanho
+	for (let i = 0; i < parseInt(wordSize); i++) {
+		const input = document.createElement('input');
+		input.type = 'text';
+		input.className = 'position-input';
+		input.maxLength = 1;
+		input.placeholder = '_';
+		input.style.cssText = 'width:40px;height:40px;text-align:center;font-size:18px;text-transform:uppercase;';
+		input.addEventListener('input', function () {
+			this.value = this.value.toUpperCase();
+			// Auto-focus próximo input
+			if (this.value && this.nextElementSibling) {
+				this.nextElementSibling.focus();
+			}
+			// Atualizar estado do teclado
+			updateKeyboardState();
+		});
+		input.addEventListener('keydown', function (e) {
+			// Backspace move para input anterior
+			if (e.key === 'Backspace' && !this.value && this.previousElementSibling) {
+				this.previousElementSibling.focus();
+			}
+		});
+		// Atualizar teclado quando perder foco
+		input.addEventListener('blur', updateKeyboardState);
+		correctLettersDiv.appendChild(input);
+	}
+
+	// Configurar event listeners para inputs de letras amarelas
+	setupYellowInputs();
 }
 
 // Configurar event listeners para inputs de letras amarelas
 function setupYellowInputs() {
-    const yellowInputs = document.querySelectorAll('.yellow-input');
-    yellowInputs.forEach((input, index) => {
-        input.addEventListener('input', function() {
-            this.value = this.value.toUpperCase();
-            // Auto-focus próximo input
-            if (this.value && this.nextElementSibling) {
-                this.nextElementSibling.focus();
-            }
-            // Atualizar estado do teclado
-            updateKeyboardState();
-        });
-        input.addEventListener('keydown', function(e) {
-            // Backspace move para input anterior
-            if (e.key === 'Backspace' && !this.value && this.previousElementSibling) {
-                this.previousElementSibling.focus();
-            }
-        });
-        // Atualizar teclado quando perder foco
-        input.addEventListener('blur', updateKeyboardState);
-    });
+	const yellowInputs = document.querySelectorAll('.yellow-input');
+	yellowInputs.forEach((input, index) => {
+		input.addEventListener('input', function () {
+			this.value = this.value.toUpperCase();
+			// Auto-focus próximo input
+			if (this.value && this.nextElementSibling) {
+				this.nextElementSibling.focus();
+			}
+			// Atualizar estado do teclado
+			updateKeyboardState();
+		});
+		input.addEventListener('keydown', function (e) {
+			// Backspace move para input anterior
+			if (e.key === 'Backspace' && !this.value && this.previousElementSibling) {
+				this.previousElementSibling.focus();
+			}
+		});
+		// Atualizar teclado quando perder foco
+		input.addEventListener('blur', updateKeyboardState);
+	});
 }
 
 // Nova funcionalidade: Testar palavra (modificada para múltiplas palavras)
 function testWordletters() {
-    const wordInput = document.getElementById('test-word-input');
-    const input = wordInput.value.toUpperCase().trim();
-    
-    if (!input) {
-        alert('Por favor, escreva uma ou mais palavras para testar');
-        return;
-    }
-    
-    // Dividir por espaços, vírgulas ou quebras de linha
-    const words = input.split(/[\s,\n]+/).filter(word => word.length > 0);
-    
-    if (words.length === 0) {
-        alert('Por favor, escreva uma ou mais palavras válidas para testar');
-        return;
-    }
-    
-    // Validar todas as palavras
-    const invalidWords = words.filter(word => word.length < 4 || word.length > 5);
-    if (invalidWords.length > 0) {
-        alert(`As seguintes palavras têm tamanho inválido (devem ter 4-5 letras): ${invalidWords.join(', ')}`);
-        return;
-    }
-    
-    // Limpar display anterior
-    document.getElementById('test-word-display').innerHTML = '';
-    
-    // Criar interface para cada palavra
-    words.forEach((word, index) => {
-        displayTestWord(word, index);
-    });
-    
-    // Adicionar botões globais no final
-    addGlobalTestButtons(words);
+	const wordInput = document.getElementById('test-word-input');
+	const input = wordInput.value.toUpperCase().trim();
+
+	if (!input) {
+		alert('Por favor, escreva uma ou mais palavras para testar');
+		return;
+	}
+
+	// Dividir por espaços, vírgulas ou quebras de linha
+	const words = input.split(/[\s,\n]+/).filter(word => word.length > 0);
+
+	if (words.length === 0) {
+		alert('Por favor, escreva uma ou mais palavras válidas para testar');
+		return;
+	}
+
+	// Validar todas as palavras
+	const invalidWords = words.filter(word => word.length < 4 || word.length > 5);
+	if (invalidWords.length > 0) {
+		alert(`As seguintes palavras têm tamanho inválido (devem ter 4-5 letras): ${invalidWords.join(', ')}`);
+		return;
+	}
+
+	// Limpar display anterior
+	document.getElementById('test-word-display').innerHTML = '';
+
+	// Criar interface para cada palavra
+	words.forEach((word, index) => {
+		displayTestWord(word, index);
+	});
+
+	// Adicionar botões globais no final
+	addGlobalTestButtons(words);
 }
 
 // Exibir palavra para teste com botões clicáveis (atualizada com novo estilo)
 function displayTestWord(word, wordIndex) {
-    const testDisplayDiv = document.getElementById('test-word-display');
-    
-    // Container para esta palavra
-    const wordContainer = document.createElement('div');
-    wordContainer.className = 'test-word-container';
-    wordContainer.dataset.wordIndex = wordIndex;
-    
-    // Título da palavra
-    const title = document.createElement('h5');
-    title.innerHTML = `<span>${wordIndex + 1}.</span> ${word}`;
-    wordContainer.appendChild(title);
-    
-    // Container das letras
-    const lettersContainer = document.createElement('div');
-    lettersContainer.className = 'test-letters-container';
-    
-    // Criar botão para cada letra
-    for (let i = 0; i < word.length; i++) {
-        const letterBtn = document.createElement('button');
-        letterBtn.textContent = word[i];
-        letterBtn.className = 'test-letter-btn';
-        letterBtn.dataset.letter = word[i];
-        letterBtn.dataset.position = i;
-        letterBtn.dataset.wordIndex = wordIndex;
-        letterBtn.dataset.state = 'absent'; // Estado inicial
-        letterBtn.style.cssText = `
+	const testDisplayDiv = document.getElementById('test-word-display');
+
+	// Container para esta palavra
+	const wordContainer = document.createElement('div');
+	wordContainer.className = 'test-word-container';
+	wordContainer.dataset.wordIndex = wordIndex;
+
+	// Título da palavra
+	const title = document.createElement('h5');
+	title.innerHTML = `<span>${wordIndex + 1}.</span> ${word}`;
+	wordContainer.appendChild(title);
+
+	// Container das letras
+	const lettersContainer = document.createElement('div');
+	lettersContainer.className = 'test-letters-container';
+
+	// Criar botão para cada letra
+	for (let i = 0; i < word.length; i++) {
+		const letterBtn = document.createElement('button');
+		letterBtn.textContent = word[i];
+		letterBtn.className = 'test-letter-btn';
+		letterBtn.dataset.letter = word[i];
+		letterBtn.dataset.position = i;
+		letterBtn.dataset.wordIndex = wordIndex;
+		letterBtn.dataset.state = 'absent'; // Estado inicial
+		letterBtn.style.cssText = `
             border: 2px solid #6c757d;
             background: #6c757d;
             color: white;
         `;
-        
-        letterBtn.addEventListener('click', () => toggleLetterState(letterBtn, word[i], i));
-        lettersContainer.appendChild(letterBtn);
-    }
-    
-    wordContainer.appendChild(lettersContainer);
-    
-    // Botões individuais para esta palavra
-    const wordActionsDiv = document.createElement('div');
-    wordActionsDiv.className = 'word-actions';
-    
-    const applyWordBtn = document.createElement('button');
-    applyWordBtn.textContent = 'Aplicar Esta';
-    applyWordBtn.className = 'apply-word-btn';
-    applyWordBtn.addEventListener('click', () => applyWordStates(wordIndex));
-    
-    const clearWordBtn = document.createElement('button');
-    clearWordBtn.textContent = 'Limpar Esta';
-    clearWordBtn.className = 'clear-word-btn';
-    clearWordBtn.addEventListener('click', () => clearWordStates(wordIndex));
-    
-    wordActionsDiv.appendChild(applyWordBtn);
-    wordActionsDiv.appendChild(clearWordBtn);
-    wordContainer.appendChild(wordActionsDiv);
-    
-    testDisplayDiv.appendChild(wordContainer);
+
+		letterBtn.addEventListener('click', () => toggleLetterState(letterBtn, word[i], i));
+		lettersContainer.appendChild(letterBtn);
+	}
+
+	wordContainer.appendChild(lettersContainer);
+
+	// Botões individuais para esta palavra
+	const wordActionsDiv = document.createElement('div');
+	wordActionsDiv.className = 'word-actions';
+
+	const applyWordBtn = document.createElement('button');
+	applyWordBtn.textContent = 'Aplicar Esta';
+	applyWordBtn.className = 'apply-word-btn';
+	applyWordBtn.addEventListener('click', () => applyWordStates(wordIndex));
+
+	const clearWordBtn = document.createElement('button');
+	clearWordBtn.textContent = 'Limpar Esta';
+	clearWordBtn.className = 'clear-word-btn';
+	clearWordBtn.addEventListener('click', () => clearWordStates(wordIndex));
+
+	wordActionsDiv.appendChild(applyWordBtn);
+	wordActionsDiv.appendChild(clearWordBtn);
+	wordContainer.appendChild(wordActionsDiv);
+
+	testDisplayDiv.appendChild(wordContainer);
 }
 
 // Adicionar botões globais para todas as palavras (atualizada)
 function addGlobalTestButtons(words) {
-    const testDisplayDiv = document.getElementById('test-word-display');
-    
-    // Container dos botões globais
-    const globalActionsDiv = document.createElement('div');
-    globalActionsDiv.className = 'global-test-actions';
-    
-    const applyAllBtn = document.createElement('button');
-    applyAllBtn.textContent = 'Aplicar Todas as Palavras';
-    applyAllBtn.style.background = '#28a745';
-    applyAllBtn.addEventListener('click', () => applyAllWordStates(words));
-    
-    const clearAllBtn = document.createElement('button');
-    clearAllBtn.textContent = 'Limpar Teste';
-    clearAllBtn.style.background = '#6c757d';
-    clearAllBtn.addEventListener('click', clearTestWord);
-    
-    globalActionsDiv.appendChild(applyAllBtn);
-    globalActionsDiv.appendChild(clearAllBtn);
-    testDisplayDiv.appendChild(globalActionsDiv);
+	const testDisplayDiv = document.getElementById('test-word-display');
+
+	// Container dos botões globais
+	const globalActionsDiv = document.createElement('div');
+	globalActionsDiv.className = 'global-test-actions';
+
+	const applyAllBtn = document.createElement('button');
+	applyAllBtn.textContent = 'Aplicar Todas as Palavras';
+	applyAllBtn.style.background = '#28a745';
+	applyAllBtn.addEventListener('click', () => applyAllWordStates(words));
+
+	const clearAllBtn = document.createElement('button');
+	clearAllBtn.textContent = 'Limpar Teste';
+	clearAllBtn.style.background = '#6c757d';
+	clearAllBtn.addEventListener('click', clearTestWord);
+
+	globalActionsDiv.appendChild(applyAllBtn);
+	globalActionsDiv.appendChild(clearAllBtn);
+	testDisplayDiv.appendChild(globalActionsDiv);
 }
 
 // Aplicar estados de uma palavra específica
 function applyWordStates(wordIndex) {
-    const wordContainer = document.querySelector(`[data-word-index="${wordIndex}"]`);
-    if (!wordContainer) return;
-    
-    const testButtons = wordContainer.querySelectorAll('.test-letter-btn');
-    const word = Array.from(testButtons).map(btn => btn.dataset.letter).join('');
-    
-    // Atualizar tamanho da palavra se necessário
-    const currentSize = parseInt(document.querySelector('input[name="wordSize"]:checked').value);
-    if (currentSize !== word.length) {
-        document.querySelector(`input[name="wordSize"][value="${word.length}"]`).checked = true;
-        initializeWordleInputs();
-    }
-    
-    applyWordToFilters(testButtons, word);
-    // alert(`Palavra "${word}" aplicada com sucesso!`);
+	const wordContainer = document.querySelector(`[data-word-index="${wordIndex}"]`);
+	if (!wordContainer) return;
+
+	const testButtons = wordContainer.querySelectorAll('.test-letter-btn');
+	const word = Array.from(testButtons).map(btn => btn.dataset.letter).join('');
+
+	// Atualizar tamanho da palavra se necessário
+	const currentSize = parseInt(document.querySelector('input[name="wordSize"]:checked').value);
+	if (currentSize !== word.length) {
+		document.querySelector(`input[name="wordSize"][value="${word.length}"]`).checked = true;
+		initializeWordleInputs();
+	}
+
+	applyWordToFilters(testButtons, word);
+	// alert(`Palavra "${word}" aplicada com sucesso!`);
 }
 
 // Aplicar todas as palavras
 function applyAllWordStates(words) {
-    // Encontrar o tamanho da primeira palavra para definir o tamanho
-    if (words.length > 0) {
-        const firstWordSize = words[0].length;
-        const currentSize = parseInt(document.querySelector('input[name="wordSize"]:checked').value);
-        if (currentSize !== firstWordSize) {
-            document.querySelector(`input[name="wordSize"][value="${firstWordSize}"]`).checked = true;
-            initializeWordleInputs();
-        }
-    }
-    
-    // Aplicar cada palavra
-    words.forEach((word, index) => {
-        const wordContainer = document.querySelector(`[data-word-index="${index}"]`);
-        if (wordContainer) {
-            const testButtons = wordContainer.querySelectorAll('.test-letter-btn');
-            applyWordToFilters(testButtons, word);
-        }
-    });
-    
-    // alert(`Todas as ${words.length} palavras foram aplicadas com sucesso!`);
-    clearTestWord();
-			solveWordle();
-	
+	// Encontrar o tamanho da primeira palavra para definir o tamanho
+	if (words.length > 0) {
+		const firstWordSize = words[0].length;
+		const currentSize = parseInt(document.querySelector('input[name="wordSize"]:checked').value);
+		if (currentSize !== firstWordSize) {
+			document.querySelector(`input[name="wordSize"][value="${firstWordSize}"]`).checked = true;
+			initializeWordleInputs();
+		}
+	}
+
+	// Aplicar cada palavra
+	words.forEach((word, index) => {
+		const wordContainer = document.querySelector(`[data-word-index="${index}"]`);
+		if (wordContainer) {
+			const testButtons = wordContainer.querySelectorAll('.test-letter-btn');
+			applyWordToFilters(testButtons, word);
+		}
+	});
+
+	// alert(`Todas as ${words.length} palavras foram aplicadas com sucesso!`);
+	clearTestWord();
+	solveWordle();
+
 }
 
 // Função auxiliar para aplicar uma palavra aos filtros
 function applyWordToFilters(testButtons, word) {
-    // Aplicar letras corretas (verdes)
-   
-   
-    const correctInputs = document.querySelectorAll('.position-input');
-    testButtons.forEach((btn, index) => {
-        if (btn.dataset.state === 'correct' && index < correctInputs.length) {
-            correctInputs[index].value = btn.dataset.letter;
-        }
-    });
-    
-    // Aplicar letras presentes (amarelas)
-    const yellowInputs = document.querySelectorAll('.yellow-input');
-    const currentYellowLetters = Array.from(yellowInputs)
-        .map(input => input.value.trim())
-        .filter(val => val);
-    
-    testButtons.forEach(btn => {
-        if (btn.dataset.state === 'present') {
-            const letter = btn.dataset.letter;
-            // Encontrar próximo input vazio ou adicionar se não existir
-            let emptyIndex = currentYellowLetters.length;
-            if (emptyIndex < yellowInputs.length && !currentYellowLetters.includes(letter)) {
-                yellowInputs[emptyIndex].value = letter;
-                currentYellowLetters.push(letter);
-            }
-        }
-    });
-    
-    // Aplicar letras ausentes (cinzetas)
-    const grayLettersInput = document.getElementById('gray-letters');
-    const currentGrayLetters = grayLettersInput.value ? 
-        grayLettersInput.value.split(',').map(l => l.trim()).filter(l => l) : [];
-    
-    testButtons.forEach(btn => {
-        if (btn.dataset.state === 'absent') {
-            const letter = btn.dataset.letter;
-            if (!currentGrayLetters.includes(letter)) {
-                currentGrayLetters.push(letter);
-            }
-        }
-    });
-    
-    grayLettersInput.value = currentGrayLetters.join(',');
-    updateKeyboardState();
+	// Aplicar letras corretas (verdes)
+
+
+	const correctInputs = document.querySelectorAll('.position-input');
+	testButtons.forEach((btn, index) => {
+		if (btn.dataset.state === 'correct' && index < correctInputs.length) {
+			correctInputs[index].value = btn.dataset.letter;
+		}
+	});
+
+	// Aplicar letras presentes (amarelas)
+	const yellowInputs = document.querySelectorAll('.yellow-input');
+	const currentYellowLetters = Array.from(yellowInputs)
+		.map(input => input.value.trim())
+		.filter(val => val);
+
+	testButtons.forEach(btn => {
+		if (btn.dataset.state === 'present') {
+			const letter = btn.dataset.letter;
+			// Encontrar próximo input vazio ou adicionar se não existir
+			let emptyIndex = currentYellowLetters.length;
+			if (emptyIndex < yellowInputs.length && !currentYellowLetters.includes(letter)) {
+				yellowInputs[emptyIndex].value = letter;
+				currentYellowLetters.push(letter);
+			}
+		}
+	});
+
+	// Aplicar letras ausentes (cinzetas)
+	const grayLettersInput = document.getElementById('gray-letters');
+	const currentGrayLetters = grayLettersInput.value ?
+		grayLettersInput.value.split(',').map(l => l.trim()).filter(l => l) : [];
+
+	testButtons.forEach(btn => {
+		if (btn.dataset.state === 'absent') {
+			const letter = btn.dataset.letter;
+			if (!currentGrayLetters.includes(letter)) {
+				currentGrayLetters.push(letter);
+			}
+		}
+	});
+
+	grayLettersInput.value = currentGrayLetters.join(',');
+	updateKeyboardState();
 }
 
 // Limpar estados de uma palavra específica
 function clearWordStates(wordIndex) {
-    const wordContainer = document.querySelector(`[data-word-index="${wordIndex}"]`);
-    if (!wordContainer) return;
-    
-    const testButtons = wordContainer.querySelectorAll('.test-letter-btn');
-    testButtons.forEach(btn => {
-        btn.dataset.state = 'absent';
-        btn.style.background = '#6c757d';
-        btn.style.color = 'white';
-        btn.style.borderColor = '#6c757d';
-    });
+	const wordContainer = document.querySelector(`[data-word-index="${wordIndex}"]`);
+	if (!wordContainer) return;
+
+	const testButtons = wordContainer.querySelectorAll('.test-letter-btn');
+	testButtons.forEach(btn => {
+		btn.dataset.state = 'absent';
+		btn.style.background = '#6c757d';
+		btn.style.color = 'white';
+		btn.style.borderColor = '#6c757d';
+	});
 }
 
 // Alternar estado da letra (ausente -> correta -> amarela -> ausente)
 function toggleLetterState(button, letter, position) {
-    const currentState = button.dataset.state || 'absent';
-    let newState;
-    
-    switch (currentState) {
-        case 'absent':
-            newState = 'correct';
-            button.style.background = '#28a745'; // Verde
-            button.style.color = 'white';
-            button.style.borderColor = '#28a745';
-            break;
-        case 'correct':
-            newState = 'present';
-            button.style.background = '#ffc107'; // Amarelo
-            button.style.color = 'black';
-            button.style.borderColor = '#ffc107';
-            break;
-        case 'present':
-            newState = 'absent';
-            button.style.background = '#6c757d'; // Cinzento
-            button.style.color = 'white';
-            button.style.borderColor = '#6c757d';
-            break;
-    }
-    
-    button.dataset.state = newState;
+	const currentState = button.dataset.state || 'absent';
+	let newState;
+
+	switch (currentState) {
+		case 'absent':
+			newState = 'correct';
+			button.style.background = '#28a745'; // Verde
+			button.style.color = 'white';
+			button.style.borderColor = '#28a745';
+			break;
+		case 'correct':
+			newState = 'present';
+			button.style.background = '#ffc107'; // Amarelo
+			button.style.color = 'black';
+			button.style.borderColor = '#ffc107';
+			break;
+		case 'present':
+			newState = 'absent';
+			button.style.background = '#6c757d'; // Cinzento
+			button.style.color = 'white';
+			button.style.borderColor = '#6c757d';
+			break;
+	}
+
+	button.dataset.state = newState;
 }
 
 // Limpar teste de palavra (modificada)
 function clearTestWord() {
-    // document.getElementById('test-word-input').value = '';
-    document.getElementById('test-word-display').innerHTML = '';
+	// document.getElementById('test-word-input').value = '';
+	document.getElementById('test-word-display').innerHTML = '';
 }
 
 // Resolver Wordle
 function solveWordle() {
-    const wordSize = parseInt(document.querySelector('input[name="wordSize"]:checked').value);
-    const correctInputs = document.querySelectorAll('.position-input');
-        
-    // Obter letras amarelas dos inputs individuais
-    const yellowInputs = document.querySelectorAll('.yellow-input');
-    const yellowLetters = [];
-    yellowInputs.forEach(input => {
-        if (input.value.trim()) {
-            yellowLetters.push(input.value.toUpperCase().trim());
-        }
-    });
-        
-    // Obter letras cinzetas do campo de texto
-    const grayLetters = document.getElementById('gray-letters').value.toUpperCase().split(',').map(l => l.trim()).filter(l => l);
-        
-    // Filtrar palavras pelo tamanho
-    let filteredWords = wordleWords.filter(word => word.length === wordSize);
-        
-    // Aplicar filtros
-    filteredWords = filteredWords.filter(word => {
-        // Verificar letras corretas (verdes)
-        for (let i = 0; i < correctInputs.length; i++) {
-            const inputValue = correctInputs[i].value.toUpperCase();
-            if (inputValue && word[i] !== inputValue) {
-                return false;
-            }
-        }
-        
-        // Verificar letras presentes mas posição errada (amarelas)
-        for (const letter of yellowLetters) {
-            if (!letter) continue;
-            // A letra deve existir na palavra
-            if (!word.includes(letter)) {
-                return false;
-            }
-            // Verificar se a letra não está nas posições onde já temos letras corretas (verdes)
-            let letterFoundInCorrectPosition = false;
-            for (let i = 0; i < correctInputs.length; i++) {
-                const inputValue = correctInputs[i].value.toUpperCase();
-                if (inputValue === letter) {
-                    letterFoundInCorrectPosition = true;
-                    if (word[i] !== letter) {
-                        return false; // Se temos a letra como verde numa posição, ela deve estar lá
-                    }
-                }
-            }
-        }
-        
-        // Verificar letras ausentes (cinzetas)
-        for (const letter of grayLetters) {
-            if (!letter) continue;
-            if (word.includes(letter)) {
-                return false;
-            }
-        }
-        
-        return true;
-    });
+	const wordSize = parseInt(document.querySelector('input[name="wordSize"]:checked').value);
+	const correctInputs = document.querySelectorAll('.position-input');
 
-    // Remover palavras repetidas
-    filteredWords = Array.from(new Set(filteredWords));
-        
-    // Exibir resultados
-    const possibleWordsDiv = document.getElementById('possible-words');
-    const wordCountDiv = document.getElementById('word-count');
-        
-    if (filteredWords.length === 0) {
-        possibleWordsDiv.innerHTML = '<em style="color:red;">Nenhuma palavra encontrada com esses critérios</em>';
-        wordCountDiv.textContent = '';
-    } else {
-        possibleWordsDiv.innerHTML = filteredWords.map(word => 
-            `<span class="word-badge">${word}</span>`
-        ).join('');
-        wordCountDiv.textContent = `${filteredWords.length} palavra${filteredWords.length !== 1 ? 's' : ''} encontrada${filteredWords.length !== 1 ? 's' : ''}`;
-    }
+	// Obter letras amarelas dos inputs individuais
+	const yellowInputs = document.querySelectorAll('.yellow-input');
+	const yellowLetters = [];
+	yellowInputs.forEach(input => {
+		if (input.value.trim()) {
+			yellowLetters.push(input.value.toUpperCase().trim());
+		}
+	});
+
+	// Obter letras cinzetas do campo de texto
+	const grayLetters = document.getElementById('gray-letters').value.toUpperCase().split(',').map(l => l.trim()).filter(l => l);
+
+	// Filtrar palavras pelo tamanho
+	let filteredWords = wordleWords.filter(word => word.length === wordSize);
+
+	// Aplicar filtros
+	filteredWords = filteredWords.filter(word => {
+		// Verificar letras corretas (verdes)
+		for (let i = 0; i < correctInputs.length; i++) {
+			const inputValue = correctInputs[i].value.toUpperCase();
+			if (inputValue && word[i] !== inputValue) {
+				return false;
+			}
+		}
+
+		// Verificar letras presentes mas posição errada (amarelas)
+		for (const letter of yellowLetters) {
+			if (!letter) continue;
+			// A letra deve existir na palavra
+			if (!word.includes(letter)) {
+				return false;
+			}
+			// Verificar se a letra não está nas posições onde já temos letras corretas (verdes)
+			let letterFoundInCorrectPosition = false;
+			for (let i = 0; i < correctInputs.length; i++) {
+				const inputValue = correctInputs[i].value.toUpperCase();
+				if (inputValue === letter) {
+					letterFoundInCorrectPosition = true;
+					if (word[i] !== letter) {
+						return false; // Se temos a letra como verde numa posição, ela deve estar lá
+					}
+				}
+			}
+		}
+
+		// Verificar letras ausentes (cinzetas)
+		for (const letter of grayLetters) {
+			if (!letter) continue;
+			if (word.includes(letter)) {
+				return false;
+			}
+		}
+
+		return true;
+	});
+
+	// Remover palavras repetidas
+	filteredWords = Array.from(new Set(filteredWords));
+
+	// Exibir resultados
+	const possibleWordsDiv = document.getElementById('possible-words');
+	const wordCountDiv = document.getElementById('word-count');
+
+	if (filteredWords.length === 0) {
+		possibleWordsDiv.innerHTML = '<em style="color:red;">Nenhuma palavra encontrada com esses critérios</em>';
+		wordCountDiv.textContent = '';
+	} else {
+		possibleWordsDiv.innerHTML = filteredWords.map(word =>
+			`<span class="word-badge">${word}</span>`
+		).join('');
+		wordCountDiv.textContent = `${filteredWords.length} palavra${filteredWords.length !== 1 ? 's' : ''} encontrada${filteredWords.length !== 1 ? 's' : ''}`;
+	}
 }
 
 // Função para toggle das letras cinzetas no teclado
 function toggleGrayLetter(letter) {
-    const keyBtn = document.querySelector(`.key-btn[onclick="toggleGrayLetter('${letter}')"]`);
-        
-    // Verificar se a tecla está desabilitada (verde ou amarela)
-    if (keyBtn && (keyBtn.classList.contains('green-letter') || keyBtn.classList.contains('yellow-letter'))) {
-        return; // Não fazer nada se a tecla estiver desabilitada
-    }
-        
-    const grayLettersInput = document.getElementById('gray-letters');
-        
-    // Obter letras atuais
-    let currentLetters = grayLettersInput.value ? grayLettersInput.value.split(',').map(l => l.trim()).filter(l => l) : [];
-        
-    if (currentLetters.includes(letter)) {
-        // Remover letra
-        currentLetters = currentLetters.filter(l => l !== letter);
-        if (keyBtn) keyBtn.classList.remove('selected');
-    } else {
-        // Adicionar letra
-        currentLetters.push(letter);
-        if (keyBtn) keyBtn.classList.add('selected');
-    }
-        
-    // Atualizar campo de texto
-    grayLettersInput.value = currentLetters.join(',');
+	const keyBtn = document.querySelector(`.key-btn[onclick="toggleGrayLetter('${letter}')"]`);
+
+	// Verificar se a tecla está desabilitada (verde ou amarela)
+	if (keyBtn && (keyBtn.classList.contains('green-letter') || keyBtn.classList.contains('yellow-letter'))) {
+		return; // Não fazer nada se a tecla estiver desabilitada
+	}
+
+	const grayLettersInput = document.getElementById('gray-letters');
+
+	// Obter letras atuais
+	let currentLetters = grayLettersInput.value ? grayLettersInput.value.split(',').map(l => l.trim()).filter(l => l) : [];
+
+	if (currentLetters.includes(letter)) {
+		// Remover letra
+		currentLetters = currentLetters.filter(l => l !== letter);
+		if (keyBtn) keyBtn.classList.remove('selected');
+	} else {
+		// Adicionar letra
+		currentLetters.push(letter);
+		if (keyBtn) keyBtn.classList.add('selected');
+	}
+
+	// Atualizar campo de texto
+	grayLettersInput.value = currentLetters.join(',');
 }
 
 // Função para atualizar o estado do teclado baseado nas letras verdes e amarelas
 function updateKeyboardState() {
-    // Resetar todas as teclas
-    document.querySelectorAll('.key-btn').forEach(btn => {
-        if (!btn.classList.contains('clear-btn')) {
-            btn.classList.remove('green-letter', 'yellow-letter', 'selected');
-        }
-    });
-        
-    // Limpar campo de letras cinzetas se necessário
-    const grayLettersInput = document.getElementById('gray-letters');
-    if (!grayLettersInput) return; // Proteção se o elemento não existir
-    
-    let currentGrayLetters = grayLettersInput.value ? grayLettersInput.value.split(',').map(l => l.trim()).filter(l => l) : [];
-        
-    // Coletar letras verdes (corretas)
-    const greenLetters = new Set();
-    document.querySelectorAll('.position-input').forEach(input => {
-        if (input.value.trim()) {
-            greenLetters.add(input.value.toUpperCase().trim());
-        }
-    });
-        
-    // Coletar letras amarelas (presentes mas posição errada)
-    const yellowLetters = new Set();
-    document.querySelectorAll('.yellow-input').forEach(input => {
-        if (input.value.trim()) {
-            yellowLetters.add(input.value.toUpperCase().trim());
-        }
-    });
-        
-    // Atualizar estado das teclas
-    document.querySelectorAll('.key-btn').forEach(btn => {
-        if (btn.classList.contains('clear-btn')) return;
-        
-        const letter = btn.textContent;
-        
-        if (greenLetters.has(letter)) {
-            btn.classList.add('green-letter');
-            // Remover das letras cinzetas se existir
-            currentGrayLetters = currentGrayLetters.filter(l => l !== letter);
-        } else if (yellowLetters.has(letter)) {
-            btn.classList.add('yellow-letter');
-            // Remover das letras cinzetas se existir
-            currentGrayLetters = currentGrayLetters.filter(l => l !== letter);
-        } else if (currentGrayLetters.includes(letter)) {
-            btn.classList.add('selected');
-        }
-    });
-        
-    // Atualizar campo de letras cinzetas
-    grayLettersInput.value = currentGrayLetters.join(',');
+	// Resetar todas as teclas
+	document.querySelectorAll('.key-btn').forEach(btn => {
+		if (!btn.classList.contains('clear-btn')) {
+			btn.classList.remove('green-letter', 'yellow-letter', 'selected');
+		}
+	});
+
+	// Limpar campo de letras cinzetas se necessário
+	const grayLettersInput = document.getElementById('gray-letters');
+	if (!grayLettersInput) return; // Proteção se o elemento não existir
+
+	let currentGrayLetters = grayLettersInput.value ? grayLettersInput.value.split(',').map(l => l.trim()).filter(l => l) : [];
+
+	// Coletar letras verdes (corretas)
+	const greenLetters = new Set();
+	document.querySelectorAll('.position-input').forEach(input => {
+		if (input.value.trim()) {
+			greenLetters.add(input.value.toUpperCase().trim());
+		}
+	});
+
+	// Coletar letras amarelas (presentes mas posição errada)
+	const yellowLetters = new Set();
+	document.querySelectorAll('.yellow-input').forEach(input => {
+		if (input.value.trim()) {
+			yellowLetters.add(input.value.toUpperCase().trim());
+		}
+	});
+
+	// Atualizar estado das teclas
+	document.querySelectorAll('.key-btn').forEach(btn => {
+		if (btn.classList.contains('clear-btn')) return;
+
+		const letter = btn.textContent;
+
+		if (greenLetters.has(letter)) {
+			btn.classList.add('green-letter');
+			// Remover das letras cinzetas se existir
+			currentGrayLetters = currentGrayLetters.filter(l => l !== letter);
+		} else if (yellowLetters.has(letter)) {
+			btn.classList.add('yellow-letter');
+			// Remover das letras cinzetas se existir
+			currentGrayLetters = currentGrayLetters.filter(l => l !== letter);
+		} else if (currentGrayLetters.includes(letter)) {
+			btn.classList.add('selected');
+		}
+	});
+
+	// Atualizar campo de letras cinzetas
+	grayLettersInput.value = currentGrayLetters.join(',');
 }
 
 // Função para limpar todas as letras cinzetas
 function clearGrayLetters() {
-    const grayLettersInput = document.getElementById('gray-letters');
-    if (grayLettersInput) {
-        grayLettersInput.value = '';
-    }
-    document.querySelectorAll('.key-btn.selected').forEach(btn => {
-        btn.classList.remove('selected');
-    });
+	const grayLettersInput = document.getElementById('gray-letters');
+	if (grayLettersInput) {
+		grayLettersInput.value = '';
+	}
+	document.querySelectorAll('.key-btn.selected').forEach(btn => {
+		btn.classList.remove('selected');
+	});
 }
 
 // Limpar todos os inputs
 function clearWordleInputs() {
-    document.querySelectorAll('.position-input').forEach(input => input.value = '');
-    document.querySelectorAll('.yellow-input').forEach(input => input.value = '');
-    clearGrayLetters();
-    clearTestWord(); // Limpar também o teste de palavra
-    
-    // Reset do textarea para as palavras padrão
-    const testWordInput = document.getElementById('test-word-input');
-    if (testWordInput) {
+	document.querySelectorAll('.position-input').forEach(input => input.value = '');
+	document.querySelectorAll('.yellow-input').forEach(input => input.value = '');
+	clearGrayLetters();
+	clearTestWord(); // Limpar também o teste de palavra
+
+	// Reset do textarea para as palavras padrão
+	const testWordInput = document.getElementById('test-word-input');
+	if (testWordInput) {
 		if (parseInt(document.querySelector('input[name="wordSize"]:checked').value) === 5) {
 			testWordInput.value = 'CHUVA FELIZ GRITO';
 		} else {
 			testWordInput.value = 'DOCE LIMA RSTB';
 		}
-    }
-    
-    const possibleWordsDiv = document.getElementById('possible-words');
-    const wordCountDiv = document.getElementById('word-count');
-    
-    if (possibleWordsDiv) {
-        possibleWordsDiv.innerHTML = '<em>Configure os filtros acima e clique em "Encontrar Palavras"</em>';
-    }
-    if (wordCountDiv) {
-        wordCountDiv.textContent = '';
-    }
-    
-    // Atualizar estado do teclado
-    updateKeyboardState();
+	}
+
+	const possibleWordsDiv = document.getElementById('possible-words');
+	const wordCountDiv = document.getElementById('word-count');
+
+	if (possibleWordsDiv) {
+		possibleWordsDiv.innerHTML = '<em>Configure os filtros acima e clique em "Encontrar Palavras"</em>';
+	}
+	if (wordCountDiv) {
+		wordCountDiv.textContent = '';
+	}
+
+	// Atualizar estado do teclado
+	updateKeyboardState();
 }
 
 // Event listeners para radio buttons de tamanho de palavra
-document.addEventListener('DOMContentLoaded', function() {
-    const wordSizeRadios = document.querySelectorAll('input[name="wordSize"]');
-    wordSizeRadios.forEach(radio => {
-        radio.addEventListener('change', initializeWordleInputs);
-    });
-        
-    // Carregar palavras quando a página carrega - só se estiver na seção Boosting
-    const currentSection = document.getElementById('section-Boosting');
-    if (currentSection && currentSection.style.display !== 'none') {
-        loadWordleWords();
-    }
+document.addEventListener('DOMContentLoaded', function () {
+	const wordSizeRadios = document.querySelectorAll('input[name="wordSize"]');
+	wordSizeRadios.forEach(radio => {
+		radio.addEventListener('change', initializeWordleInputs);
+	});
+
+	// Carregar palavras quando a página carrega - só se estiver na seção Boosting
+	const currentSection = document.getElementById('section-Boosting');
+	if (currentSection && currentSection.style.display !== 'none') {
+		loadWordleWords();
+	}
 });
 
 // Tornar funções globais
@@ -2189,12 +2189,12 @@ window.clearTestWord = clearTestWord;
 window.toggleLetterState = toggleLetterState;
 
 // ===== FIM WORDLE SOLVER =====
-document.addEventListener('DOMContentLoaded', function() {
-    // Verificar se estamos na seção de Boosting e adicionar o HTML se necessário
-    const boostingSection = document.getElementById('section-Boosting');
-    if (boostingSection) {
-        const possibleWordsDiv = document.getElementById('possible-words2');
-        if (possibleWordsDiv && !document.getElementById('test-word-input')) {
+document.addEventListener('DOMContentLoaded', function () {
+	// Verificar se estamos na seção de Boosting e adicionar o HTML se necessário
+	const boostingSection = document.getElementById('section-Boosting');
+	if (boostingSection) {
+		const possibleWordsDiv = document.getElementById('possible-words2');
+		if (possibleWordsDiv && !document.getElementById('test-word-input')) {
 			// Define o valor inicial do textarea conforme o tamanho da palavra selecionada
 			let defaultWords = "DOCE LIMA RSTB";
 			const checkedRadio = document.querySelector('input[name="wordSize"]:checked');
@@ -2224,44 +2224,44 @@ document.addEventListener('DOMContentLoaded', function() {
 					</div>
 				</div>
 			`);
-        }
-    }
-    
-    const wordSizeRadios = document.querySelectorAll('input[name="wordSize"]');
-    wordSizeRadios.forEach(radio => {
-        radio.addEventListener('change', initializeWordleInputs);
-    });
+		}
+	}
+
+	const wordSizeRadios = document.querySelectorAll('input[name="wordSize"]');
+	wordSizeRadios.forEach(radio => {
+		radio.addEventListener('change', initializeWordleInputs);
+	});
 });
- // Função para atualizar o preço de um material no craftsData e recarregar o popup
+// Função para atualizar o preço de um material no craftsData e recarregar o popup
 function updateMaterialPrice(input, prodName, craftIdx) {
-    const newPrice = parseFloat(input.value);
-    if (isNaN(newPrice) || newPrice < 0) {
-        alert('Preço inválido!');
-        input.value = 0;
-        return;
-    }
-    // Atualiza o preço no craftsData (se existir esse produto como craft)
-    const craft = craftsData.find(c => c.name === prodName); 
-    if (craft) {
-        craft.preco = newPrice;
-    }
-    // Atualiza também no allProdutos se existir
-    const prod = allProdutos.find(p => p.name === prodName); 
-    if (prod) {
-        prod.price = newPrice;
-    }
-    // Re-renderiza o popup para mostrar o novo total
-    showCraftPopup(craftIdx);
+	const newPrice = parseFloat(input.value);
+	if (isNaN(newPrice) || newPrice < 0) {
+		alert('Preço inválido!');
+		input.value = 0;
+		return;
+	}
+	// Atualiza o preço no craftsData (se existir esse produto como craft)
+	const craft = craftsData.find(c => c.name === prodName);
+	if (craft) {
+		craft.preco = newPrice;
+	}
+	// Atualiza também no allProdutos se existir
+	const prod = allProdutos.find(p => p.name === prodName);
+	if (prod) {
+		prod.price = newPrice;
+	}
+	// Re-renderiza o popup para mostrar o novo total
+	showCraftPopup(craftIdx);
 }
 window.updateMaterialPrice = updateMaterialPrice;
 
-window.updateAllCraftPrices = function() {
-    // Para cada input de quantidade na grelha, dispara o evento input para forçar updatePrice
-    craftsData.forEach((craft, idx) => {
-        const input = document.getElementById(`craft-qty-${idx}`);
-        if (input) {
-            // Dispara o evento input para atualizar o preço
-            input.dispatchEvent(new Event('input'));
-        }
-    });
+window.updateAllCraftPrices = function () {
+	// Para cada input de quantidade na grelha, dispara o evento input para forçar updatePrice
+	craftsData.forEach((craft, idx) => {
+		const input = document.getElementById(`craft-qty-${idx}`);
+		if (input) {
+			// Dispara o evento input para atualizar o preço
+			input.dispatchEvent(new Event('input'));
+		}
+	});
 };
