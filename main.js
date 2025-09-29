@@ -976,6 +976,7 @@ class PublicChatClient {
 		this.userName = '';
 		this.roomId = '';
 		this.isConnected = false;
+		this.serverUrl = "https://api.esperanzabuy.pt"
 		// this.serverUrl = this.getDefaultServerUrl();
 		// this.init();
 	}
@@ -983,10 +984,12 @@ class PublicChatClient {
 	getDefaultServerUrl() {
 		// Try to get from localStorage first
 		const stored = localStorage.getItem('chat-server-url');
+		stored = this.serverUrl;
 		if (stored) return stored;
 
 		// Default URLs to try
 		const defaults = [
+			"https://api.esperanzabuy.pt",
 			'http://localhost:3000',
 			'http://127.0.0.1:3000'
 		];
@@ -1000,9 +1003,9 @@ class PublicChatClient {
 		this.setupEventListeners();
 	}
 
-	// setupUI() {
-	// 	document.getElementById('serverUrl').value = this.serverUrl;
-	// }
+	setupUI() {
+		document.getElementById('serverUrl').value = this.serverUrl;
+	}
 
 	connectToServer() {
 		if (this.socket) {
@@ -1185,7 +1188,7 @@ class PublicChatClient {
 	// Server configuration methods
 	updateServerUrl(url) {
 		this.serverUrl = url;
-		localStorage.setItem('chat-server-url', url);
+		//localStorage.setItem('chat-server-url', url);
 		this.connectToServer();
 	}
 
@@ -1245,9 +1248,15 @@ function connectToServer() {
 		return;
 	}
 	chatClient.updateServerUrl(url);
+	//chatClient.connectToServer();
 }
 
-function testConnection() {
+function initialConnect() {
+	chatClient.setupUI();
+	chatClient.connectToServer();
+}
+
+function testMainConnection() {
 	chatClient.testConnection();
 }
 
