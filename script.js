@@ -735,10 +735,7 @@ async function login() {
 
 function handleLogin(e) {
 	//e.preventDefault();
-	//login();
-	const data = await res.json();
-	localStorage.setItem('jwt', data.token);
-	document.getElementById('vpn-ip-result').textContent = data.ip || '';
+	//login(); 
 	document.getElementById('login-container').style.display = 'none';
 	document.getElementById('main-container').style.display = 'flex';
 
