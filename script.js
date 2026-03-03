@@ -734,9 +734,9 @@ async function login() {
 }
 
 function handleLogin(e) {
-	e.preventDefault();
-	login();
-	return false;
+	//e.preventDefault();
+	//login();
+	return true;
 }
 
 async function renderOrders() {
