@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Experanza Chat</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			height: 100vh;
+			display: flex;
+			overflow: hidden;
+		}
+
+		.sidebar {
+			width: 280px;
+			background: rgba(255, 255, 255, 0.95);
+			backdrop-filter: blur(10px);
+			box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+			display: flex;
+			flex-direction: column;
+			transition: transform 0.3s ease;
+		}
+
+		.sidebar-header {
+			padding: 25px 20px;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+		}
+
+		.sidebar-header h1 {
+			font-size: 24px;
+			margin-bottom: 5px;
+		}
+
+		.sidebar-header p {
+			font-size: 13px;
+			opacity: 0.9;
+		}
+
+		.menu {
+			flex: 1;
+			overflow-y: auto;
+			padding: 10px 0;
+		}
+
+		.menu-section-title {
+			padding: 15px 20px 10px;
+			font-size: 12px;
+			font-weight: 600;
+			color: #999;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+		}
+
+		.menu-item {
+			padding: 15px 20px;
+			cursor: pointer;
+			transition: all 0.2s;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			color: #333;
+			border-left: 3px solid transparent;
+		}
+
+		.menu-item:hover {
+			background: rgba(102, 126, 234, 0.1);
+			border-left-color: #667eea;
+		}
+
+		.menu-item.active {
+			background: rgba(102, 126, 234, 0.15);
+			border-left-color: #667eea;
+			font-weight: 600;
+		}
+
+		.menu-icon {
+			width: 20px;
+			height: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.room-badge {
+			margin-left: auto;
+			background: #667eea;
+			color: white;
+			padding: 2px 8px;
+			border-radius: 10px;
+			font-size: 11px;
+			font-weight: 600;
+		}
+
+		.main-content {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			background: white;
+			margin: 20px;
+			border-radius: 15px;
+			box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+			overflow: hidden;
+		}
+
+		.chat-header {
+			padding: 20px 25px;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.chat-header h2 {
+			font-size: 20px;
+		}
+
+		.header-info {
+			display: flex;
+			align-items: center;
+			gap: 20px;
+		}
+
+		.status {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			font-size: 14px;
+		}
+
+		.status-dot {
+			width: 8px;
+			height: 8px;
+			background: #4ade80;
+			border-radius: 50%;
+			animation: pulse 2s infinite;
+		}
+
+		.status-dot.disconnected {
+			background: #ef4444;
+			animation: none;
+		}
+
+		@keyframes pulse {
+
+			0%,
+			100% {
+				opacity: 1;
+			}
+
+			50% {
+				opacity: 0.5;
+			}
+		}
+
+		.user-count {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			font-size: 14px;
+		}
+
+		.chat-messages {
+			flex: 1;
+			overflow-y: auto;
+			padding: 25px;
+			background: #f8f9fa;
+		}
+
+		.message {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 12px;
+			animation: slideIn 0.3s ease;
+		}
+
+		@keyframes slideIn {
+			from {
+				opacity: 0;
+				transform: translateY(10px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.message.own {
+			flex-direction: row-reverse;
+		}
+
+		.message-avatar {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: bold;
+			color: white;
+			flex-shrink: 0;
+			font-size: 14px;
+		}
+
+		.message.own .message-avatar {
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		}
+
+		.message:not(.own) .message-avatar {
+			background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+		}
+
+		.message-content {
+			max-width: 70%;
+			background: white;
+			padding: 12px 16px;
+			border-radius: 18px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+		}
+
+		.message.own .message-content {
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+		}
+
+		.message-sender {
+			font-size: 12px;
+			font-weight: 600;
+			margin-bottom: 4px;
+			opacity: 0.8;
+		}
+
+		.message.own .message-sender {
+			display: none;
+		}
+
+		.message-time {
+			font-size: 11px;
+			color: #999;
+			margin-top: 5px;
+		}
+
+		.message.own .message-time {
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+		.typing-indicator {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			padding: 10px 15px;
+			background: white;
+			border-radius: 18px;
+			width: fit-content;
+			margin-bottom: 20px;
+		}
+
+		.typing-dots {
+			display: flex;
+			gap: 4px;
+		}
+
+		.typing-dot {
+			width: 8px;
+			height: 8px;
+			background: #667eea;
+			border-radius: 50%;
+			animation: typing 1.4s infinite;
+		}
+
+		.typing-dot:nth-child(2) {
+			animation-delay: 0.2s;
+		}
+
+		.typing-dot:nth-child(3) {
+			animation-delay: 0.4s;
+		}
+
+		@keyframes typing {
+
+			0%,
+			60%,
+			100% {
+				transform: translateY(0);
+			}
+
+			30% {
+				transform: translateY(-10px);
+			}
+		}
+
+		.chat-input-container {
+			padding: 20px 25px;
+			background: white;
+			border-top: 1px solid #e5e7eb;
+		}
+
+		.chat-input-wrapper {
+			display: flex;
+			gap: 12px;
+			align-items: center;
+		}
+
+		.chat-input {
+			flex: 1;
+			padding: 12px 18px;
+			border: 2px solid #e5e7eb;
+			border-radius: 25px;
+			font-size: 15px;
+			outline: none;
+			transition: all 0.2s;
+		}
+
+		.chat-input:focus {
+			border-color: #667eea;
+		}
+
+		.send-btn {
+			padding: 12px 24px;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			border: none;
+			border-radius: 25px;
+			cursor: pointer;
+			font-weight: 600;
+			transition: transform 0.2s;
+		}
+
+		.send-btn:hover {
+			transform: scale(1.05);
+		}
+
+		.send-btn:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+			transform: scale(1);
+		}
+
+		.welcome-screen {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100%;
+			text-align: center;
+			padding: 40px;
+		}
+
+		.welcome-screen h2 {
+			font-size: 32px;
+			color: #333;
+			margin-bottom: 15px;
+		}
+
+		.welcome-screen p {
+			font-size: 16px;
+			color: #666;
+			max-width: 500px;
+			margin-bottom: 30px;
+		}
+
+		.room-list {
+			display: grid;
+			gap: 10px;
+			width: 100%;
+			max-width: 400px;
+		}
+
+		.room-card {
+			padding: 15px 20px;
+			background: white;
+			border: 2px solid #e5e7eb;
+			border-radius: 12px;
+			cursor: pointer;
+			transition: all 0.2s;
+			text-align: left;
+		}
+
+		.room-card:hover {
+			border-color: #667eea;
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+		}
+
+		.room-card-name {
+			font-weight: 600;
+			color: #333;
+			margin-bottom: 5px;
+		}
+
+		.room-card-users {
+			font-size: 13px;
+			color: #666;
+		}
+
+		.system-message {
+			text-align: center;
+			padding: 8px 16px;
+			background: rgba(102, 126, 234, 0.1);
+			border-radius: 12px;
+			font-size: 13px;
+			color: #667eea;
+			margin: 10px auto;
+			max-width: 80%;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="sidebar">
+		<div class="sidebar-header">
+			<h1>Experanza Chat</h1>
+			<p>Real-time messaging</p>
+		</div>
+		<div class="menu">
+			<div class="menu-section-title">Navigation</div>
+			<div class="menu-item active" data-view="chat">
+				<div class="menu-icon">💬</div>
+				<span>Chat</span>
+			</div>
+			<div class="menu-item" data-view="rooms">
+				<div class="menu-icon">🏠</div>
+				<span>Rooms</span>
+			</div>
+			<div class="menu-item" data-view="stats">
+				<div class="menu-icon">📊</div>
+				<span>Statistics</span>
+			</div>
+
+			<div class="menu-section-title" style="margin-top: 20px;">Chat Rooms</div>
+			<div id="roomsList"></div>
+		</div>
+	</div>
+
+	<div class="main-content">
+		<div class="chat-header">
+			<h2 id="roomTitle">Select a Room</h2>
+			<div class="header-info">
+				<div class="user-count" id="userCount" style="display: none;">
+					<span>👥</span>
+					<span id="userCountText">0 users</span>
+				</div>
+				<div class="status">
+					<div class="status-dot disconnected" id="statusDot"></div>
+					<span id="statusText">Connecting...</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="chat-messages" id="chatMessages">
+			<div class="welcome-screen">
+				<h2>👋 Welcome to Experanza Chat</h2>
+				<p>Connect with others in real-time. Choose a chat room to get started!</p>
+				<div class="room-list" id="welcomeRoomList"></div>
+			</div>
+		</div>
+
+		<div class="chat-input-container">
+			<div class="chat-input-wrapper">
+				<input type="text" class="chat-input" id="messageInput" placeholder="Select a room to start chatting..."
+					autocomplete="off" disabled>
+				<button class="send-btn" id="sendBtn" disabled>Send</button>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+	<script>
+		const SERVER_URL = 'https://api.esperanzabuy.pt';
+		let socket = null;
+		let currentRoom = null;
+		let currentUser = {
+			id: 'staff_' + Math.random().toString(36).substr(2, 9),
+			username: 'Staff' + Math.floor(Math.random() * 100)
+		};
+
+		const chatMessages = document.getElementById('chatMessages');
+		const messageInput = document.getElementById('messageInput');
+		const sendBtn = document.getElementById('sendBtn');
+		const statusDot = document.getElementById('statusDot');
+		const statusText = document.getElementById('statusText');
+		const roomTitle = document.getElementById('roomTitle');
+		const userCount = document.getElementById('userCount');
+		const userCountText = document.getElementById('userCountText');
+		const roomsList = document.getElementById('roomsList');
+		const welcomeRoomList = document.getElementById('welcomeRoomList');
+		const menuItems = document.querySelectorAll('.menu-item');
+
+		// Menu navigation
+		menuItems.forEach(item => {
+			item.addEventListener('click', () => {
+				const view = item.dataset.view;
+				if (view) {
+					handleMenuClick(view, item);
+				}
+			});
+		});
+
+		function handleMenuClick(view, menuItem) {
+			menuItems.forEach(i => i.classList.remove('active'));
+			menuItem.classList.add('active');
+
+			if (view === 'rooms') {
+				showRoomsView();
+			} else if (view === 'stats') {
+				showStatsView();
+			} else if (view === 'chat') {
+				showChatView();
+			}
+		}
+
+		function showChatView() {
+			chatMessages.style.display = 'flex';
+			document.getElementById('roomsView')?.remove();
+			document.getElementById('statsView')?.remove();
+		}
+
+		function showRoomsView() {
+			chatMessages.style.display = 'none';
+			document.getElementById('statsView')?.remove();
+
+			let roomsView = document.getElementById('roomsView');
+			if (!roomsView) {
+				roomsView = document.createElement('div');
+				roomsView.id = 'roomsView';
+				roomsView.style.cssText = 'flex: 1; overflow-y: auto; padding: 30px; background: #f8f9fa;';
+				roomsView.innerHTML = '<h2 style="margin-bottom: 20px; color: #333;">Available Chat Rooms</h2><div id="roomsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;"></div>';
+				chatMessages.parentElement.insertBefore(roomsView, chatMessages.nextSibling);
+			}
+
+			loadRoomsView();
+		}
+
+		async function loadRoomsView() {
+			try {
+				const response = await fetch(`${SERVER_URL}/chat/chatrooms`);
+				const rooms = await response.json();
+
+				const roomsGrid = document.getElementById('roomsGrid');
+				roomsGrid.innerHTML = rooms.map(room => `
+        <div class="room-card" style="padding: 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer;" onclick="joinRoomFromView('${room.roomId}', 'Room ${room.roomId.substring(5, 9)}')">
+          <div style="font-size: 32px; margin-bottom: 10px;">#</div>
+          <div style="font-weight: 600; font-size: 18px; margin-bottom: 8px; color: #333;">Room ${room.roomId.substring(5, 9)}</div>
+          <div style="font-size: 14px; color: #666;">👥 ${room.participantCount || 0} participants</div>
+          <div style="font-size: 12px; color: #999; margin-top: 5px;">💬 ${room.messageCount || 0} messages</div>
+        </div>
+      `).join('');
+			} catch (err) {
+				console.error('Failed to load rooms:', err);
+			}
+		}
+
+		function joinRoomFromView(roomId, roomName) {
+			showChatView();
+			document.querySelector('.menu-item[data-view="chat"]').classList.add('active');
+			document.querySelector('.menu-item[data-view="rooms"]').classList.remove('active');
+			joinRoom(roomId, roomName);
+		}
+
+		async function showStatsView() {
+			chatMessages.style.display = 'none';
+			document.getElementById('roomsView')?.remove();
+
+			let statsView = document.getElementById('statsView');
+			if (!statsView) {
+				statsView = document.createElement('div');
+				statsView.id = 'statsView';
+				statsView.style.cssText = 'flex: 1; overflow-y: auto; padding: 30px; background: #f8f9fa;';
+				statsView.innerHTML = '<h2 style="margin-bottom: 20px; color: #333;">Chat Statistics</h2><div id="statsContent"></div>';
+				chatMessages.parentElement.insertBefore(statsView, chatMessages.nextSibling);
+			}
+
+			try {
+				const response = await fetch(`${SERVER_URL}/chat/stats`);
+				const stats = await response.json();
+
+				const statsContent = document.getElementById('statsContent');
+				statsContent.innerHTML = `
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+          <div style="padding: 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="font-size: 32px; color: #667eea; margin-bottom: 10px;">🏠</div>
+            <div style="font-size: 28px; font-weight: 600; color: #333;">${stats.totalRooms || 0}</div>
+            <div style="font-size: 14px; color: #666;">Total Rooms</div>
+          </div>
+          <div style="padding: 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="font-size: 32px; color: #4ade80; margin-bottom: 10px;">🟢</div>
+            <div style="font-size: 28px; font-weight: 600; color: #333;">${stats.activeRooms || 0}</div>
+            <div style="font-size: 14px; color: #666;">Active Rooms</div>
+          </div>
+          <div style="padding: 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="font-size: 32px; color: #764ba2; margin-bottom: 10px;">👥</div>
+            <div style="font-size: 28px; font-weight: 600; color: #333;">${stats.staffOnline || 0}</div>
+            <div style="font-size: 14px; color: #666;">Staff Online</div>
+          </div>
+          <div style="padding: 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="font-size: 32px; color: #f5576c; margin-bottom: 10px;">🔌</div>
+            <div style="font-size: 28px; font-weight: 600; color: #333;">${stats.totalConnections || 0}</div>
+            <div style="font-size: 14px; color: #666;">Total Connections</div>
+          </div>
+        </div>
+      `;
+			} catch (err) {
+				console.error('Failed to load stats:', err);
+				document.getElementById('statsContent').innerHTML = '<p style="color: #ef4444;">Failed to load statistics</p>';
+			}
+		}
+
+		// Initialize Socket.IO connection
+		function initSocket() {
+			socket = io(SERVER_URL, {
+				transports: ['websocket', 'polling']
+			});
+
+			socket.on('connect', () => {
+				console.log('✅ Connected to server');
+				// IDENTIFY AS STAFF on connection
+				socket.emit('staff-connect');
+				statusDot.classList.remove('disconnected');
+				statusText.textContent = 'Connected';
+				loadRooms();
+			});
+
+			socket.on('disconnect', () => {
+				console.log('❌ Disconnected from server');
+				statusDot.classList.add('disconnected');
+				statusText.textContent = 'Disconnected';
+			});
+
+			// Real-time messages
+			socket.on('message', (data) => {
+				console.log('📬 Received message:', data);
+				if (data.roomId === currentRoom) {
+					addMessage(data);
+				}
+			});
+
+			// When staff joins a room, they get message history
+			socket.on('room-messages', (data) => {
+				console.log('📜 Room messages loaded:', data);
+				chatMessages.innerHTML = '';
+				if (data.messages && data.messages.length > 0) {
+					data.messages.forEach(msg => addMessage(msg, true));
+				}
+			});
+
+			// Staff gets notified of new messages
+			/* socket.on('new-message', (data) => {
+				console.log('📬 New message broadcast:', data);
+				if (data.roomId === currentRoom) {
+					addMessage(data);
+				}
+			}); */
+
+			socket.on('room-closed', (data) => {
+				alert('This chat room has been closed.');
+				currentRoom = null;
+				messageInput.disabled = true;
+				sendBtn.disabled = true;
+			});
+
+			socket.on('chat-rooms-update', (rooms) => {
+				console.log('🏠 Rooms updated:', rooms);
+				displayRooms(rooms);
+			});
+		}
+
+		// Load available rooms
+		async function loadRooms() {
+			try {
+				const response = await fetch(`${SERVER_URL}/chat/chatrooms`);
+				const rooms = await response.json();
+				displayRooms(rooms);
+			} catch (err) {
+				console.error('Failed to load rooms:', err);
+			}
+		}
+
+		function displayRooms(rooms) {
+			roomsList.innerHTML = '';
+			welcomeRoomList.innerHTML = '';
+
+			rooms.forEach(room => {
+				const roomName = `Room ${room.roomId.substring(5, 9)}`;
+
+				// Sidebar room item
+				const roomItem = document.createElement('div');
+				roomItem.className = 'menu-item';
+				roomItem.innerHTML = `
+        <div class="menu-icon">#</div>
+        <span>${roomName}</span>
+        <span class="room-badge">${room.participantCount || 0}</span>
+      `;
+				roomItem.onclick = () => joinRoom(room.roomId, roomName);
+				roomsList.appendChild(roomItem);
+
+				// Welcome screen room card
+				const roomCard = document.createElement('div');
+				roomCard.className = 'room-card';
+				roomCard.innerHTML = `
+        <div class="room-card-name">${roomName}</div>
+        <div class="room-card-users">${room.participantCount || 0} participants • ${room.messageCount || 0} messages</div>
+      `;
+				roomCard.onclick = () => joinRoom(room.roomId, roomName);
+				welcomeRoomList.appendChild(roomCard);
+			});
+		}
+
+		function joinRoom(roomId, roomName) {
+			if (currentRoom === roomId) return;
+
+			currentRoom = roomId;
+			roomTitle.textContent = roomName;
+			chatMessages.innerHTML = '';
+			messageInput.disabled = false;
+			sendBtn.disabled = false;
+			messageInput.placeholder = 'Type your message or /close to end chat...';
+			userCount.style.display = 'flex';
+
+			// Mark room as active in sidebar
+			document.querySelectorAll('#roomsList .menu-item').forEach(item => {
+				item.classList.remove('active');
+				if (item.textContent.includes(roomName)) {
+					item.classList.add('active');
+				}
+			});
+
+			console.log('👔 Staff joining room:', roomId);
+			// Join the room as STAFF
+			socket.emit('staff-join-room', roomId);
+		}
+
+		function sendMessage() {
+			const message = messageInput.value.trim();
+			if (!message || !currentRoom) return;
+
+			console.log('📤 Sending message:', message);
+			socket.emit('send-message', {
+				message: message,
+				roomId: currentRoom
+			});
+
+			messageInput.value = '';
+		}
+
+		function addMessage(data, isHistory = false) {
+			const messageDiv = document.createElement('div');
+
+			if (data.type === 'system') {
+				messageDiv.className = 'system-message';
+				messageDiv.textContent = data.message;
+			} else {
+				// For admin: their messages have type 'staff', customers have type 'user'
+				const isOwnMessage = data.type === 'staff';
+				messageDiv.className = `message ${isOwnMessage ? 'own' : ''}`;
+
+				const avatar = document.createElement('div');
+				avatar.className = 'message-avatar';
+				avatar.textContent = (data.sender || 'User').substring(0, 2).toUpperCase();
+
+				const content = document.createElement('div');
+				content.className = 'message-content';
+
+				if (!isOwnMessage) {
+					const sender = document.createElement('div');
+					sender.className = 'message-sender';
+					sender.textContent = data.sender || 'Customer';
+					content.appendChild(sender);
+				}
+
+				const text = document.createElement('div');
+				text.textContent = data.message;
+				content.appendChild(text);
+
+				const time = document.createElement('div');
+				time.className = 'message-time';
+				const msgDate = new Date(data.timestamp || Date.now());
+				time.textContent = msgDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+				content.appendChild(time);
+
+				messageDiv.appendChild(avatar);
+				messageDiv.appendChild(content);
+			}
+
+			chatMessages.appendChild(messageDiv);
+
+			if (!isHistory) {
+				chatMessages.scrollTop = chatMessages.scrollHeight;
+			}
+		}
+
+		// Event listeners
+		sendBtn.addEventListener('click', sendMessage);
+
+		messageInput.addEventListener('keypress', (e) => {
+			if (e.key === 'Enter') {
+				sendMessage();
+			}
+		});
+
+		// Initialize
+		initSocket();
+	</script>
+</body>
+
+</html>
